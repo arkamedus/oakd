@@ -1,0 +1,316 @@
+// Pagination Styles
+.pagination {
+  display: flex;
+  gap: 8px;
+
+  button {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    cursor: pointer;
+
+    &.primary {
+      background-color: #007bff;
+      color: white;
+    }
+
+    &:hover {
+      background-color: #e2e6ea;
+    }
+  }
+}
+
+// Empty Component Styles
+.empty {
+  text-align: center;
+  padding: 40px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+
+  p {
+    margin: 0;
+    color: #666;
+  }
+}
+
+// List Component Styles
+.list {
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      padding: 8px 0;
+      border-bottom: 1px solid #ddd;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+// Segmented Component Styles
+.segmented {
+  display: flex;
+  gap: 8px;
+
+  button {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #e2e6ea;
+    }
+  }
+}
+
+// Statistic Component Styles
+.statistic {
+  text-align: center;
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #666;
+  }
+
+  p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+}
+
+// Tabs Component Styles
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+// Result Component Styles
+.result {
+  width: 100%;
+  text-align: center;
+
+  &.result-success {
+    border-color: #28a745;
+  }
+
+  &.result-error {
+    border-color: #dc3545;
+  }
+}
+
+// Breadcrumb Styles
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span {
+    color: #333;
+  }
+}
+
+// Modal and Drawer Container Styles
+.modal-container, .drawer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+// Modal Component Styles
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  max-height: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: auto;
+
+  .actions {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+}
+
+// Drawer Component Styles
+.drawer {
+  z-index: 1;
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+  background-color: #ffffff;
+  border-left: 1px solid #ddd;
+  box-shadow: -4px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+// Skeleton Component Styles
+.skeleton {
+  width: 100%;
+  display: inline-block;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  position: relative;
+  left: -0.2em;
+
+  .skeleton-gradient {
+    width: 100%;
+    height: 16px;
+    background: linear-gradient(90deg, rgba(220, 220, 220, 0.1) 25%, rgba(250, 250, 250, 0.4) 50%, rgba(220, 220, 220, 0.1) 75%);
+    background-size: 200% 100%;
+    animation: swipe 1.5s infinite;
+
+    @keyframes swipe {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  }
+}
+
+// Title Component Styles
+.title {
+  &.Lg {
+    .skeleton-gradient {
+      height: 32px;
+    }
+  }
+}
+
+// Link Component Styles
+.link {
+  .skeleton {
+    background-color: #007bff;
+  }
+}
+
+// Paragraph Component Styles
+p {
+  .skeleton {
+    background-color: #333;
+  }
+}
+
+// Inline Icon and Image Styles
+.inline {
+  display: inline;
+
+  &-icon {
+    font-size: 200%;
+    line-height: 0;
+    vertical-align: middle;
+  }
+
+  img {
+    position: relative;
+    top: 1.5pt;
+    max-height: 11.5pt;
+    width: 11.5pt;
+    display: inline-block;
+
+    &.round {
+      border-radius: 11pt;
+    }
+  }
+}
+
+// Tooltip Component Styles
+.tooltip-container {
+  display: inline-flex;
+}
+
+.tooltip {
+  position: fixed;
+  padding: 8px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.1s;
+  pointer-events: none;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  top: 100%;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #333;
+  transform: translate(-50%, 0);
+}
+
+.tooltip-container:hover .tooltip {
+  opacity: 1;
+}
+
+// Scrollable Container and Element Styles
+.scrollable-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.scrollable-element {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  p {
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 60px;
+    font-size: 70%;
+  }
+}
+
+.circle-element {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #007bff;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
