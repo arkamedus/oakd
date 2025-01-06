@@ -1,0 +1,608 @@
+@function get-color($color-name, $weight) {
+  @return map-get(map-get($COLORDEF, $color-name), $weight);
+}
+
+// Typography
+$header_font: 'Inclusive Sans', serif;
+$content_font: 'Inclusive Sans', sans-serif;
+$fancy_font: 'Caveat', cursive;
+$code_font: monospace;
+
+
+// Line heights, gutter
+$font_size: 11pt;
+$line_height: 15pt;
+$leading: calc($line_height / 2);
+$gap_sizing: calc($line_height);
+$box_padding: $line_height;
+$content_padding: $line_height * 2.5;
+
+$border_radius: 4pt;
+
+$COLORDEF: (
+        'PRIMARY':(
+                DEFAULT: #3182ce,
+                100: #0a1a29, 200: #133453, 300: #1d4e7c, 400: #2768a5, 500: #3182ce, 600: #5a9bd8, 700: #83b4e2, 800: #accdec, 900: #d6e6f5
+        ),
+        'Ash_Gray': (DEFAULT: #b5c9c3,
+                100: #202c29, 200: #405951, 300: #60857a, 400: #89a9a0, 500: #b5c9c3, 600: #c4d4cf, 700: #d3dfdb, 800: #e1eae7, 900: #f0f4f3
+        ),
+        'Bittersweet': (
+                DEFAULT: #eb5e55,
+                100: #3a0a07, 200: #73140d, 300: #ad1e14, 400: #e42a1d, 500: #eb5e55, 600: #ef8078, 700: #f3a09a, 800: #f7bfbb, 900: #fbdfdd
+        ),
+        'Jet': (
+                DEFAULT: #3a3335,
+                100: #0b0a0a, 200: #171415, 300: #221e1f, 400: #2d282a, 500: #3a3335, 600: #63585b, 700: #8d7f83, 800: #b3aaac, 900: #d9d4d6
+        ),
+        'lavender': (
+                DEFAULT: #c287e8,
+                100: #2a0c3e, 200: #53187b, 300: #7d23b9, 400: #a249dc, 500: #c287e8, 600: #ce9fed, 700: #dab7f1, 800: #e6cff6, 900: #f3e7fa
+        ),
+        'light_green': (
+                DEFAULT: #8ff7a7,
+                100: #054815, 200: #0a912a, 300: #0fd93e, 400: #44f26d, 500: #8ff7a7, 600: #a3f9b7, 700: #bafac9, 800: #d1fcdb, 900: #e8fded
+        ),
+        'maize': (
+                DEFAULT: #f4e76e,
+                100: #413b05, 200: #83770a, 300: #c4b20f, 400: #efdb2b, 500: #f4e76e, 600: #f6eb89, 700: #f8f0a7, 800: #fbf5c4, 900: #fdfae2
+        ),
+        'maya_blue': (
+                DEFAULT: #51bbfe, 100: #002943, 200: #015386, 300: #017cc9, 400: #0fa2fe, 500: #51bbfe, 600: #75cafe, 700: #97d7fe, 800: #bae4ff, 900: #dcf2ff
+        ),
+        'mimi_pink': (
+                DEFAULT: #eecfd4,
+                100: #42171e, 200: #832e3c, 300: #c04b5e, 400: #d78c99, 500: #eecfd4, 600: #f1d8dc, 700: #f5e2e5, 800: #f8ebed, 900: #fcf5f6
+        ),
+        'orchid_pink': (
+                DEFAULT: #efb9cb,
+                100: #451021, 200: #8a1f43, 300: #cf2f64, 400: #df7397, 500: #efb9cb, 600: #f2c6d5, 700: #f5d5e0, 800: #f9e3ea, 900: #fcf1f5
+        ),
+        'pale_dogwood': (
+                DEFAULT: #e7cfcd,
+                100: #3b1f1c, 200: #753d38, 300: #ae5e56, 400: #ca9691, 500: #e7cfcd, 600: #ebd7d6, 700: #f0e1e0, 800: #f5ebea, 900: #faf5f5
+        ),
+        'papaya_whip': (
+                DEFAULT: #fdf0d5,
+                100: #593c04, 200: #b17908, 300: #f5ae22, 400: #f9cf7b, 500: #fdf0d5, 600: #fdf2dc, 700: #fef5e5, 800: #fef9ed, 900: #fffcf6
+        ),
+        'platinum': (
+                DEFAULT: #cfd8d7,
+                100: #262f2e, 200: #4c5d5b, 300: #728c89, 400: #a1b2b0, 500: #cfd8d7, 600: #d9e0df, 700: #e2e8e7, 800: #ecefef, 900: #f5f7f7
+        ),
+        'plum': (
+                DEFAULT: #e6adec,
+                100: #3d1042, 200: #7a1f84, 300: #b72fc6, 400: #d16adc, 500: #e6adec, 600: #eabdef, 700: #f0cdf3, 800: #f5def7, 900: #faeefb
+        ),
+        'raspberry': (
+                DEFAULT: #d81e5b,
+                100: #2b0612, 200: #560c25, 300: #811237, 400: #ac1849, 500: #d81e5b, 600: #e6447a, 700: #ec739b, 800: #f2a2bd, 900: #f9d0de
+        ),
+        'reseda_green': (
+                DEFAULT: #757761,
+                100: #171813, 200: #2e2f27, 300: #46473a, 400: #5d5e4d, 500: #757761, 600: #93957d, 700: #aeaf9d, 800: #c9cabe, 900: #e4e4de
+        ),
+        'rose_quartz': (
+                DEFAULT: #9f9aa4,
+                100: #201e21, 200: #3f3c42, 300: #5f5a64, 400: #7e7885, 500: #9f9aa4, 600: #b1aeb5, 700: #c5c2c8, 800: #d8d6da, 900: #ecebed
+        ),
+        'thistle': (
+                DEFAULT: #cab1bd,
+                100: #2d1f26, 200: #5a3d4b, 300: #875c71, 400: #ab8396, 500: #cab1bd, 600: #d4c0ca, 700: #dfd0d7, 800: #eadfe4, 900: #f4eff2
+        )
+);
+
+
+$themes: (
+        standard: (
+                background: (#fff, #1a1a1a),
+                text: (#1a202c, #e0e0e0),
+                paragraph: (#47515e, #b3b3b3),
+                border_color: (#d0dcec, #4b4b4b),
+                card_background: (#ffffff, #2c2c2c),
+                input_background: (#fcfcfc, #2c2c2c),
+                link_text: (#3182ce, #82b1ff),
+                link_visited: (#2c5282, #448aff),
+                link_border: (#e1eeff, #274069),
+                active_background: (#e2e8f0, #333333),
+                active_text: (#1a202c, #e0e0e0),
+                primary_color: (#3182ce, #448aff),
+                primary_text: (#ffffff, #ffffff),
+                primary_border: (#2c5282, #90aefd),
+                ghost_color: (#e2e8f0, #44444466),
+                ghost_text: (#1a202c, #e0e0e0),
+                ghost_border: (#e2e8f0, #44444466),
+                danger_color: (#ef4444, #ee6a6a),
+                danger_text: (#ffffff, #ffdbdb),
+                danger_border: (#bb1515, #d32f2f),
+                like_color: (#ffbbd5, #ee6a6a),
+                like_text: (#ff1f1f, #ffdbdb),
+                like_border: (#ef76b3, #d32f2f),
+                warning_color: (#ffb600, #ffb74d),
+                warning_text: (#8a4c0c, #8c4600),
+                warning_border: (#cb8501, #f57c00),
+                disabled_color: (#e2e8f0, #424242),
+                disabled_text: (#7e8996, #9e9e9e),
+                disabled_border: (#919ab2, #9e9e9e),
+                comment_color: (#f8f9fa, #2e2e2e),
+                comment_text: (#718096, #9e9e9e),
+                comment_border: (#718096, #9e9e9e),
+                table_border: (#e2e8f0, #424242),
+                table_th: (#f9fafb, #2c2c2c),
+                table_th_text: (#1a202c, #e0e0e0),
+                table_td: (#ffffff, #1e1e1e),
+                table_td_text: (#4a5568, #b3b3b3),
+                modal_background: (#ffffffdd, #1e1e1add),
+                modal_text: (#1a202c, #e0e0e0),
+                tooltip_background: (#333333, #e0e0e0),
+                tooltip_text: (#ffffff, #121212),
+                announce_border: (#5d9abb, #d7f1ff),
+                announce_background_stripe1: (#e5f5ff, #d7f1ff),
+                announce_background_stripe2: (#f8fcff, #eafeff),
+                skeleton_background: (#149, #eafeff),
+        ),
+        pastel: (
+                background: (#ffeaf5, #1a1a1a),
+                text: (#1a202c, #e0e0e0),
+                paragraph: (#9d5b8d, #b3b3b3),
+                border_color: (#ffddf4, #4b4b4b),
+                card_background: (#fff3f9, #2c2c2c),
+                input_background: (#fffbf1, #2c2c2c),
+                link_text: (#ffa7d1, #82b1ff),
+                link_visited: (#ff7fa1, #448aff),
+                link_border: (#ffe0f4, #274069),
+                active_background: (#ffe5f2, #333333),
+                active_text: (#1a202c, #e0e0e0),
+                primary_color: (#ffa7d1, #448aff),
+                primary_text: (#ffffff, #ffffff),
+                primary_border: (#ff7fa1, #90aefd),
+                ghost_color: (#ffe5f2, #44444466),
+                ghost_text: (#1a202c, #e0e0e0),
+                ghost_border: (#ffe5f2, #44444466),
+                danger_color: (#ff85b1, #ee6a6a),
+                danger_text: (#ffffff, #ffdbdb),
+                danger_border: (#d4527e, #d32f2f),
+                like_color: (#ffd6e8, #ee6a6a),
+                like_text: (#ff799d, #ffdbdb),
+                like_border: (#ffb3c8, #d32f2f),
+                warning_color: (#ffedaf, #ffb74d),
+                warning_text: (#8a4c0c, #8c4600),
+                warning_border: (#e6c584, #f57c00),
+                disabled_color: (#ffe5f2, #424242),
+                disabled_text: (#7e8996, #9e9e9e),
+                disabled_border: (#ddb0c6, #9e9e9e),
+                comment_color: (#fff5fa, #2e2e2e),
+                comment_text: (#718096, #9e9e9e),
+                comment_border: (#e6a8d7, #9e9e9e),
+                table_border: (#ffe5f2, #424242),
+                table_th: (#fff6fb, #2c2c2c),
+                table_th_text: (#1a202c, #e0e0e0),
+                table_td: (#fff0f6, #1e1e1e),
+                table_td_text: (#4a5568, #b3b3b3),
+                modal_background: (#fff0f6dd, #1e1e1add),
+                modal_text: (#1a202c, #e0e0e0),
+                tooltip_background: (#333333, #e0e0e0),
+                tooltip_text: (#ffffff, #121212),
+                announce_border: (#f5a3d1, #d7f1ff),
+                announce_background_stripe1: (#ffe5f9, #d7f1ff),
+                announce_background_stripe2: (#fffafc, #eafeff),
+                skeleton_background: (#ffe5f2, #eafeff),
+        ),
+        pastel_lilac_pink_yellow: (
+                background: (#fff4f7, #3b2c2c),
+                text: (#795183, #f9f1f7),
+                paragraph: (#704858, #e4c9d4),
+                border_color: (#deb0b9, #5a3c3c),
+                card_background: (#ffffff, #4a3a3a),
+                input_background: (#fdf8fc, #4a3a3a),
+                link_text: (#d04d85, #e0b3d3),
+                link_visited: (#d2748a, #d49acb),
+                active_background: (#ffdae7, #5a3c3c),
+                active_text: (#3b2c2c, #f9f1f7),
+                primary_color: (#ffa2e3, #c99cbc),
+                primary_text: (#561616, #f9f1f7),
+                primary_border: (#bb68a2, #d49acb),
+                ghost_color: (#e4c9d466, #5a3c3c66),
+                ghost_text: (#3b2c2c, #f9f1f7),
+                ghost_border: (#e4c9d466, #5a3c3c66),
+                danger_color: (#ef6095, #d44574),
+                danger_text: (#3b2c2c, #f9f1f7),
+                danger_border: (#c04568, #b4355a),
+                warning_color: (#ecd6ba, #d5a255),
+                warning_text: (#4c3b2a, #f5cfa1),
+                warning_border: (#d5a255, #b3956a),
+                disabled_color: (#cfd8dc, #545454),
+                disabled_text: (#a8a8a8, #b0bec5),
+                disabled_border: (#b0bec5, #78909c),
+                comment_color: (#f9f1f7, #3b2c2c),
+                comment_text: (#704858, #e4c9d4),
+                comment_border: (#704858, #e4c9d4),
+                table_border: (#deb0b9, #5a3c3c),
+                table_th: (#f9f1f7, #3b2c2c),
+                table_th_text: (#3b2c2c, #f9f1f7),
+                table_td: (#ffffff, #4a3a3a),
+                table_td_text: (#704858, #e4c9d4),
+                modal_background: (#f9f1f7dd, #3b2c2cdd),
+                modal_text: (#3b2c2c, #f9f1f7),
+                tooltip_background: (#5a3c3c, #e0b3d3),
+                tooltip_text: (#f9f1f7, #3b2c2c),
+        ),
+        earthy_tones: (
+                background: (#f4f0e6, #2a2a2a), // Light beige for light mode, dark brown for dark mode
+                text: (#3a2c29, #e0dcd6), // Dark brown for light mode, light beige for dark mode
+                paragraph: (#5a4c43, #c0b3aa), // Medium brown for light mode, medium beige for dark mode
+                border_color: (#c4b1a1, #4a3a33), // Light brown for light mode, darker brown for dark mode
+                card_background: (#fdf8f3, #3c2c26), // Off white for light mode, dark brown for dark mode
+                input_background: (#fbf7f3, #3c2c26), // Off white for light mode, dark brown for dark mode
+                link_text: (#8c6c5b, #d2b19c), // Brownish red for light mode, light brown for dark mode
+                link_visited: (#7a5642, #b28e7a), // Darker brownish red for light mode, medium brown for dark mode
+                active_background: (#e2dcd0, #3a3a3a), // Light gray-brown for light mode, dark gray for dark mode
+                active_text: (#3a2c29, #e0dcd6), // Dark brown for light mode, light beige for dark mode
+                primary_color: (#8c6c5b, #d2b19c), // Brownish red for light mode, light brown for dark mode
+                primary_text: (#ffffff, #ffffff), // White for both modes
+                primary_border: (#7a5642, #b28e7a), // Darker brownish red for light mode, medium brown for dark mode
+                ghost_color: (#e2dcd0, #4a4a4a), // Light gray-brown for light mode, dark gray for dark mode
+                ghost_text: (#3a2c29, #e0dcd6), // Dark brown for light mode, light beige for dark mode
+                ghost_border: (#e2dcd0, #4a4a4a), // Light gray-brown for light mode, dark gray for dark mode
+                danger_color: (#b8473c, #b8473c), // Reddish brown for both modes
+                danger_text: (#ffffff, #ffdbdb), // White for light mode, light pink for dark mode
+                danger_border: (#9f362e, #9f362e), // Darker reddish brown for both modes
+                warning_color: (#cc8a00, #e0ac00), // Earthy orange for light mode, golden yellow for dark mode
+                warning_text: (#4a3b1c, #4a3b1c), // Dark brown for both modes
+                warning_border: (#b36d00, #c99000), // Darker earthy orange for light mode, golden brown for dark mode
+                disabled_color: (#e2dcd0, #4a4a4a), // Light gray-brown for light mode, dark gray for dark mode
+                disabled_text: (#8a7967, #9e9e9e), // Light brown for light mode, gray for dark mode
+                disabled_border: (#b1a496, #9e9e9e), // Medium brown for light mode, gray for dark mode
+                comment_color: (#f4f0e6, #3a3a3a), // Light beige for light mode, dark gray for dark mode
+                comment_text: (#5a4c43, #c0b3aa), // Medium brown for light mode, medium beige for dark mode
+                comment_border: (#5a4c43, #c0b3aa), // Medium brown for light mode, medium beige for dark mode
+                table_border: (#e2dcd0, #4a4a4a), // Light gray-brown for light mode, dark gray for dark mode
+                table_th: (#fbf7f3, #3c2c26), // Off white for light mode, dark brown for dark mode
+                table_th_text: (#3a2c29, #e0dcd6), // Dark brown for light mode, light beige for dark mode
+                table_td: (#fdf8f3, #2e2e2e), // Off white for light mode, dark gray-brown for dark mode
+                table_td_text: (#5a4c43, #c0b3aa), // Medium brown for light mode, medium beige for dark mode
+                modal_background: (#ffffffdd, #1e1e1add), // Translucent white for light mode, translucent dark brown for dark mode
+                modal_text: (#3a2c29, #e0dcd6), // Dark brown for light mode, light beige for dark mode
+                tooltip_background: (#4a4a4a, #e0dcd6), // Dark gray for light mode, light beige for dark mode
+                tooltip_text: (#ffffff, #121212) // White for light mode, very dark brown for dark mode
+        ),
+        dutch_white_light_coral: (
+                background: (#f7f6ef, #4b4841),
+                text: (#352f1a, #e0e0e0),
+                paragraph: (#9e8d4e, #b3b3b3),
+                border_color: (#d8cfaf, #333333),
+                card_background: (#ffffff, #2c2c2c),
+                input_background: (#f7f6ef, #2c2c2c),
+                link_text: (#e25450, #f1aaa7),
+                link_visited: (#ed9390, #f4bfbd),
+                active_background: (#e0d9c0, #333333),
+                active_text: (#352f1a, #e0e0e0),
+                primary_color: (#f5f14d, #e25450),
+                primary_text: (#573b00, #ffffff),
+                primary_border: (#a11f19, #c52620),
+                ghost_color: (#e0d9c066, #44444466),
+                ghost_text: (#352f1a, #e0e0e0),
+                ghost_border: (#e0d9c066, #44444466),
+                danger_color: (#fa7976, #d44574),
+                danger_text: (#ffffff, #ffdbdb),
+                danger_border: (#9a2144, #d32f2f),
+                warning_color: (#ffd766, #ffb74d),
+                warning_text: (#4c3b2a, #8c4600),
+                warning_border: (#d5a255, #d56d00),
+                disabled_color: (#d8cfaf, #424242),
+                disabled_text: (#9e8d4e, #9e9e9e),
+                disabled_border: (#c8b69a, #9e9e9e),
+                comment_color: (#f7f6ef, #2e2e2e),
+                comment_text: (#9e8d4e, #9e9e9e),
+                comment_border: (#9e8d4e, #9e9e9e),
+                table_border: (#d8cfaf, #424242),
+                table_th: (#f7f6ef, #2c2c2c),
+                table_th_text: (#352f1a, #e0e0e0),
+                table_td: (#ffffff, #1e1e1e),
+                table_td_text: (#9e8d4e, #b3b3b3),
+                modal_background: (#ffffffdd, #1e1e1add),
+                modal_text: (#352f1a, #e0e0e0),
+                tooltip_background: (#333333, #e0e0e0),
+                tooltip_text: (#ffffff, #121212),
+        ),
+        onyx_uranian_blue: (
+                background: (#2b2d2f, #0b0b0c),
+                text: (#a5d8ff, #edf7ff),
+                paragraph: (#c8e7ff, #edf7ff),
+                border_color: (#5c6164, #383f3f),
+                card_background: (#212223, #202223),
+                input_background: (#24282a, #202223),
+                link_text: (#50b3ff, #a5d8ff),
+                link_visited: (#008efb, #c8e7ff),
+                active_background: (#5c6164, #161717),
+                active_text: (#edf7ff, #edf7ff),
+                primary_color: (#50b3ff, #008efb),
+                primary_text: (#edf7ff, #edf7ff),
+                primary_border: (#9cd6ff, #2889f0),
+                ghost_color: (#5c616466, #44444466),
+                ghost_text: (#edf7ff, #edf7ff),
+                ghost_border: (#5c616466, #44444466),
+                danger_color: (#dc2f2a, #e74343),
+                danger_text: (#edf7ff, #ffdbdb),
+                danger_border: (#ff8888, #ff9a9a),
+                warning_color: (#f8e59e, #ffb74d),
+                warning_text: (#9a5000, #8c4600),
+                warning_border: (#fff6d6, #f57c00),
+                disabled_color: (#5c6164, #424242),
+                disabled_text: (#a5d8ff, #9e9e9e),
+                disabled_border: (#b7d8fa, #9e9e9e),
+                comment_color: (#304242, #2e2e2e),
+                comment_text: (#a7fffd, #edf7ff),
+                comment_border: (#7698b0, #edf7ff),
+                table_border: (#5c6164, #424242),
+                table_th: (#acb0b3, #2c2c2c),
+                table_th_text: (#edf7ff, #edf7ff),
+                table_td: (#acb0b3, #1e1e1e),
+                table_td_text: (#a5d8ff, #edf7ff),
+                modal_background: (#acb0b3dd, #1e1e1add),
+                modal_text: (#edf7ff, #edf7ff),
+                tooltip_background: (#2b2d2f, #e0e0e0),
+                tooltip_text: (#edf7ff, #121212),
+        ),
+        forest_mist: (
+                background: (#e6efeb, #121212),
+                text: (#2e3d34, #d3d3d3),
+                paragraph: (#5a7262, #b0b0b0),
+                border_color: (#c1d8cf, #282828),
+                card_background: (#ffffff, #1e1e1e),
+                input_background: (#eef7f3, #1e1e1e),
+                link_text: (#4b9e77, #80d6b1),
+                link_visited: (#3a7f5f, #66c09a),
+                active_background: (#d0e8df, #282828),
+                active_text: (#2e3d34, #d3d3d3),
+                primary_color: (#4b9e77, #80d6b1),
+                primary_text: (#ffffff, #ffffff),
+                primary_border: (#3a7f5f, #66c09a),
+                ghost_color: (#d0e8df66, #28282866),
+                ghost_text: (#2e3d34, #d3d3d3),
+                ghost_border: (#d0e8df66, #28282866),
+                danger_color: (#d9534f, #f1908c),
+                danger_text: (#ffffff, #ffe0e0),
+                danger_border: (#c9302c, #d9534f),
+                warning_color: (#f0ad4e, #ffc471),
+                warning_text: (#8a6d3b, #8c6d00),
+                warning_border: (#eea236, #ffa500),
+                disabled_color: (#c1d8cf, #424242),
+                disabled_text: (#8a9f98, #9e9e9e),
+                disabled_border: (#b5cbc4, #9e9e9e),
+                comment_color: (#e6efeb, #2e2e2e),
+                comment_text: (#5a7262, #9e9e9e),
+                comment_border: (#5a7262, #9e9e9e),
+                table_border: (#c1d8cf, #424242),
+                table_th: (#eef7f3, #1e1e1e),
+                table_th_text: (#2e3d34, #d3d3d3),
+                table_td: (#ffffff, #121212),
+                table_td_text: (#5a7262, #b0b0b0),
+                modal_background: (#ffffffdd, #121212dd),
+                modal_text: (#2e3d34, #d3d3d3),
+                tooltip_background: (#282828, #e0e0e0),
+                tooltip_text: (#ffffff, #121212),
+        ),
+        sunglow_black_olive: (
+                background: (#ffe7a0, #313329),
+                text: (#6e5300, #d8dad1),
+                paragraph: (#785a00, #8a8f74),
+                border_color: (#f1b500, #272921),
+                card_background: (#fff8e5, #1d1f19),
+                input_background: (#fff0c5, #272921),
+                link_text: (#b58700, #ffd558),
+                link_visited: (#ffb600, #eadee0),
+                active_background: (#ffd558, #313329),
+                active_text: (#3c2d00, #d8dad1),
+                primary_color: (#ffcb30, #785a00),
+                primary_text: (#ffffff, #ffffff),
+                primary_border: (#b58700, #1d1f19),
+                ghost_color: (#ffcb3066, #27292166),
+                ghost_text: (#3c2d00, #d8dad1),
+                ghost_border: (#ffcb3066, #27292166),
+                danger_color: (#ef4444, #ee6a6a),
+                danger_text: (#ffffff, #ffdbdb),
+                danger_border: (#bb1515, #d32f2f),
+                warning_color: (#ffb600, #ffb74d),
+                warning_text: (#8a4c0c, #8c4600),
+                warning_border: (#cb8501, #f57c00),
+                disabled_color: (#ffd558, #424242),
+                disabled_text: (#785a00, #9e9e9e),
+                disabled_border: (#b58700, #9e9e9e),
+                comment_color: (#ffcb30, #2e2e2e),
+                comment_text: (#785a00, #9e9e9e),
+                comment_border: (#785a00, #9e9e9e),
+                table_border: (#ffd558, #424242),
+                table_th: (#ffcb30, #2c2c2c),
+                table_th_text: (#3c2d00, #d8dad1),
+                table_td: (#ffffff, #1e1e1e),
+                table_td_text: (#785a00, #8a8f74),
+                modal_background: (#ffffffdd, #1e1e1add),
+                modal_text: (#3c2d00, #d8dad1),
+                tooltip_background: (#272921, #e0e0e0),
+                tooltip_text: (#ffffff, #121212),
+        ),
+        pale_dogwood_light_coral: (
+                background: (#f2ccc3, #1a1a1a),
+                text: (#481a10, #e0e0e0),
+                paragraph: (#903420, #b3b3b3),
+                border_color: (#d35235, #333333),
+                card_background: (#e28f7d, #2c2c2c),
+                input_background: (#f2ccc3, #2c2c2c),
+                link_text: (#e28f7d, #f2ccc3),
+                link_visited: (#e28f7d, #f4bfbd),
+                active_background: (#e0d9c0, #333333),
+                active_text: (#481a10, #e0e0e0),
+                primary_color: (#e28f7d, #903420),
+                primary_text: (#ffffff, #ffffff),
+                primary_border: (#d35235, #481a10),
+                ghost_color: (#e0d9c066, #44444466),
+                ghost_text: (#481a10, #e0e0e0),
+                ghost_border: (#e0d9c066, #44444466),
+                danger_color: (#d35235, #ee6a6a),
+                danger_text: (#ffffff, #ffdbdb),
+                danger_border: (#903420, #d32f2f),
+                warning_color: (#ffd766, #ffb74d),
+                warning_text: (#4c3b2a, #8c4600),
+                warning_border: (#d5a255, #f57c00),
+                disabled_color: (#d35235, #424242),
+                disabled_text: (#903420, #9e9e9e),
+                disabled_border: (#c8b69a, #9e9e9e),
+                comment_color: (#f2ccc3, #2e2e2e),
+                comment_text: (#903420, #9e9e9e),
+                comment_border: (#903420, #9e9e9e),
+                table_border: (#d35235, #424242),
+                table_th: (#f2ccc3, #2c2c2c),
+                table_th_text: (#481a10, #e0e0e0),
+                table_td: (#ffffff, #1e1e1e),
+                table_td_text: (#903420, #b3b3b3),
+                modal_background: (#ffffffdd, #1e1e1add),
+                modal_text: (#481a10, #e0e0e0),
+                tooltip_background: (#333333, #e0e0e0),
+                tooltip_text: (#ffffff, #121212),
+        ),
+        slate_gray_powder_blue: (
+                background: (#738290, #1e252a),
+                text: (#171a1d, #e7e7e7),
+                paragraph: (#2e343a, #cecece),
+                border_color: (#5c6875, #576e7e),
+                card_background: (#8f9ba7, #2c2c2c),
+                input_background: (#738290, #323f48),
+                link_text: (#a1b5d8, #738290),
+                link_visited: (#a1b5d8, #c7d3e8),
+                active_background: (#8f9ba7, #162235),
+                active_text: (#171a1d, #dce0e0),
+                primary_color: (#a1b5d8, #2e343a),
+                primary_text: (#ffffff, #ffffff),
+                primary_border: (#5c6875, #171a1d),
+                ghost_color: (#8f9ba766, #44444466),
+                ghost_text: (#171a1d, #e0e0e0),
+                ghost_border: (#8f9ba766, #44444466),
+                danger_color: (#ef4444, #ee6a6a),
+                danger_text: (#ffffff, #ffdbdb),
+                danger_border: (#bb1515, #d32f2f),
+                warning_color: (#ffd766, #ffb74d),
+                warning_text: (#8a4c0c, #8c4600),
+                warning_border: (#cb8501, #f57c00),
+                disabled_color: (#8f9ba7, #424242),
+                disabled_text: (#2e343a, #9e9e9e),
+                disabled_border: (#5c6875, #9e9e9e),
+                comment_color: (#738290, #2e2e2e),
+                comment_text: (#2e343a, #9e9e9e),
+                comment_border: (#2e343a, #9e9e9e),
+                table_border: (#8f9ba7, #424242),
+                table_th: (#738290, #2c2c2c),
+                table_th_text: (#171a1d, #e0e0e0),
+                table_td: (#ffffff, #1e1e1e),
+                table_td_text: (#2e343a, #b3b3b3),
+                modal_background: (#ffffffdd, #1e1e1add),
+                modal_text: (#171a1d, #e0e0e0),
+                tooltip_background: (#333333, #e0e0e0),
+                tooltip_text: (#ffffff, #121212),
+        )
+);
+
+@function theme-color($property) {
+  @return var(--#{$property});
+}
+
+$theme: standard; // Default theme
+
+:root {
+  @each $property, $values in map-get($themes, $theme) {
+    --#{$property}: #{nth($values, 1)};
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @each $property, $values in map-get($themes, $theme) {
+      --#{$property}: #{nth($values, 2)};
+    }
+  }
+}
+
+// Apply theme based on body class
+@mixin apply-theme($theme-name) {
+  @each $property, $values in map-get($themes, $theme-name) {
+    --#{$property}: #{nth($values, 1)};
+    --#{$property}-dark: #{nth($values, 2)};
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @each $property, $values in map-get($themes, $theme-name) {
+      --#{$property}: var(--#{$property}-dark);
+    }
+  }
+}
+
+body.theme-standard {
+  @include apply-theme(standard);
+}
+
+body.theme-pastel_lilac_pink_yellow {
+  @include apply-theme(pastel_lilac_pink_yellow);
+}
+
+$breakpoints: (
+        'xs': 0,
+        'sm': 576px,
+        'md': 768px,
+        'lg': 992px,
+        'xl': 1200px,
+        'xls': 1800px,
+);
+
+// Function to get a breakpoint value
+@function breakpoint($key) {
+  @return map-get($breakpoints, $key);
+}
+
+// Mixin to generate media queries
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == 'xs' {
+    @media (max-width: breakpoint('sm') - 1px) {
+      @content;
+    }
+  } @else {
+    $value: breakpoint($breakpoint);
+    @if $value {
+      @media (max-width: $value - 1px) {
+        @content;
+      }
+    }
+  }
+}
+
+// Generate hide classes for each breakpoint
+@each $break, $size in $breakpoints {
+  .hide-#{$break} {
+    @include respond-to($break) {
+      display: none;
+    }
+  }
+}
+
+@mixin generate-color-classes($color-map) {
+  @each $color-name, $color-weights in $color-map {
+    @each $weight, $color-value in $color-weights {
+      .theme-background-#{$color-name}-#{$weight} {
+        background: #{get-color($color-name, $weight)};
+      }
+      .theme-color-#{$color-name}-#{$weight} {
+        color: #{get-color($color-name, $weight)};
+      }
+    }
+  }
+}
+
+// Usage of the mixin
+@include generate-color-classes($COLORDEF);
+
+* {
+  box-sizing: border-box;
+  letter-spacing: 0.052em;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}

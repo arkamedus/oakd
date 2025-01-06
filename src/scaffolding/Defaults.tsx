@@ -1,22 +1,33 @@
-import React, { useEffect, useRef, useState, CSSProperties } from 'react';
-import { Button, Card, Content, Link, Paragraph, Space, Title } from './Layout';
-import './Defaults.css';
+import {Button, Card, Content, Link, Paragraph, Space, Title} from "./Content";
+import "./Defaults.css";
+import React from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+    faAngleDown,
+    faAngleUp,
+    faInbox,
+    faSpinner,
+    faTriangleExclamation,
+    faXmark
+} from "@fortawesome/free-solid-svg-icons";
+import {faCircleCheck} from "@fortawesome/free-regular-svg-icons";
+
 
 // Breadcrumb Component
-export const Breadcrumb: React.FC<{ items: React.ReactNode[] }> = ({ items }) => (
-    <Space direction="horizontal">
+const Breadcrumb = ({ items }: { items: React.ReactNode[] }) => (
+    <Space direction="horizontal" GapSm>
         {items.map((item, index) => (
-            <Space key={index}>
+            <Space GapSm key={index}>
                 <Link href={`#TODO`}>{item}</Link>
-                {index < items.length - 1 && <span><span className="muted"> &posent; </span></span>}
+                {index < items.length - 1 && <span> <span className={"Muted"}>&gt;</span> </span>}
             </Space>
         ))}
     </Space>
 );
 
 // Pagination Component
-export const Pagination: React.FC<{ current: number; total: number; onChange: (page: number) => void }> = ({ current, total, onChange }) => (
-    <Space direction="horizontal">
+const Pagination = ({ current, total, onChange }: { current: number; total: number; onChange: (page: number) => void }) => (
+    <Space direction="horizontal" GapSm>
         {Array.from({ length: total }, (_, index) => (
             <Button
                 key={index}
@@ -30,31 +41,32 @@ export const Pagination: React.FC<{ current: number; total: number; onChange: (p
 );
 
 // Empty Component
-export const Empty: React.FC<{ description: string; icon?: React.ReactNode }> = ({ description, icon }) => (
+const Empty = ({ description }: { description: string }) => (
     <Card className="empty">
-        <Paragraph>{icon} {description}</Paragraph>
+        <Paragraph><FontAwesomeIcon icon={faInbox} /> {description}</Paragraph>
     </Card>
 );
 
-// Loading Component
-export const Loading: React.FC<{ description?: string; icon?: React.ReactNode }> = ({ description = 'Loading', icon }) => (
+// Empty Component
+const Loading = ({ description="Loading" }: { description?: string }) => (
     <Card className="empty">
-        <Paragraph>{icon} {description}</Paragraph>
+        <Paragraph><FontAwesomeIcon spinPulse fixedWidth icon={faSpinner} /> {description}</Paragraph>
     </Card>
 );
 
-// Announcement Component
-export const Announcement: React.FC<{ children: React.ReactNode; onClose?: () => void; icon?: React.ReactNode }> = ({ children, onClose, icon }) => (
-    <div className="announcement PadSm">
-        <Space justify="space-between" align="center" >
-            <Paragraph>{children}</Paragraph>
-            {icon && <span onClick={onClose} className="icon">{icon}</span>}
+// Empty Component
+const Announcement = ({ children, onClose }: { children: React.ReactNode, onClose?:any }) => (
+    <div className="announcement pad-sm">
+        <Space justify={"space-between"} align={"center"} Gap NoWrap>
+            <Paragraph>{children}</Paragraph><FontAwesomeIcon onClick={()=>{
+                if (onClose){onClose()}
+        }} fixedWidth className={"icon"} icon={faXmark} />
         </Space>
     </div>
 );
 
 // List Component
-export const List: React.FC<{ items: string[] }> = ({ items }) => (
+const List = ({ items }: { items: string[] }) => (
     <Content>
         <ul>
             {items.map((item, index) => (
@@ -65,8 +77,8 @@ export const List: React.FC<{ items: string[] }> = ({ items }) => (
 );
 
 // Segmented Component
-export const Segmented: React.FC<{ options: string[]; onChange: (option: string) => void }> = ({ options, onChange }) => (
-    <Space direction="horizontal">
+const Segmented = ({ options, onChange }: { options: string[]; onChange: (option: string) => void }) => (
+    <Space direction="horizontal" Gap>
         {options.map((option, index) => (
             <Button key={index} onClick={() => onChange(option)}>
                 {option}
@@ -76,16 +88,16 @@ export const Segmented: React.FC<{ options: string[]; onChange: (option: string)
 );
 
 // Statistic Component
-export const Statistic: React.FC<{ title: React.ReactNode; value: React.ReactNode; icon?: React.ReactNode }> = ({ title, value, icon }) => (
-    <Space direction="vertical">
-        <Title>{title} {icon}</Title>
-        <Title>{value}</Title>
+const Statistic = ({ title, value }: { title: React.ReactNode; value: React.ReactNode }) => (
+    <Space direction={"vertical"} GapSm>
+        <Title Muted>{title}</Title>
+        <Title Large>{value}</Title>
     </Space>
 );
 
 // Tabs Component
-export const Tabs: React.FC<{ tabs: string[]; activeTab: string; onTabChange: (tab: string) => void }> = ({ tabs, activeTab, onTabChange }) => (
-    <Space direction="horizontal">
+const Tabs = ({ tabs, activeTab, onTabChange }: { tabs: string[]; activeTab: string; onTabChange: (tab: string) => void }) => (
+    <Space direction="horizontal" Gap>
         {tabs.map((tab, index) => (
             <Button key={index} type={tab === activeTab ? 'primary' : 'default'} onClick={() => onTabChange(tab)}>
                 {tab}
@@ -95,31 +107,33 @@ export const Tabs: React.FC<{ tabs: string[]; activeTab: string; onTabChange: (t
 );
 
 // Result Component
-export const Result: React.FC<{ status: 'success' | 'error'; title: React.ReactNode; subTitle: string; extra?: React.ReactNode; icon?: React.ReactNode }> = ({ status, title, subTitle, extra, icon }) => (
+const Result = ({ status, title, subTitle, extra }: { status: 'success' | 'error'; title: React.ReactNode; subTitle: string; extra?: React.ReactNode }) => (
     <Card className={`result result-${status}`}>
-        <Content>
-            <Space direction="vertical" align="center">
-                <Title>{icon} {title}</Title>
-                <Paragraph>{subTitle}</Paragraph>
-                {extra}
-            </Space>
+        <Content Pad Center>
+        <Space direction={"vertical"} align={"center"} GapSm>
+            <Title Large>{status==="error"?<FontAwesomeIcon className={status} icon={faTriangleExclamation} />:<FontAwesomeIcon className={status} icon={faCircleCheck}/>} {title}</Title>
+        <Paragraph>{subTitle}</Paragraph>
+        {extra}
+        </Space>
         </Content>
     </Card>
 );
 
 // Modal Component
-export const Modal: React.FC<{ visible: boolean; title: React.ReactNode; content: React.ReactNode; onClose: () => void; icon?: React.ReactNode }> = ({ visible, title, content, onClose, icon }) => (
+const Modal = ({ visible, title, content, onClose }: { visible: boolean; title: React.ReactNode; content: React.ReactNode; onClose: () => void }) => (
     visible ? (
         <div className="modal-container" onClick={onClose}>
             <div className="modal" onClick={e => e.stopPropagation()}>
-                <Space direction="vertical">
-                    <Space justify="space-between" align="center">
-                        <Title>{title}</Title>
-                        <Button type="default" onClick={onClose}>{icon}</Button>
-                    </Space>
-                    <Space direction="vertical">
-                        <Paragraph>{content}</Paragraph>
-                    </Space>
+                <Space direction={"vertical"} GapSm>
+                <Space justify={"space-between"} NoWrap align={"center"} Gap>
+                    <Title>{title}</Title>
+                    <Button type="default" onClick={()=>{
+                        if (onClose){onClose()}
+                    }}><FontAwesomeIcon fixedWidth className={"icon"} icon={faXmark} /></Button>
+                </Space>
+                <Space direction={"vertical"} GapSm>
+                <Paragraph>{content}</Paragraph>
+                </Space>
                 </Space>
             </div>
         </div>
@@ -127,118 +141,117 @@ export const Modal: React.FC<{ visible: boolean; title: React.ReactNode; content
 );
 
 // Drawer Component
-export const Drawer: React.FC<{ visible: boolean; title: React.ReactNode; content: React.ReactNode; onClose: () => void }> = ({ visible, title, content, onClose }) => (
+const Drawer = ({ visible, title, content, onClose }: { visible: boolean; title: React.ReactNode; content: React.ReactNode; onClose: () => void }) => (
     visible ? (
         <div className="drawer-container" onClick={onClose}>
             <div className="drawer" onClick={e => e.stopPropagation()}>
-                <Space direction="vertical">
-                    <Title>{title}</Title>
-                    <Paragraph>{content}</Paragraph>
-                    <Button type="primary" onClick={onClose}>Close</Button>
+                <Space direction={"vertical"} GapSm>
+                <Title>{title}</Title>
+                <Paragraph>{content}</Paragraph>
+                <Button type="primary" onClick={onClose}>Close</Button>
                 </Space>
             </div>
         </div>
     ) : null
 );
 
+
 // Skeleton Component
-export const Skeleton: React.FC<{ rows: number; width?: number }> = ({ rows, width }) => (
-    <div className="skeleton" style={width ? { width: `${width}em` } : {}}>
+const Skeleton = ({ rows, width }: { rows: number, width?:number }) => (
+    <div className="skeleton" style={width?{width:`${width}em`}:{}}>
         {Array.from({ length: rows }, (_, index) => (
             <div key={index} className="skeleton-gradient">&nbsp;</div>
         ))}
     </div>
 );
 
-// InlineIcon Component
-export const InlineIcon: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
-    <span className="inline-icon">
-        {children}
-    </span>
-);
+interface InlineIconProps {
+    children?: React.ReactNode;
+}
 
-// InlineImage Component
-export const InlineImage: React.FC<{ src: string }> = ({ src }) => (
-    <div className="inline">
-        <img className="round" src={src} />
-    </div>
-);
-
-// Tooltip Component
-export const Tooltip: React.FC<{ message: React.ReactNode; children: React.ReactNode }> = ({ message, children }) => {
-    const [visible, setVisible] = useState(false);
-    const [position, setPosition] = useState({ x: 0, y: 0, arrowX: "50%" });
-    const tooltipRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    const showTooltip = () => {
-        const containerElement = containerRef.current;
-        const tooltipElement = tooltipRef.current;
-
-        if (containerElement && tooltipElement) {
-            const containerRect = containerElement.getBoundingClientRect();
-            const tooltipWidth = tooltipElement.offsetWidth;
-            const tooltipHeight = tooltipElement.offsetHeight;
-            const screenWidth = window.innerWidth;
-
-            let x = containerRect.left + containerRect.width / 2 - tooltipWidth / 2;
-            let y = containerRect.top - tooltipHeight - 10;
-
-            let arrowX = '50%';
-
-            if (x < 20) {
-                arrowX = `${containerRect.left + containerRect.width / 2 - 20}px`;
-                x = 20;
-            } else if (x + tooltipWidth > screenWidth - 20) {
-                arrowX = `${containerRect.left + containerRect.width / 2 - (screenWidth - tooltipWidth - 20)}px`;
-                x = screenWidth - tooltipWidth - 20;
-            }
-
-            if (y < 0) {
-                y = containerRect.bottom + 10;
-            }
-
-            setPosition({ x, y, arrowX });
-        }
-        setVisible(true);
-    };
-
-    const hideTooltip = () => setVisible(false);
-
-    useEffect(() => {
-        if (visible) {
-            const handleScroll = () => setVisible(false);
-            window.addEventListener('scroll', handleScroll);
-            return () => window.removeEventListener('scroll', handleScroll);
-        }
-    }, [visible]);
-
+export const InlineIcon: React.FC<InlineIconProps> = ({children}) => {
     return (
-        <div ref={containerRef} className="tooltip-container" onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
+        <span className={`inline-icon`}>
             {children}
-            {visible && (
-                <div ref={tooltipRef} className="tooltip" style={{ top: `${position.y}px`, left: `${position.x}px` }}>
-                    <div className="tooltip-arrow" style={{ left: position.arrowX }}></div>
-                    <div className="tooltip-message">{message}</div>
-                </div>
-            )}
+        </span>
+    );
+};
+
+interface InlineImageProps {
+    src: string;
+}
+
+export const InlineImage: React.FC<InlineImageProps> = ({src}) => {
+    return (
+        <div className={`inline`}>
+            <img className={"round"} src={src}/>
         </div>
     );
 };
 
-// ScrollableElement Component
-export const ScrollableElement: React.FC<{ imageSrc: string; altText: string; onClick?: () => void }> = ({ imageSrc, altText, onClick }) => (
-    <div className="scrollable-element" onClick={onClick}>
+interface TooltipProps {
+    message: React.ReactNode;
+    children: React.ReactNode;
+}
+
+
+interface CircleElementProps {
+    imageSrc: string;
+    altText: string;
+    onClick?: () => void;
+}
+
+const ScrollableElement: React.FC<CircleElementProps> = ({ imageSrc, altText, onClick }) => {
+    return (
+        <div className={"scrollable-element"} onClick={onClick}>
         <div className="circle-element">
             <img src={imageSrc} alt={altText} />
         </div>
-        <p>{altText}</p>
-    </div>
-);
+            <p>{altText}</p>
+        </div>
+    );
+};
 
-// ScrollableContainer Component
-export const ScrollableContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className="scrollable-container">
-        {children}
-    </div>
-);
+interface ScrollableContainerProps {
+    children: React.ReactNode;
+}
+
+const ScrollableContainer: React.FC<ScrollableContainerProps> = ({ children }) => {
+    return (
+
+        <div className="scrollable-container">
+            {children}
+        </div>
+    );
+};
+
+
+interface Option<T> {
+    element: React.ReactNode;
+    value: T;
+}
+
+interface SelectProps<T> {
+    options: Option<T>[];
+    defaultValue?: T;
+    placeholder?: React.ReactNode | string;
+    onSelected: (value: T) => void;
+}
+
+export {
+    Breadcrumb,
+    Pagination,
+    Empty,
+    Loading,
+    List,
+    Segmented,
+    Statistic,
+    Tabs,
+    Result,
+    Modal,
+    Drawer,
+    Skeleton,
+    ScrollableContainer,
+    ScrollableElement,
+    Announcement
+};

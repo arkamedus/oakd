@@ -1,0 +1,100 @@
+@import "../Globals";
+
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr); // 24-column grid
+  //gap: 8px; // Default gap
+
+
+
+  .row.lined {
+    border-left: 1px solid #aaa;
+    padding-left: 15px;
+  }
+
+  // Add other row styles if necessary
+}
+
+
+.gap {
+  column-gap: $gap_sizing; // Increased gap
+  row-gap: $gap_sizing; // Increased gap
+}
+
+.gap-sm {
+  column-gap: $gap_sizing/2;
+  row-gap: $gap_sizing/2;
+}
+
+@media (max-width: breakpoint('sm') - 1px) {
+  .gap {
+    row-gap: $gap_sizing; // Increased gap
+    column-gap: $gap_sizing/2; // Increased gap
+  }
+
+  .gap-sm {
+    column-gap: $gap_sizing/3;
+    row-gap: $gap_sizing/3;
+  }
+}
+
+
+
+
+.col {
+  // Default to full width
+  grid-column-end: span 24;
+
+
+  // Extra Small Devices
+  @for $i from 1 through 24 {
+    &.xs-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+
+  // Small Devices
+  @media (min-width: 576px) {
+    grid-column-end: span 24; // Reset to full width and allow overrides
+
+    @for $i from 1 through 24 {
+      &.sm-#{$i} {
+        grid-column-end: span #{$i};
+      }
+    }
+  }
+
+  // Medium Devices
+  @media (min-width: 768px) {
+    grid-column-end: span 24; // Reset to full width and allow overrides
+
+    @for $i from 1 through 24 {
+      &.md-#{$i} {
+        grid-column-end: span #{$i};
+      }
+    }
+  }
+
+  // Large Devices
+  @media (min-width: 992px) {
+    grid-column-end: span 24; // Reset to full width and allow overrides
+
+    @for $i from 1 through 24 {
+      &.lg-#{$i} {
+        grid-column-end: span #{$i};
+      }
+    }
+  }
+
+  // Extra Large Devices
+  @media (min-width: 1200px) {
+    grid-column-end: span 24; // Reset to full width and allow overrides
+
+    @for $i from 1 through 24 {
+      &.xl-#{$i} {
+        grid-column-end: span #{$i};
+      }
+    }
+  }
+}

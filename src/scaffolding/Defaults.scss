@@ -1,3 +1,7 @@
+@import "../Globals";
+
+
+
 // Pagination Styles
 .pagination {
   display: flex;
@@ -24,8 +28,8 @@
 .empty {
   text-align: center;
   padding: 40px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: theme-color(card_background);
+  border: 1px solid theme-color(border_color);
 
   p {
     margin: 0;
@@ -90,19 +94,24 @@
   gap: 8px;
 }
 
-// Result Component Styles
+
 .result {
   width: 100%;
+}
+// Result Component Styles
+.result-success, .result-error {
   text-align: center;
 
   &.result-success {
-    border-color: #28a745;
+    border-color: theme-color(primary_border);
   }
 
   &.result-error {
-    border-color: #dc3545;
+    border-color: theme-color(border_color);
   }
 }
+
+
 
 // Breadcrumb Styles
 .breadcrumb {
@@ -122,12 +131,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: theme-color(modal_background);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
+  padding: 20px; // Ensures the modal has padding on all sides
+  box-sizing: border-box; // Ensures padding is included in the width and height calculations
   z-index: 1000;
 }
 
@@ -135,32 +144,37 @@
 .modal {
   position: relative;
   width: 100%;
-  max-width: 640px;
-  max-height: 100%;
-  padding: 20px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  max-width: 640pt; // 20px padding on each side
+  max-height: 100%; // 20px padding on each side
+  padding: $leading * 2;
+  background-color: theme-color(card_background);
+  border: 1px solid theme-color(border_color);
   box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  overflow: auto;
+  border-radius: $border_radius;
+  overflow: auto; // Ensures content is scrollable if it overflows the modal
+ // padding-top: $leading*4;
 
-  .actions {
+  .actions{
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right:$leading ;
+    top:$leading ;
   }
+
 }
+
 
 // Drawer Component Styles
 .drawer {
   z-index: 1;
   position: fixed;
+ // top: 20%;
   right: 0;
-  left: 0;
-  bottom: 0;
+  left:0;
+  bottom:0;
+  //width: 300px;
   padding: 20px;
-  background-color: #ffffff;
-  border-left: 1px solid #ddd;
+  background-color: theme-color(card_background);
+  border-left: 1px solid theme-color(border_color);
   box-shadow: -4px 6px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -168,17 +182,19 @@
 .skeleton {
   width: 100%;
   display: inline-block;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  position: relative;
+  background-color: theme-color(skeleton_background);
+  border-radius: $border_radius;
+  position:relative;
   left: -0.2em;
 
   .skeleton-gradient {
     width: 100%;
-    height: 16px;
+    //height: 100%;
+    height: $line_height;
     background: linear-gradient(90deg, rgba(220, 220, 220, 0.1) 25%, rgba(250, 250, 250, 0.4) 50%, rgba(220, 220, 220, 0.1) 75%);
     background-size: 200% 100%;
     animation: swipe 1.5s infinite;
+
 
     @keyframes swipe {
       0% {
@@ -189,37 +205,41 @@
       }
     }
   }
+
+
 }
 
-// Title Component Styles
 .title {
-  &.Lg {
-    .skeleton-gradient {
-      height: 32px;
-    }
-  }
-}
-
-// Link Component Styles
-.link {
   .skeleton {
-    background-color: #007bff;
+    background-color: theme-color(text);
   }
 }
 
-// Paragraph Component Styles
+.Lg {
+  .skeleton-gradient {
+    height: $line_height*2;
+  }
+}
+
+.Link {
+  .skeleton {
+    background-color: theme-color(link_text);
+  }
+}
+
 p {
   .skeleton {
-    background-color: #333;
+    background-color: theme-color(paragraph);
   }
 }
 
-// Inline Icon and Image Styles
+
 .inline {
+
   display: inline;
 
   &-icon {
-    font-size: 200%;
+    font-size:200%;
     line-height: 0;
     vertical-align: middle;
   }
@@ -227,17 +247,27 @@ p {
   img {
     position: relative;
     top: 1.5pt;
-    max-height: 11.5pt;
-    width: 11.5pt;
+    max-height: 1em;
+    width: 1em;
     display: inline-block;
 
     &.round {
       border-radius: 11pt;
     }
   }
+
+
 }
 
-// Tooltip Component Styles
+.title.Lg{
+  .inline {
+    img {
+      max-height: 22.5pt;
+      width: 22.5pt;
+    }
+  }
+}
+
 .tooltip-container {
   display: inline-flex;
 }
@@ -245,12 +275,13 @@ p {
 .tooltip {
   position: fixed;
   padding: 8px;
-  background-color: #333;
-  color: #fff;
+  background-color: theme-color(tooltip_background);
+  color: theme-color(tooltip_text);
   border-radius: 4px;
   white-space: nowrap;
   z-index: 1000;
   opacity: 0;
+  //visibility: hidden;
   transition: opacity 0.1s;
   pointer-events: none;
 }
@@ -262,24 +293,30 @@ p {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid #333;
+  border-top: 5px solid theme-color(tooltip_background);
   transform: translate(-50%, 0);
 }
 
 .tooltip-container:hover .tooltip {
   opacity: 1;
+ // visibility: visible;
 }
 
-// Scrollable Container and Element Styles
+
+.scrollable-limits {
+  max-width: 100%;
+}
+
 .scrollable-container {
   display: flex;
-  gap: 20px;
+  gap: $leading;
   overflow-x: scroll;
+  //padding: 10px;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {
-    display: none;
+    display: none; /* Hide the scrollbar */
   }
 }
 
@@ -289,14 +326,14 @@ p {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
+ // margin-right: 10px;
   p {
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     width: 60px;
-    font-size: 70%;
+    font-size:70%;
   }
 }
 
@@ -305,7 +342,7 @@ p {
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #007bff;
+  border: 2px solid theme-color(primary_border);
   cursor: pointer;
 
   img {
@@ -313,4 +350,18 @@ p {
     height: 100%;
     object-fit: cover;
   }
+
+}
+
+
+.pill {
+  border: 1px solid #ddd;
+  background: #eee;
+  padding: 0 $leading/2;
+  border-radius: $border_radius/2;
+}
+
+
+.full {
+  height: 100%;
 }
