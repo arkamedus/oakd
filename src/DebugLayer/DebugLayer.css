@@ -1,0 +1,15 @@
+.debug-layer {
+    position: relative;
+    border: 1px dashed red;
+    padding-top: var(--line-height) ;
+    min-width: 120px;
+}
+
+.debug-layer > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(var(--line-height) );
+    background-color: #FFCBCB;
+    padding: 0 var(--leading);
+}

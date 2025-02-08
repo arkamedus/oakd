@@ -5,10 +5,10 @@ import { ParagraphProps } from "./Paragraph.types";
 import "./Paragraph.css";
 
 const Paragraph: React.FC<ParagraphProps> = ({ style, children, className }) => {
-    let classNames = ["paragraph","standardized-text"];
+    let classNames = ["standardized-reset","standardized-text","paragraph"];
     if (className) classNames.push(className);
 
-    return (<div data-testid="Paragraph" style={style} className={classNames.join(" ")}>{children}</div>);
+    return (<p data-testid="Paragraph" style={style} className={classNames.join(" ")}>{children}</p>);
 };
 
 export default Paragraph;

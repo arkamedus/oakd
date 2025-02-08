@@ -8,6 +8,8 @@
     row-gap: var(--gap-sizing);
 }
 
+
+
 /* Direction */
 .direction-horizontal {
     flex-direction: row;
@@ -19,7 +21,7 @@
 
 /* Alignment */
 .align-default {
-    align-items: normal;
+    align-items: flex-start;
 }
 
 .align-center {
@@ -32,6 +34,10 @@
 
 .align-end {
     align-items: flex-end;
+}
+
+.align-normal {
+    align-items: normal;
 }
 
 /* Justification */
@@ -53,6 +59,10 @@
 
 .justify-stretch {
     justify-content: stretch;
+}
+
+.justify-stretch > * {
+    flex-grow: 1;
 }
 
 .justify-around {

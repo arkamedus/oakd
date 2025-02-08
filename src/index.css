@@ -2,7 +2,7 @@
   /* Add your CSS variables here */
 
   --font-size: 10pt;
-  --line-height: 1em;
+  --line-height: 14pt;
 
   --leading: 8pt;
 
@@ -19,7 +19,7 @@
 
   --heading-font-size: 40px;
 
-  font-family: "Avenir Next", Helvetica, Arial, sans-serif;
+  font-family: "Courier","Source Code Pro", "Avenir Next", Helvetica, Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,13 +47,20 @@
 .pastel-container > *:nth-child(16n+15) { background-color: #FF9AA2; } /* Coral Pink */
 .pastel-container > *:nth-child(16n+16) { background-color: #C7CEEA; } /* Cool Lavender */
 
+* {
+  box-sizing: border-box;
+  //font-family: var(--font-family);
+}
+
 .standardized-reset {
   margin: 0;
   outline: none;
   border: 0;
   padding: 0;
 }
+
 .standardized-text {
   font-size: var(--font-size);
   line-height: var(--line-height);
+  min-height: var(--line-height);
 }
