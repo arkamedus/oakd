@@ -1,0 +1,59 @@
+:root {
+  /* Add your CSS variables here */
+
+  --font-size: 10pt;
+  --line-height: 1em;
+
+  --leading: 8pt;
+
+  --gap-sizing: 16px; /* Adjust as needed */
+
+  --background: #fff;
+  --font-color: #494949;
+
+  --harvey-black: #131111;
+  --harvey-white: #e0e0e0;
+  --harvey-red: #ff2323;
+  --harvey-green: #005f20;
+  --harvey-blue: #070bce;
+
+  --heading-font-size: 40px;
+
+  font-family: "Avenir Next", Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #3c3c3c;
+    --font-color: #fafafa;
+  }
+}
+
+
+.pastel-container > *:nth-child(16n+1) { background-color: #FFDDC1; } /* Light Peach */
+.pastel-container > *:nth-child(16n+2) { background-color: #FFABAB; } /* Soft Red */
+.pastel-container > *:nth-child(16n+3) { background-color: #FFC3A0; } /* Pale Orange */
+.pastel-container > *:nth-child(16n+4) { background-color: #D5AAFF; } /* Soft Purple */
+.pastel-container > *:nth-child(16n+5) { background-color: #85E3FF; } /* Light Blue */
+.pastel-container > *:nth-child(16n+6) { background-color: #B9FBC0; } /* Mint Green */
+.pastel-container > *:nth-child(16n+7) { background-color: #A0E7E5; } /* Teal */
+.pastel-container > *:nth-child(16n+8) { background-color: #C6CFFF; } /* Lavender */
+.pastel-container > *:nth-child(16n+9) { background-color: #F3FFE3; } /* Soft Yellow */
+.pastel-container > *:nth-child(16n+10) { background-color: #FFCBCB; } /* Blush Pink */
+.pastel-container > *:nth-child(16n+11) { background-color: #D4A5A5; } /* Muted Rose */
+.pastel-container > *:nth-child(16n+12) { background-color: #E4C1F9; } /* Light Purple */
+.pastel-container > *:nth-child(16n+13) { background-color: #B5EAD7; } /* Soft Green */
+.pastel-container > *:nth-child(16n+14) { background-color: #FFD6A5; } /* Warm Orange */
+.pastel-container > *:nth-child(16n+15) { background-color: #FF9AA2; } /* Coral Pink */
+.pastel-container > *:nth-child(16n+16) { background-color: #C7CEEA; } /* Cool Lavender */
+
+.standardized-reset {
+  margin: 0;
+  outline: none;
+  border: 0;
+  padding: 0;
+}
+.standardized-text {
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}

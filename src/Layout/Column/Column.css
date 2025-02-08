@@ -1,0 +1,185 @@
+/* Base Column: default to full width (24/24) */
+.col {
+  grid-column-end: span var(--col, 24);
+}
+
+/* ========== XS (default, no media query) ========== */
+.xs-1  { --col: 1; }
+.xs-2  { --col: 2; }
+.xs-3  { --col: 3; }
+.xs-4  { --col: 4; }
+.xs-5  { --col: 5; }
+.xs-6  { --col: 6; }
+.xs-7  { --col: 7; }
+.xs-8  { --col: 8; }
+.xs-9  { --col: 9; }
+.xs-10 { --col: 10; }
+.xs-11 { --col: 11; }
+.xs-12 { --col: 12; }
+.xs-13 { --col: 13; }
+.xs-14 { --col: 14; }
+.xs-15 { --col: 15; }
+.xs-16 { --col: 16; }
+.xs-17 { --col: 17; }
+.xs-18 { --col: 18; }
+.xs-19 { --col: 19; }
+.xs-20 { --col: 20; }
+.xs-21 { --col: 21; }
+.xs-22 { --col: 22; }
+.xs-23 { --col: 23; }
+.xs-24 { --col: 24; }
+
+/* ========== SM: ≥576px ========== */
+@media (min-width: 576px) {
+  .col {
+    grid-column-end: span var(--col-sm, var(--col, 24));
+  }
+  .sm-1  { --col-sm: 1; }
+  .sm-2  { --col-sm: 2; }
+  .sm-3  { --col-sm: 3; }
+  .sm-4  { --col-sm: 4; }
+  .sm-5  { --col-sm: 5; }
+  .sm-6  { --col-sm: 6; }
+  .sm-7  { --col-sm: 7; }
+  .sm-8  { --col-sm: 8; }
+  .sm-9  { --col-sm: 9; }
+  .sm-10 { --col-sm: 10; }
+  .sm-11 { --col-sm: 11; }
+  .sm-12 { --col-sm: 12; }
+  .sm-13 { --col-sm: 13; }
+  .sm-14 { --col-sm: 14; }
+  .sm-15 { --col-sm: 15; }
+  .sm-16 { --col-sm: 16; }
+  .sm-17 { --col-sm: 17; }
+  .sm-18 { --col-sm: 18; }
+  .sm-19 { --col-sm: 19; }
+  .sm-20 { --col-sm: 20; }
+  .sm-21 { --col-sm: 21; }
+  .sm-22 { --col-sm: 22; }
+  .sm-23 { --col-sm: 23; }
+  .sm-24 { --col-sm: 24; }
+}
+
+/* ========== MD: ≥768px ========== */
+@media (min-width: 768px) {
+  .col {
+    grid-column-end: span var(--col-md, var(--col-sm, var(--col, 24)));
+  }
+  .md-1  { --col-md: 1; }
+  .md-2  { --col-md: 2; }
+  .md-3  { --col-md: 3; }
+  .md-4  { --col-md: 4; }
+  .md-5  { --col-md: 5; }
+  .md-6  { --col-md: 6; }
+  .md-7  { --col-md: 7; }
+  .md-8  { --col-md: 8; }
+  .md-9  { --col-md: 9; }
+  .md-10 { --col-md: 10; }
+  .md-11 { --col-md: 11; }
+  .md-12 { --col-md: 12; }
+  .md-13 { --col-md: 13; }
+  .md-14 { --col-md: 14; }
+  .md-15 { --col-md: 15; }
+  .md-16 { --col-md: 16; }
+  .md-17 { --col-md: 17; }
+  .md-18 { --col-md: 18; }
+  .md-19 { --col-md: 19; }
+  .md-20 { --col-md: 20; }
+  .md-21 { --col-md: 21; }
+  .md-22 { --col-md: 22; }
+  .md-23 { --col-md: 23; }
+  .md-24 { --col-md: 24; }
+}
+
+/* ========== LG: ≥992px ========== */
+@media (min-width: 992px) {
+  .col {
+    grid-column-end: span var(--col-lg, var(--col-md, var(--col-sm, var(--col, 24))));
+  }
+  .lg-1  { --col-lg: 1; }
+  .lg-2  { --col-lg: 2; }
+  .lg-3  { --col-lg: 3; }
+  .lg-4  { --col-lg: 4; }
+  .lg-5  { --col-lg: 5; }
+  .lg-6  { --col-lg: 6; }
+  .lg-7  { --col-lg: 7; }
+  .lg-8  { --col-lg: 8; }
+  .lg-9  { --col-lg: 9; }
+  .lg-10 { --col-lg: 10; }
+  .lg-11 { --col-lg: 11; }
+  .lg-12 { --col-lg: 12; }
+  .lg-13 { --col-lg: 13; }
+  .lg-14 { --col-lg: 14; }
+  .lg-15 { --col-lg: 15; }
+  .lg-16 { --col-lg: 16; }
+  .lg-17 { --col-lg: 17; }
+  .lg-18 { --col-lg: 18; }
+  .lg-19 { --col-lg: 19; }
+  .lg-20 { --col-lg: 20; }
+  .lg-21 { --col-lg: 21; }
+  .lg-22 { --col-lg: 22; }
+  .lg-23 { --col-lg: 23; }
+  .lg-24 { --col-lg: 24; }
+}
+
+/* ========== XL: ≥1200px ========== */
+@media (min-width: 1200px) {
+  .col {
+    grid-column-end: span var(--col-xl, var(--col-lg, var(--col-md, var(--col-sm, var(--col, 24)))));
+  }
+  .xl-1  { --col-xl: 1; }
+  .xl-2  { --col-xl: 2; }
+  .xl-3  { --col-xl: 3; }
+  .xl-4  { --col-xl: 4; }
+  .xl-5  { --col-xl: 5; }
+  .xl-6  { --col-xl: 6; }
+  .xl-7  { --col-xl: 7; }
+  .xl-8  { --col-xl: 8; }
+  .xl-9  { --col-xl: 9; }
+  .xl-10 { --col-xl: 10; }
+  .xl-11 { --col-xl: 11; }
+  .xl-12 { --col-xl: 12; }
+  .xl-13 { --col-xl: 13; }
+  .xl-14 { --col-xl: 14; }
+  .xl-15 { --col-xl: 15; }
+  .xl-16 { --col-xl: 16; }
+  .xl-17 { --col-xl: 17; }
+  .xl-18 { --col-xl: 18; }
+  .xl-19 { --col-xl: 19; }
+  .xl-20 { --col-xl: 20; }
+  .xl-21 { --col-xl: 21; }
+  .xl-22 { --col-xl: 22; }
+  .xl-23 { --col-xl: 23; }
+  .xl-24 { --col-xl: 24; }
+}
+
+/* ========== XLS (XXL): ≥1600px ========== */
+@media (min-width: 1600px) {
+  .col {
+    grid-column-end: span var(--col-xls, var(--col-xl, var(--col-lg, var(--col-md, var(--col-sm, var(--col, 24))))));
+  }
+  .xls-1  { --col-xls: 1; }
+  .xls-2  { --col-xls: 2; }
+  .xls-3  { --col-xls: 3; }
+  .xls-4  { --col-xls: 4; }
+  .xls-5  { --col-xls: 5; }
+  .xls-6  { --col-xls: 6; }
+  .xls-7  { --col-xls: 7; }
+  .xls-8  { --col-xls: 8; }
+  .xls-9  { --col-xls: 9; }
+  .xls-10 { --col-xls: 10; }
+  .xls-11 { --col-xls: 11; }
+  .xls-12 { --col-xls: 12; }
+  .xls-13 { --col-xls: 13; }
+  .xls-14 { --col-xls: 14; }
+  .xls-15 { --col-xls: 15; }
+  .xls-16 { --col-xls: 16; }
+  .xls-17 { --col-xls: 17; }
+  .xls-18 { --col-xls: 18; }
+  .xls-19 { --col-xls: 19; }
+  .xls-20 { --col-xls: 20; }
+  .xls-21 { --col-xls: 21; }
+  .xls-22 { --col-xls: 22; }
+  .xls-23 { --col-xls: 23; }
+  .xls-24 { --col-xls: 24; }
+}

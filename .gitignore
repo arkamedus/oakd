@@ -1,1 +1,4 @@
-.npmignore
+node_modules/
+build/
+storybook-static/
+.idea/
