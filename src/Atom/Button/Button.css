@@ -1,6 +1,7 @@
 .button {
     margin: 0;
     outline: none;
+    border: none;
     padding-top: calc(var(--line-height) / 4);
     padding-bottom: calc(var(--line-height) / 4);
     padding-right: calc(var(--line-height) / 2);
@@ -15,4 +16,56 @@
 .button.size-large {
     padding-top: calc(var(--line-height) / 2);
     padding-bottom: calc(var(--line-height) / 2);
+}
+
+.button {
+    margin: 0;
+    outline: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.button.size-small {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.button.size-large {
+    padding-top: calc(var(--line-height) / 2);
+    padding-bottom: calc(var(--line-height) / 2);
+}
+
+/* Button Types */
+.button.type-default {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.button.type-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.button.type-danger {
+    background-color: var(--oakd-danger-color);
+    border-color: var(--oakd-danger-border);
+    color: var(--oakd-danger-text);
+}
+
+.button.type-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.button.type-ghost {
+    background: #CCC4;
+    color: #000;
+}
+
+.button.disabled,
+.button.type-disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
 }

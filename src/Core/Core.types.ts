@@ -8,7 +8,7 @@ export interface CoreComponentProps {
     className?: string;
 }
 
-export type ComponentSizeType = "default" | "small" | "large";
+export type CoreComponentSizeType = "default" | "small" | "large";
 export type ComponentLayoutSizingType = "default" | "wide" | "tall" | "full";
 
 export type ComponentLayoutDirectionType = "default" | "horizontal" | "vertical";

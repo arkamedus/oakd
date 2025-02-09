@@ -3,6 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import Row from "./Row";
 import Col from "../Column/Column";
 import DebugLayer from "../../DebugLayer/DebugLayer";
+import Column from "../Column/Column";
 
 export default {
     title: "Design System/Layout/Row",
@@ -25,5 +26,8 @@ const Template: StoryFn<{ pastel: boolean, gap: boolean }> = ({ pastel, gap }) =
 export const Default = Template.bind({});
 Default.args = { pastel: false, gap: false };
 
-export const WithColumnsGap = Template.bind({});
-WithColumnsGap.args = { pastel: true, gap: true };
+export const withColumnsGap = Template.bind({});
+withColumnsGap.args = { pastel: true, gap: true };
+
+export const withResponsiveColumnsGap = () => <Row gap><Column xs={24}><DebugLayer label={"DebugLayer (Column 1)"}/></Column>
+    <Column xs={24} md={12}><DebugLayer/></Column><Column xs={24} md={12}><DebugLayer/></Column></Row>;

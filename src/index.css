@@ -11,13 +11,18 @@
   --background: #fff;
   --font-color: #494949;
 
-  --harvey-black: #131111;
-  --harvey-white: #e0e0e0;
-  --harvey-red: #ff2323;
-  --harvey-green: #005f20;
-  --harvey-blue: #070bce;
+  --oakd-black: #11111f;
+  --oakd-white: #efefef;
+  --oakd-red: #f03333;
+  --oakd-green: #006f20;
+  --oakd-blue: #090bcf;
 
-  --heading-font-size: 40px;
+  --oakd-danger-color: #f03333;
+  --oakd-danger-border: #a91f1f;
+  --oakd-danger-text: #ffe0e0;
+
+
+    --heading-font-size: 40px;
 
   font-family: "Courier","Source Code Pro", "Avenir Next", Helvetica, Arial, sans-serif;
 }
@@ -49,7 +54,6 @@
 
 * {
   box-sizing: border-box;
-  //font-family: var(--font-family);
 }
 
 .standardized-reset {

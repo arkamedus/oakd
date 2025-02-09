@@ -1,6 +1,6 @@
 module.exports = (componentName) => ({
   content: `.foo-bar {
-  color: var(--harvey-green);
+  color: var(--oakd-green);
 }
 `,
   extension: `.css`
