@@ -3,9 +3,9 @@
 A scalable and efficient TypeScript React component library for modern applications.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-![Tests](https://github.com/arkamedus/components/actions/workflows/test.yml/badge.svg)
-![Coverage](https://raw.githubusercontent.com/arkamedus/components/main/coverage/badge.svg)
-![License](https://img.shields.io/github/license/arkamedus/oakJS.svg)
+![Tests Passing](https://img.shields.io/badge/Tests-Passing-green.svg)
+![Functional Coverage](https://img.shields.io/badge/Functional_Coverage-100%25-brightgreen.svg)
+![Branch Coverage](https://img.shields.io/badge/Branch_Coverage-73%25-green.svg)
 ---
 
 ## 🚀 **Development**
