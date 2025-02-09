@@ -31,7 +31,7 @@ jobs:
         run: npm install
 
       - name: Run Tests
-        run: npm test -- --coverage --ci --reporters=default --reporters=jest-junit
+        run: npm test -- --coverage --ci
         env:
           CI: true
 
@@ -62,7 +62,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage-report
-          path: coverage/
+          path: .
 
       - name: Generate Coverage Badge
         uses: tj-actions/coverage-badge-js@v2
