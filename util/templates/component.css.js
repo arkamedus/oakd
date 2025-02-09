@@ -1,7 +1,8 @@
-module.exports = (componentName) => ({
-  content: `.foo-bar {
-  color: var(--oakd-green);
+module.exports = (componentName) => {
+  return ({
+    content: `.oakd.${componentName.toLowerCase()} {
 }
 `,
-  extension: `.css`
-});
+    extension: `.css`
+  });
+}
