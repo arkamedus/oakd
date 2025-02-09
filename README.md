@@ -2,8 +2,8 @@
 
 A scalable and efficient TypeScript React component library for modern applications.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![Tests Passing](https://img.shields.io/badge/Tests-Passing-green.svg)
 ---
 
 ## 🚀 **Development**

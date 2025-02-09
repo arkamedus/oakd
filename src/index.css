@@ -4,7 +4,7 @@
   --font-size: 10pt;
   --line-height: 14pt;
 
-  --leading: 8pt;
+  --leading: 7pt;
 
   --gap-sizing: 16px; /* Adjust as needed */
 
@@ -24,7 +24,7 @@
 
     --heading-font-size: 40px;
 
-  font-family: "Courier","Source Code Pro", "Avenir Next", Helvetica, Arial, sans-serif;
+  --font-family: "Courier","Source Code Pro", "Avenir Next", Helvetica, Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -64,6 +64,7 @@
 }
 
 .standardized-text {
+  font-family: var(--font-family);
   font-size: var(--font-size);
   line-height: var(--line-height);
   min-height: var(--line-height);
