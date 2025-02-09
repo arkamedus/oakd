@@ -2,10 +2,10 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import Row from "./Row";
 import Col from "../Column/Column";
-import DebugLayer from "../../DebugLayer/DebugLayer";
+import DebugLayer from "../../Atom/DebugLayer/DebugLayer";
 import Column from "../Column/Column";
 
-export default {
+const meta:Meta<typeof Row> = {
     title: "Design System/Layout/Row",
     argTypes: {
         pastel: {
@@ -15,6 +15,7 @@ export default {
         },
     },
 } as Meta;
+export default meta;
 
 const Template: StoryFn<{ pastel: boolean, gap: boolean }> = ({ pastel, gap }) => (
     <Row className={pastel ? "pastel-container" : ""} gap={gap}>

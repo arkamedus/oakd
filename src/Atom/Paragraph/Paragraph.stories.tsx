@@ -1,9 +1,12 @@
 import React from "react";
+import {Meta, StoryObj} from "@storybook/react";
 import Paragraph from "./Paragraph";
 
-export default {
+const meta: Meta<typeof Paragraph> = {
     title: "Paragraph"
 };
+export default meta;
+type Story = StoryObj<typeof Paragraph>;
 
 export const Default:React.FC = () => <Paragraph>This is some text.</Paragraph>;
 

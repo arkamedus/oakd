@@ -9,18 +9,18 @@ describe("Test Component", () => {
 
   beforeEach(() => {
     props = {
-      foo: "bar"
+      label: "empty"
     };
   });
 
   const renderComponent = () => render(<DebugLayer {...props} />);
 
   it("should render foo text correctly", () => {
-    props.foo = "harvey was here";
+    props.label = "Label";
     const { getByTestId } = renderComponent();
 
     const component = getByTestId("DebugLayer");
 
-    expect(component).toHaveTextContent("harvey was here");
+    expect(component).toHaveTextContent("Label");
   });
 });

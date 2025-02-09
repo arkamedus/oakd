@@ -1,9 +1,11 @@
 import React from "react";
+import {Meta} from "@storybook/react";
 import Column from "./Column";
-import DebugLayer from "../../DebugLayer/DebugLayer";
+import DebugLayer from "../../Atom/DebugLayer/DebugLayer";
 
-export default {
+const meta:Meta<typeof Column> = {
     title: "Design System/Layout/Column"
 };
+export default meta;
 
 export const Default = () => <Column><DebugLayer/></Column>;

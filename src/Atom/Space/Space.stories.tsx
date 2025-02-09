@@ -1,10 +1,11 @@
 import React from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import {Meta, StoryFn, StoryObj} from "@storybook/react";
 import Space from "./Space";
 import Paragraph from "../Paragraph/Paragraph";
-import DebugLayer from "../../DebugLayer/DebugLayer";
+import Button from "../Button/Button";
+import DebugLayer from "../DebugLayer/DebugLayer";
 
-export default {
+const meta:Meta<typeof Space> =  {
     title: "Design System/Atomic/Space",
     component: Space,
     argTypes: {
@@ -45,6 +46,9 @@ export default {
         justify: "default",
     },
 } as Meta<typeof Space>;
+export default meta;
+type Story = StoryObj<typeof Button>;
+
 
 const card = (
     <div style={{ border: "1px solid #999", padding: "10px" }}>
