@@ -1,12 +1,12 @@
 import {
     ComponentAlignType,
     ComponentJustifyType,
-    ComponentLayoutDirectionType,
+    CoreComponentLayoutDirectionType,
     CoreLayoutProps
 } from "../../Core/Core.types";
 
 export interface SpaceProps extends CoreLayoutProps {
-    direction?: ComponentLayoutDirectionType;
+    direction?: CoreComponentLayoutDirectionType;
     align?: ComponentAlignType;
     justify?: ComponentJustifyType;
 }

@@ -5,7 +5,7 @@ import { ColumnProps } from "./Column.types";
 import "./Column.css";
 
 export const Col: React.FC<ColumnProps> = ({children, onMouseEnter, style, xs, sm, md, lg, xl, xls, className}) => {
-    let classNames = ['col'];
+    let classNames = ['oakd','column'];
     if (xs) classNames.push(`xs-${xs}`);
     if (sm) classNames.push(`sm-${sm}`);
     if (md) classNames.push(`md-${md}`);
@@ -15,7 +15,7 @@ export const Col: React.FC<ColumnProps> = ({children, onMouseEnter, style, xs, s
     if (className) classNames.push(className);
 
     return (
-        <div data-testid="Col" className={classNames.join(" ")} style={style} onMouseEnter={onMouseEnter}>{children}</div>
+        <div data-testid="Column" className={classNames.join(" ")} style={style} onMouseEnter={onMouseEnter}>{children}</div>
     );
 };
 

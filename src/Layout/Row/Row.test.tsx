@@ -1,26 +1,40 @@
 import React from "react";
 import { render } from "@testing-library/react";
-
+import "@testing-library/jest-dom";
 import Row from "./Row";
-import { RowProps } from "./Row.types";
 
-describe("Test Component", () => {
-  let props: RowProps;
+describe("Row Component", () => {
+  const renderComponent = (props = {}) =>
+      render(
+          <Row data-testid="Row" {...props}>
+            <div>Item 1</div>
+            <div>Item 2</div>
+          </Row>
+      );
 
-  beforeEach(() => {
-    props = {
-      foo: "bar"
-    };
+  it("should render without errors", () => {
+    const { getByTestId } = renderComponent();
+    expect(getByTestId("Row")).toBeInTheDocument();
   });
 
-  const renderComponent = () => render(<Row {...props} />);
-
-  it("should render foo text correctly", () => {
-    props.foo = "harvey was here";
+  it("should apply default classes", () => {
     const { getByTestId } = renderComponent();
+    expect(getByTestId("Row")).toHaveClass("row");
+  });
 
-    const component = getByTestId("Row");
+  it("should render children correctly", () => {
+    const { getByTestId } = renderComponent();
+    expect(getByTestId("Row")).toHaveTextContent("Item 1");
+    expect(getByTestId("Row")).toHaveTextContent("Item 2");
+  });
 
-    expect(component).toHaveTextContent("harvey was here");
+  it("should apply gap class when gap prop is true", () => {
+    const { getByTestId } = renderComponent({ gap: true });
+    expect(getByTestId("Row")).toHaveClass("gap");
+  });
+
+  it("should match snapshot", () => {
+    const { container } = renderComponent();
+    expect(container).toMatchSnapshot();
   });
 });

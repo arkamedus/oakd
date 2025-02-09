@@ -9,9 +9,9 @@ export interface CoreComponentProps {
 }
 
 export type CoreComponentSizeType = "default" | "small" | "large";
-export type ComponentLayoutSizingType = "default" | "wide" | "tall" | "full";
+export type CoreComponentLayoutSizingType = "default" | "wide" | "tall" | "full";
 
-export type ComponentLayoutDirectionType = "default" | "horizontal" | "vertical";
+export type CoreComponentLayoutDirectionType = "default" | "horizontal" | "vertical";
 
 export type ComponentAlignType = "default" | "center" | "start" | "end";
 export type ComponentJustifyType = "default" | "center" | "start" | "end" | "stretch" | "around" | "between" | "evenly";
@@ -21,5 +21,5 @@ export interface CoreLayoutProps extends CoreComponentProps {
 }
 
 export interface CoreLayoutSizingProps  {
-    fill?: ComponentLayoutSizingType;
+    fill?: CoreComponentLayoutSizingType;
 }

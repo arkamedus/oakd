@@ -1,5 +1,5 @@
 /* Base Column: default to full width (24/24) */
-.col {
+.column {
   grid-column-end: span var(--col, 24);
 }
 
@@ -31,7 +31,7 @@
 
 /* ========== SM: ≥576px ========== */
 @media (min-width: 576px) {
-  .col {
+  .column {
     grid-column-end: span var(--col-sm, var(--col, 24));
   }
   .sm-1  { --col-sm: 1; }
@@ -62,7 +62,7 @@
 
 /* ========== MD: ≥768px ========== */
 @media (min-width: 768px) {
-  .col {
+  .column {
     grid-column-end: span var(--col-md, var(--col-sm, var(--col, 24)));
   }
   .md-1  { --col-md: 1; }
@@ -93,7 +93,7 @@
 
 /* ========== LG: ≥992px ========== */
 @media (min-width: 992px) {
-  .col {
+  .column {
     grid-column-end: span var(--col-lg, var(--col-md, var(--col-sm, var(--col, 24))));
   }
   .lg-1  { --col-lg: 1; }
@@ -155,7 +155,7 @@
 
 /* ========== XLS (XXL): ≥1600px ========== */
 @media (min-width: 1600px) {
-  .col {
+  .column {
     grid-column-end: span var(--col-xls, var(--col-xl, var(--col-lg, var(--col-md, var(--col-sm, var(--col, 24))))));
   }
   .xls-1  { --col-xls: 1; }
