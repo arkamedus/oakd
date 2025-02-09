@@ -14,11 +14,11 @@ describe("Test Component", () => {
   const renderComponent = () => render(<Paragraph {...props} />);
 
   it("should render foo text correctly", () => {
-    props.children = "harvey was here";
+    props.children = "custom foo prop";
     const { getByTestId } = renderComponent();
 
     const component = getByTestId("Paragraph");
 
-    expect(component).toHaveTextContent("harvey was here");
+    expect(component).toHaveTextContent("custom foo prop");
   });
 });

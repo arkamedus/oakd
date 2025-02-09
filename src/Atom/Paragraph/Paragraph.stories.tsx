@@ -3,7 +3,7 @@ import {Meta, StoryObj} from "@storybook/react";
 import Paragraph from "./Paragraph";
 
 const meta: Meta<typeof Paragraph> = {
-    title: "Paragraph"
+    title: "Design System/Atomic/Typography/Paragraph",
 };
 export default meta;
 type Story = StoryObj<typeof Paragraph>;

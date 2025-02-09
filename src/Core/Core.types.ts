@@ -20,6 +20,10 @@ export interface CoreLayoutProps extends CoreComponentProps {
     gap?: number|boolean;
 }
 
+export interface CoreContentProps extends CoreComponentProps {
+    pad?: number|boolean;
+}
+
 export interface CoreLayoutSizingProps  {
     fill?: CoreComponentLayoutSizingType;
 }

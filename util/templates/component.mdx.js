@@ -15,8 +15,6 @@ The \`${componentName}\` component etc...
 
 # ${componentName} Component
 
-## Stories
-
 Listed below are additional variations of the component.
 
 <Stories />`,

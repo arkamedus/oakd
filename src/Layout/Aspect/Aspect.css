@@ -1,0 +1,43 @@
+.oakd.aspect {
+}
+
+/* Base aspect class */
+.aspect {
+    position: relative;
+    width: 100%;
+}
+
+.aspect::before {
+    content: "";
+    display: block;
+    padding-top: var(--aspect-ratio, 42.86%); /* Default to 21:9 */
+}
+
+/* Inner content fills the aspect ratio */
+.aspect > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Aspect ratio classes */
+.aspect-1x1 { --aspect-ratio: 100%; }   /* Square */
+.aspect-16x9 { --aspect-ratio: 56.25%; } /* Widescreen */
+.aspect-4x3 { --aspect-ratio: 75%; }     /* Old TV */
+.aspect-3x2 { --aspect-ratio: 66.66%; }
+.aspect-21x9 { --aspect-ratio: 42.86%; } /* Ultrawide */
+.aspect-9x16 { --aspect-ratio: 177.78%; } /* Vertical video */
+.aspect-2x1 { --aspect-ratio: 50%; }     /* Banner */
+.aspect-3x4 { --aspect-ratio: 133.33%; }
+.aspect-5x4 { --aspect-ratio: 80%; }
+.aspect-32x9 { --aspect-ratio: 28.12%; } /* Super Ultrawide */
+.aspect-1x2 { --aspect-ratio: 200%; }    /* Tall */
+
+/* Ensure it does not exceed the container */
+.aspect-max {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}

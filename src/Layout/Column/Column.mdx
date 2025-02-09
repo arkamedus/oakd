@@ -1,0 +1,26 @@
+import { Controls, Meta, Primary, Stories, Title } from "@storybook/blocks";
+import meta from './Column.stories';
+
+<Meta of={meta} />
+
+<Title>Column Component</Title>
+
+The `Column` component is designed to be the only logical child of a `Row`. It provides responsive configuration using props such as `xs`, `sm`, `md`, `lg`, `xl`, and `xls`, allowing you to control its width across different breakpoints. This makes it essential for building adaptive grid layouts.
+
+<Primary />
+<Controls />
+
+---
+
+# Column Component
+
+The `Column` component defines a segment of a layout within a `Row`. Its responsive props allow you to tailor the width and behavior of the column for various device sizes, ensuring that your grid adapts smoothly to any viewport.
+
+**Key Points:**
+- **Responsive Sizing:** Use `xs`, `sm`, `md`, `lg`, `xl`, and `xls` to control column width.
+- **Grid Integration:** Intended to be used within a `Row` for creating flexible grid systems.
+- **Adaptive Layout:** Helps build layouts that adjust fluidly to different screen sizes.
+
+Listed below are additional variations of the component.
+
+<Stories />

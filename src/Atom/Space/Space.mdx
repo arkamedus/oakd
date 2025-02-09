@@ -1,0 +1,26 @@
+import { Controls, Meta, Primary, Stories, Title } from "@storybook/blocks";
+import meta from './Space.stories';
+
+<Meta of={meta} />
+
+<Title>Space Component</Title>
+
+The `Space` component provides a flexible container to arrange its children with configurable spacing, alignment, and justification. It allows you to control the gap between items, set the layout direction (default, horizontal, or vertical), and align or distribute items along both the cross and main axes.
+
+<Primary />
+<Controls />
+
+---
+
+# Space Component Documentation
+
+The `Space` component is designed to simplify layout creation by managing spacing and alignment for its children. It accepts several key props:
+
+- **gap**: Toggles the gap between items.
+- **direction**: Determines the layout orientation (options: `default`, `horizontal`, `vertical`).
+- **align**: Controls the alignment of items along the cross axis (options: `default`, `normal`, `center`, `start`, `end`).
+- **justify**: Sets the distribution of items along the main axis (options: `default`, `center`, `start`, `end`, `stretch`, `around`, `between`, `evenly`).
+
+This component is ideal for creating consistent, responsive layouts without the need to write additional spacing or alignment CSS.
+
+<Stories />

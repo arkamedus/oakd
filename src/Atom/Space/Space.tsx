@@ -6,7 +6,7 @@ import "./Space.css";
 
 const Space: React.FC<SpaceProps> = ({ style, children, className, gap, direction, align, justify }) => {
 
-    let classNames = ["space"];
+    let classNames = ["oakd","space"];
     if (className) classNames.push(className);
     if (direction) classNames.push(`direction-${direction}`);
     if (align) classNames.push(`align-${align}`);

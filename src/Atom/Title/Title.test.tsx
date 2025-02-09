@@ -1,24 +1,25 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import Content from "./Content";
-import { ContentProps } from "./Content.types";
+import Title from "./Title";
+import { TitleProps } from "./Title.types";
 
 describe("Test Component", () => {
-  let props: ContentProps;
+  let props: TitleProps;
 
   beforeEach(() => {
     props = {
+      foo: "bar"
     };
   });
 
-  const renderComponent = () => render(<Content {...props} />);
+  const renderComponent = () => render(<Title {...props} />);
 
   it("should render foo text correctly", () => {
-    props.children = "custom foo prop";
+    props.foo = "custom foo prop";
     const { getByTestId } = renderComponent();
 
-    const component = getByTestId("Content");
+    const component = getByTestId("Title");
 
     expect(component).toHaveTextContent("custom foo prop");
   });

@@ -1,24 +1,25 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import Content from "./Content";
-import { ContentProps } from "./Content.types";
+import Card from "./Card";
+import { CardProps } from "./Card.types";
 
 describe("Test Component", () => {
-  let props: ContentProps;
+  let props: CardProps;
 
   beforeEach(() => {
     props = {
+      foo: "bar"
     };
   });
 
-  const renderComponent = () => render(<Content {...props} />);
+  const renderComponent = () => render(<Card {...props} />);
 
   it("should render foo text correctly", () => {
-    props.children = "custom foo prop";
+    props.foo = "custom foo prop";
     const { getByTestId } = renderComponent();
 
-    const component = getByTestId("Content");
+    const component = getByTestId("Card");
 
     expect(component).toHaveTextContent("custom foo prop");
   });

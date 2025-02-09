@@ -1,15 +1,14 @@
 module.exports = (componentName) => ({
   content: `import React from "react";
+import {Meta} from "@storybook/react";
 import ${componentName} from "./${componentName}";
 
 const meta: Meta<typeof ${componentName}> = {
   title: "${componentName}",
   component: ${componentName},
-  tags:['!autodocs'],
   argTypes: { /* ... */ }
 };
 export default meta;
-type Story = StoryObj<typeof Button>;
 
 export const Default = () => <${componentName} />;
 

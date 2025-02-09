@@ -1,0 +1,26 @@
+import { Controls, Meta, Primary, Stories, Title } from "@storybook/blocks";
+import meta from './Row.stories';
+
+<Meta of={meta} />
+
+<Title>Row Component</Title>
+
+The `Row` component is a foundational layout element designed to arrange content horizontally. It is intended primarily to contain `Column` components, which manage responsive behavior via props like `xs`, `sm`, `md`, `lg`, `xl`, and `xls`. Use `Row` to control spacing, alignment, and overall grid structure in your layout.
+
+<Primary />
+<Controls />
+
+---
+
+# Row Component Documentation
+
+The `Row` component serves as the main container in a grid system. Its primary role is to organize and space out its child components—ideally, `Column` components—to create a consistent, responsive layout.
+
+**Key Points:**
+- **Layout Container:** Provides a horizontal structure for content.
+- **Responsive Design:** Meant to host `Column` components that adjust based on viewport size.
+- **Spacing & Alignment:** Manages gaps and alignment to maintain design consistency.
+
+Listed below are additional variations of the component.
+
+<Stories />

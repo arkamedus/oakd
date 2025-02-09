@@ -1,0 +1,4 @@
+.oakd.card {
+    border: 1px solid #eee;
+    padding: var(--leading);
+}
