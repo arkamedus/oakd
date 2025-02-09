@@ -67,7 +67,7 @@ jobs:
       - name: Generate Coverage Badge
         uses: tj-actions/coverage-badge-js@v2
         with:
-          path: coverage/coverage-summary.json
+          path: coverage
           output_path: coverage/badge.svg
 
       - name: Commit & Push Badge
