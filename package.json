@@ -12,8 +12,8 @@
     "build": "rollup -c",
     "test": "jest",
     "test:watch": "jest --watch",
-    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
-    "storybook:export": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
+    "storybook": "NODE_OPTIONS=--openssl-legacy-provider storybook dev -p 6006",
+    "storybook:export": "NODE_OPTIONS=--openssl-legacy-provider storybook build",
     "generate": "node ./util/create-component",
     "prepublishOnly": "npm run build"
   },
@@ -31,7 +31,9 @@
     "Storybook"
   ],
   "author": "Gordon Goodrum <gordon@oakframe.org>",
-  "contributors": ["Harvey Delaney"],
+  "contributors": [
+    "Harvey Delaney"
+  ],
   "license": "MIT",
   "homepage": "https://oakframe.org/oakd",
   "peerDependencies": {
@@ -43,11 +45,12 @@
     "@mdx-js/react": "^3.1.0",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.1",
-    "@storybook/addon-docs": "^8.5.3",
-    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
     "@storybook/blocks": "^8.5.3",
-    "@storybook/react": "^6.5.13",
+    "@storybook/react": "^8.5.3",
+    "@storybook/react-webpack5": "^8.5.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@types/jest": "^24.9.1",

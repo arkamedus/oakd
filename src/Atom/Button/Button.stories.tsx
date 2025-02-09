@@ -1,12 +1,13 @@
 import React from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import {Meta, StoryFn, StoryObj} from "@storybook/react";
 import Button from "./Button";
 import { ButtonType } from "./Button.types";
 import {CoreComponentSizeType} from "../../Core/Core.types";
 
-export default {
+const meta: Meta<typeof Button> = {
     title: "Design System/Atomic/Button",
     component: Button,
+    tags:['!autodocs'],
     argTypes: {
         type: {
             control: "select",
@@ -26,26 +27,29 @@ export default {
         },
         onClick: { action: "clicked" }, // Storybook action
     },
-} as Meta;
+};
+export default meta;
+type Story = StoryObj<typeof Button>;
 
 const Template: StoryFn<{ type: ButtonType; size: CoreComponentSizeType; disabled: boolean }> = (args) => (
     <Button {...args}>Click Me</Button>
 );
 
-export const Default = Template.bind({});
+export const Default:Story = Template.bind({});
 Default.args = { type: "default", size: "default", disabled: false };
 
-export const Primary = Template.bind({});
+export const Primary:Story = Template.bind({});
 Primary.args = { type: "primary" };
 
-export const Danger = Template.bind({});
+export const Danger:Story = Template.bind({});
 Danger.args = { type: "danger" };
 
-export const Warning = Template.bind({});
+export const Warning:Story = Template.bind({});
 Warning.args = { type: "warning" };
 
-export const Ghost = Template.bind({});
+export const Ghost:Story = Template.bind({});
 Ghost.args = { type: "ghost" };
 
-export const Disabled = Template.bind({});
+export const Disabled:Story = Template.bind({});
 Disabled.args = { type: "disabled", disabled: true };
+

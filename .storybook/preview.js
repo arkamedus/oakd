@@ -66,3 +66,4 @@ import "../src/index.css";
  *
  * Will add a new dropdown in your toolbar with options light and dark.
  **/
+export const tags = ["autodocs"];
