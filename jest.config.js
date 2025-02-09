@@ -12,8 +12,5 @@ module.exports = {
         "identity-obj-proxy",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
   },
-  reporters: [
-    "default",
-    ["jest-junit", { outputDirectory: "./", outputName: "junit.xml" }]
-  ]
+  coverageReporters: ["json-summary", "text", "lcov"]
 };
