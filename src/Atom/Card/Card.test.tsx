@@ -9,14 +9,14 @@ describe("Test Component", () => {
 
   beforeEach(() => {
     props = {
-      foo: "bar"
+      children: "bar"
     };
   });
 
   const renderComponent = () => render(<Card {...props} />);
 
   it("should render foo text correctly", () => {
-    props.foo = "custom foo prop";
+    props.children = "custom foo prop";
     const { getByTestId } = renderComponent();
 
     const component = getByTestId("Card");

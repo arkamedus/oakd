@@ -4,8 +4,8 @@
 }
 
 .space.gap {
-    column-gap: var(--gap-sizing);
-    row-gap: var(--gap-sizing);
+    column-gap: var(--leading);
+    row-gap: var(--leading);
 }
 
 

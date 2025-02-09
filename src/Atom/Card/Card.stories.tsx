@@ -6,9 +6,10 @@ import Title from "../Title/Title";
 import Paragraph from "../Paragraph/Paragraph";
 import DebugLayer from "../DebugLayer/DebugLayer";
 import Button from "../Button/Button";
+import Divider from "../Divider/Divider";
 
 const meta: Meta<typeof Card> = {
-  title: "Design System/Components/Card",
+  title: "Design System/Atomic/Card",
   component: Card,
   argTypes: {
   }
@@ -35,6 +36,7 @@ export const WithActions = () => (
       <Space direction="vertical" gap>
         <Title>Card with Actions</Title>
         <Paragraph>Some content inside the card.</Paragraph>
+          <Divider/>
         <Space justify="end" gap>
           <Button type="primary">Accept</Button>
           <Button type="danger">Decline</Button>
