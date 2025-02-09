@@ -3,3 +3,4 @@ build/
 storybook-static/
 .idea/
 __snapshots__/
+coverage/
