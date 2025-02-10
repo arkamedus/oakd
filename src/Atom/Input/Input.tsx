@@ -83,8 +83,11 @@ const Input: React.FC<InputProps> = ({
 				/>
 				{hasError && (
 					<span data-testid="InputError">
-						<IconTriangle size={sizeMinusOne(size)} className="input-error-message"/>
-				</span>
+						<IconTriangle
+							size={sizeMinusOne(size)}
+							className="input-error-message"
+						/>
+					</span>
 				)}
 			</Space>
 		</div>

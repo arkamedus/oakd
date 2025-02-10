@@ -4,7 +4,7 @@ import "./Button.css";
 import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
 import Paragraph from "../Paragraph/Paragraph";
-import {sizeMinusOne} from "../../Core/Core.utils";
+import { sizeMinusOne } from "../../Core/Core.utils";
 
 const Button: React.FC<ButtonProps> = ({
 	children,

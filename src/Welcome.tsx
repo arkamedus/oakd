@@ -68,34 +68,32 @@ export const Welcome = () => {
 					</Space>
 
 					<Card style={{ width: "100%" }}>
-						<DebugLayer
-							label={"oakd | oakframe.org"}
-						>
+						<DebugLayer label={"oakd | oakframe.org"}>
 							<Content pad>
 								<Space gap direction={"vertical"} style={{ width: "100%" }}>
 									<Space direction={"vertical"} gap style={{ width: "100%" }}>
 										<Paragraph>buttons</Paragraph>
 										<Space gap justify={"between"} style={{ width: "100%" }}>
-										{["default", "primary", "warning", "danger"]
-											.slice(0, 16)
-											.map((type: ButtonType) => {
-												return (
-													<Button icon={"Star"} size={"small"} type={type}>
-														<Paragraph>{type}</Paragraph>
-													</Button>
-												);
-											})}
-										<Button
-											size={"small"}
-											icon={<IconSliders size={"small"} />}
-										>
-											<Paragraph>Button</Paragraph>
-										</Button>
-										<Button type={"danger"} size={"small"} icon={"Trash"} />
-										<Button type={"ghost"} size={"small"} icon={"Triangle"}>
-											<Paragraph>ghost</Paragraph>
-										</Button>
-									</Space>
+											{["default", "primary", "warning", "danger"]
+												.slice(0, 16)
+												.map((type: ButtonType) => {
+													return (
+														<Button icon={"Star"} size={"small"} type={type}>
+															<Paragraph>{type}</Paragraph>
+														</Button>
+													);
+												})}
+											<Button
+												size={"small"}
+												icon={<IconSliders size={"small"} />}
+											>
+												<Paragraph>Button</Paragraph>
+											</Button>
+											<Button type={"danger"} size={"small"} icon={"Trash"} />
+											<Button type={"ghost"} size={"small"} icon={"Triangle"}>
+												<Paragraph>ghost</Paragraph>
+											</Button>
+										</Space>
 									</Space>
 
 									<Space direction={"vertical"} gap style={{ width: "100%" }}>
@@ -127,15 +125,19 @@ export const Welcome = () => {
 									<Space direction={"vertical"} gap>
 										<Paragraph>svg icons</Paragraph>
 										<Space style={{ width: "100%" }} gap justify={"between"}>
-											{IconTypes.slice(0, 21).map((icon: CoreIconNameType,idx:number) => {
-												return (
-													<Paragraph><Icon
-														key={`icon-${idx}`}
-														name={icon}
-														size="small"
-													/></Paragraph>
-												);
-											})}
+											{IconTypes.slice(0, 21).map(
+												(icon: CoreIconNameType, idx: number) => {
+													return (
+														<Paragraph>
+															<Icon
+																key={`icon-${idx}`}
+																name={icon}
+																size="small"
+															/>
+														</Paragraph>
+													);
+												},
+											)}
 											<Paragraph>
 												<em>and more!</em>
 											</Paragraph>

@@ -12,15 +12,19 @@ const Space: React.FC<SpaceProps> = ({
 	direction,
 	align,
 	justify,
-	wide
+	wide,
 }) => {
 	let classNames = ["oakd", "space"];
 	if (className) classNames.push(className);
 	if (direction) classNames.push(`direction-${direction}`);
 	if (align) classNames.push(`align-${align}`);
 	if (justify) classNames.push(`justify-${justify}`);
-	if (gap) {classNames.push("gap");}
-	if (wide) {classNames.push("wide");}
+	if (gap) {
+		classNames.push("gap");
+	}
+	if (wide) {
+		classNames.push("wide");
+	}
 
 	return (
 		<div data-testid="Space" style={style} className={classNames.join(" ")}>

@@ -3,7 +3,7 @@ import { CoreIconNameType } from "../../Icon/Icons.bin";
 export interface InputProps {
 	type?: "text" | "password" | "email" | "number";
 	value?: string;
-	defaultValue?: string|number;
+	defaultValue?: string | number;
 	placeholder?: string;
 	error?: boolean;
 	disabled?: boolean;
