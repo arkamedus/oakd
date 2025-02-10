@@ -1,8 +1,11 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {Meta, StoryFn, StoryObj} from "@storybook/react";
 import Button from "./Button";
 import { ButtonType } from "./Button.types";
 import {CoreComponentSizeType} from "../../Core/Core.types";
+import Space from "../Space/Space";
+import {IconPlus, IconTrash, IconTriangle} from "../../Icon/Icon";
+import Paragraph from "../Paragraph/Paragraph";
 
 const meta: Meta<typeof Button> = {
     title: "Design System/Atomic/Button",
@@ -31,25 +34,38 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-const Template: StoryFn<{ type: ButtonType; size: CoreComponentSizeType; disabled: boolean }> = (args) => (
-    <Button {...args}>Click Me</Button>
-);
+const Template: StoryFn<{ type: ButtonType; size: CoreComponentSizeType; disabled: boolean, icon:ReactNode, children:any  }> = (args) => {
+
+    const firstArgs = {...args};
+    delete firstArgs.children;
+
+    const middleArgs = {...args};
+    delete middleArgs.icon;
+
+    return (
+    <Space gap>
+        <Button {...firstArgs}></Button>
+        <Button {...middleArgs}><Paragraph>{args.children||"Button"}</Paragraph></Button>
+        <Button icon={args.icon} {...args}><Paragraph>{args.children||"Button"}</Paragraph></Button>
+    </Space>
+)};
+
 
 export const Default:Story = Template.bind({});
-Default.args = { type: "default", size: "default", disabled: false };
+Default.args = { type: "default", size: "default", disabled: false, icon:<IconPlus size={"small"}/>, children:"Button" };
 
 export const Primary:Story = Template.bind({});
-Primary.args = { type: "primary" };
+Primary.args = { type: "primary", icon:<IconTriangle size={"small"}/>, children:"Primary" };
 
 export const Danger:Story = Template.bind({});
-Danger.args = { type: "danger" };
+Danger.args = { type: "danger", icon:<IconTriangle size={"small"}/>, children:"Danger" };
 
 export const Warning:Story = Template.bind({});
-Warning.args = { type: "warning" };
+Warning.args = { type: "warning", icon:<IconTriangle size={"small"}/>, children:"Warning" };
 
 export const Ghost:Story = Template.bind({});
-Ghost.args = { type: "ghost" };
+Ghost.args = { type: "ghost", icon:<IconTriangle size={"small"}/>, children:"Ghost" };
 
 export const Disabled:Story = Template.bind({});
-Disabled.args = { type: "disabled", disabled: true };
+Disabled.args = { type: "disabled", disabled: true , icon:<IconTriangle size={"small"}/>, children:"Disabled"};
 

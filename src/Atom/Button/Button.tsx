@@ -1,6 +1,7 @@
 import React from "react";
 import {ButtonProps} from "./Button.types";
 import "./Button.css";
+import Space from "../Space/Space";
 
 const Button: React.FC<ButtonProps> = ({
                                            children,
@@ -41,8 +42,8 @@ const Button: React.FC<ButtonProps> = ({
             role={role}
             data-testid="Button"
         >
-            {icon}
-            {children}
+            <Space gap>{icon}
+                {children}</Space>
         </button>
     );
 };

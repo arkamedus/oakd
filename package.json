@@ -44,6 +44,7 @@
     "@babel/core": "^7.15.0",
     "@mdx-js/react": "^3.1.0",
     "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-image": "^3.0.3",
     "@rollup/plugin-node-resolve": "^11.2.1",
     "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-postcss": "^2.0.0",

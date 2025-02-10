@@ -1,6 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import Paragraph from "./Paragraph";
+import {IconMagnify} from "../../Icon/Icon";
 
 const meta: Meta<typeof Paragraph> = {
     title: "Design System/Atomic/Typography/Paragraph",
@@ -33,7 +34,7 @@ export const EmphasizedText: Story = {
 export const LongText: Story = {
     render: () => (
         <Paragraph>
-            Lorem ipsum <strong>dolor sit</strong> amet, consectetur adipiscing elit.
+            <IconMagnify size={"small"}/> Lorem ipsum <strong>dolor sit</strong> amet, consectetur adipiscing elit.
             Pellentesque sit amet tellus in <em>urna varius</em> tincidunt et a enim.
             Duis sit amet eros ut velit pharetra fermentum. Sed vel lectus at
             arcu ultricies luctus a sed neque.
