@@ -4,7 +4,7 @@ A scalable and efficient TypeScript React component library for modern applicati
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![Tests Passing](https://img.shields.io/badge/Tests-Passing-brightgreen.svg) ![Functional Coverage](https://img.shields.io/badge/Functional_Coverage-98%25-brightgreen.svg) ![Branch Coverage](https://img.shields.io/badge/Branch_Coverage-83%25-green.svg)
 
-<img src="./preview.jpg" alt="oakd Component Preview" width="620px"/>
+![Branch Coverage](./preview.jpg)
 
 ---  
 
