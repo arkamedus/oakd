@@ -3,6 +3,7 @@
     border: 1px dashed red;
     padding-top: var(--line-height) ;
     min-width: 120px;
+    display: block;
 }
 
 .debug-layer > label {

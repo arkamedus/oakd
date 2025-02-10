@@ -1,4 +1,5 @@
 .oakd.divider {
+    width: 100%;
     border-bottom: 1pt solid var(--oakd-gray);
     flex-grow: 1;
 }

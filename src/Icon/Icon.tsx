@@ -26,7 +26,7 @@ const Icon: React.FC<IconProps> = ({
   };
 
   return (
-    <div
+    <span
       className={`oakd icon icon-${size} ${className}`}
       style={iconStyle}
       {...props}
@@ -47,9 +47,9 @@ export const IconStack: React.FC<IconStackProps> = ({
   className = "",
   style,
 }) => (
-  <div className={`oakd-icon-stack ${className}`} style={style}>
+  <span className={`oakd-icon-stack ${className}`} style={style}>
     {React.Children.map(children, (child) => (
-      <div className="oakd-icon-stack__item">{child}</div>
+      <span className="oakd-icon-stack__item">{child}</span>
     ))}
-  </div>
+  </span>
 );

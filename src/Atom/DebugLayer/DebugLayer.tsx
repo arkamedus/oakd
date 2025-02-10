@@ -13,10 +13,10 @@ const DebugLayer: React.FC<DebugLayerProps> = ({
   className,
 }) => {
   return (
-    <div data-testid="DebugLayer" className="oakd debug-layer" style={style}>
+    <span data-testid="DebugLayer" className="oakd debug-layer" style={style}>
       {label && <label><Paragraph><IconLayers size={"small"}/>{label}</Paragraph></label>}
       {children}
-    </div>
+    </span>
   );
 };
 

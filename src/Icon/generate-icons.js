@@ -37,7 +37,7 @@ fs.readdir(assetDir, (err, files) => {
 
     const fileContent = `// This file is auto-generated. Do not edit manually.
 import React from "react";
-import {CoreIconNameType, IconProps} from "./Icon.types";
+import {IconProps} from "./Icon.types";
 import Icon from "./Icon";
 
 ${importStatements.join("\n")}
@@ -45,6 +45,7 @@ ${importStatements.join("\n")}
 export const IconMap: Record<string, string> = {
 ${iconMapEntries.join(",\n")}
 };
+
 export type CoreIconNameType = ${iconTypesArray.map(a=>{return `"${a}"`}).join(" | ")};
 
 export const IconTypes: CoreIconNameType[] = ${JSON.stringify(iconTypesArray)};

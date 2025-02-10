@@ -58,6 +58,7 @@ export const IconMap: Record<string, string> = {
   "User": IUser,
   "X": IX
 };
+
 export type CoreIconNameType = "Angle" | "Apps" | "Arrow" | "Bar" | "Check" | "Circle" | "Clock" | "Comment" | "Diamond" | "Folder" | "Layers" | "List" | "Magnify" | "Octagon" | "PenPaper" | "Plus" | "Refresh" | "Share" | "Sliders" | "Square" | "Star" | "Text" | "Trash" | "Triangle" | "User" | "X";
 
 export const IconTypes: CoreIconNameType[] = ["Angle","Apps","Arrow","Bar","Check","Circle","Clock","Comment","Diamond","Folder","Layers","List","Magnify","Octagon","PenPaper","Plus","Refresh","Share","Sliders","Square","Star","Text","Trash","Triangle","User","X"];
