@@ -7,6 +7,7 @@
     padding-bottom: calc(var(--leading) / 2);
     padding-right: var(--leading);
     padding-left: var(--leading);
+    height: auto;
 }
 
 .button.size-small {

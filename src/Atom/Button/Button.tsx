@@ -2,6 +2,9 @@ import React from "react";
 import { ButtonProps } from "./Button.types";
 import "./Button.css";
 import Space from "../Space/Space";
+import {CoreIconNameType} from "../../Icon/Icon.types";
+import Icon from "../../Icon/Icon";
+import Paragraph from "../Paragraph/Paragraph";
 
 const Button: React.FC<ButtonProps> = ({
   children,
@@ -14,6 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   disabled,
   role = "button", // Default role for accessibility
+    label,
 }) => {
   const isDisabled = type === "disabled" || disabled;
 
@@ -44,8 +48,9 @@ const Button: React.FC<ButtonProps> = ({
       role={role}
       data-testid="Button"
     >
-      <Space gap>
-        {icon}
+      <Space gap align={"center"} style={{height:"100%"}}>
+        {icon&&<Icon name={icon} size={size}/>}
+        {label&&<Paragraph>{label}</Paragraph>}
         {children}
       </Space>
     </button>

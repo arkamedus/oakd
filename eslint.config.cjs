@@ -9,10 +9,16 @@ module.exports = [
     js.configs.recommended,
     {
         files: ["**/*.ts", "**/*.tsx"],
+        ignores: ["**/*.test.tsx"],
         languageOptions: {
             parser: tsParser,
             sourceType: "module",
-            ecmaVersion: "latest"
+            ecmaVersion: "latest",
+            globals: {
+                window: "readonly",
+                document: "readonly",
+                HTMLImageElement: "readonly"
+            }
         },
         plugins: {
             "@typescript-eslint": ts,
@@ -22,7 +28,7 @@ module.exports = [
         rules: {
             "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
             "react/react-in-jsx-scope": "off",
-            "prettier/prettier": "error"
+            "prettier/prettier": ["error", { useTabs: true }]
         }
     },
     prettier

@@ -1,14 +1,13 @@
 .space {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .space.gap {
     column-gap: var(--leading);
     row-gap: var(--leading);
 }
-
-
 
 /* Direction */
 .direction-horizontal {
@@ -40,7 +39,16 @@
     align-items: normal;
 }
 
-/* Justification */
+/* Use align-items: stretch for stretch mode */
+.justify-stretch {
+    align-items: stretch;
+}
+
+.justify-stretch > * {
+    flex-grow: 1;
+}
+
+/* Other justification classes */
 .justify-default {
     justify-content: normal;
 }
@@ -55,14 +63,6 @@
 
 .justify-end {
     justify-content: flex-end;
-}
-
-.justify-stretch {
-    justify-content: stretch;
-}
-
-.justify-stretch > * {
-    flex-grow: 1;
 }
 
 .justify-around {

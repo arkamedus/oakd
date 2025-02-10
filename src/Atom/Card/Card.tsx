@@ -7,6 +7,9 @@ const Card: React.FC<CardProps> = ({ children, className, pad }) => {
   if (pad) {
     classNames.push("pad");
   }
+  if (className) {
+    classNames.push(className);
+  }
   return (
     <div data-testid="Card" className={classNames.join(" ")}>
       {children}
