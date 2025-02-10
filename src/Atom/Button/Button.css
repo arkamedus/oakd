@@ -1,4 +1,4 @@
-.button {
+.oakd.button {
     display: inline-flex;
     margin: 0;
     outline: none;
@@ -48,14 +48,14 @@
     background-color: #ffc107;
 }
 .button.type-warning .oakd.standardized-text {
-    color: #654406;
+    color: #000;
 }
 
 .button.type-ghost {
     background: #CCC4;
 }
 .button.type-ghost .oakd.standardized-text {
-    color: #000;
+    color: #666;
 }
 
 .button.disabled,

@@ -2,7 +2,7 @@
 
 A scalable and efficient TypeScript React component library for modern applications.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![Tests Passing](https://img.shields.io/badge/Tests-Passing-brightgreen.svg) ![Functional Coverage](https://img.shields.io/badge/Functional_Coverage-98%25-brightgreen.svg) ![Branch Coverage](https://img.shields.io/badge/Branch_Coverage-83%25-green.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![Tests Passing](https://img.shields.io/badge/Tests-Passing-brightgreen.svg) ![Functional Coverage](https://img.shields.io/badge/Functional_Coverage-97%25-brightgreen.svg) ![Branch Coverage](https://img.shields.io/badge/Branch_Coverage-79%25-green.svg)
 
 ![Branch Coverage](./preview.jpg)
 
@@ -44,17 +44,25 @@ export default App;
 
 ## 🖌 **Icon Pack & Generation**
 
-Our oakd icon pack is hand-drawn exclusively for OakFrame. All SVGs are located in the `src/Icon/asset/` folder. To update or add new icons:
+The oakd icon pack is custom-designed for OakFrame. All SVG icons are stored in the `src/Icon/asset/` folder. Follow these steps to update or add icons:
 
-1. **Add or update SVG files** in `src/Icon/asset/`.
-2. Run the generation script to automatically create and update icon exports:
+1. **Add or update SVG files**:  
+   Place your SVG files in the `src/Icon/asset/` directory. File names should follow this pattern:
+   ```
+   oakd_Icon[A-Z][a-z+].svg
+   ```
+
+2. **Run the icon generation script**:  
+   Use the following command to generate the icon exports:
    ```sh
    npm run icons
-   ```
-   This generates a file named `icons.generated.tsx` that exports:
-    - An `iconMap` (e.g. `{ Angle: IAngle, Trash: ITrash, ... }`)
-    - Individual icon components (e.g. `IconTrash`, `IconUser`, etc.)
-3. Your package now automatically includes all icons with correct relative paths and inlined assets.
+   ```  
+   This script creates a file named `src/Icon/Icons.bin.tsx`, which includes:
+   - An `iconMap` object mapping icon names to components (e.g., `{ Angle: IAngle, Trash: ITrash }`).
+   - Individual icon components (e.g., `IconTrash`, `IconUser`, etc.).
+
+3. **Icons are automatically included**:  
+   Once the script runs, all icons are ready to use with proper paths and inlined assets.
 
 ---
 
@@ -211,8 +219,8 @@ import 'oakd/build/index.css';
 Utilize predefined CSS variables from `variables.css`:
 ```css  
 .example-container {  
-    color: var(--col-white);  
-    background-color: var(--col-black);  
+    color: var(--oakd-white);  
+    background-color: var(--oakd-black);  
 }  
 ```  
 

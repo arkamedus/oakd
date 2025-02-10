@@ -1,0 +1,96 @@
+.oakd.input-container {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid;
+    padding: 0;
+    height: auto;
+    border-radius: 2px;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    padding-right: var(--leading);
+    padding-left: var(--leading);
+}
+
+input.oakd.input {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding-top: calc(var(--leading) / 2);
+    padding-bottom: calc(var(--leading) / 2);
+}
+
+input.oakd.input.size-default {
+    padding-top: calc(var(--leading) / 2);
+    padding-bottom: calc(var(--leading) / 2);
+}
+
+input.oakd.input.size-small {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+input.oakd.input.size-large {
+    padding-top: var(--leading);
+    padding-bottom: var(--leading);
+    padding-right: calc( var(--leading) * 2 );
+    padding-left: calc( var(--leading) * 2 );
+}
+
+/* Input Types (Matching Button Types) */
+.input-container.type-default {
+    background-color: #f0f0f0;
+    border-color: #0f4580;
+    color: #000;
+}
+input.oakd.input.type-default input {
+}
+
+.input-container.type-primary {
+    background-color: #007bff;
+    border-color: #0f4580;
+    color: #fff;
+}
+input.oakd.input.type-primary input {
+}
+
+.input-container.type-danger {
+    background-color: var(--oakd-danger-color);
+    border-color: var(--oakd-danger-border);
+    color: var(--oakd-danger-text);
+}
+input.oakd.input.type-danger input {
+
+}
+
+.input-container.type-warning {
+    background-color: #ffc107;
+    color: #654406;
+}
+input.oakd.input.type-warning input {
+}
+
+.input-container.type-ghost {
+    background: #CCC4;
+    color: #888;
+}
+input.oakd.input.type-ghost input {
+}
+
+/* Error State */
+.oakd .input-container.input-error {
+    border-color: var(--oakd-danger-color, red);
+}
+.oakd .input-error-message {
+    color: var(--oakd-danger-color, red);
+}
+
+/* Disabled State */
+.input-container.input-disabled,
+.input-container.type-disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
+}
+input.oakd.input.input-disabled input,
+input.oakd.input.type-disabled input {
+    color: #666;
+}

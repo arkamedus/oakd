@@ -1,12 +1,11 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Meta, StoryFn, StoryObj } from "@storybook/react";
 import Button from "./Button";
 import { ButtonType } from "./Button.types";
 import { CoreComponentSizeType } from "../../Core/Core.types";
 import Space from "../Space/Space";
-import { IconFolder, IconPlus, IconTrash, IconTriangle } from "../../Icon/Icon";
 import Paragraph from "../Paragraph/Paragraph";
-import { CoreIconNameType } from "../../Icon/Icon.types";
+import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
 
 const meta: Meta<typeof Button> = {
 	title: "Design System/Atomic/Button",
@@ -55,6 +54,9 @@ const Template: StoryFn<{
 				<Button {...middleArgs}>
 					<Paragraph>{args.children || "Button"}</Paragraph>
 				</Button>
+				<Button icon={<IconFolder size={"small"} />} {...middleArgs}>
+					<Paragraph>{args.children || <span>Button</span>}</Paragraph>
+				</Button>
 				<Button icon={args.icon} {...args}>
 					<Paragraph>{args.children || <span>Button</span>}</Paragraph>
 				</Button>
@@ -79,9 +81,9 @@ const Template: StoryFn<{
 				<Button icon={args.icon} {...args}>
 					<Paragraph>
 						<span>
-							Button
+							Two lines make
 							<br />
-							Two Lines
+							the others stretch
 						</span>
 					</Paragraph>
 				</Button>

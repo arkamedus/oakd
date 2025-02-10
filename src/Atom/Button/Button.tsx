@@ -21,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
 	const isDisabled = type === "disabled" || disabled;
 
 	const classNames = [
+		"oakd",
 		"standardized-reset",
 		"standardized-text",
 		"button",

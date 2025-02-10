@@ -26,6 +26,7 @@ fs.readdir(assetDir, (err, files) => {
             : baseName;
         // Remove any "Icon" prefix if desired (optional)
         iconName = iconName.replace(/^Icon/, "");
+
         iconTypesArray.push(iconName);
         const importVar = `I${iconName}`;
         importStatements.push(`import ${importVar} from "./asset/${file}";`);

@@ -4,7 +4,6 @@ import Title from "./Atom/Title/Title";
 import Paragraph from "./Atom/Paragraph/Paragraph";
 import Content from "./Layout/Content/Content";
 import Card from "./Atom/Card/Card";
-import Aspect from "./Layout/Aspect/Aspect";
 import DebugLayer from "./Atom/DebugLayer/DebugLayer";
 import Button from "./Atom/Button/Button";
 import { CoreIconNameType, IconSliders, IconTypes } from "./Icon/Icons.bin";
@@ -12,6 +11,7 @@ import Icon from "./Icon/Icon";
 import { ButtonType } from "./Atom/Button/Button.types";
 import Row from "./Layout/Row/Row";
 import Column from "./Layout/Column/Column";
+import Input from "./Atom/Input/Input";
 
 export const Welcome = () => {
 	return (
@@ -73,8 +73,10 @@ export const Welcome = () => {
 							style={{ backgroundColor: "white" }}
 						>
 							<Content pad>
-								<Space gap direction={"vertical"}>
-									<Space gap>
+								<Space gap direction={"vertical"} style={{ width: "100%" }}>
+									<Space direction={"vertical"} gap style={{ width: "100%" }}>
+										<Paragraph>buttons</Paragraph>
+										<Space gap justify={"between"} style={{ width: "100%" }}>
 										{["default", "primary", "warning", "danger"]
 											.slice(0, 16)
 											.map((type: ButtonType) => {
@@ -95,6 +97,33 @@ export const Welcome = () => {
 											<Paragraph>ghost</Paragraph>
 										</Button>
 									</Space>
+									</Space>
+
+									<Space direction={"vertical"} gap style={{ width: "100%" }}>
+										<Paragraph>inputs</Paragraph>
+										<Space style={{ width: "100%" }} gap justify={"between"}>
+											<Input
+												icon={"User"}
+												placeholder={"text"}
+												type={"text"}
+												inputType={"default"}
+											/>
+											<Input
+												icon={"Star"}
+												placeholder={"password"}
+												type={"password"}
+												inputType={"default"}
+											/>
+											<Input
+												icon={"List"}
+												placeholder={"errored"}
+												type={"number"}
+												inputType={"default"}
+												error
+												defaultValue={-1}
+											/>
+										</Space>
+									</Space>
 
 									<Space direction={"vertical"} gap>
 										<Paragraph>svg icons</Paragraph>
@@ -102,6 +131,7 @@ export const Welcome = () => {
 											{IconTypes.slice(0, 21).map((icon: CoreIconNameType) => {
 												return (
 													<Icon
+
 														name={icon}
 														size="small"
 														style={{ color: "black" }}
@@ -113,6 +143,7 @@ export const Welcome = () => {
 											</Paragraph>
 										</Space>
 									</Space>
+
 									<Paragraph>row w/ gap & columns</Paragraph>
 									<Row gap>
 										<Column xs={24}>

@@ -3,9 +3,7 @@ import {
 	CoreComponentProps,
 } from "../../Core/Core.types";
 import { CSSProperties, FC } from "react";
-import Icon from "../../Icon/Icon";
 import { CoreIconNameType } from "../../Icon/Icons.bin";
-import { IconProps } from "../../Icon/Icon.types";
 
 export type ButtonType =
 	| "default"
