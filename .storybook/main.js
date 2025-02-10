@@ -7,9 +7,8 @@ module.exports = {
   // Add any Storybook addons you want here: https://storybook.js.org/addons/
   addons: [
     "@storybook/addon-essentials",
-    "@storybook/addon-postcss",
-    "@storybook/addon-docs",
-    "@storybook/addon-webpack5-compiler-babel"
+    "@storybook/addon-styling",
+    "@storybook/addon-docs"
   ],
 
   webpackFinal: async (config) => {

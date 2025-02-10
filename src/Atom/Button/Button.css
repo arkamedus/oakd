@@ -8,8 +8,10 @@
     padding-right: var(--leading);
     padding-left: var(--leading);
     height: auto;
+    transition: background-color 0.2s ease-in-out, filter 0.1s ease-in-out;
 }
 
+/* Button Sizes */
 .button.size-small {
     padding-top: 0;
     padding-bottom: 0;
@@ -18,24 +20,28 @@
 .button.size-large {
     padding-top: var(--leading);
     padding-bottom: var(--leading);
-    padding-right: calc( var(--leading) * 2 );
-    padding-left: calc( var(--leading) * 2 );
+    padding-right: calc(var(--leading) * 2);
+    padding-left: calc(var(--leading) * 2);
 }
 
 /* Button Types */
-.button.type-default {
+.oakd.button.type-default {
     background-color: #f0f0f0;
+}
+.oakd.button.type-default .oakd.standardized-text {
     color: #000;
 }
 
-.button.type-primary {
+/* Primary Button */
+.oakd.button.type-primary {
     background-color: #007bff;
     border-color: #0f4580;
 }
-.button.type-primary .oakd.standardized-text {
+.oakd.button.type-primary .oakd.standardized-text {
     color: #fff;
 }
 
+/* Danger Button */
 .button.type-danger {
     background-color: var(--oakd-danger-color);
     border-color: var(--oakd-danger-border);
@@ -44,6 +50,7 @@
     color: var(--oakd-danger-text);
 }
 
+/* Warning Button */
 .button.type-warning {
     background-color: #ffc107;
 }
@@ -51,6 +58,7 @@
     color: #000;
 }
 
+/* Ghost Button */
 .button.type-ghost {
     background: #CCC4;
 }
@@ -58,6 +66,7 @@
     color: #666;
 }
 
+/* Disabled Button */
 .button.disabled,
 .button.type-disabled {
     background-color: #ccc;
@@ -65,4 +74,23 @@
 }
 .button.disabled .oakd.standardized-text, .button.type-disabled .oakd.standardized-text {
     color: #666;
+}
+
+/* ---- Interactive States ---- */
+
+/* Hover: Lightens color by ~10% */
+.button:not(.disabled):hover {
+    filter: brightness(1.15);
+    cursor: pointer;
+}
+
+/* Active (Click Down): Darkens by ~15% */
+.button:not(.disabled):active {
+    filter: brightness(0.85);
+}
+
+/* Focus: Slightly lighter for accessibility */
+.button:not(.disabled):focus {
+    filter: brightness(1.1);
+    outline: 2px solid rgba(0, 0, 0, 0.2);
 }

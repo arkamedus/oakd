@@ -7,6 +7,7 @@ import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
 
+
 const meta: Meta<typeof Button> = {
 	title: "Design System/Atomic/Button",
 	component: Button,

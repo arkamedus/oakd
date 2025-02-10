@@ -4,6 +4,7 @@ import "./Button.css";
 import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
 import Paragraph from "../Paragraph/Paragraph";
+import {sizeMinusOne} from "../../Core/Core.utils";
 
 const Button: React.FC<ButtonProps> = ({
 	children,
@@ -50,7 +51,7 @@ const Button: React.FC<ButtonProps> = ({
 		>
 			<Space gap align={"center"} style={{ height: "100%" }}>
 				{icon && typeof icon === "string" ? (
-					<Icon name={icon} size={size} />
+					<Icon name={icon} size={sizeMinusOne(size)} />
 				) : (
 					icon
 				)}

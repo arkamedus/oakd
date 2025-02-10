@@ -70,3 +70,7 @@
   line-height: var(--line-height);
   min-height: var(--line-height);
 }
+
+.oakd.wide {
+  width: 100%;
+}
