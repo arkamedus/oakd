@@ -53,18 +53,18 @@
 .pastel-container > *:nth-child(16n+15) { background-color: #FF9AA2; } /* Coral Pink */
 .pastel-container > *:nth-child(16n+16) { background-color: #C7CEEA; } /* Cool Lavender */
 
-* {
+.oakd * {
   box-sizing: border-box;
 }
 
-.standardized-reset {
+.oakd.standardized-reset {
   margin: 0;
   outline: none;
   border: 0;
   padding: 0;
 }
 
-.standardized-text {
+.oakd.standardized-text {
   font-family: var(--font-family);
   font-size: var(--font-size);
   line-height: var(--line-height);

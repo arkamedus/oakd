@@ -32,7 +32,10 @@ export default {
       limit: Infinity,
     }),
     typescript({ useTsconfigDeclarationDir: true }),
-    postcss(),
+    postcss({
+      modules: true, // Enables CSS Modules
+      extract: true, // Extracts CSS to a separate file
+    }),
     // Only copy non-inline assets (like index.css)
     copy({
       targets: [
@@ -43,5 +46,6 @@ export default {
         }
       ]
     })
-  ]
+  ],
+  preserveEntrySignatures: "strict", // Ensures dynamic imports are preserved
 };

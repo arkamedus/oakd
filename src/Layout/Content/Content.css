@@ -1,3 +1,7 @@
-.foo-bar {
-  color: var(--oakd-green);
+.oakd.content {
+
+}
+
+.oakd.content.pad {
+  padding: var(--leading);
 }

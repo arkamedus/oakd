@@ -9,13 +9,13 @@ export default {
 
 export const Default = () => (
   <Content>
-    <DebugLayer label={"DebugLayer"} />
+      <DebugLayer label={"DebugLayer"} ><Paragraph>Paragraph text.</Paragraph></DebugLayer>
   </Content>
 );
 
 export const WithPadding = () => (
   <DebugLayer label={"DebugLayer"}>
-    <Content>
+    <Content pad>
       <Paragraph>Paragraph text.</Paragraph>
     </Content>
   </DebugLayer>

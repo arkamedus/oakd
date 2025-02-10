@@ -2,7 +2,6 @@ import React from "react";
 import { ButtonProps } from "./Button.types";
 import "./Button.css";
 import Space from "../Space/Space";
-import {CoreIconNameType} from "../../Icon/Icon.types";
 import Icon from "../../Icon/Icon";
 import Paragraph from "../Paragraph/Paragraph";
 
