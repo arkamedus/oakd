@@ -1,12 +1,13 @@
+/* --------------------------------------------------
+   1) BASE (LIGHT MODE) USING :root
+-------------------------------------------------- */
 :root {
-  /* Add your CSS variables here */
-
+  /* Base variables */
   --font-size: 10pt;
   --line-height: 14pt;
-
   --leading: 7pt;
-
-  --gap-sizing: 16px; /* Adjust as needed */
+  --border-radius: 0;
+  --gap-sizing: 14pt;
 
   --background: #fff;
   --font-color: #494949;
@@ -18,22 +19,213 @@
   --oakd-green: #006f20;
   --oakd-blue: #090bcf;
 
+  /* Danger set (example from your snippet) */
   --oakd-danger-color: #f03333;
   --oakd-danger-border: #a91f1f;
   --oakd-danger-text: #ffe0e0;
 
+  /* Add the rest of your color sets with explicit hex values */
 
-    --heading-font-size: 40px;
+  /* Default (neutral) */
+  --oakd-default-color: #5c6370;   /* Approx. neutral/dark grayish-blue */
+  --oakd-default-border: #2e3138;  /* Darker border */
+  --oakd-default-text: #c6cad1;    /* Lighter text */
 
-  --font-family: "Courier","Source Code Pro", "Avenir Next", Helvetica, Arial, sans-serif;
+  /* Primary */
+  --oakd-primary-color: #3f8bef;
+  --oakd-primary-border: #1b2eab;
+  --oakd-primary-text: #ffffff;
+
+  /* Warning */
+  --oakd-warning-color: #ffbf00;
+  --oakd-warning-border: #996200;
+  --oakd-warning-text: #4d3100;
+
+  /* Ghost (subtle background) */
+  --oakd-ghost-color: #f3f3f3;
+  --oakd-ghost-border: #c8c8c8;
+  --oakd-ghost-text: #7f7f7f;
+
+  /* Disabled */
+  --oakd-disabled-color: #f0f0f0;
+  --oakd-disabled-border: #bebebe;
+  --oakd-disabled-text: #888888;
+
+  /* Heading / Typography */
+  --heading-font-size: 40px;
+  --font-family: "Courier", "Source Code Pro", "Avenir Next", Helvetica, Arial, sans-serif;
 }
 
+/* --------------------------------------------------
+   2) DARK MODE OVERRIDES FOR BASE
+   (prefers-color-scheme: dark)
+-------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #3c3c3c;
-    --font-color: #fafafa;
+    --background: #2a2a2a;
+    --font-color: #f5f5f5;
+
+    --oakd-black: #f5f5f5;
+    --oakd-gray: #999999;
+    --oakd-white: #1a1a1a;
+    --oakd-red: #ff6666;
+    --oakd-green: #66ff66;
+    --oakd-blue: #6666ff;
+
+    /* Dark mode versions of each color set */
+    --oakd-danger-color: #ff6666;
+    --oakd-danger-border: #cc3333;
+    --oakd-danger-text: #ffcccc;
+
+    --oakd-default-color: #6b7280;
+    --oakd-default-border: #374151;
+    --oakd-default-text: #d2d6dc;
+
+    --oakd-primary-color: #2e65bf;
+    --oakd-primary-border: #1b2e59;
+    --oakd-primary-text: #fafafa;
+
+    --oakd-warning-color: #e0aa00;
+    --oakd-warning-border: #b58900;
+    --oakd-warning-text: #fff5d5;
+
+    --oakd-ghost-color: #3a3a3a;
+    --oakd-ghost-border: #2f2f2f;
+    --oakd-ghost-text: #c7c7c7;
+
+    --oakd-disabled-color: #3f3f3f;
+    --oakd-disabled-border: #2a2a2a;
+    --oakd-disabled-text: #999999;
   }
 }
+
+/* --------------------------------------------------
+   3) THEME-SOFT (LIGHT MODE)
+-------------------------------------------------- */
+.theme-soft {
+  --border-radius: 3pt;
+  --background: #fafafa;
+  --font-color: #555555;
+  --gap-sizing: 16pt;
+  /* If you want to override other color vars specifically for .theme-soft, do it here */
+}
+
+/* --------------------------------------------------
+   4) THEME-SOFT (DARK MODE)
+   (prefers-color-scheme: dark)
+-------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  .theme-soft {
+    --background: #3a3a3a;
+    --font-color: #ebebeb;
+    /* Override other colors if desired for .theme-soft in dark mode */
+  }
+}
+
+/* --------------------------------------------------
+   5) THEME-TIGHT (LIGHT MODE)
+-------------------------------------------------- */
+.theme-tight {
+  --font-size: 9pt;
+  --line-height: 12pt;
+  --leading: 4pt;
+  --gap-sizing: 7pt;
+  --border-radius: 1.62pt;
+  /* Additional overrides if needed */
+}
+
+/* --------------------------------------------------
+   6) THEME-TIGHT (DARK MODE)
+   (prefers-color-scheme: dark)
+-------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  .theme-tight {
+    --background: #2a2a2a;
+    --font-color: #f5f5f5;
+    /* Additional overrides if needed */
+  }
+}
+
+/* --------------------------------------------------
+   7) THEME-HIGH-CONTRAST (LIGHT MODE)
+-------------------------------------------------- */
+.theme-high-contrast {
+  --background: #000000;
+  --font-color: #ffffff;
+
+  --oakd-black: #ffffff;
+  --oakd-gray: #cccccc;
+  --oakd-white: #000000;
+  --oakd-red: #ff0000;
+  --oakd-green: #00ff00;
+  --oakd-blue: #0000ff;
+
+  --oakd-danger-color: #ff0000;
+  --oakd-danger-border: #ff0000;
+  --oakd-danger-text: #ffcccc;
+
+  --border-radius: 0;
+  --gap-sizing: 10pt;
+
+  /* Override other sets if you'd like them equally bold, e.g.: */
+  --oakd-default-color: #000;
+  --oakd-default-border: #ffffff;
+  --oakd-default-text: #fff;
+
+  --oakd-primary-color: #0000ff;
+  --oakd-primary-border: #0000ff;
+  --oakd-primary-text: #ffffff;
+
+  --oakd-warning-color: #ffff00;
+  --oakd-warning-border: #ffff00;
+  --oakd-warning-text: #000000;
+
+  --oakd-ghost-color: #cccccc;
+  --oakd-ghost-border: #ffffff;
+  --oakd-ghost-text: #000000;
+
+  --oakd-disabled-color: #777777;
+  --oakd-disabled-border: #ffffff;
+  --oakd-disabled-text: #000000;
+}
+
+/* --------------------------------------------------
+   8) THEME-HIGH-CONTRAST (DARK MODE)
+   (prefers-color-scheme: dark)
+-------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  .theme-high-contrast {
+    /* Typically remains the same for black/white,
+       but override if you need a special "dark" scheme. */
+    --background: #000000;
+    --font-color: #ffffff;
+
+    --oakd-danger-color: #ff0000;
+    --oakd-danger-border: #ff0000;
+    --oakd-danger-text: #ffcccc;
+
+    --oakd-default-color: #ffffff;
+    --oakd-default-border: #ffffff;
+    --oakd-default-text: #000000;
+
+    --oakd-primary-color: #0000ff;
+    --oakd-primary-border: #0000ff;
+    --oakd-primary-text: #ffffff;
+
+    --oakd-warning-color: #ffff00;
+    --oakd-warning-border: #ffff00;
+    --oakd-warning-text: #000000;
+
+    --oakd-ghost-color: #cccccc;
+    --oakd-ghost-border: #ffffff;
+    --oakd-ghost-text: #000000;
+
+    --oakd-disabled-color: #777777;
+    --oakd-disabled-border: #ffffff;
+    --oakd-disabled-text: #000000;
+  }
+}
+
 
 
 .pastel-container > *:nth-child(16n+1) { background-color: #FFDDC1; } /* Light Peach */
@@ -69,6 +261,7 @@
   font-size: var(--font-size);
   line-height: var(--line-height);
   min-height: var(--line-height);
+  color: var(--font-color);
 }
 
 .oakd.wide {

@@ -70,7 +70,6 @@ export const Welcome = () => {
 					<Card style={{ width: "100%" }}>
 						<DebugLayer
 							label={"oakd | oakframe.org"}
-							style={{ backgroundColor: "white" }}
 						>
 							<Content pad>
 								<Space gap direction={"vertical"} style={{ width: "100%" }}>
@@ -128,14 +127,13 @@ export const Welcome = () => {
 									<Space direction={"vertical"} gap>
 										<Paragraph>svg icons</Paragraph>
 										<Space style={{ width: "100%" }} gap justify={"between"}>
-											{IconTypes.slice(0, 21).map((icon: CoreIconNameType) => {
+											{IconTypes.slice(0, 21).map((icon: CoreIconNameType,idx:number) => {
 												return (
-													<Icon
-
+													<Paragraph><Icon
+														key={`icon-${idx}`}
 														name={icon}
 														size="small"
-														style={{ color: "black" }}
-													/>
+													/></Paragraph>
 												);
 											})}
 											<Paragraph>

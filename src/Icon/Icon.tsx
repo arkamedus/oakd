@@ -5,6 +5,7 @@ import "./Icon.css";
 import { IconMap } from "./Icons.bin";
 
 const Icon: React.FC<IconProps> = ({
+	key,
 	name,
 	style,
 	size = "default",
@@ -27,6 +28,7 @@ const Icon: React.FC<IconProps> = ({
 
 	return (
 		<span
+			key={key}
 			data-testid="Icon"
 			className={`oakd standardized-reset standardized-text icon icon-${size} ${className}`}
 			style={iconStyle}

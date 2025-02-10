@@ -2,6 +2,7 @@
     display: inline-flex;
     margin: 0;
     outline: none;
+    border-radius: var(--border-radius);
     border: 1px solid;
     padding-top: calc(var(--leading) / 2);
     padding-bottom: calc(var(--leading) / 2);
@@ -34,8 +35,8 @@
 
 /* Primary Button */
 .oakd.button.type-primary {
-    background-color: #007bff;
-    border-color: #0f4580;
+    background-color: var(--oakd-primary-color);
+    border-color: var(--oakd-primary-border);
 }
 .oakd.button.type-primary .oakd.standardized-text {
     color: #fff;
@@ -52,10 +53,11 @@
 
 /* Warning Button */
 .button.type-warning {
-    background-color: #ffc107;
+    background-color: var(--oakd-warning-color);
+    border-color: var(--oakd-warning-border);
 }
 .button.type-warning .oakd.standardized-text {
-    color: #000;
+    color: var(--oakd-warning-text);
 }
 
 /* Ghost Button */

@@ -1,9 +1,5 @@
-import { initialize, mswDecorator } from "msw-storybook-addon";
-import { withThemeByClassName } from "@storybook/addon-styling";
 import "../src/index.css";
-
-initialize();
-
+import {withThemeByClassName} from "@storybook/addon-styling";
 /**
  * Read https://storybook.js.org/docs/react/configure/overview#configure-story-rendering
  * for more information about the purpose of this file.
@@ -71,14 +67,18 @@ initialize();
  *
  * Will add a new dropdown in your toolbar with options light and dark.
  **/
+
+
 export const decorators = [
     withThemeByClassName({
         themes: {
-            light: "theme-light",
-            dark: "theme-dark",
+            default: "theme-default",
+            soft: "theme-soft",
+            tight: "theme-tight",
+            contrast: "theme-high-contrast",
         },
-        defaultTheme: "light",
-    }),
+        defaultTheme: "default",
+    })
 ];
 
 export const tags = ["autodocs"];

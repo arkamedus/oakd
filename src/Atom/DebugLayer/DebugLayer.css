@@ -14,4 +14,6 @@
     background-color: #FFCBCB;
     padding: 0 var(--leading);
     color: #851010;
+    border-bottom-right-radius: calc(var(--border-radius) * .66);
+
 }

@@ -1,17 +1,8 @@
 .welcome__container {
-    font-family: 'Inter', sans-serif;
+   // font-family: 'Inter', sans-serif;
     animation: fadeIn 0.5s ease-in-out;
 }
 
-.welcome__heading {
-    color: #fff;
-    margin: 0;
-}
-
-.welcome__heading--subtitle {
-    font-weight: 300;
-    color: #999;
-}
 
 @keyframes fadeIn {
     from {

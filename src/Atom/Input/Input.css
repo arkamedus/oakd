@@ -4,7 +4,7 @@
     border: 1px solid;
     padding: 0;
     height: auto;
-    border-radius: 2px;
+    border-radius: var(--border-radius);
     transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
     padding-right: var(--leading);
     padding-left: var(--leading);
@@ -37,15 +37,15 @@ input.oakd.input.size-large {
 
 /* Input Types (Matching Button Types) */
 .input-container.type-default {
-    background-color: #f0f0f0;
-    border-color: #0f4580;
-    color: #000;
+    background-color: var(--background);
+    border-color: var(--oakd-default-border);
+    color: var(--oakd-default-text);
 }
 input.oakd.input.type-default input {
 }
 
 .input-container.type-primary {
-    background-color: #007bff;
+    background-color: var(--oakd-primary-color);
     border-color: #0f4580;
     color: #fff;
 }
