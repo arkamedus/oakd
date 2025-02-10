@@ -20,5 +20,5 @@ export {
   Icon
 };
 
-export * from "./Icon/icons.generated";
+export * from "./Icon/Icons.bin";
 

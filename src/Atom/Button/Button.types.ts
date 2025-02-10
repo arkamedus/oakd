@@ -2,8 +2,10 @@ import {
   CoreComponentSizeType,
   CoreComponentProps,
 } from "../../Core/Core.types";
-import { CSSProperties } from "react";
-import {CoreIconNameType} from "../../Icon/Icon.types";
+import {CSSProperties, FC} from "react";
+import Icon from "../../Icon/Icon";
+import {CoreIconNameType} from "../../Icon/Icons.bin";
+import {IconProps} from "../../Icon/Icon.types";
 
 export type ButtonType =
   | "default"
@@ -21,7 +23,7 @@ export interface ButtonProps extends CoreComponentProps {
   size?: CoreComponentSizeType;
   style?: CSSProperties;
   className?: string;
-  icon?: CoreIconNameType; // Optional icon
+  icon?: CoreIconNameType|React.JSX.Element; // Optional icon
   disabled?: boolean;
   role?: string; // Accessibility role
   label?: string;

@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import Icon, { IconStack } from "./Icon";
 import Space from "../Atom/Space/Space";
 import { CoreIconNameType } from "./Icon.types";
-import {IconTypes} from "./icons.generated";
+import {IconTypes} from "./Icons.bin";
 
 const meta: Meta<typeof Icon> = {
   title: "Design System/Icon",

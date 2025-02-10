@@ -4,7 +4,7 @@ import { DebugLayerProps } from "./DebugLayer.types";
 
 import "./DebugLayer.css";
 import Paragraph from "../Paragraph/Paragraph";
-import {IconLayers} from "../../Icon/icons.generated";
+import {IconLayers} from "../../Icon/Icons.bin";
 
 const DebugLayer: React.FC<DebugLayerProps> = ({
   label,
@@ -14,7 +14,7 @@ const DebugLayer: React.FC<DebugLayerProps> = ({
 }) => {
   return (
     <span data-testid="DebugLayer" className="oakd debug-layer" style={style}>
-      {label && <label><Paragraph><IconLayers size={"small"}/>{label}</Paragraph></label>}
+      {label && <Paragraph className={"label"}><IconLayers size={"small"}/>{label}</Paragraph>}
       {children}
     </span>
   );

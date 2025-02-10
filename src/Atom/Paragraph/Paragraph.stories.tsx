@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import Paragraph from "./Paragraph";
-import {IconMagnify} from "../../Icon/icons.generated";
+import {IconMagnify} from "../../Icon/Icons.bin";
 
 const meta: Meta<typeof Paragraph> = {
   title: "Design System/Atomic/Typography/Paragraph",

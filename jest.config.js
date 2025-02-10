@@ -12,5 +12,9 @@ module.exports = {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
   },
   coverageDirectory: "coverage", // Ensures coverage is saved in the `coverage/` folder
-  coverageReporters: ["json-summary", "text", "lcov"]
+  coverageReporters: ["json-summary", "text", "lcov"],
+  coveragePathIgnorePatterns: [
+    ".*\\.bin\\.tsx$",  // ignore generated *.bin.tsx files
+    ".*\\/bin\\/.*"      // ignore any files in bin folders
+  ]
 };

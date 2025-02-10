@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { IconProps } from "./Icon.types";
 
 import "./Icon.css";
-import { IconMap } from "./icons.generated";
+import { IconMap } from "./Icons.bin";
 
 const Icon: React.FC<IconProps> = ({
   name,
@@ -27,7 +27,8 @@ const Icon: React.FC<IconProps> = ({
 
   return (
     <span
-      className={`oakd icon icon-${size} ${className}`}
+		data-testid="Icon"
+		className={`oakd icon icon-${size} ${className}`}
       style={iconStyle}
       {...props}
     />
@@ -37,7 +38,7 @@ const Icon: React.FC<IconProps> = ({
 export default Icon;
 
 interface IconStackProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -46,10 +47,12 @@ export const IconStack: React.FC<IconStackProps> = ({
   children,
   className = "",
   style,
-}) => (
-  <span className={`oakd-icon-stack ${className}`} style={style}>
+}) => {
+  return (
+  <span className={`oakd oakd-icon-stack ${className}`} style={style}      data-testid="IconStack"
+  >
     {React.Children.map(children, (child) => (
       <span className="oakd-icon-stack__item">{child}</span>
     ))}
   </span>
-);
+)};

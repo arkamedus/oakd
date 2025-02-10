@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const assetDir = path.resolve(__dirname, "asset");
-const outputFile = path.resolve(__dirname, "icons.generated.tsx");
+const outputFile = path.resolve(__dirname, "Icons.bin.tsx");
 
 fs.readdir(assetDir, (err, files) => {
     if (err) {

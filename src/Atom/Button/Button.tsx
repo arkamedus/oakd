@@ -48,7 +48,7 @@ const Button: React.FC<ButtonProps> = ({
       data-testid="Button"
     >
       <Space gap align={"center"} style={{height:"100%"}}>
-        {icon&&<Icon name={icon} size={size}/>}
+        {icon&&(typeof icon === "string")?<Icon name={icon} size={size}/>:icon}
         {label&&<Paragraph>{label}</Paragraph>}
         {children}
       </Space>

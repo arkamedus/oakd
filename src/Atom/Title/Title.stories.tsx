@@ -2,7 +2,7 @@ import React from "react";
 import { Meta } from "@storybook/react";
 
 import Title from "./Title";
-import {IconFolder} from "../../Icon/icons.generated";
+import {IconFolder} from "../../Icon/Icons.bin";
 
 const meta: Meta<typeof Title> = {
   title: "Design System/Atomic/Typography/Title",

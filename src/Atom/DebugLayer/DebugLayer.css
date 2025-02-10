@@ -6,7 +6,7 @@
     display: block;
 }
 
-.debug-layer > label {
+.debug-layer > .paragraph.label {
     position: absolute;
     top: 0;
     left: 0;
