@@ -1,5 +1,6 @@
 module.exports = {
-  stories: [    '../src/**/*.mdx',
+  stories: [ '../src/*.mdx',
+    '../src/**/*.mdx',
     "../src/**/*.stories.tsx"],
 
   // Add any Storybook addons you want here: https://storybook.js.org/addons/
@@ -26,6 +27,10 @@ module.exports = {
   framework: {
     name: "@storybook/react-webpack5",
     options: {}
+  },
+
+  refs: {
+    welcome: { title: '', url: './Getting Started.mdx' },
   },
 
   docs: {}

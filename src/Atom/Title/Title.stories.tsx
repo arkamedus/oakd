@@ -14,4 +14,5 @@ const meta: Meta<typeof Title> = {
 export default meta;
 
 export const Default = () => <Title>This is a Title.</Title>;
+export const Multiline = () => <Title>This is a<br/>multiline Title.</Title>;
 export const WithIcon = () => <Title>Title with an inline <IconFolder size={"large"} />.</Title>;
