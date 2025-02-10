@@ -1,5 +1,5 @@
-import React, {ReactNode} from "react";
-import {IconProps} from "./Icon.types";
+import React, { ReactNode } from "react";
+import { IconProps } from "./Icon.types";
 
 import IAngle from "./asset/oakd_IconAngle.svg";
 import IApps from "./asset/oakd_IconApps.svg";
@@ -28,92 +28,154 @@ import IUser from "./asset/oakd_IconUser.svg";
 import IX from "./asset/oakd_IconX.svg";
 
 const iconMap: Record<string, string> = {
-    Angle: IAngle,
-    Apps: IApps,
-    Arrow: IArrow,
-    Bar: IBar,
-    Check: ICheck,
-    Circle: ICircle,
-    Clock: IClock,
-    Comment: IComment,
-    Diamond: IDiamond,
-    Folder: IFolder,
-    List: IList,
-    Magnify: IMagnify,
-    Octagon: IOctagon,
-    PenPaper: IPenPaper,
-    Plus: IPlus,
-    Refresh: IRefresh,
-    Share: IShare,
-    Sliders: ISliders,
-    Square: ISquare,
-    Star: IStar,
-    Text: IText,
-    Trash: ITrash,
-    Triangle: ITriangle,
-    User: IUser,
-    X: IX,
+  Angle: IAngle,
+  Apps: IApps,
+  Arrow: IArrow,
+  Bar: IBar,
+  Check: ICheck,
+  Circle: ICircle,
+  Clock: IClock,
+  Comment: IComment,
+  Diamond: IDiamond,
+  Folder: IFolder,
+  List: IList,
+  Magnify: IMagnify,
+  Octagon: IOctagon,
+  PenPaper: IPenPaper,
+  Plus: IPlus,
+  Refresh: IRefresh,
+  Share: IShare,
+  Sliders: ISliders,
+  Square: ISquare,
+  Star: IStar,
+  Text: IText,
+  Trash: ITrash,
+  Triangle: ITriangle,
+  User: IUser,
+  X: IX,
 };
 
 import "./Icon.css";
 
-const Icon: React.FC<IconProps> = ({ name, style, size = "default", className = "", ...props }) => {
-    const IconSrc = iconMap[name];
-    if (!IconSrc) {
-        console.warn(`Icon "${name}" not found.`);
-        return null;
-    }
-    // Extract URL string from the import (handles default export if present)
-    const iconUrl = typeof IconSrc === "string" ? IconSrc : "X" || IconSrc;
-    const iconStyle = {
-        ...style,
-        backgroundColor: style?.color || "currentColor",
-        mask: `url(${iconUrl}) no-repeat center/contain`,
-        WebkitMask: `url(${iconUrl}) no-repeat center/contain`,
-    };
+const Icon: React.FC<IconProps> = ({
+  name,
+  style,
+  size = "default",
+  className = "",
+  ...props
+}) => {
+  const IconSrc = iconMap[name];
+  if (!IconSrc) {
+    console.warn(`Icon "${name}" not found.`);
+    return null;
+  }
+  // Extract URL string from the import (handles default export if present)
+  const iconUrl = typeof IconSrc === "string" ? IconSrc : "X" || IconSrc;
+  const iconStyle = {
+    ...style,
+    backgroundColor: style?.color || "currentColor",
+    mask: `url(${iconUrl}) no-repeat center/contain`,
+    WebkitMask: `url(${iconUrl}) no-repeat center/contain`,
+  };
 
-    return <div className={`oakd icon icon-${size} ${className}`} style={iconStyle} {...props} />;
+  return (
+    <div
+      className={`oakd icon icon-${size} ${className}`}
+      style={iconStyle}
+      {...props}
+    />
+  );
 };
-
 
 export default Icon;
 
 interface IconStackProps {
-    children: ReactNode;
-    className?: string;
-    style?: React.CSSProperties;
+  children: ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-export const IconStack: React.FC<IconStackProps> = ({children, className = "", style}) => (
-    <div className={`oakd-icon-stack ${className}`} style={style}>
-        {React.Children.map(children, (child) => (
-            <div className="oakd-icon-stack__item">{child}</div>
-        ))}
-    </div>
+export const IconStack: React.FC<IconStackProps> = ({
+  children,
+  className = "",
+  style,
+}) => (
+  <div className={`oakd-icon-stack ${className}`} style={style}>
+    {React.Children.map(children, (child) => (
+      <div className="oakd-icon-stack__item">{child}</div>
+    ))}
+  </div>
 );
 
-
-export const IconAngle = (props: Omit<IconProps, "name">) => <Icon name="Angle" {...props} />;
-export const IconApps = (props: Omit<IconProps, "name">) => <Icon name="Apps" {...props} />;
-export const IconArrow = (props: Omit<IconProps, "name">) => <Icon name="Arrow" {...props} />;
-export const IconBar = (props: Omit<IconProps, "name">) => <Icon name="Bar" {...props} />;
-export const IconCheck = (props: Omit<IconProps, "name">) => <Icon name="Check" {...props} />;
-export const IconCircle = (props: Omit<IconProps, "name">) => <Icon name="Circle" {...props} />;
-export const IconClock = (props: Omit<IconProps, "name">) => <Icon name="Clock" {...props} />;
-export const IconComment = (props: Omit<IconProps, "name">) => <Icon name="Comment" {...props} />;
-export const IconDiamond = (props: Omit<IconProps, "name">) => <Icon name="Diamond" {...props} />;
-export const IconFolder = (props: Omit<IconProps, "name">) => <Icon name="Folder" {...props} />;
-export const IconList = (props: Omit<IconProps, "name">) => <Icon name="List" {...props} />;
-export const IconMagnify = (props: Omit<IconProps, "name">) => <Icon name="Magnify" {...props} />;
-export const IconOctagon = (props: Omit<IconProps, "name">) => <Icon name="Octagon" {...props} />;
-export const IconPlus = (props: Omit<IconProps, "name">) => <Icon name="Plus" {...props} />;
-export const IconRefresh = (props: Omit<IconProps, "name">) => <Icon name="Refresh" {...props} />;
-export const IconShare = (props: Omit<IconProps, "name">) => <Icon name="Share" {...props} />;
-export const IconSliders = (props: Omit<IconProps, "name">) => <Icon name="Sliders" {...props} />;
-export const IconSquare = (props: Omit<IconProps, "name">) => <Icon name="Square" {...props} />;
-export const IconStar = (props: Omit<IconProps, "name">) => <Icon name="Star" {...props} />;
-export const IconText = (props: Omit<IconProps, "name">) => <Icon name="Text" {...props} />;
-export const IconTrash = (props: Omit<IconProps, "name">) => <Icon name="Trash" {...props} />;
-export const IconTriangle = (props: Omit<IconProps, "name">) => <Icon name="Triangle" {...props} />;
-export const IconUser = (props: Omit<IconProps, "name">) => <Icon name="User" {...props} />;
-export const IconX = (props: Omit<IconProps, "name">) => <Icon name="X" {...props} />;
+export const IconAngle = (props: Omit<IconProps, "name">) => (
+  <Icon name="Angle" {...props} />
+);
+export const IconApps = (props: Omit<IconProps, "name">) => (
+  <Icon name="Apps" {...props} />
+);
+export const IconArrow = (props: Omit<IconProps, "name">) => (
+  <Icon name="Arrow" {...props} />
+);
+export const IconBar = (props: Omit<IconProps, "name">) => (
+  <Icon name="Bar" {...props} />
+);
+export const IconCheck = (props: Omit<IconProps, "name">) => (
+  <Icon name="Check" {...props} />
+);
+export const IconCircle = (props: Omit<IconProps, "name">) => (
+  <Icon name="Circle" {...props} />
+);
+export const IconClock = (props: Omit<IconProps, "name">) => (
+  <Icon name="Clock" {...props} />
+);
+export const IconComment = (props: Omit<IconProps, "name">) => (
+  <Icon name="Comment" {...props} />
+);
+export const IconDiamond = (props: Omit<IconProps, "name">) => (
+  <Icon name="Diamond" {...props} />
+);
+export const IconFolder = (props: Omit<IconProps, "name">) => (
+  <Icon name="Folder" {...props} />
+);
+export const IconList = (props: Omit<IconProps, "name">) => (
+  <Icon name="List" {...props} />
+);
+export const IconMagnify = (props: Omit<IconProps, "name">) => (
+  <Icon name="Magnify" {...props} />
+);
+export const IconOctagon = (props: Omit<IconProps, "name">) => (
+  <Icon name="Octagon" {...props} />
+);
+export const IconPlus = (props: Omit<IconProps, "name">) => (
+  <Icon name="Plus" {...props} />
+);
+export const IconRefresh = (props: Omit<IconProps, "name">) => (
+  <Icon name="Refresh" {...props} />
+);
+export const IconShare = (props: Omit<IconProps, "name">) => (
+  <Icon name="Share" {...props} />
+);
+export const IconSliders = (props: Omit<IconProps, "name">) => (
+  <Icon name="Sliders" {...props} />
+);
+export const IconSquare = (props: Omit<IconProps, "name">) => (
+  <Icon name="Square" {...props} />
+);
+export const IconStar = (props: Omit<IconProps, "name">) => (
+  <Icon name="Star" {...props} />
+);
+export const IconText = (props: Omit<IconProps, "name">) => (
+  <Icon name="Text" {...props} />
+);
+export const IconTrash = (props: Omit<IconProps, "name">) => (
+  <Icon name="Trash" {...props} />
+);
+export const IconTriangle = (props: Omit<IconProps, "name">) => (
+  <Icon name="Triangle" {...props} />
+);
+export const IconUser = (props: Omit<IconProps, "name">) => (
+  <Icon name="User" {...props} />
+);
+export const IconX = (props: Omit<IconProps, "name">) => (
+  <Icon name="X" {...props} />
+);

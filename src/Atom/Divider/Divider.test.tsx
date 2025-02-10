@@ -16,5 +16,4 @@ describe("Divider Component", () => {
     const component = getByTestId("Divider");
     expect(component).toBeEmptyDOMElement();
   });
-
 });

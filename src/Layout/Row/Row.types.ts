@@ -1,5 +1,3 @@
-import {CoreLayoutProps} from "../../Core/Core.types";
+import { CoreLayoutProps } from "../../Core/Core.types";
 
-export interface RowProps extends CoreLayoutProps {
-
-}
+export interface RowProps extends CoreLayoutProps {}

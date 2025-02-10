@@ -10,7 +10,7 @@ describe("TestComponent", () => {
       <TestComponent
         heading={heading || "Default heading text"}
         content={content || <div>Default content</div>}
-      />
+      />,
     );
 
   it("should render heading text correctly", () => {
@@ -25,13 +25,13 @@ describe("TestComponent", () => {
 
   it("should render content correctly", () => {
     const { getByTestId } = renderComponent({
-      content: <div data-testid="some-test-content">I am test content</div>
+      content: <div data-testid="some-test-content">I am test content</div>,
     });
 
     expect(
       within(getByTestId("test-component__content")).queryByTestId(
-        "some-test-content"
-      )
+        "some-test-content",
+      ),
     ).toBeInTheDocument();
   });
 });

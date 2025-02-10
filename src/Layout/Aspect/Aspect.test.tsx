@@ -20,9 +20,9 @@ describe("Aspect Component", () => {
 
   it("renders children correctly", () => {
     const { getByTestId, getByText } = render(
-        <Aspect>
-          <div>Test Content</div>
-        </Aspect>
+      <Aspect>
+        <div>Test Content</div>
+      </Aspect>,
     );
 
     expect(getByTestId("Aspect")).toBeInTheDocument();

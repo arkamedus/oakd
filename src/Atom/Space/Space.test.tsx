@@ -5,12 +5,12 @@ import Space from "./Space";
 
 describe("Space Component", () => {
   const renderComponent = (props = {}) =>
-      render(
-          <Space data-testid="Space" {...props}>
-            <div>Item 1</div>
-            <div>Item 2</div>
-          </Space>
-      );
+    render(
+      <Space data-testid="Space" {...props}>
+        <div>Item 1</div>
+        <div>Item 2</div>
+      </Space>,
+    );
 
   it("should render without errors", () => {
     const { getByTestId } = renderComponent();

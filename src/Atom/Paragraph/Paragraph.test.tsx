@@ -7,8 +7,7 @@ describe("Test Component", () => {
   let props: ParagraphProps;
 
   beforeEach(() => {
-    props = {
-    };
+    props = {};
   });
 
   const renderComponent = () => render(<Paragraph {...props} />);

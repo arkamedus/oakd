@@ -5,12 +5,12 @@ import Row from "./Row";
 
 describe("Row Component", () => {
   const renderComponent = (props = {}) =>
-      render(
-          <Row data-testid="Row" {...props}>
-            <div>Item 1</div>
-            <div>Item 2</div>
-          </Row>
-      );
+    render(
+      <Row data-testid="Row" {...props}>
+        <div>Item 1</div>
+        <div>Item 2</div>
+      </Row>,
+    );
 
   it("should render without errors", () => {
     const { getByTestId } = renderComponent();

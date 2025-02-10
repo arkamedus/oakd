@@ -1,12 +1,14 @@
 import React from "react";
-import {Meta} from "@storybook/react";
+import { Meta } from "@storybook/react";
 
 import Title from "./Title";
 
 const meta: Meta<typeof Title> = {
   title: "Design System/Atomic/Typography/Title",
   component: Title,
-  argTypes: { /* ... */ }
+  argTypes: {
+    /* ... */
+  },
 };
 export default meta;
 

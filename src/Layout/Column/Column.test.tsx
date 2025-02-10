@@ -4,7 +4,8 @@ import Column from "./Column";
 import { ColumnProps } from "./Column.types";
 
 describe("Column Component", () => {
-  const renderComponent = (props: ColumnProps) => render(<Column {...props} data-testid="Column" />);
+  const renderComponent = (props: ColumnProps) =>
+    render(<Column {...props} data-testid="Column" />);
 
   it("should render without crashing", () => {
     const { getByTestId } = renderComponent({});
@@ -12,7 +13,13 @@ describe("Column Component", () => {
   });
 
   it("should apply correct classes for different sizes", () => {
-    const { getByTestId } = renderComponent({ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 });
+    const { getByTestId } = renderComponent({
+      xs: 12,
+      sm: 6,
+      md: 4,
+      lg: 3,
+      xl: 2,
+    });
     const column = getByTestId("Column");
 
     expect(column).toHaveClass("xs-12");
@@ -34,8 +41,9 @@ describe("Column Component", () => {
   });
 
   it("should render children correctly", () => {
-    const { getByTestId } = render(<Column data-testid="column">Content</Column>);
+    const { getByTestId } = render(
+      <Column data-testid="column">Content</Column>,
+    );
     expect(getByTestId("Column")).toHaveTextContent("Content");
   });
-
 });

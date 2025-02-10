@@ -9,7 +9,7 @@ describe("Test Component", () => {
 
   beforeEach(() => {
     props = {
-      children: "bar"
+      children: "bar",
     };
   });
 

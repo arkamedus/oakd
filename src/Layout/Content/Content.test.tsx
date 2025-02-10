@@ -8,8 +8,7 @@ describe("Test Component", () => {
   let props: ContentProps;
 
   beforeEach(() => {
-    props = {
-    };
+    props = {};
   });
 
   const renderComponent = () => render(<Content {...props} />);

@@ -1,5 +1,5 @@
-import {CoreContentProps} from "../../Core/Core.types";
+import { CoreContentProps } from "../../Core/Core.types";
 
-export interface ContentProps extends CoreContentProps{
-    pad?: boolean|number;
+export interface ContentProps extends CoreContentProps {
+  pad?: boolean | number;
 }

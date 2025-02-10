@@ -4,9 +4,19 @@ import DebugLayer from "../../Atom/DebugLayer/DebugLayer";
 import Paragraph from "../../Atom/Paragraph/Paragraph";
 
 export default {
-    title: "Content"
+  title: "Content",
 };
 
-export const Default = () => <Content><DebugLayer label={"DebugLayer"} /></Content>;
+export const Default = () => (
+  <Content>
+    <DebugLayer label={"DebugLayer"} />
+  </Content>
+);
 
-export const WithPadding = () => <DebugLayer label={"DebugLayer"} ><Content><Paragraph>Paragraph text.</Paragraph></Content></DebugLayer>;
+export const WithPadding = () => (
+  <DebugLayer label={"DebugLayer"}>
+    <Content>
+      <Paragraph>Paragraph text.</Paragraph>
+    </Content>
+  </DebugLayer>
+);
