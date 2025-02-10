@@ -1,12 +1,12 @@
-import React, {ReactNode} from "react";
-import {Meta, StoryFn, StoryObj} from "@storybook/react";
+import React, { ReactNode } from "react";
+import { Meta, StoryFn, StoryObj } from "@storybook/react";
 import Button from "./Button";
-import {ButtonType} from "./Button.types";
-import {CoreComponentSizeType} from "../../Core/Core.types";
+import { ButtonType } from "./Button.types";
+import { CoreComponentSizeType } from "../../Core/Core.types";
 import Space from "../Space/Space";
-import {IconFolder, IconPlus, IconTrash, IconTriangle} from "../../Icon/Icon";
+import { IconFolder, IconPlus, IconTrash, IconTriangle } from "../../Icon/Icon";
 import Paragraph from "../Paragraph/Paragraph";
-import {CoreIconNameType} from "../../Icon/Icon.types";
+import { CoreIconNameType } from "../../Icon/Icon.types";
 
 const meta: Meta<typeof Button> = {
 	title: "Design System/Atomic/Button",
@@ -29,7 +29,7 @@ const meta: Meta<typeof Button> = {
 			control: "boolean",
 			description: "Disables the button",
 		},
-		onClick: {action: "clicked"}, // Storybook action
+		onClick: { action: "clicked" }, // Storybook action
 	},
 };
 export default meta;
@@ -42,10 +42,10 @@ const Template: StoryFn<{
 	icon: CoreIconNameType;
 	children: any;
 }> = (args) => {
-	const firstArgs = {...args};
+	const firstArgs = { ...args };
 	delete firstArgs.children;
 
-	const middleArgs = {...args};
+	const middleArgs = { ...args };
 	delete middleArgs.icon;
 
 	return (
@@ -59,7 +59,13 @@ const Template: StoryFn<{
 					<Paragraph>{args.children || <span>Button</span>}</Paragraph>
 				</Button>
 				<Button icon={args.icon} {...args}>
-					<Paragraph><span>Button<br/>Two Lines</span></Paragraph>
+					<Paragraph>
+						<span>
+							Button
+							<br />
+							Two Lines
+						</span>
+					</Paragraph>
 				</Button>
 			</Space>
 			<Space gap justify={"stretch"}>
@@ -71,7 +77,13 @@ const Template: StoryFn<{
 					<Paragraph>{args.children || <span>Button</span>}</Paragraph>
 				</Button>
 				<Button icon={args.icon} {...args}>
-					<Paragraph><span>Button<br/>Two Lines</span></Paragraph>
+					<Paragraph>
+						<span>
+							Button
+							<br />
+							Two Lines
+						</span>
+					</Paragraph>
 				</Button>
 			</Space>
 		</Space>

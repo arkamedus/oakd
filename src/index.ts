@@ -9,16 +9,15 @@ import Content from "./Layout/Content/Content";
 import Icon from "./Icon/Icon";
 
 export {
-  TestComponent,
-  Col,
-  Content,
-  Row,
-  Button,
-  Space,
-  Title,
-  Paragraph,
-  Icon
+	TestComponent,
+	Col,
+	Content,
+	Row,
+	Button,
+	Space,
+	Title,
+	Paragraph,
+	Icon,
 };
 
 export * from "./Icon/Icons.bin";
-

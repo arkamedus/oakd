@@ -22,6 +22,42 @@ import 'oakd/build/index.css';
 
 ---  
 
+## 📌 **Usage Example**
+
+After installation, use components like:
+```tsx  
+import React from "react";  
+import 'oakd/build/index.css';  
+import { Title, Paragraph } from "oakd";  
+
+const App = () => (  
+  <div className="app-container">  
+    <Title>Hello from oakd</Title>  
+    <Paragraph>Some content</Paragraph>
+  </div>  
+);  
+
+export default App;  
+```  
+
+---
+
+## 🖌 **Icon Pack & Generation**
+
+Our oakd icon pack is hand-drawn exclusively for OakFrame. All SVGs are located in the `src/Icon/asset/` folder. To update or add new icons:
+
+1. **Add or update SVG files** in `src/Icon/asset/`.
+2. Run the generation script to automatically create and update icon exports:
+   ```sh
+   npm run icons
+   ```
+   This generates a file named `icons.generated.tsx` that exports:
+    - An `iconMap` (e.g. `{ Angle: IAngle, Trash: ITrash, ... }`)
+    - Individual icon components (e.g. `IconTrash`, `IconUser`, etc.)
+3. Your package now automatically includes all icons with correct relative paths and inlined assets.
+
+---
+
 ## 🚀 **Development**
 
 ### ✅ **Testing**
@@ -84,6 +120,22 @@ This generates:
 
 Modify templates under `util/templates` as needed.  
 Don’t forget to export your new component in `index.ts`!
+
+---
+
+## 🔧 **Linting & Formatting**
+
+The project uses ESLint with a configuration that:
+- Enforces best practices for TypeScript and React.
+- Uses Prettier (configured to use tabs).
+- Ignores generated or binary files (e.g. `*.bin.tsx`) from coverage.
+```sh  
+npm run lint
+```
+If you want to run the ESLint with fix:
+```sh  
+npm run lint:fix
+```
 
 ---  
 
@@ -165,26 +217,6 @@ Utilize predefined CSS variables from `variables.css`:
 ```  
 
 More on [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
-
----  
-
-## 📌 **Usage Example**
-
-After installation, use components like:
-```tsx  
-import React from "react";  
-import 'oakd/build/index.css';  
-import { Title } from "oakd";  
-
-const App = () => (  
-  <div className="app-container">  
-    <Title>Hello from oakd</Title>  
-    <Paragraph>Some content</Paragraph>
-  </div>  
-);  
-
-export default App;  
-```  
 
 ---  
 

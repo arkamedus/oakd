@@ -4,7 +4,7 @@ import { Meta } from "@storybook/react";
 import DebugLayer from "./DebugLayer";
 
 const meta: Meta<typeof DebugLayer> = {
-  title: "Design System/Atomic/DebugLayer",
+	title: "Design System/Atomic/DebugLayer",
 };
 export default meta;
 
