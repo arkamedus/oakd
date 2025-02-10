@@ -39,7 +39,7 @@ export const Welcome = () => {
 						<em>v2.0.0</em><br/>by <strong>Gordon Goodrum</strong>
 					</Paragraph>
 				</Space>
-				<Space direction="vertical" style={{maxWidth: '600px'}} gap>
+				<Space direction="vertical" style={{maxWidth: '720px'}} gap>
 					<Paragraph><em>OakFrame Interactive Design & Component Library</em></Paragraph>
 					<Paragraph>
 						Welcome to <strong>oakd</strong>, a modern and scalable TypeScript React component library
@@ -67,17 +67,19 @@ export const Welcome = () => {
 						<DebugLayer label={"oakd | oakframe.org"} style={{backgroundColor:"white"}}>
 							<Content pad>
 
+								<Space gap direction={"vertical"}>
 								<Space gap>
 									{['default','primary','warning','danger'].slice(0,16).map((type: ButtonType) => {
-										return <Button size={"small"} type={type}><Paragraph>{type}</Paragraph></Button>
+										return <Button icon={"Star"} size={"small"} type={type}><Paragraph>{type}</Paragraph></Button>
 								})}
 									<Button size={"small"} icon={<IconSliders size={"small"}/>}><Paragraph>Button</Paragraph></Button>
 									<Button type={"danger"} size={"small"} icon={"Trash"} />
 									<Button type={"ghost"} size={"small"} icon={"Triangle"}><Paragraph>ghost</Paragraph></Button>
 								</Space>
-								<Space direction={"vertical"}>
+
+								<Space direction={"vertical"} gap>
 									<Paragraph>svg icons</Paragraph>
-									<Space style={{width:"100%"}} gap justify={"between"}>{IconTypes.slice(0,16).map((icon: CoreIconNameType) => {
+									<Space style={{width:"100%"}} gap justify={"between"}>{IconTypes.slice(0,21).map((icon: CoreIconNameType) => {
 										return <Icon name={icon} size="small" style={{color:"black"}} />;
 									})}<Paragraph><em>and more!</em></Paragraph>
 									</Space>
@@ -97,6 +99,7 @@ export const Welcome = () => {
 									})}
 
 								</Row>
+								</Space>
 							</Content>
 						</DebugLayer>
 					</Card>

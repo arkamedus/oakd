@@ -28,7 +28,7 @@ const Icon: React.FC<IconProps> = ({
   return (
     <span
 		data-testid="Icon"
-		className={`oakd icon icon-${size} ${className}`}
+		className={`oakd standardized-reset standardized-text icon icon-${size} ${className}`}
       style={iconStyle}
       {...props}
     />

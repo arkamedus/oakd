@@ -30,28 +30,39 @@
 
 .button.type-primary {
     background-color: #007bff;
+    border-color: #0f4580;
+}
+.button.type-primary .oakd.standardized-text {
     color: #fff;
 }
 
 .button.type-danger {
     background-color: var(--oakd-danger-color);
     border-color: var(--oakd-danger-border);
+}
+.button.type-danger .oakd.standardized-text {
     color: var(--oakd-danger-text);
 }
 
 .button.type-warning {
     background-color: #ffc107;
-    color: #000;
+}
+.button.type-warning .oakd.standardized-text {
+    color: #654406;
 }
 
 .button.type-ghost {
     background: #CCC4;
+}
+.button.type-ghost .oakd.standardized-text {
     color: #000;
 }
 
 .button.disabled,
 .button.type-disabled {
     background-color: #ccc;
-    color: #666;
     cursor: not-allowed;
+}
+.button.disabled .oakd.standardized-text, .button.type-disabled .oakd.standardized-text {
+    color: #666;
 }

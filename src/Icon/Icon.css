@@ -6,8 +6,6 @@
     vertical-align: middle;
     line-height: 0;
     background-color: transparent; /* Ensure no background bleed */
-    position:relative;
-    top: -1px;
 }
 
 .oakd.icon img {
