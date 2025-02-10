@@ -2,27 +2,25 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: inherit; /* Apply parent text color to the SVG */
-    vertical-align: middle; /* Align with text baseline */
-    line-height: 0; /* Prevent line-height affecting layout */
-}
-
-.oakd.icon svg {
-    color: inherit; /* Ensures stroke inherits text color */
+    color: inherit; /* Allows color inheritance */
+    vertical-align: middle;
+    line-height: 0;
+    background-color: transparent; /* Ensure no background bleed */
+    position:relative;
+    top: -1px;
 }
 
 .oakd.icon img {
-    display: block; /* Prevent extra space under image */
+    display: block;
     max-width: 100%;
     max-height: 100%;
 }
 
-.oakd-icon-stack {
-    display: grid;
-    place-items: center;
-}
-.oakd-icon-stack > * {
-    grid-area: 1 / 1;
+/* Allow gradients */
+.oakd.icon[data-gradient="true"] {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
 /* Size Variants */
@@ -37,4 +35,18 @@
 .icon-large {
     width: calc(var(--line-height) * 2);
     height: calc(var(--line-height) * 2);
+}
+
+
+
+
+
+
+
+.oakd-icon-stack {
+    display: grid;
+    place-items: center;
+}
+.oakd-icon-stack > * {
+    grid-area: 1 / 1;
 }

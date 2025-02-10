@@ -1,7 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Icon, { IconTrash, IconComment } from "./Icon";
-import { CoreIconNameType, IconProps } from "./Icon.types";
+import { IconProps } from "./Icon.types";
+import Icon from "./Icon";
+import {CoreIconNameType, IconComment, IconTrash} from "./icons.generated";
 
 describe("Icon Component", () => {
   let props: IconProps;

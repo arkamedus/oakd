@@ -3,34 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import Icon, { IconStack } from "./Icon";
 import Space from "../Atom/Space/Space";
 import { CoreIconNameType } from "./Icon.types";
-
-const IconTypes: CoreIconNameType[] = [
-  "Angle",
-  "Apps",
-  "Arrow",
-  "Bar",
-  "Check",
-  "Circle",
-  "Clock",
-  "Comment",
-  "Diamond",
-  "Folder",
-  "List",
-  "Magnify",
-  "Octagon",
-  "PenPaper",
-  "Plus",
-  "Refresh",
-  "Share",
-  "Sliders",
-  "Square",
-  "Star",
-  "Text",
-  "Trash",
-  "Triangle",
-  "User",
-  "X",
-];
+import {IconTypes} from "./icons.generated";
 
 const meta: Meta<typeof Icon> = {
   title: "Design System/Icon",
@@ -55,13 +28,44 @@ export default meta;
 const Template: StoryFn<typeof Icon> = (args) => <Icon {...args} />;
 
 export const Default = Template.bind({});
-Default.args = { name: "Plus", size: "default", style: { color: "red" } };
+Default.args = { name: "Trash", size: "default" };
 
 export const Small = Template.bind({});
 Small.args = { name: "Trash", size: "small" };
 
 export const Large = Template.bind({});
 Large.args = { name: "Trash", size: "large" };
+
+export const Styled = Template.bind({});
+Styled.args = { name: "Trash", size: "large", style: { color: "red" } };
+
+export const GradientLinear = Template.bind({});
+GradientLinear.args = {
+    name: "Trash",
+    size: "large",
+    style: {
+        background: "linear-gradient(to right, #ff7e5f, #feb47b)"
+    },
+    "data-gradient": true
+};
+
+export const GradientRadial = Template.bind({});
+GradientRadial.args = {
+    name: "Trash",
+    size: "large",
+    style: {
+        background: "radial-gradient(circle, #ff758c, #007eb3)"
+    },
+    "data-gradient": true
+};
+
+export const Transparent = Template.bind({});
+Transparent.args = {
+    name: "Trash",
+    size: "large",
+    style: { opacity: 0.5 }
+};
+
 
 export const AllIcons = () => (
   <Space gap>

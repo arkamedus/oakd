@@ -12,4 +12,5 @@
     height: calc(var(--line-height) );
     background-color: #FFCBCB;
     padding: 0 var(--leading);
+    color: #851010;
 }

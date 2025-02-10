@@ -6,23 +6,7 @@ import Title from "./Atom/Title/Title";
 import Paragraph from "./Atom/Paragraph/Paragraph";
 import Space from "./Atom/Space/Space";
 import Content from "./Layout/Content/Content";
-
-import {
-  IconArrow,
-  IconBar,
-  IconCheck,
-  IconClock,
-  IconComment,
-  IconList,
-  IconMagnify,
-  IconPlus,
-  IconRefresh,
-  IconShare,
-  IconText,
-  IconTrash,
-  IconUser,
-  IconX,
-} from "./Icon/Icon";
+import Icon from "./Icon/Icon";
 
 export {
   TestComponent,
@@ -33,18 +17,8 @@ export {
   Space,
   Title,
   Paragraph,
-  IconArrow,
-  IconBar,
-  IconCheck,
-  IconClock,
-  IconComment,
-  IconList,
-  IconMagnify,
-  IconPlus,
-  IconRefresh,
-  IconShare,
-  IconText,
-  IconTrash,
-  IconUser,
-  IconX,
+  Icon
 };
+
+export * from "./Icon/icons.generated";
+

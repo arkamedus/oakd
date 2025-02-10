@@ -17,6 +17,7 @@
     "storybook": "NODE_OPTIONS=--openssl-legacy-provider storybook dev -p 6006",
     "storybook:export": "NODE_OPTIONS=--openssl-legacy-provider storybook build",
     "generate": "node ./util/create-component",
+    "icons": "node ./src/Icon/generate-icons",
     "prepublishOnly": "npm run build"
   },
   "repository": {
