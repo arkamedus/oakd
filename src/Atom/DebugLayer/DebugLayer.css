@@ -1,19 +1,19 @@
 .debug-layer {
     position: relative;
     border: 1px dashed red;
-    padding-top: var(--line-height) ;
+    padding-top: var(--line-height);
     min-width: 120px;
     display: block;
 }
 
-.debug-layer > .paragraph.label {
+/* Label style within the DebugLayer component */
+.debug-layer > .label {
     position: absolute;
     top: 0;
     left: 0;
-    height: calc(var(--line-height) );
+    height: calc(var(--line-height));
     background-color: #FFCBCB;
     padding: 0 var(--leading);
     color: #851010;
-    border-bottom-right-radius: calc(var(--border-radius) * .66);
-
+    border-bottom-right-radius: calc(var(--border-radius) * 0.66);
 }

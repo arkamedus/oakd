@@ -8,131 +8,128 @@ import Paragraph from "../Paragraph/Paragraph";
 import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
 
 const meta: Meta<typeof Button> = {
-	title: "Design System/Atomic/Button",
-	component: Button,
-	tags: ["!autodocs"],
-	argTypes: {
-		type: {
-			control: "select",
-			options: ["default", "primary", "danger", "warning", "ghost", "disabled"],
-			description: "Set the button type",
-			defaultValue: "default",
-		},
-		size: {
-			control: "select",
-			options: ["default", "small", "large"],
-			description: "Set the button size",
-			defaultValue: "default",
-		},
-		disabled: {
-			control: "boolean",
-			description: "Disables the button",
-		},
-		onClick: { action: "clicked" }, // Storybook action
-	},
+  title: "Design System/Atomic/Button",
+  component: Button,
+  tags: ["!autodocs"],
+  argTypes: {
+    type: {
+      control: "select",
+      options: ["default", "primary", "danger", "warning", "ghost", "disabled"],
+      description: "Set the button type",
+      defaultValue: "default"
+    },
+    size: {
+      control: "select",
+      options: ["default", "small", "large"],
+      description: "Set the button size",
+      defaultValue: "default"
+    },
+    disabled: {
+      control: "boolean",
+      description: "Disables the button"
+    },
+    onClick: { action: "clicked" }
+  }
 };
 export default meta;
+
 type Story = StoryObj<typeof Button>;
 
 const Template: StoryFn<{
-	type: ButtonType;
-	size: CoreComponentSizeType;
-	disabled: boolean;
-	icon: CoreIconNameType;
-	children: any;
+  type: ButtonType;
+  size: CoreComponentSizeType;
+  disabled: boolean;
+  icon: CoreIconNameType;
+  children: React.ReactNode;
 }> = (args) => {
-	const firstArgs = { ...args };
-	delete firstArgs.children;
+  const firstArgs = { ...args };
+  delete firstArgs.children;
 
-	const middleArgs = { ...args };
-	delete middleArgs.icon;
+  const middleArgs = { ...args };
+  delete middleArgs.icon;
 
-	return (
-		<Space gap direction={"vertical"}>
-			<Space gap>
-				<Button {...firstArgs}></Button>
-				<Button {...middleArgs}>
-					<Paragraph>{args.children || "Button"}</Paragraph>
-				</Button>
-				<Button icon={<IconFolder size={"small"} />} {...middleArgs}>
-					<Paragraph>{args.children || <span>Button</span>}</Paragraph>
-				</Button>
-				<Button icon={args.icon} {...args}>
-					<Paragraph>{args.children || <span>Button</span>}</Paragraph>
-				</Button>
-				<Button icon={args.icon} {...args}>
-					<Paragraph>
-						<span>
-							Button
-							<br />
-							Two Lines
-						</span>
-					</Paragraph>
-				</Button>
-			</Space>
-			<Space gap justify={"stretch"}>
-				<Button {...firstArgs}></Button>
-				<Button {...middleArgs}>
-					<Paragraph>{args.children || "Button"}</Paragraph>
-				</Button>
-				<Button icon={args.icon} {...args}>
-					<Paragraph>{args.children || <span>Button</span>}</Paragraph>
-				</Button>
-				<Button icon={args.icon} {...args}>
-					<Paragraph>
-						<span>
-							Two lines make
-							<br />
-							the others stretch
-						</span>
-					</Paragraph>
-				</Button>
-			</Space>
-		</Space>
-	);
+  return (
+    <Space gap direction="vertical">
+      <Space gap>
+        <Button {...firstArgs} />
+        <Button {...middleArgs}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={<IconFolder size="small" />} {...middleArgs}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={args.icon} {...args}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={args.icon} {...args}>
+          <Paragraph>
+            <span>
+              Button<br />Two Lines
+            </span>
+          </Paragraph>
+        </Button>
+      </Space>
+      <Space gap justify="stretch">
+        <Button {...firstArgs} />
+        <Button {...middleArgs}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={args.icon} {...args}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={args.icon} {...args}>
+          <Paragraph>
+            <span>
+              Two lines make<br />the others stretch
+            </span>
+          </Paragraph>
+        </Button>
+      </Space>
+    </Space>
+  );
 };
 
 export const Default: Story = Template.bind({});
 Default.args = {
-	type: "default",
-	size: "default",
-	disabled: false,
-	icon: "Plus",
-	children: "Button",
+  type: "default",
+  size: "default",
+  disabled: false,
+  icon: "Plus",
+  children: "Button"
 };
 
 export const Primary: Story = Template.bind({});
 Primary.args = {
-	type: "primary",
-	icon: "Triangle",
-	children: "Primary",
+  type: "primary",
+  icon: "Triangle",
+  children: "Primary"
 };
 
 export const Danger: Story = Template.bind({});
 Danger.args = {
-	type: "danger",
-	icon: "Triangle",
-	children: "Danger",
+  type: "danger",
+  icon: "Triangle",
+  children: "Danger"
 };
 
 export const Warning: Story = Template.bind({});
 Warning.args = {
-	type: "warning",
-	icon: "Triangle",
-	children: "Warning",
+  type: "warning",
+  icon: "Triangle",
+  children: "Warning"
 };
 
 export const Ghost: Story = Template.bind({});
 Ghost.args = {
-	type: "ghost",
-	icon: "Triangle",
-	children: "Ghost",
+  type: "ghost",
+  icon: "Triangle",
+  children: "Ghost"
 };
 
 export const Disabled: Story = Template.bind({});
 Disabled.args = {
-	type: "disabled",
-	disabled: true,
-	icon: "Folder",
-	children: "Disabled",
+  type: "disabled",
+  disabled: true,
+  icon: "Folder",
+  children: "Disabled"
 };

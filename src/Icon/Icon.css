@@ -35,12 +35,6 @@
     height: calc(var(--line-height) * 2);
 }
 
-
-
-
-
-
-
 .oakd-icon-stack {
     display: grid;
     place-items: center;

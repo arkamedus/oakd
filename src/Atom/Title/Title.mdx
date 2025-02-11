@@ -1,19 +1,18 @@
-import {Controls, Meta, Primary, Stories, Title} from "@storybook/blocks";
+import { Controls, Meta, Primary, Stories, Title as StoryTitle } from "@storybook/blocks";
 import meta from './Title.stories';
 
 <Meta of={meta} />
 
-<Title />
-The `Title` component etc...
+<StoryTitle>Title Component</StoryTitle>
+
+The `Title` component is used to display primary heading text according to the oakd design system. It supports all core layout properties inherited from the oakd CoreComponentProps and adheres to our typographic and accessibility standards.
 
 <Primary />
 
 <Controls />
 
----
-
 # Title Component
 
-Listed below are additional variations of the component.
+The Title component renders a standardized `<h1>` element with oakd styling. Use this component to display prominent titles in your UI. It follows oakd’s best practices for responsiveness, accessibility, and design consistency.
 
 <Stories />

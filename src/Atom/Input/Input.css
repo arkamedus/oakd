@@ -31,8 +31,8 @@ input.oakd.input.size-small {
 input.oakd.input.size-large {
     padding-top: var(--leading);
     padding-bottom: var(--leading);
-    padding-right: calc( var(--leading) * 2 );
-    padding-left: calc( var(--leading) * 2 );
+    padding-right: calc(var(--leading) * 2);
+    padding-left: calc(var(--leading) * 2);
 }
 
 /* Input Types (Matching Button Types) */
@@ -41,15 +41,11 @@ input.oakd.input.size-large {
     border-color: var(--oakd-default-border);
     color: var(--oakd-default-text);
 }
-input.oakd.input.type-default input {
-}
 
 .input-container.type-primary {
     background-color: var(--oakd-primary-color);
     border-color: #0f4580;
     color: #fff;
-}
-input.oakd.input.type-primary input {
 }
 
 .input-container.type-danger {
@@ -57,29 +53,23 @@ input.oakd.input.type-primary input {
     border-color: var(--oakd-danger-border);
     color: var(--oakd-danger-text);
 }
-input.oakd.input.type-danger input {
-
-}
 
 .input-container.type-warning {
     background-color: #ffc107;
     color: #654406;
-}
-input.oakd.input.type-warning input {
 }
 
 .input-container.type-ghost {
     background: #CCC4;
     color: #888;
 }
-input.oakd.input.type-ghost input {
-}
 
 /* Error State */
-.oakd .input-container.input-error {
+.oakd.input-container.input-error {
     border-color: var(--oakd-danger-color, red);
 }
-.oakd .input-error-message {
+
+.oakd .input-error-message, .oakd .input-error-icon {
     color: var(--oakd-danger-color, red);
 }
 
@@ -90,7 +80,9 @@ input.oakd.input.type-ghost input {
     cursor: not-allowed;
     color: #666;
 }
-input.oakd.input.input-disabled input,
-input.oakd.input.type-disabled input {
+
+input.oakd.input.input-disabled,
+input.oakd.input.type-disabled {
     color: #666;
+    cursor: not-allowed;
 }

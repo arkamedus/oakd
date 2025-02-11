@@ -11,7 +11,7 @@ describe("Card Component", () => {
       children: "Test Card Content",
       className: "custom-class",
       style: { backgroundColor: "red" },
-      pad: true,
+      pad: true
     };
   });
 

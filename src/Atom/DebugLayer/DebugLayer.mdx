@@ -1,0 +1,23 @@
+import { Controls, Meta, Primary, Stories } from "@storybook/blocks";
+import meta from './DebugLayer.stories';
+
+<Meta of={meta} />
+
+# DebugLayer
+
+<Primary />
+
+<Controls />
+
+## Description
+
+The DebugLayer component is designed to assist developers by providing a visual overlay that highlights the boundaries of its child elements. This is especially useful for debugging layout and alignment issues during development.
+
+**Props:**
+
+- **label** (string): Optional text to display within the debug overlay.
+- **children** (React.ReactNode): Elements to be rendered inside the debug overlay.
+- **style** (React.CSSProperties): Inline styles for custom styling.
+- **className** (string): Additional custom class names that follow the oakd design system.
+
+<Stories />

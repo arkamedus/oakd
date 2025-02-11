@@ -1,5 +1,11 @@
 import { CoreComponentProps } from "../../Core/Core.types";
 
+/**
+ * Props for the DebugLayer component
+ */
 export interface DebugLayerProps extends CoreComponentProps {
-	label?: string;
+  /**
+   * Optional label text to display on the debug overlay
+   */
+  label?: string;
 }

@@ -1,10 +1,11 @@
-import {Controls, Meta, Primary, Stories, Title} from "@storybook/blocks";
+import { Controls, Meta, Primary, Stories, Title } from "@storybook/blocks";
 import meta from './Button.stories';
 
 <Meta of={meta} />
 
 <Title />
-The `Button` component is used for user interactions such as submitting forms, navigating pages, or triggering actions.
+
+The `Button` component is an interactive element designed for user engagement. It supports multiple types and sizes and can include icons and labels as needed. It adheres to accessibility standards with appropriate roles and disabled behavior.
 
 <Primary />
 
@@ -14,6 +15,14 @@ The `Button` component is used for user interactions such as submitting forms, n
 
 # Button Component
 
-Listed below are additional variations of the component.
+The `Button` component provides a versatile control for actions such as submitting forms, navigation, and triggering events. It integrates with other oakd components like Space, Icon, and Paragraph to ensure design consistency and responsiveness.
+
+**Props**:
+
+- `type`: Sets the visual style of the button (e.g., default, primary, danger, warning, ghost, disabled).
+- `size`: Adjusts the size of the button (default, small, large).
+- `disabled`: Disables the button and prevents interactions.
+- `icon`: Optionally displays an icon either as a string (icon name) or as a JSX element.
+- `label`: Additional text label to be displayed alongside children.
 
 <Stories />

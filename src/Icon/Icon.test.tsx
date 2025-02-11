@@ -12,12 +12,12 @@ describe("Icon Component", () => {
       size: "default",
       name: "Comment",
       className: "custom-icon",
-      style: { color: "blue" },
+      style: { color: "blue" }
     };
   });
 
   const renderComponent = (name: CoreIconNameType, extraProps: Partial<IconProps> = {}) =>
-      render(<Icon name={name} data-testid="Icon" {...extraProps} />);
+    render(<Icon name={name} data-testid="Icon" {...extraProps} />);
 
   it("should render the Icon component", () => {
     const { getByTestId } = renderComponent("Comment");
@@ -62,7 +62,7 @@ describe("Icon Component", () => {
     expect(console.warn).toHaveBeenCalledWith('Icon "InvalidIcon" not found.');
   });
 
-  it("should render an empty span when an invalid icon name is used", () => {
+  it("should render null if an invalid icon name is provided", () => {
     // @ts-ignore
     const { container } = renderComponent("InvalidIcon");
     expect(container.firstChild).toBeNull();
@@ -72,25 +72,27 @@ describe("Icon Component", () => {
 describe("IconStack Component", () => {
   it("should render children inside IconStack", () => {
     const { getByTestId } = render(
-        <IconStack data-testid="IconStack">
-          <Icon name="Comment" />
-          <Icon name="Trash" />
-        </IconStack>
+      <IconStack data-testid="IconStack">
+        <Icon name="Comment" />
+        <Icon name="Trash" />
+      </IconStack>
     );
     expect(getByTestId("IconStack")).toBeInTheDocument();
   });
 
   it("should apply custom class names to IconStack", () => {
-    const { getByTestId } = render(<IconStack className="custom-stack" data-testid="IconStack" />);
+    const { getByTestId } = render(
+      <IconStack className="custom-stack" data-testid="IconStack" />
+    );
     expect(getByTestId("IconStack")).toHaveClass("custom-stack");
   });
 
   it("should render multiple icons inside IconStack", () => {
     const { container } = render(
-        <IconStack>
-          <Icon name="Comment" />
-          <Icon name="Trash" />
-        </IconStack>
+      <IconStack>
+        <Icon name="Comment" />
+        <Icon name="Trash" />
+      </IconStack>
     );
     expect(container.querySelectorAll(".oakd.icon").length).toBe(2);
   });

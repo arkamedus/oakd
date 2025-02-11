@@ -12,7 +12,7 @@ describe("Button Component", () => {
       type: "primary",
       disabled: false,
       onClick: jest.fn(),
-      children: "Click Me",
+      children: "Click Me"
     };
   });
 
@@ -23,19 +23,18 @@ describe("Button Component", () => {
 
   it("should trigger onClick when clicked", () => {
     render(<Button {...props} />);
-    const button = screen.getByText("Click Me");
+    const button = screen.getByTestId("Button");
     fireEvent.click(button);
     expect(props.onClick).toHaveBeenCalled();
   });
 
-  it("should apply disabled styles when `disabled` is true", () => {
+  it("should apply disabled styles and prevent click events when disabled", () => {
     props.disabled = true;
     const { container } = render(<Button {...props} />);
-
-    // Use `within` to avoid multiple matches
     const button = within(container).getByTestId("Button");
-
     expect(button).toBeDisabled();
     expect(button).toHaveClass("disabled");
+    fireEvent.click(button);
+    expect(props.onClick).not.toHaveBeenCalled();
   });
 });
