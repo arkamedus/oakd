@@ -14,7 +14,7 @@
     "build": "rollup -c",
     "test": "jest",
     "test:watch": "jest --watch",
-    "storybook": "NODE_ENV=test NODE_OPTIONS=--openssl-legacy-provider storybook dev -p 6006",
+    "storybook": "NODE_OPTIONS=--openssl-legacy-provider storybook dev -p 6006",
     "storybook:export": "NODE_OPTIONS=--openssl-legacy-provider storybook build",
     "generate": "node ./util/create-component",
     "icons": "node ./src/Icon/generate-icons",
@@ -31,8 +31,8 @@
     "Component",
     "Library",
     "Rollup",
+    "Webpack",
     "Typescript",
-    "Sass",
     "Storybook"
   ],
   "author": "Gordon Goodrum <gordon@oakframe.org>",

@@ -12,19 +12,11 @@ describe("Select Component", () => {
         { value: "1", element: <span>Option 1</span> },
         { value: "2", element: <span>Option 2</span> }
       ],
-      onSelected: jest.fn(),
-      foo: "bar"
+      onSelected: jest.fn()
     };
   });
 
   const renderComponent = () => render(<Select {...props} />);
-
-  it("should render custom placeholder text from foo prop", () => {
-    props.foo = "custom foo prop";
-    renderComponent();
-    const component = screen.getByTestId("Select");
-    expect(component).toHaveTextContent("custom foo prop");
-  });
 
   it("should open dropdown menu when button is clicked", () => {
     renderComponent();

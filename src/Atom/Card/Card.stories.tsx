@@ -14,7 +14,6 @@ const meta: Meta<typeof Card> = {
   component: Card,
   argTypes: {}
 };
-
 export default meta;
 
 export const Default = () => (
