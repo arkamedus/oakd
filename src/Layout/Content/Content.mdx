@@ -1,0 +1,22 @@
+import { Controls, Meta, Primary, Stories, Title } from "@storybook/blocks";
+import meta from './Content.stories';
+
+<Meta of={meta} />
+
+<Title>Content Component</Title>
+
+The **Content** component is primarily used to apply configurable vertical and horizontal padding to its children.
+
+<Primary />
+<Controls />
+
+---
+
+# Content Component Documentation
+
+The **Content** component provides a flexible container that adds spacing around its content. It accepts a `pad` prop which can be a boolean (to enable default padding) or a number (to specify a custom padding value).
+
+## Key Props
+- **pad:** A boolean or number that determines the padding applied to the component.
+
+<Stories />

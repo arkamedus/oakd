@@ -1,19 +1,30 @@
-import {Controls, Meta, Primary, Stories, Title} from "@storybook/blocks";
+import { Controls, Meta, Primary, Stories, Title } from "@storybook/blocks";
 import meta from './Aspect.stories';
 
 <Meta of={meta} />
 
-<Title />
-The `Aspect` component etc...
+<Title>Aspect Component</Title>
+
+The **Aspect** component enforces a fixed aspect ratio for its content. It ensures that embedded elements like images or videos maintain consistent proportions across different screen sizes.
 
 <Primary />
-
 <Controls />
 
 ---
 
 # Aspect Component
 
-Listed below are additional variations of the component.
+The **Aspect** component is designed to maintain a specific aspect ratio for its child elements. This is particularly useful for media content where consistent proportions are essential.
 
-<Stories />
+## Key Features
+- **Aspect Ratio Enforcement:** Supports preset ratios such as `16x9`, `4x3`, `1x1`, etc.
+- **Customizability:** Additional class names and inline styles can be applied.
+- **Responsive Design:** Ensures that content scales appropriately while retaining the defined ratio.
+
+## Key Props
+- **ratio:** (`AspectRatio`) Defines the aspect ratio. Default is `"16x9"`.
+- **children:** (`ReactNode`) The content to be rendered within the aspect container.
+- **className:** (`string`) Optional additional CSS classes.
+- **style:** (`CSSProperties`) Custom inline styles.
+
+<Stories/>
