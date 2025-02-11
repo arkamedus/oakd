@@ -11,6 +11,7 @@ import Button from "../Button/Button";
 import Space from "../Space/Space";
 import { IconAngle } from "../../Icon/Icons.bin";
 import Divider from "../Divider/Divider";
+import Paragraph from "../Paragraph/Paragraph";
 
 const Select = <T,>({
 	options,
@@ -143,8 +144,10 @@ const Select = <T,>({
 						? sortedCategories.map((category) => (
 								<div key={category}>
 									<Space direction="vertical" gap>
-										<Space gap className="no-select">
-											<strong className="muted-heavy">{category}</strong>
+										<Space gap className="no-select" wide>
+											<Paragraph>
+												<strong className="muted-heavy">{category}</strong>
+											</Paragraph>
 											<Divider />
 										</Space>
 										{categorizedOptions[category].map((option) => (

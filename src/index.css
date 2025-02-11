@@ -267,3 +267,7 @@
 .oakd.wide {
   width: 100%;
 }
+.oakd.grow {
+  position: relative;
+  flex: 1 1 auto;
+}

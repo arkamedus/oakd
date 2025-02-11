@@ -1,0 +1,22 @@
+/* Base styles for the breadcrumb component */
+.oakd-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--leading);
+  font-size: var(--font-size);
+  color: var(--oakd-gray);
+}
+
+.oakd-breadcrumb-item {
+  color: var(--oakd-gray);
+}
+
+.oakd-breadcrumb-item:hover {
+  color: var(--oakd-black);
+}
+
+/* Styles for the separator */
+.oakd-breadcrumb-separator {
+  color: var(--oakd-gray);
+  //flex-shrink: 0;
+}

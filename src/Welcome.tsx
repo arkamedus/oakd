@@ -12,6 +12,8 @@ import { ButtonType } from "./Atom/Button/Button.types";
 import Row from "./Layout/Row/Row";
 import Column from "./Layout/Column/Column";
 import Input from "./Atom/Input/Input";
+import Select from "./Atom/Select/Select";
+import Collapsible from "./Atom/Collapsible/Collapsible";
 
 export const Welcome = () => {
 	return (
@@ -126,6 +128,49 @@ export const Welcome = () => {
 											/>
 										</Space>
 									</Space>
+
+									<Space direction={"vertical"} gap style={{ width: "100%" }}>
+										<Paragraph>extended inputs</Paragraph>
+										<Space style={{ width: "100%" }} gap justify={"between"}>
+											<Select
+												options={[
+													{
+														value: "a",
+														element: <Paragraph>Apple</Paragraph>,
+														category: "Fruits",
+													},
+													{
+														value: "b",
+														element: <Paragraph>Banana</Paragraph>,
+														category: "Fruits",
+													},
+													{
+														value: "c",
+														element: <Paragraph>Carrot</Paragraph>,
+														category: "Vegetables",
+													},
+												]}
+												onSelected={(val) => console.log(val)}
+												categorize={{
+													property: "category",
+													order: ["Fruits", "Vegetables"],
+												}}
+												placeholder={<Paragraph>Choose an option</Paragraph>}
+											/>
+										</Space>
+									</Space>
+
+									<Collapsible
+										title={
+											<Paragraph>
+												<strong>Collapsible</strong> Click to open
+											</Paragraph>
+										}
+									>
+										<Content pad>
+											<Paragraph>This was hidden</Paragraph>
+										</Content>
+									</Collapsible>
 
 									<Space direction={"vertical"} gap>
 										<Paragraph>svg icons</Paragraph>

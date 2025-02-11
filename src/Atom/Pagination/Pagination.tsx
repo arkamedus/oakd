@@ -38,10 +38,12 @@ const Pagination: React.FC<PaginationProps> = ({
 		<Space
 			className={`oakd pagination size-${size} ${disabled ? "disabled" : ""}`}
 			gap
+			data-testid="Pagination"
 		>
 			{showPreviousNext && (
 				<Icon
 					name="Triangle"
+					size={size}
 					className="arrow left"
 					data-testid="PaginationLeft"
 					onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
@@ -55,6 +57,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			)}
 			{numbersToShow.map((number) => (
 				<Button
+					size={size}
 					key={`pagination-number-${number}`}
 					className={`pagination-button ${currentPage === number ? "current" : ""}`}
 					onClick={() => handlePageChange(number)}
@@ -69,6 +72,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			{showPreviousNext && (
 				<Icon
 					name="Triangle"
+					size={size}
 					className="arrow right"
 					data-testid="PaginationRight"
 					onClick={() =>

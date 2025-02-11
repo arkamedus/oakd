@@ -1,7 +1,25 @@
 .oakd.content {
-
 }
 
 .oakd.content.pad {
   padding: var(--leading);
+}
+
+.oakd.content {
+  overflow-y: initial;
+  //background-color: var(--background);
+}
+
+.oakd.content.grow {
+    overflow-x:hidden;
+   overflow-y: auto;
+    max-height: 100%;
+    flex: 0 1 auto;
+ }
+
+.oakd.content-row {
+    display: flex;
+    flex: 1;             /* Fill remaining vertical space if needed */
+    width: 100%;
+    overflow: hidden;    /* Prevent the row itself from scrolling */
 }

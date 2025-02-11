@@ -4,6 +4,9 @@
     padding-top: var(--line-height);
     min-width: 120px;
     display: block;
+    height: 100%;
+    border-radius: calc(var(--border-radius) );
+    overflow: hidden;
 }
 
 /* Label style within the DebugLayer component */
