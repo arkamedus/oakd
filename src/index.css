@@ -104,7 +104,7 @@
 -------------------------------------------------- */
 .theme-soft {
   --border-radius: 3pt;
-  --background: #fafafa;
+  --background: rgb(255, 253, 253);
   --font-color: #555555;
   --gap-sizing: 16pt;
   /* If you want to override other color vars specifically for .theme-soft, do it here */

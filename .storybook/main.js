@@ -1,14 +1,12 @@
 module.exports = {
   stories: [
-      //'../src/*.mdx',
-    '../src/**/*.mdx',
+   // '../src/**/*.mdx',
     "../src/**/*.stories.tsx"],
 
   // Add any Storybook addons you want here: https://storybook.js.org/addons/
   addons: [
     "@storybook/addon-essentials",
-    "@storybook/addon-styling",
-    "@storybook/addon-docs"
+    "@storybook/addon-themes"
   ],
 
   webpackFinal: async (config) => {

@@ -15,6 +15,7 @@ export const Col: React.FC<ColumnProps> = ({
 	xl,
 	xls,
 	className,
+	key,
 }) => {
 	let classNames = ["oakd", "column"];
 	if (xs) classNames.push(`xs-${xs}`);
@@ -27,6 +28,7 @@ export const Col: React.FC<ColumnProps> = ({
 
 	return (
 		<div
+			key={key}
 			data-testid="Column"
 			className={classNames.join(" ")}
 			style={style}

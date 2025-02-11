@@ -1,5 +1,5 @@
 import "../src/index.css";
-import {withThemeByClassName} from "@storybook/addon-styling";
+import {withThemeByClassName} from "@storybook/addon-themes";
 /**
  * Read https://storybook.js.org/docs/react/configure/overview#configure-story-rendering
  * for more information about the purpose of this file.
@@ -69,16 +69,18 @@ import {withThemeByClassName} from "@storybook/addon-styling";
  **/
 
 
-export const decorators = [
-    withThemeByClassName({
-        themes: {
-            default: "theme-default",
-            soft: "theme-soft",
-            tight: "theme-tight",
-            contrast: "theme-high-contrast",
-        },
-        defaultTheme: "default",
-    })
-];
+export default {
+    tags: ["autodocs"],
+    decorators : [
+        withThemeByClassName({
+            themes: {
+                default: "theme-default",
+                soft: "theme-soft",
+                tight: "theme-tight",
+                contrast: "theme-high-contrast",
+            },
+            defaultTheme: "default",
+        })
+    ]
+};
 
-export const tags = ["autodocs"];

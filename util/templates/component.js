@@ -3,8 +3,8 @@ module.exports = (componentName) => ({
 import { ${componentName}Props } from "./${componentName}.types";
 import "./${componentName}.css";
 
-const ${componentName}: React.FC<${componentName}Props> = ({ foo }) => (
-  <div data-testid="${componentName}" className="oakd ${componentName.toLowerCase()}">{foo}</div>
+const ${componentName}: React.FC<${componentName}Props> = ({ children }) => (
+  <div data-testid="${componentName}" className="oakd ${componentName.toLowerCase()}">{children}</div>
 );
 
 export default ${componentName};`,

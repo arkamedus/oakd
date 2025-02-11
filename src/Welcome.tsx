@@ -76,9 +76,9 @@ export const Welcome = () => {
 										<Space gap justify={"between"} style={{ width: "100%" }}>
 											{["default", "primary", "warning", "danger"]
 												.slice(0, 16)
-												.map((type: ButtonType) => {
+												.map((type: ButtonType, idx) => {
 													return (
-														<Button icon={"Star"} size={"small"} type={type}>
+														<Button key={`button-${idx}`} icon={"Star"} size={"small"} type={type}>
 															<Paragraph>{type}</Paragraph>
 														</Button>
 													);
@@ -170,9 +170,9 @@ export const Welcome = () => {
 										{[
 											1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 											1, 1, 1, 1, 1,
-										].map(() => {
+										].map((col, idx) => {
 											return (
-												<Column xs={1}>
+												<Column xs={1} key={`col-${idx}`}>
 													<DebugLayer
 														style={{ minWidth: 0, overflowX: "hidden" }}
 													/>

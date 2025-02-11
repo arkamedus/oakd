@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import Divider from "./Divider";
 import { DividerProps } from "./Divider.types";
 
@@ -20,7 +20,7 @@ const meta: Meta<typeof Divider> = {
 };
 export default meta;
 
-const Template: Story<DividerProps> = (args) => <Divider {...args} />;
+const Template: StoryFn<DividerProps> = (args) => <Divider {...args} />;
 
 export const Horizontal = Template.bind({});
 Horizontal.args = {

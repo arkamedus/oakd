@@ -1,0 +1,41 @@
+.oakd.select {}
+
+.dropdown-container {
+    display: inline;
+    position: relative;
+}
+
+/* Dropdown inner style */
+.dropdown-inner {
+    z-index: 1;
+    background-color: var(--card-background, #fff);
+    position: absolute;
+    display: none;
+    right: 0;
+    top: calc(var(--line-height) * 2.5);
+    min-width: 200px;
+    width: max-content;
+    overflow: hidden;
+    border: 1px solid var(--border-color, #ccc);
+    padding: var(--box-padding, 8px);
+    border-radius: var(--border-radius, 4px);
+}
+
+.dropdown-inner.left {
+     right: auto;
+     left: 0;
+     top: calc(var(--line-height) * 2);
+}
+
+.dropdown-inner a {
+    text-decoration: none;
+}
+
+.dropdown-inner.active a:hover .content, li.active {
+    text-decoration: underline;
+}
+
+/* Dropdown inner style when active */
+.dropdown-inner.active {
+    display: block;
+}
