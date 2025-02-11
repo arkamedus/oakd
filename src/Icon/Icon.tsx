@@ -19,8 +19,7 @@ const Icon: React.FC<IconProps> = ({
 
 	// Determine the URL from the imported icon asset
 	// @ts-ignore
-	const iconUrl =
-		typeof IconSrc === "string" ? IconSrc : IconSrc.default || IconSrc;
+	const iconUrl = typeof IconSrc === "string" ? IconSrc : IconSrc.default || IconSrc;
 
 	const iconStyle = {
 		...style,

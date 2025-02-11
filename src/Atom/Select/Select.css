@@ -1,41 +1,49 @@
-.oakd.select {}
-
-.dropdown-container {
-    display: inline;
-    position: relative;
+.oakd-select {
+  position: relative;
+  display: inline-block;
 }
 
-/* Dropdown inner style */
-.dropdown-inner {
-    z-index: 1;
-    background-color: var(--card-background, #fff);
-    position: absolute;
-    display: none;
-    right: 0;
-    top: calc(var(--line-height) * 2.5);
-    min-width: 200px;
-    width: max-content;
-    overflow: hidden;
-    border: 1px solid var(--border-color, #ccc);
-    padding: var(--box-padding, 8px);
-    border-radius: var(--border-radius, 4px);
+.oakd-select__button {
+  /* Inherits from oakd Button styles */
 }
 
-.dropdown-inner.left {
-     right: auto;
-     left: 0;
-     top: calc(var(--line-height) * 2);
+.oakd-select__dropdown {
+  z-index: 1;
+  background-color: var(--background, #fff);
+  position: absolute;
+  display: none;
+  top: calc(var(--line-height) * 2);
+  min-width: 200px;
+  width: max-content;
+  overflow: hidden;
+  border: 1px solid var(--border-color, #ccc);
+  padding: var(--box-padding, 8px);
+  border-radius: var(--border-radius, 4px);
 }
 
-.dropdown-inner a {
-    text-decoration: none;
+.oakd-select__dropdown--left {
+  left: 0;
+  right: auto;
 }
 
-.dropdown-inner.active a:hover .content, li.active {
-    text-decoration: underline;
+.oakd-select__dropdown.active {
+  display: block;
 }
 
-/* Dropdown inner style when active */
-.dropdown-inner.active {
-    display: block;
+.oakd-select__item {
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.oakd-select__item:hover,
+.oakd-select__item:focus {
+  background-color: var(--hover-background, #f0f0f0);
+}
+
+.no-select {
+  user-select: none;
+}
+
+.muted-heavy {
+  color: var(--oakd-gray);
 }

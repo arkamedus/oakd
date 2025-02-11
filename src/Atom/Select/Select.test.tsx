@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import Select from "./Select";
 import { SelectProps } from "./Select.types";
+import Paragraph from "../Paragraph/Paragraph";
 
 describe("Select Component", () => {
   let props: SelectProps<string>;
@@ -9,8 +10,8 @@ describe("Select Component", () => {
   beforeEach(() => {
     props = {
       options: [
-        { value: "1", element: <span>Option 1</span> },
-        { value: "2", element: <span>Option 2</span> }
+        { value: "1", element: <Paragraph>Option 1</Paragraph> },
+        { value: "2", element: <Paragraph>Option 2</Paragraph> }
       ],
       onSelected: jest.fn()
     };
@@ -52,5 +53,12 @@ describe("Select Component", () => {
     expect(dropdown).toHaveClass("active");
     fireEvent.mouseDown(document);
     expect(dropdown).not.toHaveClass("active");
+  });
+
+  it("should render with the correct size prop", () => {
+    props.size = "small";
+    renderComponent();
+    const button = screen.getByRole("button");
+    expect(button.className).toMatch(/small/);
   });
 });

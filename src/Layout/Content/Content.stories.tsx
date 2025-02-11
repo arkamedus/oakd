@@ -4,7 +4,7 @@ import DebugLayer from "../../Atom/DebugLayer/DebugLayer";
 import Paragraph from "../../Atom/Paragraph/Paragraph";
 
 export default {
-	title: "Content",
+	title: "Design System/Atomic/Content",
 };
 
 export const Default = () => (
