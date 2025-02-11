@@ -11,18 +11,23 @@ import "./Card.css";
  * @returns {JSX.Element} The rendered Card component.
  */
 const Card: React.FC<CardProps> = ({ children, style, className, pad }) => {
-  const classNames = ["oakd", "card"];
-  if (pad) {
-    classNames.push("pad");
-  }
-  if (className) {
-    classNames.push(className);
-  }
-  return (
-    <div data-testid="Card" className={classNames.join(" ")} style={style} role="region">
-      {children}
-    </div>
-  );
+	const classNames = ["oakd", "card"];
+	if (pad) {
+		classNames.push("pad");
+	}
+	if (className) {
+		classNames.push(className);
+	}
+	return (
+		<div
+			data-testid="Card"
+			className={classNames.join(" ")}
+			style={style}
+			role="region"
+		>
+			{children}
+		</div>
+	);
 };
 
 export default Card;

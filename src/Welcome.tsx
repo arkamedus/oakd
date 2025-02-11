@@ -78,7 +78,12 @@ export const Welcome = () => {
 												.slice(0, 16)
 												.map((type: ButtonType, idx) => {
 													return (
-														<Button key={`button-${idx}`} icon={"Star"} size={"small"} type={type}>
+														<Button
+															key={`button-${idx}`}
+															icon={"Star"}
+															size={"small"}
+															type={type}
+														>
 															<Paragraph>{type}</Paragraph>
 														</Button>
 													);

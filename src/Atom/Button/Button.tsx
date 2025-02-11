@@ -13,61 +13,63 @@ import { sizeMinusOne } from "../../Core/Core.utils";
  * @returns {JSX.Element} Rendered Button element
  */
 const Button: React.FC<ButtonProps> = ({
-  children,
-  onClick,
-  style,
-  buttonType = "button",
-  type = "default",
-  size = "default",
-  className = "",
-  icon,
-  disabled,
-  role = "button",
-  label
+	children,
+	onClick,
+	style,
+	buttonType = "button",
+	type = "default",
+	size = "default",
+	className = "",
+	icon,
+	disabled,
+	role = "button",
+	label,
 }) => {
-  const isDisabled = type === "disabled" || disabled;
+	const isDisabled = type === "disabled" || disabled;
 
-  const classNames = [
-    "oakd",
-    "standardized-reset",
-    "standardized-text",
-    "button",
-    `type-${type}`,
-    `size-${size}`,
-    isDisabled ? "disabled" : "",
-    className
-  ].filter(Boolean).join(" ");
+	const classNames = [
+		"oakd",
+		"standardized-reset",
+		"standardized-text",
+		"button",
+		`type-${type}`,
+		`size-${size}`,
+		isDisabled ? "disabled" : "",
+		className,
+	]
+		.filter(Boolean)
+		.join(" ");
 
-  /**
-   * Handles the click event. Prevents action if disabled.
-   * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
-   */
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (isDisabled) return;
-    if (onClick) onClick(event);
-  };
+	/**
+	 * Handles the click event. Prevents action if disabled.
+	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
+	 */
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		if (isDisabled) return;
+		if (onClick) onClick(event);
+	};
 
-  return (
-    <button
-      style={style}
-      className={classNames}
-      onClick={isDisabled ? undefined : handleClick}
-      type={buttonType}
-      disabled={isDisabled}
-      role={role}
-      data-testid="Button"
-    >
-      <Space gap align="center" style={{ height: "100%" }}>
-        {icon && typeof icon === "string" ? (
-          <Icon name={icon} size={sizeMinusOne(size)} />
-        ) : (
-          icon
-        )}
-        {label && <Paragraph>{label}</Paragraph>}
-        {children}
-      </Space>
-    </button>
-  );
+	return (
+		<button
+			style={style}
+			className={classNames}
+			onClick={isDisabled ? undefined : handleClick}
+			type={buttonType}
+			disabled={isDisabled}
+			role={role}
+			data-testid="Button"
+		>
+			<Space gap align="center" style={{ height: "100%" }}>
+				{icon && typeof icon === "string" ? (
+					<Icon name={icon} size={sizeMinusOne(size)} />
+				) : (
+					icon
+				)}
+				{label && <Paragraph>{label}</Paragraph>}
+				{children}
+			</Space>
+		</button>
+	);
 };
 
 export default Button;
