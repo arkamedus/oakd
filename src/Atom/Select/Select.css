@@ -1,49 +1,48 @@
 .oakd-select {
-  position: relative;
-  display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .oakd-select__button {
-  /* Inherits from oakd Button styles */
+	/* Inherits from oakd Button styles */
 }
 
 .oakd-select__dropdown {
-  z-index: 1;
-  background-color: var(--background, #fff);
-  position: absolute;
-  display: none;
-  top: calc(var(--line-height) * 2);
-  min-width: 200px;
-  width: max-content;
-  overflow: hidden;
-  border: 1px solid var(--border-color, #ccc);
-  padding: var(--box-padding, 8px);
-  border-radius: var(--border-radius, 4px);
+	z-index: 1000;
+	background-color: var(--background, #fff);
+	position: fixed;
+	display: none;
+	min-width: 200px;
+	width: max-content;
+	overflow: hidden;
+	border: 1px solid var(--border-color, #ccc);
+	padding: var(--box-padding, 8px);
+	border-radius: var(--border-radius, 4px);
 }
 
 .oakd-select__dropdown--left {
-  left: 0;
-  right: auto;
+	left: 0;
+	right: auto;
 }
 
 .oakd-select__dropdown.active {
-  display: block;
+	display: block;
 }
 
 .oakd-select__item {
-  cursor: pointer;
-  padding: 4px 8px;
+	cursor: pointer;
+	padding: 4px 8px;
 }
 
 .oakd-select__item:hover,
 .oakd-select__item:focus {
-  background-color: var(--hover-background, #f0f0f0);
+	background-color: var(--hover-background, #f0f0f0);
 }
 
 .no-select {
-  user-select: none;
+	user-select: none;
 }
 
 .muted-heavy {
-  color: var(--oakd-gray);
+	color: var(--oakd-gray);
 }

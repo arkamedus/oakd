@@ -14,14 +14,7 @@ const meta: Meta<typeof Select> = {
 		type: {
 			control: {
 				type: "select",
-				options: [
-					"default",
-					"primary",
-					"danger",
-					"warning",
-					"ghost",
-					"disabled",
-				],
+				options: ["default", "primary", "danger", "warning", "ghost", "disabled"],
 			},
 			description: "Button type for the select trigger",
 			defaultValue: "ghost",
@@ -53,19 +46,30 @@ export const WithCategories = () => (
 	<Select
 		options={[
 			{ value: "a", element: <Paragraph>Apple</Paragraph>, category: "Fruits" },
-			{
-				value: "b",
-				element: <Paragraph>Banana</Paragraph>,
-				category: "Fruits",
-			},
-			{
-				value: "c",
-				element: <Paragraph>Carrot</Paragraph>,
-				category: "Vegetables",
-			},
+			{ value: "b", element: <Paragraph>Banana</Paragraph>, category: "Fruits" },
+			{ value: "c", element: <Paragraph>Carrot</Paragraph>, category: "Vegetables" },
 		]}
 		onSelected={(val) => console.log(val)}
 		categorize={{ property: "category", order: ["Fruits", "Vegetables"] }}
 		placeholder="Choose an option"
+	/>
+);
+
+export const LongOptions = () => (
+	<Select
+		options={[
+			{ value: "x", element: <Paragraph>Very long option text that might overflow</Paragraph> },
+			{ value: "y", element: <Paragraph>Another long option text that should be handled correctly</Paragraph> },
+		]}
+		onSelected={(val) => console.log(val)}
+		placeholder="Select a long option"
+	/>
+);
+
+export const NoOptions = () => (
+	<Select
+		options={[]}
+		onSelected={(val) => console.log(val)}
+		placeholder="No options available"
 	/>
 );

@@ -9,6 +9,7 @@ import Aspect from "../Aspect/Aspect";
 import Paragraph from "../../Atom/Paragraph/Paragraph";
 import Space from "../../Atom/Space/Space";
 import Title from "../../Atom/Title/Title";
+import Select from "../../Atom/Select/Select";
 
 const meta: Meta<typeof Page> = {
 	title: "Design System/Layout/Page",
@@ -86,7 +87,13 @@ export const FixedTemplateWithScrollingContent = () => (
 	<Aspect ratio="21x9">
 		<Page gap>
 			<Content>
-				<DebugLayer label="Header" />
+				<DebugLayer label="Header" ><Select options={[{
+					value: "1",
+					element: <Paragraph>Option 1</Paragraph>
+				}, {
+					value: "2",
+					element: <Paragraph>Option 2</Paragraph>
+				}]} onSelected={val => console.log(val)} placeholder="Default placeholder" /></DebugLayer>
 			</Content>
 			<Content grow>
 				<DebugLayer label={"Scrollable"}>

@@ -1,10 +1,4 @@
-import React, {
-	useEffect,
-	useRef,
-	useState,
-	useCallback,
-	KeyboardEvent,
-} from "react";
+import React, { useEffect, useRef, useState, useCallback, KeyboardEvent } from "react";
 import { SelectOption, SelectProps } from "./Select.types";
 import "./Select.css";
 import Button from "../Button/Button";
@@ -23,9 +17,7 @@ const Select = <T,>({
 	categorize,
 }: SelectProps<T>): JSX.Element => {
 	const [isActive, setIsActive] = useState(false);
-	const [selectedValue, setSelectedValue] = useState<T | undefined>(
-		defaultValue,
-	);
+	const [selectedValue, setSelectedValue] = useState<T | undefined>(defaultValue);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const toggleMenu = useCallback(() => {
@@ -62,10 +54,7 @@ const Select = <T,>({
 	);
 
 	const closeMenu = useCallback((event: MouseEvent) => {
-		if (
-			dropdownRef.current &&
-			!dropdownRef.current.contains(event.target as Node)
-		) {
+		if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
 			setIsActive(false);
 		}
 	}, []);
@@ -110,12 +99,10 @@ const Select = <T,>({
 		return { categorizedOptions, sortedCategories, uncategorizedOptions };
 	}, [options, categorize]);
 
-	const { categorizedOptions, sortedCategories, uncategorizedOptions } =
-		getCategorizedOptions();
+	const { categorizedOptions, sortedCategories, uncategorizedOptions } = getCategorizedOptions();
 	const shouldShowCategories = categorize && sortedCategories.length > 0;
 
-	const selectedElement = (typeof selectedValue === "string" &&
-	selectedValue !== ""
+	const selectedElement = (typeof selectedValue === "string" && selectedValue !== ""
 		? options.find((option) => option.value === selectedValue)?.element
 		: placeholder) || <span>Select an option</span>;
 
@@ -123,7 +110,6 @@ const Select = <T,>({
 		<div ref={dropdownRef} className="oakd-select" data-testid="Select">
 			<Button
 				onClick={toggleMenu}
-				//onKeyDown={handleButtonKeyDown}
 				className="oakd-select__button"
 				type={type}
 				size={size}
@@ -137,46 +123,50 @@ const Select = <T,>({
 			</Button>
 			<div
 				className={`oakd-select__dropdown oakd-select__dropdown--left ${isActive ? "active" : ""}`}
-				role="listbox"
+				role="listbox"				style={{
+					position: 'fixed',
+					top: dropdownRef.current ? dropdownRef.current.getBoundingClientRect().bottom : 0,
+					left: dropdownRef.current ? dropdownRef.current.getBoundingClientRect().left : 0,
+				}}
 			>
 				<Space direction="vertical" gap wide justify="stretch">
 					{shouldShowCategories
 						? sortedCategories.map((category) => (
-								<div key={category}>
-									<Space direction="vertical" gap>
-										<Space gap className="no-select" wide>
-											<Paragraph>
-												<strong className="muted-heavy">{category}</strong>
-											</Paragraph>
-											<Divider />
-										</Space>
-										{categorizedOptions[category].map((option) => (
-											<span
-												key={String(option.value)}
-												className="oakd-select__item"
-												role="option"
-												tabIndex={0}
-												onClick={() => selectOption(option.value)}
-												onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
-											>
-												{option.element}
-											</span>
-										))}
+							<div key={category}>
+								<Space direction="vertical" gap>
+									<Space gap className="no-select" wide>
+										<Paragraph>
+											<strong className="muted-heavy">{category}</strong>
+										</Paragraph>
+										<Divider />
 									</Space>
-								</div>
-							))
-						: uncategorizedOptions.map((option) => (
-								<span
-									key={String(option.value)}
-									className="oakd-select__item"
-									role="option"
-									tabIndex={0}
-									onClick={() => selectOption(option.value)}
-									onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
-								>
-									{option.element}
-								</span>
-							))}
+									{categorizedOptions[category].map((option) => (
+										<span
+											key={String(option.value)}
+											className="oakd-select__item"
+											role="option"
+											tabIndex={0}
+											onClick={() => selectOption(option.value)}
+											onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
+										>
+											{option.element}
+										</span>
+										))}
+								</Space>
+							</div>
+						))
+					: uncategorizedOptions.map((option) => (
+							<span
+								key={String(option.value)}
+								className="oakd-select__item"
+								role="option"
+								tabIndex={0}
+								onClick={() => selectOption(option.value)}
+								onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
+							>
+								{option.element}
+							</span>
+						))}
 				</Space>
 			</div>
 		</div>
