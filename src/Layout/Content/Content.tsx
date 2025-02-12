@@ -2,12 +2,12 @@ import React from "react";
 import "./Content.css";
 import { ContentProps } from "./Content.types";
 
-const Content: React.FC<ContentProps> = ({ children, pad, grow }) => {
+const Content: React.FC<ContentProps> = ({ children, pad, grow, style }) => {
 	const classes = ["oakd", "content", pad && "pad", grow && "grow"]
 		.filter(Boolean)
 		.join(" ");
 	return (
-		<div data-testid="Content" className={classes}>
+		<div data-testid="Content" className={classes} style={style}>
 			{children}
 		</div>
 	);
