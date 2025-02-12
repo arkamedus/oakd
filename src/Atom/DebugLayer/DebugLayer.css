@@ -10,11 +10,14 @@
 }
 
 /* Label style within the DebugLayer component */
-.debug-layer > .label {
+.debug-layer > .header {
     position: absolute;
     top: 0;
     left: 0;
     height: calc(var(--line-height));
+}
+
+.debug-layer .header > .label {
     background-color: #FFCBCB;
     padding: 0 var(--leading);
     color: #851010;

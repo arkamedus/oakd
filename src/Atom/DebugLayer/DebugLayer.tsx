@@ -3,6 +3,7 @@ import { DebugLayerProps } from "./DebugLayer.types";
 import "./DebugLayer.css";
 import Paragraph from "../Paragraph/Paragraph";
 import { IconLayers } from "../../Icon/Icons.bin";
+import Space from "../Space/Space";
 
 /**
  * DebugLayer Component
@@ -18,16 +19,20 @@ const DebugLayer: React.FC<DebugLayerProps> = ({
 	children,
 	style,
 	className = "",
+	extra
 }) => {
 	const classes = ["oakd", "debug-layer", className].filter(Boolean).join(" ");
 	return (
 		<span data-testid="DebugLayer" className={classes} style={style}>
-			{label && (
+			<Space justify={"between"} className={"header"} wide>
+			{label && typeof label == "string"?(
 				<Paragraph className="label">
 					<IconLayers size="small" />
 					{label}
 				</Paragraph>
-			)}
+			):label}
+				{extra}
+		</Space>
 			{children}
 		</span>
 	);

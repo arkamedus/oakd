@@ -6,6 +6,7 @@ import Icon from "../../Icon/Icon";
 import Paragraph from "../Paragraph/Paragraph";
 import { sizeMinusOne } from "../../Core/Core.utils";
 
+
 /**
  * Button component
  *
@@ -73,3 +74,7 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 export default Button;
+
+export const ButtonGroup: React.FC<{children?:any}> = ({ children}) => {
+	return <Space className={"button_group"}>{children}</Space>
+};

@@ -2,7 +2,7 @@ import TestComponent from "./TestComponent";
 import Page from "./Layout/Page/Page";
 import Row from "./Layout/Row/Row";
 import Col from "./Layout/Column/Column";
-import Button from "./Atom/Button/Button";
+import Button, { ButtonGroup } from "./Atom/Button/Button";
 import Title from "./Atom/Title/Title";
 import Paragraph from "./Atom/Paragraph/Paragraph";
 import Space from "./Atom/Space/Space";
@@ -22,7 +22,7 @@ export {
 	Col,
 	Content, ContentRow,
 	Row,
-	Button,
+	Button,ButtonGroup,
 	Space,
 	Title,
 	Paragraph,

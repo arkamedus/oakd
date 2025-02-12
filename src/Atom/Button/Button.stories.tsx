@@ -1,11 +1,11 @@
 import React from "react";
-import { Meta, StoryFn, StoryObj } from "@storybook/react";
+import {Meta, StoryFn, StoryObj} from "@storybook/react";
 import Button from "./Button";
-import { ButtonType } from "./Button.types";
-import { CoreComponentSizeType } from "../../Core/Core.types";
+import {ButtonType} from "./Button.types";
+import {CoreComponentSizeType} from "../../Core/Core.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
-import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
+import {CoreIconNameType, IconFolder} from "../../Icon/Icons.bin";
 
 const meta: Meta<typeof Button> = {
 	title: "Design System/Atomic/Button",
@@ -28,7 +28,7 @@ const meta: Meta<typeof Button> = {
 			control: "boolean",
 			description: "Disables the button",
 		},
-		onClick: { action: "clicked" },
+		onClick: {action: "clicked"},
 	},
 };
 export default meta;
@@ -42,10 +42,10 @@ const Template: StoryFn<{
 	icon: CoreIconNameType;
 	children: React.ReactNode;
 }> = (args) => {
-	const firstArgs = { ...args };
+	const firstArgs = {...args};
 	delete firstArgs.children;
 
-	const middleArgs = { ...args };
+	const middleArgs = {...args};
 	delete middleArgs.icon;
 
 	return (
@@ -55,7 +55,7 @@ const Template: StoryFn<{
 				<Button {...middleArgs}>
 					<Paragraph>{args.children || "Button"}</Paragraph>
 				</Button>
-				<Button icon={<IconFolder size="small" />} {...middleArgs}>
+				<Button icon={<IconFolder size="small"/>} {...middleArgs}>
 					<Paragraph>{args.children || "Button"}</Paragraph>
 				</Button>
 				<Button icon={args.icon} {...args}>
@@ -65,12 +65,13 @@ const Template: StoryFn<{
 					<Paragraph>
 						<span>
 							Button
-							<br />
+							<br/>
 							Two Lines
 						</span>
 					</Paragraph>
 				</Button>
 			</Space>
+
 			<Space gap justify="stretch">
 				<Button {...firstArgs} />
 				<Button {...middleArgs}>
@@ -83,7 +84,7 @@ const Template: StoryFn<{
 					<Paragraph>
 						<span>
 							Two lines make
-							<br />
+							<br/>
 							the others stretch
 						</span>
 					</Paragraph>
