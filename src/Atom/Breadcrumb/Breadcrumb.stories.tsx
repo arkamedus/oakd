@@ -74,7 +74,7 @@ CustomIconSeparator.args = {
 	separator: "slash",
 };
 
-export const CustomItems: Story = () => (
+export const CustomItems = () => (
 	<Breadcrumb
 		items={[
 			{ text: <IconMagnify />, href: "/" },
@@ -86,7 +86,7 @@ export const CustomItems: Story = () => (
 	/>
 );
 
-export const MixedContent: Story = () => (
+export const MixedContent = () => (
 	<Breadcrumb
 		items={[
 			{ text: "Home", href: "/" },

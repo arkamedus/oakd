@@ -15,18 +15,16 @@ const Content: React.FC<ContentProps> = ({ children, pad, grow }) => {
 
 export default Content;
 
-export interface ContentRowProps {
-	children: React.ReactNode;
-	className?: string;
-}
-
-export const ContentRow: React.FC<ContentRowProps> = ({
+export const ContentRow: React.FC<ContentProps> = ({
 	children,
 	className,
+	style ,
+	pad , grow
 }) => {
-	const classes = ["oakd", "content-row", className].filter(Boolean).join(" ");
-	return (
-		<div data-testid="ContentRow" className={classes}>
+	const classes = ["oakd", "content-row", pad && "pad", grow && "grow"]
+		.filter(Boolean)
+		.join(" ");	return (
+		<div style={style} data-testid="ContentRow" className={classes}>
 			{children}
 		</div>
 	);
