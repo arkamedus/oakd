@@ -22,3 +22,19 @@ export const WithPadding = () => (
 		</Content>
 	</DebugLayer>
 );
+
+export const WithPaddingHorizontal = () => (
+	<DebugLayer label={"DebugLayer"}>
+		<Content pad={"horizontal"}>
+			<Paragraph>Paragraph text.</Paragraph>
+		</Content>
+	</DebugLayer>
+);
+
+export const WithPaddingVertical = () => (
+	<DebugLayer label={"DebugLayer"}>
+		<Content pad={"vertical"}>
+			<Paragraph>Paragraph text.</Paragraph>
+		</Content>
+	</DebugLayer>
+);

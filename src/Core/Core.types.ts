@@ -1,4 +1,28 @@
-import React, { CSSProperties } from "react";
+import React, {CSSProperties} from "react";
+
+
+export type CorePaddingValueTypes = "both" | "horizontal" | "vertical";
+
+export type CorePaddingType = number | CorePaddingValueTypes | boolean;
+
+
+export const decode__padding = (padding: CorePaddingType): string => {
+
+	const hasPadding = (!!padding);
+	if (!hasPadding) {
+		return "";
+	}
+
+	if (typeof padding === "number"){
+		return "pad";
+	}
+
+	if (typeof padding === "string"){
+		return `pad-${padding}`;
+	}
+
+	return "pad";
+}
 
 export interface CoreComponentProps extends CoreComponentEventProps {
 	id?: string;
@@ -50,7 +74,7 @@ export interface CoreLayoutProps extends CoreComponentProps {
 }
 
 export interface CoreContentProps extends CoreComponentProps {
-	pad?: number | boolean;
+	pad?: CorePaddingType;
 }
 
 export interface CoreLayoutSizingProps {

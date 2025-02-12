@@ -5,6 +5,14 @@
   padding: var(--leading);
 }
 
+.oakd.content.pad-horizontal {
+  padding: 0 var(--leading);
+}
+
+.oakd.content.pad-vertical {
+  padding: var(--leading) 0;
+}
+
 .oakd.content {
   overflow-y: initial;
   //background-color: var(--background);
@@ -14,7 +22,7 @@
     overflow-x:hidden;
    overflow-y: auto;
     max-height: 100%;
-    flex: 0 1 auto;
+    flex: 1 1 auto;
  }
 
 .oakd.content-row {
