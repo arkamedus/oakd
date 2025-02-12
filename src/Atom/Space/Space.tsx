@@ -14,6 +14,8 @@ const Space: React.FC<SpaceProps> = ({
 	align,
 	justify,
 	wide,
+
+	onClick
 }) => {
 	let classNames = ["oakd", "space"];
 	if (className) classNames.push(className);
@@ -27,8 +29,12 @@ const Space: React.FC<SpaceProps> = ({
 		classNames.push("wide");
 	}
 
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		if (onClick) onClick(event);
+	};
+
 	return (
-		<span id={id} key={key} data-testid="Space" style={style} className={classNames.join(" ")}>
+		<span id={id} key={key} onClick={handleClick} data-testid="Space" style={style} className={classNames.join(" ")}>
 			{children}
 		</span>
 	);

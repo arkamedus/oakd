@@ -1,12 +1,26 @@
 import React, { CSSProperties } from "react";
 
-export interface CoreComponentProps {
+export interface CoreComponentProps extends CoreComponentEventProps {
 	id?: string;
-	key?: string;
+	key?: React.Key;
 	style?: CSSProperties;
 	children?: React.ReactNode;
 	className?: string;
+	role?: string; // Added for accessibility
+	"aria-label"?: string; // Added for accessibility
+	tabIndex?: number; // Added for keyboard interactions
 }
+
+export interface CoreComponentEventProps {
+	onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
+	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
+	onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
+	onFocus?: (event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>) => void;
+	onBlur?: (event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>) => void;
+	onKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement | HTMLDivElement>) => void;
+	onKeyUp?: (event: React.KeyboardEvent<HTMLButtonElement | HTMLDivElement>) => void;
+}
+
 
 export type CoreComponentSizeType = "default" | "small" | "large";
 export type CoreComponentLayoutSizingType =

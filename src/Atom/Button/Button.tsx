@@ -23,8 +23,7 @@ const Button: React.FC<ButtonProps> = ({
 	className = "",
 	icon,
 	disabled,
-	role = "button",
-	label,
+	role = "button"
 }) => {
 	const isDisabled = type === "disabled" || disabled;
 
@@ -54,7 +53,7 @@ const Button: React.FC<ButtonProps> = ({
 		<button
 			style={style}
 			className={classNames}
-			onClick={isDisabled ? undefined : handleClick}
+			onClick={handleClick}
 			type={buttonType}
 			disabled={isDisabled}
 			role={role}
@@ -66,7 +65,6 @@ const Button: React.FC<ButtonProps> = ({
 				) : (
 					icon
 				)}
-				{label && <Paragraph>{label}</Paragraph>}
 				{children}
 			</Space>
 		</button>

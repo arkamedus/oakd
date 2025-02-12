@@ -7,7 +7,7 @@ const Page: React.FC<PageProps> = ({ id, key, children, style, fixed, gap, class
 		.filter(Boolean)
 		.join(" ");
 	return (
-		<div id={id} key={key} data-testid="Page" className={classes}>
+		<div id={id} key={key} data-testid="Page" className={classes} style={style}>
 			{children}
 		</div>
 	);
