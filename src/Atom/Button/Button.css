@@ -75,6 +75,7 @@
     color: #666;
 }
 
+
 /* Interactive States */
 .oakd.button:not(.disabled):hover {
     filter: brightness(1.15);
@@ -91,6 +92,25 @@
 }
 
 
+
+
+.oakd.button_group > * {
+    border-radius: 0; /* Remove border-radius for all buttons in the group */
+}
+
+/* First button in the group */
+.oakd.button_group > *:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+}
+
+/* Last button in the group */
+.oakd.button_group > *:last-child {
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+/* Remove right border for all buttons except the last */
 .oakd.button_group > *:not(:last-child) {
     border-right: none;
 }

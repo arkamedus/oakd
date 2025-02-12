@@ -2,7 +2,7 @@
 
 exports[`Space Component should match snapshot 1`] = `
 <div>
-  <div
+  <span
     class="oakd space"
     data-testid="Space"
   >
@@ -12,6 +12,6 @@ exports[`Space Component should match snapshot 1`] = `
     <div>
       Item 2
     </div>
-  </div>
+  </span>
 </div>
 `;

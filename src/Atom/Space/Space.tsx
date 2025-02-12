@@ -5,6 +5,7 @@ import { SpaceProps } from "./Space.types";
 import "./Space.css";
 
 const Space: React.FC<SpaceProps> = ({
+	id, key,
 	style,
 	children,
 	className,
@@ -27,9 +28,9 @@ const Space: React.FC<SpaceProps> = ({
 	}
 
 	return (
-		<div data-testid="Space" style={style} className={classNames.join(" ")}>
+		<span id={id} key={key} data-testid="Space" style={style} className={classNames.join(" ")}>
 			{children}
-		</div>
+		</span>
 	);
 };
 

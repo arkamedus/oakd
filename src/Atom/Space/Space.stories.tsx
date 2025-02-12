@@ -97,8 +97,8 @@ export const SpaceBetween = () => (
 
 export const StretchGap = () => (
 	<Space justify="stretch" gap>
-		<DebugLayer label="DebugLayer" />
-		<DebugLayer label="DebugLayer">
+		<DebugLayer id={"DL-01"} label="DebugLayer" />
+		<DebugLayer id={"DL-02"} label="DebugLayer">
 			<Paragraph>
 				Content Here
 				<br />
@@ -107,3 +107,4 @@ export const StretchGap = () => (
 		</DebugLayer>
 	</Space>
 );
+

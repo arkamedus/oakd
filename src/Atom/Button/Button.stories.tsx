@@ -1,11 +1,13 @@
 import React from "react";
 import {Meta, StoryFn, StoryObj} from "@storybook/react";
-import Button from "./Button";
+import Button, {ButtonGroup} from "./Button";
 import {ButtonType} from "./Button.types";
 import {CoreComponentSizeType} from "../../Core/Core.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import {CoreIconNameType, IconFolder} from "../../Icon/Icons.bin";
+import Card from "../Card/Card";
+import DebugLayer from "../DebugLayer/DebugLayer";
 
 const meta: Meta<typeof Button> = {
 	title: "Design System/Atomic/Button",
@@ -102,6 +104,17 @@ Default.args = {
 	icon: "Plus",
 	children: "Button",
 };
+
+
+export const InButtonGroup = () => (
+	<ButtonGroup>
+		<Button icon={"Star"}></Button>
+		<Button icon={"Magnify"}></Button>
+		<Button icon={"Text"}><Paragraph>Text</Paragraph></Button>
+		<Button icon={"Comment"}></Button>
+	</ButtonGroup>
+);
+
 
 export const Primary: Story = Template.bind({});
 Primary.args = {

@@ -26,7 +26,7 @@ Default.args = {
 };
 
 export const Extra = Template.bind({});
-Default.args = {
+Extra.args = {
 	label: "DebugLayer",
 	extra: <IconSliders size={"small"}/>
 };

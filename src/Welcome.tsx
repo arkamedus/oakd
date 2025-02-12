@@ -5,7 +5,7 @@ import Paragraph from "./Atom/Paragraph/Paragraph";
 import Content from "./Layout/Content/Content";
 import Card from "./Atom/Card/Card";
 import DebugLayer from "./Atom/DebugLayer/DebugLayer";
-import Button from "./Atom/Button/Button";
+import Button, {ButtonGroup} from "./Atom/Button/Button";
 import { CoreIconNameType, IconSliders, IconTypes } from "./Icon/Icons.bin";
 import Icon from "./Icon/Icon";
 import { ButtonType } from "./Atom/Button/Button.types";
@@ -90,16 +90,13 @@ export const Welcome = () => {
 														</Button>
 													);
 												})}
-											<Button
-												size={"small"}
-												icon={<IconSliders size={"small"} />}
-											>
-												<Paragraph>Button</Paragraph>
-											</Button>
-											<Button type={"danger"} size={"small"} icon={"Trash"} />
-											<Button type={"ghost"} size={"small"} icon={"Triangle"}>
-												<Paragraph>ghost</Paragraph>
-											</Button>
+											<ButtonGroup>
+												<Button type={"default"} size={"small"} icon={"Layers"} />
+												<Button type={"ghost"} size={"small"} icon={"Triangle"}>
+													<Paragraph>groups</Paragraph>
+												</Button>
+												<Button type={"warning"} size={"small"} icon={"Trash"} />
+											</ButtonGroup>
 										</Space>
 									</Space>
 

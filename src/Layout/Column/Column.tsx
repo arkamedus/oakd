@@ -5,6 +5,7 @@ import { ColumnProps } from "./Column.types";
 import "./Column.css";
 
 export const Col: React.FC<ColumnProps> = ({
+	id,
 	children,
 	onMouseEnter,
 	style,
@@ -28,6 +29,7 @@ export const Col: React.FC<ColumnProps> = ({
 
 	return (
 		<div
+			id={id}
 			key={key}
 			data-testid="Column"
 			className={classNames.join(" ")}

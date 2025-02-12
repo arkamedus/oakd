@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from "react";
+import {CoreLayoutProps} from "../../Core/Core.types";
 
 export type AspectRatio =
 	| "1x1"
@@ -13,9 +13,6 @@ export type AspectRatio =
 	| "32x9"
 	| "1x2";
 
-export interface AspectProps {
+export interface AspectProps extends CoreLayoutProps {
 	ratio?: AspectRatio; // Aspect ratio selection
-	children?: ReactNode; // Content inside the aspect container
-	className?: string; // Optional additional class names
-	style?: CSSProperties; // Custom styles
 }

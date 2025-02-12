@@ -4,7 +4,7 @@ import { RowProps } from "./Row.types";
 
 import "./Row.css";
 
-const Row: React.FC<RowProps> = ({ key, style, children, className, gap }) => {
+const Row: React.FC<RowProps> = ({ id, key, style, children, className, gap }) => {
 	const classNames = ["oakd", "row"];
 	if (gap) {
 		classNames.push("gap");
@@ -15,6 +15,7 @@ const Row: React.FC<RowProps> = ({ key, style, children, className, gap }) => {
 	return (
 		<div
 			data-testid="Row"
+			id={id}
 			key={key}
 			className={classNames.join(" ")}
 			style={style}

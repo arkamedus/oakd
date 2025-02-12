@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonType } from "../Button/Button.types";
+import {CoreLayoutProps} from "../../Core/Core.types";
 
 export type CoreComponentSizeType = "default" | "small" | "large";
 
@@ -9,7 +10,7 @@ export interface SelectOption<T> {
 	category?: string; // Optional category for grouping options
 }
 
-export interface SelectProps<T> {
+export interface SelectProps<T> extends CoreLayoutProps {
 	options: SelectOption<T>[];
 	defaultValue?: T;
 	placeholder?: React.ReactNode | string;

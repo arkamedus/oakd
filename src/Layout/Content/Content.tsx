@@ -2,12 +2,12 @@ import React from "react";
 import "./Content.css";
 import { ContentProps } from "./Content.types";
 
-const Content: React.FC<ContentProps> = ({ children, pad, grow, style }) => {
+const Content: React.FC<ContentProps> = ({ id, key, children, pad, grow, style }) => {
 	const classes = ["oakd", "content", pad && "pad", grow && "grow"]
 		.filter(Boolean)
 		.join(" ");
 	return (
-		<div data-testid="Content" className={classes} style={style}>
+		<div id={id} key={key} data-testid="Content" className={classes} style={style}>
 			{children}
 		</div>
 	);
@@ -16,6 +16,7 @@ const Content: React.FC<ContentProps> = ({ children, pad, grow, style }) => {
 export default Content;
 
 export const ContentRow: React.FC<ContentProps> = ({
+	id, key,
 	children,
 	className,
 	style ,
@@ -24,7 +25,7 @@ export const ContentRow: React.FC<ContentProps> = ({
 	const classes = ["oakd", "content-row", pad && "pad", grow && "grow"]
 		.filter(Boolean)
 		.join(" ");	return (
-		<div style={style} data-testid="ContentRow" className={classes}>
+		<div id={id} key={key} style={style} data-testid="ContentRow" className={classes}>
 			{children}
 		</div>
 	);
