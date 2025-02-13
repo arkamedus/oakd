@@ -24,7 +24,7 @@ export const ContentRow: React.FC<ContentProps> = ({
 	pad ,
 	grow
 }) => {
-	const classes = ["oakd", "content-row", pad && decode__padding(pad), grow && "grow"]
+	const classes = ["oakd", "content-row", pad && decode__padding(pad), grow && "grow", className]
 		.filter(Boolean)
 		.join(" ");	return (
 		<div id={id} key={key} style={style} data-testid="ContentRow" className={classes}>
