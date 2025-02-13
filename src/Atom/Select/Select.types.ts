@@ -21,4 +21,5 @@ export interface SelectProps<T> extends CoreLayoutProps {
 		property: string;
 		order?: string[];
 	};
+	fixed: boolean;
 }

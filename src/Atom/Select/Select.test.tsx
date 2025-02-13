@@ -14,10 +14,11 @@ describe("Select Component", () => {
 				{ value: "2", element: <Paragraph>Option 2</Paragraph> },
 			],
 			onSelected: jest.fn(),
+			fixed: false
 		};
 	});
 
-	const renderComponent = () => render(<Select {...props} />);
+	const renderComponent = (p?) => render(<Select {...props} {...p} />);
 
 	it("should open dropdown menu when button is clicked", () => {
 		renderComponent();
@@ -62,12 +63,31 @@ describe("Select Component", () => {
 		expect(button.className).toMatch(/small/);
 	});
 
-	it("should position dropdown correctly based on button", () => {
-		renderComponent();
+	it("should position dropdown correctly in fixed mode", () => {
+		// Render in fixed mode (default fixed: true)
+		renderComponent({ fixed: true });
+		const container = screen.getByTestId("Select");
 		const button = screen.getByRole("button");
 		fireEvent.click(button);
 		const dropdown = screen.getByRole("listbox");
-		const { top } = button.getBoundingClientRect();
-		expect(dropdown).toHaveStyle(`top: ${top}px`);
+
+		// In fixed mode, the inline style is computed from the container's bounding rect
+		const { bottom, left } = container.getBoundingClientRect();
+		expect(dropdown).toHaveStyle(`top: ${bottom}px`);
+		expect(dropdown).toHaveStyle(`left: ${left}px`);
+	});
+
+	it("should position dropdown correctly in absolute mode", () => {
+		// Render in absolute mode by setting fixed: false
+		renderComponent({ fixed: false });
+		const button = screen.getByRole("button");
+		fireEvent.click(button);
+		const dropdown = screen.getByRole("listbox");
+
+		// In absolute mode, the dropdown is positioned via CSS (top: 100%; left: 0;)
+		// so no inline styles should be present, and the absolute positioning class is applied.
+		expect(dropdown).toHaveClass("oakd-select__dropdown--absolute");
+		expect(dropdown.style.top).toBe("");
+		expect(dropdown.style.left).toBe("");
 	});
 });

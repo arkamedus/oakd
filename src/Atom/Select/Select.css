@@ -10,23 +10,36 @@
 .oakd-select__dropdown {
 	z-index: 1000;
 	background-color: var(--background, #fff);
-	position: fixed;
 	display: none;
 	min-width: 200px;
 	width: max-content;
 	overflow: hidden;
 	border: 1px solid var(--border-color, #ccc);
-	padding: var(--box-padding, 8px);
+	padding: var(--leading, 8px);
 	border-radius: var(--border-radius, 4px);
 }
 
+/* Left/right alignment */
 .oakd-select__dropdown--left {
 	left: 0;
 	right: auto;
 }
 
+/* When the dropdown is active, show it */
 .oakd-select__dropdown.active {
 	display: block;
+}
+
+/* When fixed mode is active */
+.oakd-select__dropdown--fixed {
+	position: fixed;
+}
+
+/* When absolute mode is active */
+.oakd-select__dropdown--absolute {
+	position: absolute;
+	top: 100%;
+	left: 0;
 }
 
 .oakd-select__item {

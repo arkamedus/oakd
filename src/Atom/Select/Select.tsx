@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState, useCallback, KeyboardEvent } from "react";
+import React, {
+	useEffect,
+	useRef,
+	useState,
+	useCallback,
+	KeyboardEvent,
+} from "react";
 import { SelectOption, SelectProps } from "./Select.types";
 import "./Select.css";
 import Button from "../Button/Button";
@@ -6,18 +12,20 @@ import Space from "../Space/Space";
 import { IconAngle } from "../../Icon/Icons.bin";
 import Divider from "../Divider/Divider";
 import Paragraph from "../Paragraph/Paragraph";
+import { sizeMinusOne } from "../../Core/Core.utils";
 
-const Select = <T,>({
-	options,
-	defaultValue,
-	placeholder,
-	onSelected,
-	type = "ghost",
-	size = "default",
-	categorize,
-}: SelectProps<T>): JSX.Element => {
+const Select: React.FC<SelectProps<any>> = ({
+						options,
+						defaultValue,
+						placeholder,
+						onSelected,
+						type = "ghost",
+						size = "default",
+						categorize,
+						fixed = false
+					})=> {
 	const [isActive, setIsActive] = useState(false);
-	const [selectedValue, setSelectedValue] = useState<T | undefined>(defaultValue);
+	const [selectedValue, setSelectedValue] = useState<any | undefined>(defaultValue);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const toggleMenu = useCallback(() => {
@@ -25,12 +33,12 @@ const Select = <T,>({
 	}, []);
 
 	const selectOption = useCallback(
-		(value: T) => {
+		(value: any) => {
 			setSelectedValue(value);
 			onSelected(value);
 			setIsActive(false);
 		},
-		[onSelected],
+		[onSelected]
 	);
 
 	const handleButtonKeyDown = useCallback(
@@ -40,21 +48,24 @@ const Select = <T,>({
 				toggleMenu();
 			}
 		},
-		[toggleMenu],
+		[toggleMenu]
 	);
 
 	const handleOptionKeyDown = useCallback(
-		(event: KeyboardEvent<HTMLSpanElement>, value: T) => {
+		(event: KeyboardEvent<HTMLSpanElement>, value: any) => {
 			if (event.key === "Enter" || event.key === " ") {
 				event.preventDefault();
 				selectOption(value);
 			}
 		},
-		[selectOption],
+		[selectOption]
 	);
 
 	const closeMenu = useCallback((event: MouseEvent) => {
-		if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+		if (
+			dropdownRef.current &&
+			!dropdownRef.current.contains(event.target as Node)
+		) {
 			setIsActive(false);
 		}
 	}, []);
@@ -71,8 +82,8 @@ const Select = <T,>({
 	}, [defaultValue]);
 
 	const getCategorizedOptions = useCallback(() => {
-		const categorizedOptions: { [key: string]: SelectOption<T>[] } = {};
-		const uncategorizedOptions: SelectOption<T>[] = [];
+		const categorizedOptions: { [key: string]: SelectOption<any>[] } = {};
+		const uncategorizedOptions: SelectOption<any>[] = [];
 
 		options.forEach((option) => {
 			const category = option.category || "Uncategorized";
@@ -90,10 +101,7 @@ const Select = <T,>({
 		const sortedCategories = Object.keys(categorizedOptions).sort((a, b) => {
 			const indexA = orderedCategories.indexOf(a);
 			const indexB = orderedCategories.indexOf(b);
-			return (
-				(indexA !== -1 ? indexA : Infinity) -
-				(indexB !== -1 ? indexB : Infinity)
-			);
+			return (indexA !== -1 ? indexA : Infinity) - (indexB !== -1 ? indexB : Infinity);
 		});
 
 		return { categorizedOptions, sortedCategories, uncategorizedOptions };
@@ -102,9 +110,24 @@ const Select = <T,>({
 	const { categorizedOptions, sortedCategories, uncategorizedOptions } = getCategorizedOptions();
 	const shouldShowCategories = categorize && sortedCategories.length > 0;
 
-	const selectedElement = (typeof selectedValue === "string" && selectedValue !== ""
-		? options.find((option) => option.value === selectedValue)?.element
-		: placeholder) || <span>Select an option</span>;
+	const selectedElement =
+		(typeof selectedValue === "string" && selectedValue !== ""
+			? options.find((option) => option.value === selectedValue)?.element
+			: placeholder) || <span>Select an option</span>;
+
+	// When fixed mode is active, compute the dropdown's top/left positions.
+	const fixedStyle =
+		fixed && dropdownRef.current
+			? {
+				top: dropdownRef.current.getBoundingClientRect().bottom,
+				left: dropdownRef.current.getBoundingClientRect().left,
+			}
+			: undefined;
+
+	// Build className based on mode and active state.
+	const dropdownClassName = `oakd-select__dropdown oakd-select__dropdown--left ${
+		isActive ? "active" : ""
+	} ${fixed ? "oakd-select__dropdown--fixed" : "oakd-select__dropdown--absolute"}`;
 
 	return (
 		<div ref={dropdownRef} className="oakd-select" data-testid="Select">
@@ -115,19 +138,17 @@ const Select = <T,>({
 				size={size}
 				aria-haspopup="listbox"
 				aria-expanded={isActive}
+				onKeyDown={handleButtonKeyDown}
 			>
 				<Space align="center" gap>
 					{selectedElement}
-					<IconAngle />
+					<IconAngle size={sizeMinusOne(size)} />
 				</Space>
 			</Button>
 			<div
-				className={`oakd-select__dropdown oakd-select__dropdown--left ${isActive ? "active" : ""}`}
-				role="listbox"				style={{
-					position: 'fixed',
-					top: dropdownRef.current ? dropdownRef.current.getBoundingClientRect().bottom : 0,
-					left: dropdownRef.current ? dropdownRef.current.getBoundingClientRect().left : 0,
-				}}
+				className={dropdownClassName}
+				role="listbox"
+				style={fixed ? fixedStyle : undefined}
 			>
 				<Space direction="vertical" gap wide justify="stretch">
 					{shouldShowCategories
@@ -149,13 +170,13 @@ const Select = <T,>({
 											onClick={() => selectOption(option.value)}
 											onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
 										>
-											{option.element}
-										</span>
-										))}
+                        {option.element}
+                      </span>
+									))}
 								</Space>
 							</div>
 						))
-					: uncategorizedOptions.map((option) => (
+						: uncategorizedOptions.map((option) => (
 							<span
 								key={String(option.value)}
 								className="oakd-select__item"
@@ -164,8 +185,8 @@ const Select = <T,>({
 								onClick={() => selectOption(option.value)}
 								onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
 							>
-								{option.element}
-							</span>
+                  {option.element}
+                </span>
 						))}
 				</Space>
 			</div>
