@@ -3,8 +3,8 @@ import "./Content.css";
 import { ContentProps } from "./Content.types";
 import {decode__padding} from "../../Core/Core.types";
 
-const Content: React.FC<ContentProps> = ({ id, key, children, pad, grow, style }) => {
-	const classes = ["oakd", "content", pad && decode__padding(pad), grow && "grow"]
+const Content: React.FC<ContentProps> = ({ id, key, className, children, pad, grow, style }) => {
+	const classes = ["oakd", "content", pad && decode__padding(pad), grow && "grow", className]
 		.filter(Boolean)
 		.join(" ");
 	return (
