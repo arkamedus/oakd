@@ -77,6 +77,11 @@
 
 
 /* Interactive States */
+
+.oakd.button.active:not(.disabled) {
+    filter: brightness(1.05);
+}
+
 .oakd.button:not(.disabled):hover {
     filter: brightness(1.15);
     cursor: pointer;
@@ -94,23 +99,56 @@
 
 
 
+
 .oakd.button_group > * {
     border-radius: 0; /* Remove border-radius for all buttons in the group */
 }
 
-/* First button in the group */
-.oakd.button_group > *:first-child {
+/* Horizontal Button Group */
+.oakd.button_group.horizontal {
+    display: inline-flex;
+}
+
+.oakd.button_group.horizontal > * {
+    border-radius: 0;
+}
+
+.oakd.button_group.horizontal > *:first-child {
     border-top-left-radius: var(--border-radius);
     border-bottom-left-radius: var(--border-radius);
 }
 
-/* Last button in the group */
-.oakd.button_group > *:last-child {
+.oakd.button_group.horizontal > *:last-child {
     border-top-right-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
 }
 
-/* Remove right border for all buttons except the last */
-.oakd.button_group > *:not(:last-child) {
+.oakd.button_group.horizontal > *:not(:last-child) {
     border-right: none;
+}
+
+/* Vertical Button Group */
+.oakd.button_group.vertical {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.oakd.button_group.vertical > * {
+    border-radius: 0;
+    width: 100%;
+}
+
+.oakd.button_group.vertical > *:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.oakd.button_group.vertical > *:last-child {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+.oakd.button_group.vertical > *:not(:last-child) {
+    border-bottom: none;
 }

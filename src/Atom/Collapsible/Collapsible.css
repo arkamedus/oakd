@@ -17,7 +17,6 @@
   flex: 1;
   display: flex;
   align-items: center;
-  padding: var(--leading);
   border: none;
   background: transparent;
   color: inherit;

@@ -14,7 +14,7 @@ const Space: React.FC<SpaceProps> = ({
 	align,
 	justify,
 	wide,
-
+	noWrap,
 	onClick
 }) => {
 	let classNames = ["oakd", "space"];
@@ -22,6 +22,7 @@ const Space: React.FC<SpaceProps> = ({
 	if (direction) classNames.push(`direction-${direction}`);
 	if (align) classNames.push(`align-${align}`);
 	if (justify) classNames.push(`justify-${justify}`);
+	if (noWrap) classNames.push(`nowrap`);
 	if (gap) {
 		classNames.push("gap");
 	}

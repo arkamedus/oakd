@@ -42,8 +42,9 @@ const Pagination: React.FC<PaginationProps> = ({
 		>
 			{showPreviousNext && (
 				<Icon
-					name="Triangle"
+					name="Angle"
 					size={size}
+					rotation={180}
 					className="arrow left"
 					data-testid="PaginationLeft"
 					onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
@@ -71,7 +72,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			)}
 			{showPreviousNext && (
 				<Icon
-					name="Triangle"
+					name="Angle"
 					size={size}
 					className="arrow right"
 					data-testid="PaginationRight"

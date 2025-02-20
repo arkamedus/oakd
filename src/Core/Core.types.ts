@@ -74,6 +74,7 @@ export interface CoreLayoutProps extends CoreComponentProps {
 }
 
 export interface CoreContentProps extends CoreComponentProps {
+	wide? : boolean;
 	pad?: CorePaddingType;
 }
 

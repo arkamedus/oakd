@@ -10,4 +10,5 @@ export interface SpaceProps extends CoreLayoutProps, CoreComponentEventProps {
 	align?: ComponentAlignType;
 	justify?: ComponentJustifyType;
 	wide?: boolean;
+	noWrap?:boolean;
 }

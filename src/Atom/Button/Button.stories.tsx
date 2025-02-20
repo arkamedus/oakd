@@ -115,6 +115,15 @@ export const InButtonGroup = () => (
 	</ButtonGroup>
 );
 
+export const InVerticalButtonGroup = () => (
+	<ButtonGroup direction={"vertical"}>
+		<Button icon={"Star"}></Button>
+		<Button icon={"Magnify"}></Button>
+		<Button icon={"Text"}><Paragraph>Text</Paragraph></Button>
+		<Button icon={"Comment"}></Button>
+	</ButtonGroup>
+);
+
 
 export const Primary: Story = Template.bind({});
 Primary.args = {

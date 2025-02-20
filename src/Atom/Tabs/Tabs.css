@@ -1,0 +1,24 @@
+.oakd.tabs {
+
+}
+
+ul.oakd.tabs {
+    list-style: none;
+}
+
+.oakd.tabs.vertical {
+    flex-direction: row;
+}
+
+.oakd.tabs.horizontal {
+    flex-direction: column;
+}
+
+.oakd.tabs .tab.vertical {
+  //width: 100%;
+}
+
+
+.oakd.tabs .tab.hidden {
+    display: none;
+}

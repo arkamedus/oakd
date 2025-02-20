@@ -42,3 +42,14 @@
 .oakd-icon-stack > * {
     grid-area: 1 / 1;
 }
+
+
+.oakd.icon.spin {
+    animation: spin 1.25s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

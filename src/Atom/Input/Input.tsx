@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { InputProps } from "./Input.types";
+import React, {useEffect, useState} from "react";
+import {InputProps} from "./Input.types";
 import "./Input.css";
 import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
-import { IconTriangle } from "../../Icon/Icons.bin";
-import { sizeMinusOne } from "../../Core/Core.utils";
+import {IconTriangle} from "../../Icon/Icons.bin";
+import {sizeMinusOne} from "../../Core/Core.utils";
 
 /**
  * Input component for user text entry.
@@ -12,21 +12,23 @@ import { sizeMinusOne } from "../../Core/Core.utils";
  * @returns {JSX.Element} The rendered Input component.
  */
 const Input: React.FC<InputProps> = ({
-	type = "text",
-	value = "",
-	defaultValue,
-	placeholder = "",
-	error = false,
-	disabled = false,
-	size = "default",
-	inputType = "default", // Matches Button types
-	icon,
-	className = "",
-	style,
-	onChange,
-	onBlur,
-	onFocus,
-}) => {
+										 type = "text",
+										 value = "",
+										 defaultValue,
+										 placeholder = "",
+										 error = false,
+										 disabled = false,
+										 size = "default",
+										 inputType = "default", // Matches Button types
+										 icon,
+										 className = "",
+										 style,
+										 onChange,
+										 onBlur,
+										 onFocus,
+										 min,
+										 max,
+									 }) => {
 	const [internalValue, setInternalValue] = useState<string | number>(
 		defaultValue ?? value,
 	);
@@ -81,11 +83,13 @@ const Input: React.FC<InputProps> = ({
 			<Space gap align="center" direction="horizontal">
 				{icon &&
 					(typeof icon === "string" ? (
-						<Icon name={icon} size={sizeMinusOne(size)} />
+						<Icon name={icon} size={sizeMinusOne(size)}/>
 					) : (
 						icon
 					))}
 				<input
+					min={min}
+					max={max}
 					aria-invalid={hasError}
 					aria-disabled={disabled}
 					data-testid="Input"
@@ -100,7 +104,7 @@ const Input: React.FC<InputProps> = ({
 				/>
 				{hasError && (
 					<span data-testid="InputError" className="input-error-icon">
-						<IconTriangle size={sizeMinusOne(size)} />
+						<IconTriangle size={sizeMinusOne(size)}/>
 					</span>
 				)}
 			</Space>

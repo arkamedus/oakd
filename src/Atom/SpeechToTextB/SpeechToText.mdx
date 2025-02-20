@@ -1,0 +1,25 @@
+import {Controls, Meta, Primary, Stories} from "@storybook/blocks";
+import meta from "./SpeechToText.stories";
+
+<Meta of={meta} />
+
+# SpeechToText
+
+The `SpeechToText` component provides a user interface for converting spoken language into text using the Web Speech API. It features a button to start/stop voice recognition and displays the transcribed text in real-time.
+
+<Primary />
+
+<Controls />
+
+# SpeechToText Component
+
+The `SpeechToText` component allows users to convert speech to text using the Web Speech API. It provides a button to start/stop voice recognition and displays the transcribed text.
+
+## Props
+
+- **buttonText** (string): The text displayed on the button. Defaults to "Start Speaking".
+- **onChange** (function): Callback function that is called with the transcribed text when it changes.
+- **placeholder** (string): Placeholder text to guide users on what to say.
+- **title** (string): Optional title to display above the component.
+
+<Stories />

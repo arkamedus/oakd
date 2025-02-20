@@ -3,8 +3,8 @@ import "./Content.css";
 import { ContentProps } from "./Content.types";
 import {decode__padding} from "../../Core/Core.types";
 
-const Content: React.FC<ContentProps> = ({ id, key, className, children, pad, grow, style }) => {
-	const classes = ["oakd", "content", pad && decode__padding(pad), grow && "grow", className]
+const Content: React.FC<ContentProps> = ({ id, key, className, children, pad, grow, wide, style }) => {
+	const classes = ["oakd", "content", pad && decode__padding(pad), grow && "grow",wide && "wide", className]
 		.filter(Boolean)
 		.join(" ");
 	return (
@@ -22,9 +22,10 @@ export const ContentRow: React.FC<ContentProps> = ({
 	className,
 	style ,
 	pad ,
-	grow
+	grow,
+													   wide
 }) => {
-	const classes = ["oakd", "content-row", pad && decode__padding(pad), grow && "grow", className]
+	const classes = ["oakd", "content-row", pad && decode__padding(pad), grow && "grow",wide && "wide", className]
 		.filter(Boolean)
 		.join(" ");	return (
 		<div id={id} key={key} style={style} data-testid="ContentRow" className={classes}>

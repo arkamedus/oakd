@@ -10,11 +10,10 @@ import "./Card.css";
  * @param {CardProps} props - The props for the Card component.
  * @returns {JSX.Element} The rendered Card component.
  */
-const Card: React.FC<CardProps> = ({ children, style, className, pad }) => {
+const Card: React.FC<CardProps> = ({ children, style, wide, className, pad }) => {
 	const classNames = ["oakd", "card"];
-	if (pad) {
-		classNames.push("pad");
-	}
+	if (pad) {classNames.push("pad");}
+	if (wide) {classNames.push("wide");}
 	if (className) {
 		classNames.push(className);
 	}

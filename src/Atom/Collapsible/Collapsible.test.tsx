@@ -2,6 +2,8 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import Collapsible from "./Collapsible";
 import { CollapsibleProps } from "./Collapsible.types";
+import Button from "../Button/Button";
+import Paragraph from "../Paragraph/Paragraph";
 
 describe("Collapsible Component", () => {
   let props: CollapsibleProps;
@@ -10,7 +12,7 @@ describe("Collapsible Component", () => {
     props = {
       title: "Test Title",
       children: <div>Test Content</div>,
-      action: <button>Test Action</button>,
+      action: <Button size={"small"}><Paragraph>Test Action</Paragraph></Button>,
       defaultOpen: false,
       onToggle: jest.fn(),
     };

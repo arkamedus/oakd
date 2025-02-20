@@ -8,6 +8,8 @@ const Icon: React.FC<IconProps> = ({
 	style,
 	size = "default",
 	className = "",
+	spin = false,
+	rotation = 0,
 	...props
 }) => {
 	const IconSrc = IconMap[name];
@@ -28,13 +30,21 @@ const Icon: React.FC<IconProps> = ({
 		WebkitMask: `url(${iconUrl}) no-repeat center/contain`,
 	};
 
-	return (
+	const iconElement = (
 		<span
 			data-testid="Icon"
-			className={`oakd standardized-reset standardized-text icon icon-${size} ${className}`}
+			className={`oakd standardized-reset standardized-text icon icon-${size} ${className} ${spin ? "spin" : ""}`}
 			style={iconStyle}
 			{...props}
 		/>
+	);
+
+	return rotation !== 0 ? (
+		<span style={{ display: "inline-block", transform: `rotate(${rotation}deg)`, transformOrigin: "center" }}>
+			{iconElement}
+		</span>
+	) : (
+		iconElement
 	);
 };
 

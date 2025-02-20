@@ -1,0 +1,25 @@
+import { Controls, Meta, Primary, Stories } from "@storybook/blocks";
+import meta from './AudioInput.stories';
+
+<Meta of={meta} />
+
+# AudioInput
+
+The `AudioInput` component allows users to record audio directly from their browser. It provides buttons to start and stop recording, as well as to reset the audio input. Recorded audio can be played back within the component.
+
+<Primary />
+<Controls />
+
+---
+
+# AudioInput Component
+
+The `AudioInput` component is designed to enable audio recording functionality within a web application. It leverages the MediaRecorder API to capture audio from the user's microphone and provides a simple interface for playback and reset of the recorded audio.
+
+## Key Features
+- **Audio Recording**: Users can record audio by clicking the microphone button.
+- **Playback**: Recorded audio can be played back using the built-in audio controls.
+- **Reset**: Users can reset the audio input, clearing the current recording.
+- **Disabled State**: The component can be disabled to prevent user interaction.
+
+<Stories />

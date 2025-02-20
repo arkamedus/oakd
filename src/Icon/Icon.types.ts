@@ -5,4 +5,6 @@ import { CoreComponentSizeType } from "../Core/Core.types";
 export interface IconProps extends ImgHTMLAttributes<HTMLImageElement> {
 	name: CoreIconNameType;
 	size?: CoreComponentSizeType;
+	spin?: boolean;
+	rotation?: number;
 }
