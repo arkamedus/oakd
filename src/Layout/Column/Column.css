@@ -124,7 +124,7 @@
 
 /* ========== XL: ≥1200px ========== */
 @media (min-width: 1200px) {
-  .col {
+  .column {
     grid-column-end: span var(--col-xl, var(--col-lg, var(--col-md, var(--col-sm, var(--col, 24)))));
   }
   .xl-1  { --col-xl: 1; }
