@@ -1,6 +1,5 @@
 import { CoreComponentProps } from "../../Core/Core.types";
 
-
 export interface TabsProps extends CoreComponentProps {
 	/**
 	 * The active key of the tab. If provided, it makes the component controlled.

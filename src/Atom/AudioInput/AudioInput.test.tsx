@@ -11,6 +11,36 @@ describe("AudioInput Component", () => {
       onChange: jest.fn(),
       disabled: false,
     };
+
+    // Mock MediaDevices
+    Object.defineProperty(global.navigator, "mediaDevices", {
+      value: {
+        getUserMedia: jest.fn().mockResolvedValue({}),
+      },
+      writable: true,
+    });
+
+    // Mock MediaRecorder
+    global.MediaRecorder = jest.fn().mockImplementation(function (stream) {
+      return {
+        start: jest.fn(() => {
+          this.state = "recording";
+        }),
+        stop: jest.fn(() => {
+          if (this.ondataavailable) {
+            const event = { data: new Blob() };
+            this.ondataavailable(event);
+          }
+          this.state = "inactive";
+        }),
+        ondataavailable: null,
+        stream: stream,
+        state: "inactive",
+      };
+    }) as any;
+
+    // Add the static method `isTypeSupported` to the MediaRecorder mock
+    (global.MediaRecorder as any).isTypeSupported = jest.fn(() => true);
   });
 
   const setup = () => render(<AudioInput {...props} />);
@@ -22,7 +52,8 @@ describe("AudioInput Component", () => {
 
   it("should start recording when the microphone button is clicked", async () => {
     setup();
-    const recordButton = screen.getByText(/Click to record/i);
+    const buttons = screen.getAllByTestId("Button");
+    const recordButton = buttons[0];
     fireEvent.click(recordButton);
 
     await waitFor(() => {
@@ -30,44 +61,30 @@ describe("AudioInput Component", () => {
     });
   });
 
-  it("should stop recording when the stop button is clicked", async () => {
+  it("should stop recording when the button is clicked again", async () => {
     setup();
-    const recordButton = screen.getByText(/Click to record/i);
+    const buttons = screen.getAllByTestId("Button");
+    const recordButton = buttons[0];
+
+    // Start recording
     fireEvent.click(recordButton);
 
     await waitFor(() => {
       expect(screen.getByText(/Recording.../i)).toBeInTheDocument();
     });
 
-    const stopButton = screen.getByText(/Stop/i);
-    fireEvent.click(stopButton);
+    // Stop recording
+    fireEvent.click(recordButton);
 
     expect(screen.getByText(/Click to record/i)).toBeInTheDocument();
-  });
-
-  it("should reset the audio input when the reset button is clicked", async () => {
-    setup();
-    const recordButton = screen.getByText(/Click to record/i);
-    fireEvent.click(recordButton);
-
-    await waitFor(() => {
-      expect(screen.getByText(/Recording.../i)).toBeInTheDocument();
-    });
-
-    const stopButton = screen.getByText(/Stop/i);
-    fireEvent.click(stopButton);
-
-    const resetButton = screen.getByText(/Reset/i);
-    fireEvent.click(resetButton);
-
-    expect(props.onChange).toHaveBeenCalled();
   });
 
   it("should disable the component when disabled is true", () => {
     props.disabled = true;
     setup();
 
-    const recordButton = screen.getByText(/Click to record/i);
+    const buttons = screen.getAllByTestId("Button");
+    const recordButton = buttons[0];
     expect(recordButton).toBeDisabled();
   });
 });

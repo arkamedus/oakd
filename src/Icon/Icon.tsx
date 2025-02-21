@@ -20,8 +20,9 @@ const Icon: React.FC<IconProps> = ({
 	}
 
 	// Determine the URL from the imported icon asset
-	// @ts-ignore
-	const iconUrl = typeof IconSrc === "string" ? IconSrc : IconSrc.default || IconSrc;
+
+	const iconUrl = // @ts-ignore
+		typeof IconSrc === "string" ? IconSrc : IconSrc.default || IconSrc;
 
 	const iconStyle = {
 		...style,
@@ -40,7 +41,13 @@ const Icon: React.FC<IconProps> = ({
 	);
 
 	return rotation !== 0 ? (
-		<span style={{ display: "inline-block", transform: `rotate(${rotation}deg)`, transformOrigin: "center" }}>
+		<span
+			style={{
+				display: "inline-block",
+				transform: `rotate(${rotation}deg)`,
+				transformOrigin: "center",
+			}}
+		>
 			{iconElement}
 		</span>
 	) : (

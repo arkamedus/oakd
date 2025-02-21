@@ -1,12 +1,17 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import Tabs, {Tab} from "./Tabs";
+import Tabs, { Tab } from "./Tabs";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import Divider from "../Divider/Divider";
 import Content from "../../Layout/Content/Content";
 import Title from "../Title/Title";
-import {IconLayers, IconStar, IconTriangle, IconUser} from "../../Icon/Icons.bin";
+import {
+	IconLayers,
+	IconStar,
+	IconTriangle,
+	IconUser,
+} from "../../Icon/Icons.bin";
 import Card from "../Card/Card";
 
 const meta: Meta<typeof Tabs> = {
@@ -45,13 +50,19 @@ Vertical.args = {
 export const WithContent = () => (
 	<Tabs orientation="horizontal" defaultActiveKey="1">
 		<Tab key="1" label="Overview" icon={<IconLayers />}>
-			<Card pad wide>Overview Content</Card>
+			<Card pad wide>
+				Overview Content
+			</Card>
 		</Tab>
 		<Tab key="2" label="Settings" icon={<IconTriangle />}>
-			<Card pad wide>Settings Content</Card>
+			<Card pad wide>
+				Settings Content
+			</Card>
 		</Tab>
 		<Tab key="3" label="Profile" icon={<IconUser />}>
-			<Card pad wide>Profile Content</Card>
+			<Card pad wide>
+				Profile Content
+			</Card>
 		</Tab>
 	</Tabs>
 );

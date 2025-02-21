@@ -87,13 +87,22 @@ export const FixedTemplateWithScrollingContent = () => (
 	<Aspect ratio="21x9">
 		<Page gap>
 			<Content>
-				<DebugLayer label="Header" ><Select options={[{
-					value: "1",
-					element: <Paragraph>Option 1</Paragraph>
-				}, {
-					value: "2",
-					element: <Paragraph>Option 2</Paragraph>
-				}]} onSelected={val => console.log(val)} placeholder="Default placeholder" /></DebugLayer>
+				<DebugLayer label="Header">
+					<Select
+						options={[
+							{
+								value: "1",
+								element: <Paragraph>Option 1</Paragraph>,
+							},
+							{
+								value: "2",
+								element: <Paragraph>Option 2</Paragraph>,
+							},
+						]}
+						onSelected={(val) => console.log(val)}
+						placeholder="Default placeholder"
+					/>
+				</DebugLayer>
 			</Content>
 			<Content grow>
 				<DebugLayer label={"Scrollable"}>

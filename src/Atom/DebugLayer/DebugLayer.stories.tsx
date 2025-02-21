@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import DebugLayer from "./DebugLayer";
-import {IconSliders} from "../../Icon/Icons.bin";
+import { IconSliders } from "../../Icon/Icons.bin";
 
 const meta: Meta<typeof DebugLayer> = {
 	title: "Design System/Atomic/DebugLayer",
@@ -28,5 +28,5 @@ Default.args = {
 export const Extra = Template.bind({});
 Extra.args = {
 	label: "DebugLayer",
-	extra: <IconSliders size={"small"}/>
+	extra: <IconSliders size={"small"} />,
 };

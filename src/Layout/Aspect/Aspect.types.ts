@@ -1,4 +1,4 @@
-import {CoreLayoutProps} from "../../Core/Core.types";
+import { CoreLayoutProps } from "../../Core/Core.types";
 
 export type AspectRatio =
 	| "1x1"

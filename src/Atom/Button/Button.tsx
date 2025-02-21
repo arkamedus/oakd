@@ -5,8 +5,7 @@ import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
 import Paragraph from "../Paragraph/Paragraph";
 import { sizeMinusOne } from "../../Core/Core.utils";
-import {CoreComponentLayoutDirectionType} from "../../Core/Core.types";
-
+import { CoreComponentLayoutDirectionType } from "../../Core/Core.types";
 
 /**
  * Button component
@@ -24,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({
 	className = "",
 	icon,
 	disabled,
-	role = "button"
+	role = "button",
 }) => {
 	const isDisabled = type === "disabled" || disabled;
 
@@ -74,6 +73,13 @@ const Button: React.FC<ButtonProps> = ({
 
 export default Button;
 
-export const ButtonGroup: React.FC<{children?:any, direction?:CoreComponentLayoutDirectionType}> = ({ children, direction = "horizontal"}) => {
-	return <Space className={`button_group ${direction}`} direction={direction}>{children}</Space>
+export const ButtonGroup: React.FC<{
+	children?: any;
+	direction?: CoreComponentLayoutDirectionType;
+}> = ({ children, direction = "horizontal" }) => {
+	return (
+		<Space className={`button_group ${direction}`} direction={direction}>
+			{children}
+		</Space>
+	);
 };

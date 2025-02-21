@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonType } from "../Button/Button.types";
-import {CoreLayoutProps} from "../../Core/Core.types";
+import { CoreLayoutProps } from "../../Core/Core.types";
 
 export type CoreComponentSizeType = "default" | "small" | "large";
 

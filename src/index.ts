@@ -20,15 +20,22 @@ export {
 	Aspect,
 	TestComponent,
 	Col,
-	Content, ContentRow,
+	Content,
+	ContentRow,
 	Row,
-	Button,ButtonGroup,
+	Button,
+	ButtonGroup,
 	Space,
 	Title,
 	Paragraph,
 	Icon,
-
-	Page, Breadcrumb, DebugLayer, Select, Card, Input, Divider
+	Page,
+	Breadcrumb,
+	DebugLayer,
+	Select,
+	Card,
+	Input,
+	Divider,
 };
 
 export * from "./Icon/Icons.bin";

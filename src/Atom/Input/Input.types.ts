@@ -30,6 +30,6 @@ export interface InputProps {
 	/** OnFocus event handler */
 	onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
-	min?:number;
-	max?:number;
+	min?: number;
+	max?: number;
 }

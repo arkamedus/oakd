@@ -1,6 +1,7 @@
 import {
 	ComponentAlignType,
-	ComponentJustifyType, CoreComponentEventProps,
+	ComponentJustifyType,
+	CoreComponentEventProps,
 	CoreComponentLayoutDirectionType,
 	CoreLayoutProps,
 } from "../../Core/Core.types";
@@ -10,5 +11,5 @@ export interface SpaceProps extends CoreLayoutProps, CoreComponentEventProps {
 	align?: ComponentAlignType;
 	justify?: ComponentJustifyType;
 	wide?: boolean;
-	noWrap?:boolean;
+	noWrap?: boolean;
 }

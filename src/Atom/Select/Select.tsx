@@ -15,17 +15,19 @@ import Paragraph from "../Paragraph/Paragraph";
 import { sizeMinusOne } from "../../Core/Core.utils";
 
 const Select: React.FC<SelectProps<any>> = ({
-						options,
-						defaultValue,
-						placeholder,
-						onSelected,
-						type = "ghost",
-						size = "default",
-						categorize,
-						fixed = false
-					})=> {
+	options,
+	defaultValue,
+	placeholder,
+	onSelected,
+	type = "ghost",
+	size = "default",
+	categorize,
+	fixed = false,
+}) => {
 	const [isActive, setIsActive] = useState(false);
-	const [selectedValue, setSelectedValue] = useState<any | undefined>(defaultValue);
+	const [selectedValue, setSelectedValue] = useState<any | undefined>(
+		defaultValue,
+	);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const toggleMenu = useCallback(() => {
@@ -38,7 +40,7 @@ const Select: React.FC<SelectProps<any>> = ({
 			onSelected(value);
 			setIsActive(false);
 		},
-		[onSelected]
+		[onSelected],
 	);
 
 	const handleButtonKeyDown = useCallback(
@@ -48,7 +50,7 @@ const Select: React.FC<SelectProps<any>> = ({
 				toggleMenu();
 			}
 		},
-		[toggleMenu]
+		[toggleMenu],
 	);
 
 	const handleOptionKeyDown = useCallback(
@@ -58,7 +60,7 @@ const Select: React.FC<SelectProps<any>> = ({
 				selectOption(value);
 			}
 		},
-		[selectOption]
+		[selectOption],
 	);
 
 	const closeMenu = useCallback((event: MouseEvent) => {
@@ -101,27 +103,31 @@ const Select: React.FC<SelectProps<any>> = ({
 		const sortedCategories = Object.keys(categorizedOptions).sort((a, b) => {
 			const indexA = orderedCategories.indexOf(a);
 			const indexB = orderedCategories.indexOf(b);
-			return (indexA !== -1 ? indexA : Infinity) - (indexB !== -1 ? indexB : Infinity);
+			return (
+				(indexA !== -1 ? indexA : Infinity) -
+				(indexB !== -1 ? indexB : Infinity)
+			);
 		});
 
 		return { categorizedOptions, sortedCategories, uncategorizedOptions };
 	}, [options, categorize]);
 
-	const { categorizedOptions, sortedCategories, uncategorizedOptions } = getCategorizedOptions();
+	const { categorizedOptions, sortedCategories, uncategorizedOptions } =
+		getCategorizedOptions();
 	const shouldShowCategories = categorize && sortedCategories.length > 0;
 
-	const selectedElement =
-		(typeof selectedValue === "string" && selectedValue !== ""
-			? options.find((option) => option.value === selectedValue)?.element
-			: placeholder) || <span>Select an option</span>;
+	const selectedElement = (typeof selectedValue === "string" &&
+	selectedValue !== ""
+		? options.find((option) => option.value === selectedValue)?.element
+		: placeholder) || <span>Select an option</span>;
 
 	// When fixed mode is active, compute the dropdown's top/left positions.
 	const fixedStyle =
 		fixed && dropdownRef.current
 			? {
-				top: dropdownRef.current.getBoundingClientRect().bottom,
-				left: dropdownRef.current.getBoundingClientRect().left,
-			}
+					top: dropdownRef.current.getBoundingClientRect().bottom,
+					left: dropdownRef.current.getBoundingClientRect().left,
+				}
 			: undefined;
 
 	// Build className based on mode and active state.
@@ -153,41 +159,41 @@ const Select: React.FC<SelectProps<any>> = ({
 				<Space direction="vertical" gap wide justify="stretch">
 					{shouldShowCategories
 						? sortedCategories.map((category) => (
-							<div key={category}>
-								<Space direction="vertical" gap>
-									<Space gap className="no-select" wide>
-										<Paragraph>
-											<strong className="muted-heavy">{category}</strong>
-										</Paragraph>
-										<Divider />
+								<div key={category}>
+									<Space direction="vertical" gap>
+										<Space gap className="no-select" wide>
+											<Paragraph>
+												<strong className="muted-heavy">{category}</strong>
+											</Paragraph>
+											<Divider />
+										</Space>
+										{categorizedOptions[category].map((option) => (
+											<span
+												key={String(option.value)}
+												className="oakd-select__item"
+												role="option"
+												tabIndex={0}
+												onClick={() => selectOption(option.value)}
+												onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
+											>
+												{option.element}
+											</span>
+										))}
 									</Space>
-									{categorizedOptions[category].map((option) => (
-										<span
-											key={String(option.value)}
-											className="oakd-select__item"
-											role="option"
-											tabIndex={0}
-											onClick={() => selectOption(option.value)}
-											onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
-										>
-                        {option.element}
-                      </span>
-									))}
-								</Space>
-							</div>
-						))
+								</div>
+							))
 						: uncategorizedOptions.map((option) => (
-							<span
-								key={String(option.value)}
-								className="oakd-select__item"
-								role="option"
-								tabIndex={0}
-								onClick={() => selectOption(option.value)}
-								onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
-							>
-                  {option.element}
-                </span>
-						))}
+								<span
+									key={String(option.value)}
+									className="oakd-select__item"
+									role="option"
+									tabIndex={0}
+									onClick={() => selectOption(option.value)}
+									onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
+								>
+									{option.element}
+								</span>
+							))}
 				</Space>
 			</div>
 		</div>

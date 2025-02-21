@@ -8,21 +8,23 @@ import { IconTriangle } from "../../Icon/Icons.bin";
 import Paragraph from "../Paragraph/Paragraph";
 
 const SpeechToText: React.FC<SpeechToTextProps> = ({
-													   buttonText = "Start Speaking",
-													   onChange,
-													   placeholder = "Say something...",
-													   title,
-												   }) => {
+	buttonText = "Start Speaking",
+	onChange,
+	placeholder = "Say something...",
+	title,
+}) => {
 	const recognitionRef = useRef<any | null>(null);
 	const [isListening, setIsListening] = useState(false);
 	const [transcript, setTranscript] = useState("");
 	const isListeningRef = useRef(isListening);
-	useEffect(() => { isListeningRef.current = isListening; }, [isListening]);
+	useEffect(() => {
+		isListeningRef.current = isListening;
+	}, [isListening]);
 
 	useEffect(() => {
 		// @ts-ignore
 		const SpeechRecognition =
-			SpeechRecognition ||
+			(window as any).SpeechRecognition ||
 			(window as any).webkitSpeechRecognition ||
 			(window as any).mozSpeechRecognition ||
 			(window as any).msSpeechRecognition;
@@ -66,11 +68,11 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
 
 		recognition.addEventListener("result", handleResult);
 		recognition.addEventListener("start", () =>
-			console.log("Speech recognition started.")
+			console.log("Speech recognition started."),
 		);
 		recognition.addEventListener("end", handleEnd);
 		recognition.addEventListener("error", (e) =>
-			console.error("Speech recognition error:", e)
+			console.error("Speech recognition error:", e),
 		);
 		return () => {
 			recognition.removeEventListener("result", handleResult);
@@ -99,13 +101,18 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
 		}
 	};
 
-	const toggleListening = () => (isListening ? stopListening() : startListening());
+	const toggleListening = () =>
+		isListening ? stopListening() : startListening();
 
 	return (
 		<Space direction="vertical" className="oakd-speech-to-text">
 			{title && <Title>{title}</Title>}
 			<Space>
-				<Button onClick={toggleListening} type="primary" icon={<IconTriangle />}>
+				<Button
+					onClick={toggleListening}
+					type="primary"
+					icon={<IconTriangle />}
+				>
 					{isListening ? "Listening..." : buttonText}
 				</Button>
 				<Paragraph>{isListening ? "(Speak now)" : ""}</Paragraph>

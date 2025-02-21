@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {CollapsibleProps} from "./Collapsible.types";
+import React, { useEffect, useState } from "react";
+import { CollapsibleProps } from "./Collapsible.types";
 import "./Collapsible.css";
-import {IconAngle} from "../../Icon/Icons.bin";
+import { IconAngle } from "../../Icon/Icons.bin";
 import Space from "../Space/Space";
 import Content from "../../Layout/Content/Content";
 import Paragraph from "../Paragraph/Paragraph";
@@ -21,12 +21,12 @@ import Paragraph from "../Paragraph/Paragraph";
  * and it animates the height of the content area during transitions.
  */
 const Collapsible: React.FC<CollapsibleProps> = ({
-													 title,
-													 children,
-													 action,
-													 defaultOpen = false,
-													 onToggle,
-												 }) => {
+	title,
+	children,
+	action,
+	defaultOpen = false,
+	onToggle,
+}) => {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
 	const [contentHeight, setContentHeight] = useState<string | number>("auto");
 
@@ -46,30 +46,35 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 	}, [isOpen, onToggle]);
 
 	return (
-		<Space className="collapsible" data-testid="Collapsible" align={"center"} wide>
-
+		<Space
+			className="collapsible"
+			data-testid="Collapsible"
+			align={"center"}
+			wide
+		>
 			<Content pad wide>
 				<Space wide gap justify={"between"} align={"center"}>
 					<button
-					className="collapsible__toggle"
-					aria-expanded={isOpen}
-					onClick={toggle}
-					type="button"
-					style={{width:"100%"}}
-				>
-					<Space wide justify={"between"} align={"center"}>
-						<Paragraph className="collapsible__title">{title}</Paragraph>
-						<IconAngle
-							className="collapsible__icon"
-							size={"small"}
-							rotation={isOpen ? 90 : 0}
-							//name="caret"
-							role="img"
-							aria-hidden="true"
-						/>
-					</Space>
-				</button>
-					{action && action}</Space>
+						className="collapsible__toggle"
+						aria-expanded={isOpen}
+						onClick={toggle}
+						type="button"
+						style={{ width: "100%" }}
+					>
+						<Space wide justify={"between"} align={"center"}>
+							<Paragraph className="collapsible__title">{title}</Paragraph>
+							<IconAngle
+								className="collapsible__icon"
+								size={"small"}
+								rotation={isOpen ? 90 : 0}
+								//name="caret"
+								role="img"
+								aria-hidden="true"
+							/>
+						</Space>
+					</button>
+					{action && action}
+				</Space>
 			</Content>
 			<div
 				className="collapsible__content"

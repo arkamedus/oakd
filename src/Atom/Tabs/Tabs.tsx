@@ -4,20 +4,20 @@ import { TabsProps } from "./Tabs.types";
 import "./Tabs.css";
 import Space from "../Space/Space";
 import { IconAngle } from "../../Icon/Icons.bin";
-import Button, {ButtonGroup} from "../Button/Button";
+import Button, { ButtonGroup } from "../Button/Button";
 
 const Tabs: React.FC<TabsProps> = ({
-									   children,
-									   style,
-									   onChange,
-									   defaultActiveKey,
-									   activeKey,
-									   orientation = "horizontal",
-									   ...props
-								   }) => {
-	const [activeKeyState, setActiveKeyState] = React.useState<string | undefined>(
-		defaultActiveKey ?? React.Children.toArray(children)[0]?.key?.toString()
-	);
+	children,
+	style,
+	onChange,
+	defaultActiveKey,
+	activeKey,
+	orientation = "horizontal",
+	...props
+}) => {
+	const [activeKeyState, setActiveKeyState] = React.useState<
+		string | undefined
+	>(defaultActiveKey ?? React.Children.toArray(children)[0]?.key?.toString());
 	const activeKeyControlled = activeKey !== undefined;
 	const activeKeyCurrent = activeKeyControlled ? activeKey : activeKeyState;
 
@@ -65,7 +65,7 @@ const Tabs: React.FC<TabsProps> = ({
 					key={key}
 					hidden={key !== activeKeyCurrent}
 					className={key !== activeKeyCurrent ? "hidden" : ""}
-					style={{flex:1, width:"100%"}}
+					style={{ flex: 1, width: "100%" }}
 				>
 					{child.props.children}
 				</div>
@@ -80,9 +80,16 @@ const Tabs: React.FC<TabsProps> = ({
 			data-testid="Tabs"
 			{...props}
 		>
-			<Space gap direction={orientation=="horizontal"?"vertical":"horizontal"} style={{}} noWrap>
-				<ButtonGroup direction={orientation}>{React.Children.map(children, renderTab)}</ButtonGroup>
-			{renderContent()}
+			<Space
+				gap
+				direction={orientation == "horizontal" ? "vertical" : "horizontal"}
+				style={{}}
+				noWrap
+			>
+				<ButtonGroup direction={orientation}>
+					{React.Children.map(children, renderTab)}
+				</ButtonGroup>
+				{renderContent()}
 			</Space>
 		</div>
 	);

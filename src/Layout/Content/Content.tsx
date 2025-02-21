@@ -1,14 +1,36 @@
 import React from "react";
 import "./Content.css";
 import { ContentProps } from "./Content.types";
-import {decode__padding} from "../../Core/Core.types";
+import { decode__padding } from "../../Core/Core.types";
 
-const Content: React.FC<ContentProps> = ({ id, key, className, children, pad, grow, wide, style }) => {
-	const classes = ["oakd", "content", pad && decode__padding(pad), grow && "grow",wide && "wide", className]
+const Content: React.FC<ContentProps> = ({
+	id,
+	key,
+	className,
+	children,
+	pad,
+	grow,
+	wide,
+	style,
+}) => {
+	const classes = [
+		"oakd",
+		"content",
+		pad && decode__padding(pad),
+		grow && "grow",
+		wide && "wide",
+		className,
+	]
 		.filter(Boolean)
 		.join(" ");
 	return (
-		<div id={id} key={key} data-testid="Content" className={classes} style={style}>
+		<div
+			id={id}
+			key={key}
+			data-testid="Content"
+			className={classes}
+			style={style}
+		>
 			{children}
 		</div>
 	);
@@ -17,18 +39,33 @@ const Content: React.FC<ContentProps> = ({ id, key, className, children, pad, gr
 export default Content;
 
 export const ContentRow: React.FC<ContentProps> = ({
-	id, key,
+	id,
+	key,
 	children,
 	className,
-	style ,
-	pad ,
+	style,
+	pad,
 	grow,
-													   wide
+	wide,
 }) => {
-	const classes = ["oakd", "content-row", pad && decode__padding(pad), grow && "grow",wide && "wide", className]
+	const classes = [
+		"oakd",
+		"content-row",
+		pad && decode__padding(pad),
+		grow && "grow",
+		wide && "wide",
+		className,
+	]
 		.filter(Boolean)
-		.join(" ");	return (
-		<div id={id} key={key} style={style} data-testid="ContentRow" className={classes}>
+		.join(" ");
+	return (
+		<div
+			id={id}
+			key={key}
+			style={style}
+			data-testid="ContentRow"
+			className={classes}
+		>
 			{children}
 		</div>
 	);

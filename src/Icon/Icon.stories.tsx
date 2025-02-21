@@ -42,18 +42,19 @@ export const Rotated = () => (
 		<Icon name={"Angle"} rotation={90} size="default" />
 		<Icon name={"Angle"} rotation={180} size="default" />
 		<Icon name={"Angle"} rotation={270} size="default" />
-
 	</Space>
 );
 
-export const Spin =()=>{
-	return  <Space gap>
-		<Icon name="Spinner" size="large" spin />
-		<Icon name="Orbit" size="large" spin />
-		<Icon name="Cog" size="large" spin />
-		<Icon name="Refresh" size="large" spin />
-	</Space>
-} //Template.bind({});
+export const Spin = () => {
+	return (
+		<Space gap>
+			<Icon name="Spinner" size="large" spin />
+			<Icon name="Orbit" size="large" spin />
+			<Icon name="Cog" size="large" spin />
+			<Icon name="Refresh" size="large" spin />
+		</Space>
+	);
+}; //Template.bind({});
 //Spin.args = { name: "Spinner", size: "large", style: { color: "red" }, spin:true };
 
 export const Styled = Template.bind({});

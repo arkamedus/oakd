@@ -1,28 +1,25 @@
-import React, {CSSProperties} from "react";
-
+import React, { CSSProperties } from "react";
 
 export type CorePaddingValueTypes = "both" | "horizontal" | "vertical";
 
 export type CorePaddingType = number | CorePaddingValueTypes | boolean;
 
-
 export const decode__padding = (padding: CorePaddingType): string => {
-
-	const hasPadding = (!!padding);
+	const hasPadding = !!padding;
 	if (!hasPadding) {
 		return "";
 	}
 
-	if (typeof padding === "number"){
+	if (typeof padding === "number") {
 		return "pad";
 	}
 
-	if (typeof padding === "string"){
+	if (typeof padding === "string") {
 		return `pad-${padding}`;
 	}
 
 	return "pad";
-}
+};
 
 export interface CoreComponentProps extends CoreComponentEventProps {
 	id?: string;
@@ -36,15 +33,28 @@ export interface CoreComponentProps extends CoreComponentEventProps {
 }
 
 export interface CoreComponentEventProps {
-	onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
-	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
-	onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => void;
-	onFocus?: (event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>) => void;
-	onBlur?: (event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>) => void;
-	onKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement | HTMLDivElement>) => void;
-	onKeyUp?: (event: React.KeyboardEvent<HTMLButtonElement | HTMLDivElement>) => void;
+	onClick?: (
+		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+	) => void;
+	onMouseEnter?: (
+		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+	) => void;
+	onMouseLeave?: (
+		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+	) => void;
+	onFocus?: (
+		event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>,
+	) => void;
+	onBlur?: (
+		event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>,
+	) => void;
+	onKeyDown?: (
+		event: React.KeyboardEvent<HTMLButtonElement | HTMLDivElement>,
+	) => void;
+	onKeyUp?: (
+		event: React.KeyboardEvent<HTMLButtonElement | HTMLDivElement>,
+	) => void;
 }
-
 
 export type CoreComponentSizeType = "default" | "small" | "large";
 export type CoreComponentLayoutSizingType =
@@ -74,7 +84,7 @@ export interface CoreLayoutProps extends CoreComponentProps {
 }
 
 export interface CoreContentProps extends CoreComponentProps {
-	wide? : boolean;
+	wide?: boolean;
 	pad?: CorePaddingType;
 }
 

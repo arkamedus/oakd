@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import {Modal} from "./Modal";
+import { Modal } from "./Modal";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import Button from "../Button/Button";

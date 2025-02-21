@@ -1,11 +1,11 @@
 import React from "react";
-import {Meta, StoryFn, StoryObj} from "@storybook/react";
-import Button, {ButtonGroup} from "./Button";
-import {ButtonType} from "./Button.types";
-import {CoreComponentSizeType} from "../../Core/Core.types";
+import { Meta, StoryFn, StoryObj } from "@storybook/react";
+import Button, { ButtonGroup } from "./Button";
+import { ButtonType } from "./Button.types";
+import { CoreComponentSizeType } from "../../Core/Core.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
-import {CoreIconNameType, IconFolder} from "../../Icon/Icons.bin";
+import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
 import Card from "../Card/Card";
 import DebugLayer from "../DebugLayer/DebugLayer";
 
@@ -30,7 +30,7 @@ const meta: Meta<typeof Button> = {
 			control: "boolean",
 			description: "Disables the button",
 		},
-		onClick: {action: "clicked"},
+		onClick: { action: "clicked" },
 	},
 };
 export default meta;
@@ -44,10 +44,10 @@ const Template: StoryFn<{
 	icon: CoreIconNameType;
 	children: React.ReactNode;
 }> = (args) => {
-	const firstArgs = {...args};
+	const firstArgs = { ...args };
 	delete firstArgs.children;
 
-	const middleArgs = {...args};
+	const middleArgs = { ...args };
 	delete middleArgs.icon;
 
 	return (
@@ -57,7 +57,7 @@ const Template: StoryFn<{
 				<Button {...middleArgs}>
 					<Paragraph>{args.children || "Button"}</Paragraph>
 				</Button>
-				<Button icon={<IconFolder size="small"/>} {...middleArgs}>
+				<Button icon={<IconFolder size="small" />} {...middleArgs}>
 					<Paragraph>{args.children || "Button"}</Paragraph>
 				</Button>
 				<Button icon={args.icon} {...args}>
@@ -67,7 +67,7 @@ const Template: StoryFn<{
 					<Paragraph>
 						<span>
 							Button
-							<br/>
+							<br />
 							Two Lines
 						</span>
 					</Paragraph>
@@ -86,7 +86,7 @@ const Template: StoryFn<{
 					<Paragraph>
 						<span>
 							Two lines make
-							<br/>
+							<br />
 							the others stretch
 						</span>
 					</Paragraph>
@@ -105,12 +105,13 @@ Default.args = {
 	children: "Button",
 };
 
-
 export const InButtonGroup = () => (
 	<ButtonGroup>
 		<Button icon={"Star"}></Button>
 		<Button icon={"Magnify"}></Button>
-		<Button icon={"Text"}><Paragraph>Text</Paragraph></Button>
+		<Button icon={"Text"}>
+			<Paragraph>Text</Paragraph>
+		</Button>
 		<Button icon={"Comment"}></Button>
 	</ButtonGroup>
 );
@@ -119,11 +120,12 @@ export const InVerticalButtonGroup = () => (
 	<ButtonGroup direction={"vertical"}>
 		<Button icon={"Star"}></Button>
 		<Button icon={"Magnify"}></Button>
-		<Button icon={"Text"}><Paragraph>Text</Paragraph></Button>
+		<Button icon={"Text"}>
+			<Paragraph>Text</Paragraph>
+		</Button>
 		<Button icon={"Comment"}></Button>
 	</ButtonGroup>
 );
-
 
 export const Primary: Story = Template.bind({});
 Primary.args = {

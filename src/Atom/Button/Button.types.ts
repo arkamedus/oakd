@@ -1,6 +1,7 @@
 import {
 	CoreComponentSizeType,
-	CoreComponentProps, CoreComponentEventProps,
+	CoreComponentProps,
+	CoreComponentEventProps,
 } from "../../Core/Core.types";
 import { CSSProperties } from "react";
 import { CoreIconNameType } from "../../Icon/Icons.bin";
@@ -19,7 +20,9 @@ export type ButtonType =
 /**
  * Properties for the Button component.
  */
-export interface ButtonProps extends CoreComponentProps, CoreComponentEventProps {
+export interface ButtonProps
+	extends CoreComponentProps,
+		CoreComponentEventProps {
 	/** HTML button type */
 	buttonType?: "button" | "submit" | "reset";
 	/** Visual style type */

@@ -5,7 +5,8 @@ import { SpaceProps } from "./Space.types";
 import "./Space.css";
 
 const Space: React.FC<SpaceProps> = ({
-	id, key,
+	id,
+	key,
 	style,
 	children,
 	className,
@@ -15,7 +16,7 @@ const Space: React.FC<SpaceProps> = ({
 	justify,
 	wide,
 	noWrap,
-	onClick
+	onClick,
 }) => {
 	let classNames = ["oakd", "space"];
 	if (className) classNames.push(className);
@@ -35,7 +36,14 @@ const Space: React.FC<SpaceProps> = ({
 	};
 
 	return (
-		<span id={id} key={key} onClick={handleClick} data-testid="Space" style={style} className={classNames.join(" ")}>
+		<span
+			id={id}
+			key={key}
+			onClick={handleClick}
+			data-testid="Space"
+			style={style}
+			className={classNames.join(" ")}
+		>
 			{children}
 		</span>
 	);

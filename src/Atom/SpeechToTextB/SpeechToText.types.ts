@@ -1,4 +1,4 @@
-import {SpaceProps} from "../Space/Space.types";
+import { SpaceProps } from "../Space/Space.types";
 
 export interface SpeechToTextProps extends SpaceProps {
 	buttonText?: string;
