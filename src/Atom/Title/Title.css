@@ -1,6 +1,6 @@
 .oakd.title {
     font-family: var(--font-family);
-    font-size: calc(var(--font-size) * 3.5);
+    font-size: calc(var(--font-size) * var(--font-scale-title));
     line-height: calc(var(--line-height) * 2);
     min-height: calc(var(--line-height) * 2);
 }

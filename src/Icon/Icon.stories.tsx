@@ -116,21 +116,26 @@ export const WithIconStack = () => (
 				<Icon name="Square" size="large" />
 				<Icon name="List" size="small" />
 			</IconStack>
+
+			<IconStack>
+				<Icon name="Circle" size="large" />
+				<Icon name="EmoteGrin" size="small" />
+			</IconStack>
 			<IconStack>
 				<Icon name="Square" size="large" />
 				<Icon name="Angle" size="small" style={{ color: "gray" }} />
 			</IconStack>
 			<IconStack>
-				<Icon name="Folder" size="large" />
-				<Icon name="Magnify" size="small" style={{ color: "blue" }} />
+				<Icon name="Folder" size="large" style={{ color: "grey" }} />
+				<Icon name="X" size="large" style={{ color: "red" }} />
 			</IconStack>
 			<IconStack>
-				<Icon name="Comment" size="large" />
+				<Icon name="CommentFrame" size="large" />
 				<Icon name="User" size="small" style={{ color: "orange" }} />
 			</IconStack>
 			<IconStack>
-				<Icon name="Star" size="large" />
-				<Icon name="Plus" size="small" style={{ color: "gold" }} />
+				<Icon name="Circle" size="large" />
+				<Icon name="Star" size="small" style={{ color: "blue" }} />
 			</IconStack>
 		</Space>
 	</Space>

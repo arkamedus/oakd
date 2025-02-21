@@ -12,12 +12,20 @@
   --background: #fff;
   --font-color: #494949;
 
+  --font-scale-title: 3.5;
+
   --oakd-black: #11111f;
   --oakd-gray: #b6b5b3;
   --oakd-white: #efefef;
   --oakd-red: #f03333;
   --oakd-green: #006f20;
   --oakd-blue: #090bcf;
+
+  --viewport-size-sm: 576px;
+  --viewport-size-md: 768px;
+  --viewport-size-lg: 992px;
+  --viewport-size-xl: 1200px;
+  --viewport-size-xls: 1600px;
 
   /* Danger set (example from your snippet) */
   --oakd-danger-color: #f03333;
@@ -52,7 +60,6 @@
   --oakd-disabled-text: #888888;
 
   /* Heading / Typography */
-  --heading-font-size: 40px;
   --font-family: "Courier", "Source Code Pro", "Avenir Next", Helvetica, Arial, sans-serif;
 }
 
