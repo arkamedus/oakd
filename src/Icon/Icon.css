@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     color: inherit; /* Allows color inheritance */
-    vertical-align: middle;
+    vertical-align: bottom;
     line-height: 0;
     background-color: transparent; /* Ensure no background bleed */
 }

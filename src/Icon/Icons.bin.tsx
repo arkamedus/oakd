@@ -21,6 +21,7 @@ import ICamera from "./asset/oakd_IconCamera.svg";
 import ICheck from "./asset/oakd_IconCheck.svg";
 import ICircle from "./asset/oakd_IconCircle.svg";
 import IClock from "./asset/oakd_IconClock.svg";
+import ICode from "./asset/oakd_IconCode.svg";
 import ICog from "./asset/oakd_IconCog.svg";
 import IComment from "./asset/oakd_IconComment.svg";
 import ICommentFrame from "./asset/oakd_IconCommentFrame.svg";
@@ -30,6 +31,15 @@ import ICylinder from "./asset/oakd_IconCylinder.svg";
 import IDiamond from "./asset/oakd_IconDiamond.svg";
 import IDots from "./asset/oakd_IconDots.svg";
 import IDrip from "./asset/oakd_IconDrip.svg";
+import IEmoteAngry from "./asset/oakd_IconEmoteAngry.svg";
+import IEmoteCat from "./asset/oakd_IconEmoteCat.svg";
+import IEmoteFrown from "./asset/oakd_IconEmoteFrown.svg";
+import IEmoteGrin from "./asset/oakd_IconEmoteGrin.svg";
+import IEmoteLaugh from "./asset/oakd_IconEmoteLaugh.svg";
+import IEmoteMeh from "./asset/oakd_IconEmoteMeh.svg";
+import IEmoteS from "./asset/oakd_IconEmoteS.svg";
+import IEmoteShock from "./asset/oakd_IconEmoteShock.svg";
+import IEmoteSmile from "./asset/oakd_IconEmoteSmile.svg";
 import IEnvelope from "./asset/oakd_IconEnvelope.svg";
 import IEraser from "./asset/oakd_IconEraser.svg";
 import IFaceID from "./asset/oakd_IconFaceID.svg";
@@ -106,6 +116,7 @@ export const IconMap: Record<string, string> = {
   "Check": ICheck,
   "Circle": ICircle,
   "Clock": IClock,
+  "Code": ICode,
   "Cog": ICog,
   "Comment": IComment,
   "CommentFrame": ICommentFrame,
@@ -115,6 +126,15 @@ export const IconMap: Record<string, string> = {
   "Diamond": IDiamond,
   "Dots": IDots,
   "Drip": IDrip,
+  "EmoteAngry": IEmoteAngry,
+  "EmoteCat": IEmoteCat,
+  "EmoteFrown": IEmoteFrown,
+  "EmoteGrin": IEmoteGrin,
+  "EmoteLaugh": IEmoteLaugh,
+  "EmoteMeh": IEmoteMeh,
+  "EmoteS": IEmoteS,
+  "EmoteShock": IEmoteShock,
+  "EmoteSmile": IEmoteSmile,
   "Envelope": IEnvelope,
   "Eraser": IEraser,
   "FaceID": IFaceID,
@@ -173,9 +193,9 @@ export const IconMap: Record<string, string> = {
   "X": IX
 };
 
-export type CoreIconNameType = "Angle" | "Apps" | "Arrow" | "Bar" | "Basket" | "Bell" | "Bone" | "Book" | "Bookmark" | "Branch" | "Broom" | "Bug" | "Bulb" | "Calendar" | "Camera" | "Check" | "Circle" | "Clock" | "Cog" | "Comment" | "CommentFrame" | "Cone" | "Cube" | "Cylinder" | "Diamond" | "Dots" | "Drip" | "Envelope" | "Eraser" | "FaceID" | "Flag" | "Folder" | "Function" | "Hashtag" | "Home" | "Jellyfish" | "Lambda" | "Layers" | "List" | "Lock" | "Magnify" | "Marker" | "Microphone" | "Octagon" | "Orbit" | "PaintPalette" | "Paintbrush" | "Pause" | "Pen" | "PenPaper" | "Pencil" | "Picture" | "Pin" | "Play" | "Plus" | "Present" | "Printer" | "Refresh" | "Resize" | "Save" | "Shapes" | "Share" | "Shield" | "Sliders" | "Sound" | "Sphere" | "Spinner" | "Square" | "Star" | "Table" | "Tag" | "Text" | "Thumbtack" | "Trash" | "Tri" | "Triangle" | "Unlock" | "User" | "Vector" | "Wand" | "Whiteboard" | "Wrench" | "X";
+export type CoreIconNameType = "Angle" | "Apps" | "Arrow" | "Bar" | "Basket" | "Bell" | "Bone" | "Book" | "Bookmark" | "Branch" | "Broom" | "Bug" | "Bulb" | "Calendar" | "Camera" | "Check" | "Circle" | "Clock" | "Code" | "Cog" | "Comment" | "CommentFrame" | "Cone" | "Cube" | "Cylinder" | "Diamond" | "Dots" | "Drip" | "EmoteAngry" | "EmoteCat" | "EmoteFrown" | "EmoteGrin" | "EmoteLaugh" | "EmoteMeh" | "EmoteS" | "EmoteShock" | "EmoteSmile" | "Envelope" | "Eraser" | "FaceID" | "Flag" | "Folder" | "Function" | "Hashtag" | "Home" | "Jellyfish" | "Lambda" | "Layers" | "List" | "Lock" | "Magnify" | "Marker" | "Microphone" | "Octagon" | "Orbit" | "PaintPalette" | "Paintbrush" | "Pause" | "Pen" | "PenPaper" | "Pencil" | "Picture" | "Pin" | "Play" | "Plus" | "Present" | "Printer" | "Refresh" | "Resize" | "Save" | "Shapes" | "Share" | "Shield" | "Sliders" | "Sound" | "Sphere" | "Spinner" | "Square" | "Star" | "Table" | "Tag" | "Text" | "Thumbtack" | "Trash" | "Tri" | "Triangle" | "Unlock" | "User" | "Vector" | "Wand" | "Whiteboard" | "Wrench" | "X";
 
-export const IconTypes: CoreIconNameType[] = ["Angle","Apps","Arrow","Bar","Basket","Bell","Bone","Book","Bookmark","Branch","Broom","Bug","Bulb","Calendar","Camera","Check","Circle","Clock","Cog","Comment","CommentFrame","Cone","Cube","Cylinder","Diamond","Dots","Drip","Envelope","Eraser","FaceID","Flag","Folder","Function","Hashtag","Home","Jellyfish","Lambda","Layers","List","Lock","Magnify","Marker","Microphone","Octagon","Orbit","PaintPalette","Paintbrush","Pause","Pen","PenPaper","Pencil","Picture","Pin","Play","Plus","Present","Printer","Refresh","Resize","Save","Shapes","Share","Shield","Sliders","Sound","Sphere","Spinner","Square","Star","Table","Tag","Text","Thumbtack","Trash","Tri","Triangle","Unlock","User","Vector","Wand","Whiteboard","Wrench","X"];
+export const IconTypes: CoreIconNameType[] = ["Angle","Apps","Arrow","Bar","Basket","Bell","Bone","Book","Bookmark","Branch","Broom","Bug","Bulb","Calendar","Camera","Check","Circle","Clock","Code","Cog","Comment","CommentFrame","Cone","Cube","Cylinder","Diamond","Dots","Drip","EmoteAngry","EmoteCat","EmoteFrown","EmoteGrin","EmoteLaugh","EmoteMeh","EmoteS","EmoteShock","EmoteSmile","Envelope","Eraser","FaceID","Flag","Folder","Function","Hashtag","Home","Jellyfish","Lambda","Layers","List","Lock","Magnify","Marker","Microphone","Octagon","Orbit","PaintPalette","Paintbrush","Pause","Pen","PenPaper","Pencil","Picture","Pin","Play","Plus","Present","Printer","Refresh","Resize","Save","Shapes","Share","Shield","Sliders","Sound","Sphere","Spinner","Square","Star","Table","Tag","Text","Thumbtack","Trash","Tri","Triangle","Unlock","User","Vector","Wand","Whiteboard","Wrench","X"];
 
 export const IconAngle = (props: Omit<IconProps, "name">) => <Icon name="Angle" {...props} />;
 export const IconApps = (props: Omit<IconProps, "name">) => <Icon name="Apps" {...props} />;
@@ -195,6 +215,7 @@ export const IconCamera = (props: Omit<IconProps, "name">) => <Icon name="Camera
 export const IconCheck = (props: Omit<IconProps, "name">) => <Icon name="Check" {...props} />;
 export const IconCircle = (props: Omit<IconProps, "name">) => <Icon name="Circle" {...props} />;
 export const IconClock = (props: Omit<IconProps, "name">) => <Icon name="Clock" {...props} />;
+export const IconCode = (props: Omit<IconProps, "name">) => <Icon name="Code" {...props} />;
 export const IconCog = (props: Omit<IconProps, "name">) => <Icon name="Cog" {...props} />;
 export const IconComment = (props: Omit<IconProps, "name">) => <Icon name="Comment" {...props} />;
 export const IconCommentFrame = (props: Omit<IconProps, "name">) => <Icon name="CommentFrame" {...props} />;
@@ -204,6 +225,15 @@ export const IconCylinder = (props: Omit<IconProps, "name">) => <Icon name="Cyli
 export const IconDiamond = (props: Omit<IconProps, "name">) => <Icon name="Diamond" {...props} />;
 export const IconDots = (props: Omit<IconProps, "name">) => <Icon name="Dots" {...props} />;
 export const IconDrip = (props: Omit<IconProps, "name">) => <Icon name="Drip" {...props} />;
+export const IconEmoteAngry = (props: Omit<IconProps, "name">) => <Icon name="EmoteAngry" {...props} />;
+export const IconEmoteCat = (props: Omit<IconProps, "name">) => <Icon name="EmoteCat" {...props} />;
+export const IconEmoteFrown = (props: Omit<IconProps, "name">) => <Icon name="EmoteFrown" {...props} />;
+export const IconEmoteGrin = (props: Omit<IconProps, "name">) => <Icon name="EmoteGrin" {...props} />;
+export const IconEmoteLaugh = (props: Omit<IconProps, "name">) => <Icon name="EmoteLaugh" {...props} />;
+export const IconEmoteMeh = (props: Omit<IconProps, "name">) => <Icon name="EmoteMeh" {...props} />;
+export const IconEmoteS = (props: Omit<IconProps, "name">) => <Icon name="EmoteS" {...props} />;
+export const IconEmoteShock = (props: Omit<IconProps, "name">) => <Icon name="EmoteShock" {...props} />;
+export const IconEmoteSmile = (props: Omit<IconProps, "name">) => <Icon name="EmoteSmile" {...props} />;
 export const IconEnvelope = (props: Omit<IconProps, "name">) => <Icon name="Envelope" {...props} />;
 export const IconEraser = (props: Omit<IconProps, "name">) => <Icon name="Eraser" {...props} />;
 export const IconFaceID = (props: Omit<IconProps, "name">) => <Icon name="FaceID" {...props} />;
