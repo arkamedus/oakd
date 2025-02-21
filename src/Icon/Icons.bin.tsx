@@ -3,34 +3,6 @@ import React from "react";
 import {IconProps} from "./Icon.types";
 import Icon from "./Icon";
 
-import Ioakd-106 from "./asset/oakd-106.svg";
-import Ioakd-107 from "./asset/oakd-107.svg";
-import Ioakd-108 from "./asset/oakd-108.svg";
-import Ioakd-113 from "./asset/oakd-113.svg";
-import Ioakd-56 from "./asset/oakd-56.svg";
-import Ioakd-57 from "./asset/oakd-57.svg";
-import Ioakd-58 from "./asset/oakd-58.svg";
-import Ioakd-65 from "./asset/oakd-65.svg";
-import Ioakd-66 from "./asset/oakd-66.svg";
-import Ioakd-68 from "./asset/oakd-68.svg";
-import Ioakd-73 from "./asset/oakd-73.svg";
-import Ioakd-74 from "./asset/oakd-74.svg";
-import Ioakd-75 from "./asset/oakd-75.svg";
-import Ioakd-76 from "./asset/oakd-76.svg";
-import Ioakd-77 from "./asset/oakd-77.svg";
-import Ioakd-78 from "./asset/oakd-78.svg";
-import Ioakd-79 from "./asset/oakd-79.svg";
-import Ioakd-80 from "./asset/oakd-80.svg";
-import Ioakd-81 from "./asset/oakd-81.svg";
-import Ioakd-82 from "./asset/oakd-82.svg";
-import Ioakd-85 from "./asset/oakd-85.svg";
-import Ioakd-86 from "./asset/oakd-86.svg";
-import Ioakd-87 from "./asset/oakd-87.svg";
-import Ioakd-88 from "./asset/oakd-88.svg";
-import Ioakd-95 from "./asset/oakd-95.svg";
-import Ioakd-96 from "./asset/oakd-96.svg";
-import Ioakd-97 from "./asset/oakd-97.svg";
-import Ioakd-98 from "./asset/oakd-98.svg";
 import IAngle from "./asset/oakd_IconAngle.svg";
 import IApps from "./asset/oakd_IconApps.svg";
 import IArrow from "./asset/oakd_IconArrow.svg";
@@ -116,34 +88,6 @@ import IWrench from "./asset/oakd_IconWrench.svg";
 import IX from "./asset/oakd_IconX.svg";
 
 export const IconMap: Record<string, string> = {
-  "oakd-106": Ioakd-106,
-  "oakd-107": Ioakd-107,
-  "oakd-108": Ioakd-108,
-  "oakd-113": Ioakd-113,
-  "oakd-56": Ioakd-56,
-  "oakd-57": Ioakd-57,
-  "oakd-58": Ioakd-58,
-  "oakd-65": Ioakd-65,
-  "oakd-66": Ioakd-66,
-  "oakd-68": Ioakd-68,
-  "oakd-73": Ioakd-73,
-  "oakd-74": Ioakd-74,
-  "oakd-75": Ioakd-75,
-  "oakd-76": Ioakd-76,
-  "oakd-77": Ioakd-77,
-  "oakd-78": Ioakd-78,
-  "oakd-79": Ioakd-79,
-  "oakd-80": Ioakd-80,
-  "oakd-81": Ioakd-81,
-  "oakd-82": Ioakd-82,
-  "oakd-85": Ioakd-85,
-  "oakd-86": Ioakd-86,
-  "oakd-87": Ioakd-87,
-  "oakd-88": Ioakd-88,
-  "oakd-95": Ioakd-95,
-  "oakd-96": Ioakd-96,
-  "oakd-97": Ioakd-97,
-  "oakd-98": Ioakd-98,
   "Angle": IAngle,
   "Apps": IApps,
   "Arrow": IArrow,
@@ -229,38 +173,10 @@ export const IconMap: Record<string, string> = {
   "X": IX
 };
 
-export type CoreIconNameType = "oakd-106" | "oakd-107" | "oakd-108" | "oakd-113" | "oakd-56" | "oakd-57" | "oakd-58" | "oakd-65" | "oakd-66" | "oakd-68" | "oakd-73" | "oakd-74" | "oakd-75" | "oakd-76" | "oakd-77" | "oakd-78" | "oakd-79" | "oakd-80" | "oakd-81" | "oakd-82" | "oakd-85" | "oakd-86" | "oakd-87" | "oakd-88" | "oakd-95" | "oakd-96" | "oakd-97" | "oakd-98" | "Angle" | "Apps" | "Arrow" | "Bar" | "Basket" | "Bell" | "Bone" | "Book" | "Bookmark" | "Branch" | "Broom" | "Bug" | "Bulb" | "Calendar" | "Camera" | "Check" | "Circle" | "Clock" | "Cog" | "Comment" | "CommentFrame" | "Cone" | "Cube" | "Cylinder" | "Diamond" | "Dots" | "Drip" | "Envelope" | "Eraser" | "FaceID" | "Flag" | "Folder" | "Function" | "Hashtag" | "Home" | "Jellyfish" | "Lambda" | "Layers" | "List" | "Lock" | "Magnify" | "Marker" | "Microphone" | "Octagon" | "Orbit" | "PaintPalette" | "Paintbrush" | "Pause" | "Pen" | "PenPaper" | "Pencil" | "Picture" | "Pin" | "Play" | "Plus" | "Present" | "Printer" | "Refresh" | "Resize" | "Save" | "Shapes" | "Share" | "Shield" | "Sliders" | "Sound" | "Sphere" | "Spinner" | "Square" | "Star" | "Table" | "Tag" | "Text" | "Thumbtack" | "Trash" | "Tri" | "Triangle" | "Unlock" | "User" | "Vector" | "Wand" | "Whiteboard" | "Wrench" | "X";
+export type CoreIconNameType = "Angle" | "Apps" | "Arrow" | "Bar" | "Basket" | "Bell" | "Bone" | "Book" | "Bookmark" | "Branch" | "Broom" | "Bug" | "Bulb" | "Calendar" | "Camera" | "Check" | "Circle" | "Clock" | "Cog" | "Comment" | "CommentFrame" | "Cone" | "Cube" | "Cylinder" | "Diamond" | "Dots" | "Drip" | "Envelope" | "Eraser" | "FaceID" | "Flag" | "Folder" | "Function" | "Hashtag" | "Home" | "Jellyfish" | "Lambda" | "Layers" | "List" | "Lock" | "Magnify" | "Marker" | "Microphone" | "Octagon" | "Orbit" | "PaintPalette" | "Paintbrush" | "Pause" | "Pen" | "PenPaper" | "Pencil" | "Picture" | "Pin" | "Play" | "Plus" | "Present" | "Printer" | "Refresh" | "Resize" | "Save" | "Shapes" | "Share" | "Shield" | "Sliders" | "Sound" | "Sphere" | "Spinner" | "Square" | "Star" | "Table" | "Tag" | "Text" | "Thumbtack" | "Trash" | "Tri" | "Triangle" | "Unlock" | "User" | "Vector" | "Wand" | "Whiteboard" | "Wrench" | "X";
 
-export const IconTypes: CoreIconNameType[] = ["oakd-106","oakd-107","oakd-108","oakd-113","oakd-56","oakd-57","oakd-58","oakd-65","oakd-66","oakd-68","oakd-73","oakd-74","oakd-75","oakd-76","oakd-77","oakd-78","oakd-79","oakd-80","oakd-81","oakd-82","oakd-85","oakd-86","oakd-87","oakd-88","oakd-95","oakd-96","oakd-97","oakd-98","Angle","Apps","Arrow","Bar","Basket","Bell","Bone","Book","Bookmark","Branch","Broom","Bug","Bulb","Calendar","Camera","Check","Circle","Clock","Cog","Comment","CommentFrame","Cone","Cube","Cylinder","Diamond","Dots","Drip","Envelope","Eraser","FaceID","Flag","Folder","Function","Hashtag","Home","Jellyfish","Lambda","Layers","List","Lock","Magnify","Marker","Microphone","Octagon","Orbit","PaintPalette","Paintbrush","Pause","Pen","PenPaper","Pencil","Picture","Pin","Play","Plus","Present","Printer","Refresh","Resize","Save","Shapes","Share","Shield","Sliders","Sound","Sphere","Spinner","Square","Star","Table","Tag","Text","Thumbtack","Trash","Tri","Triangle","Unlock","User","Vector","Wand","Whiteboard","Wrench","X"];
+export const IconTypes: CoreIconNameType[] = ["Angle","Apps","Arrow","Bar","Basket","Bell","Bone","Book","Bookmark","Branch","Broom","Bug","Bulb","Calendar","Camera","Check","Circle","Clock","Cog","Comment","CommentFrame","Cone","Cube","Cylinder","Diamond","Dots","Drip","Envelope","Eraser","FaceID","Flag","Folder","Function","Hashtag","Home","Jellyfish","Lambda","Layers","List","Lock","Magnify","Marker","Microphone","Octagon","Orbit","PaintPalette","Paintbrush","Pause","Pen","PenPaper","Pencil","Picture","Pin","Play","Plus","Present","Printer","Refresh","Resize","Save","Shapes","Share","Shield","Sliders","Sound","Sphere","Spinner","Square","Star","Table","Tag","Text","Thumbtack","Trash","Tri","Triangle","Unlock","User","Vector","Wand","Whiteboard","Wrench","X"];
 
-export const Iconoakd-106 = (props: Omit<IconProps, "name">) => <Icon name="oakd-106" {...props} />;
-export const Iconoakd-107 = (props: Omit<IconProps, "name">) => <Icon name="oakd-107" {...props} />;
-export const Iconoakd-108 = (props: Omit<IconProps, "name">) => <Icon name="oakd-108" {...props} />;
-export const Iconoakd-113 = (props: Omit<IconProps, "name">) => <Icon name="oakd-113" {...props} />;
-export const Iconoakd-56 = (props: Omit<IconProps, "name">) => <Icon name="oakd-56" {...props} />;
-export const Iconoakd-57 = (props: Omit<IconProps, "name">) => <Icon name="oakd-57" {...props} />;
-export const Iconoakd-58 = (props: Omit<IconProps, "name">) => <Icon name="oakd-58" {...props} />;
-export const Iconoakd-65 = (props: Omit<IconProps, "name">) => <Icon name="oakd-65" {...props} />;
-export const Iconoakd-66 = (props: Omit<IconProps, "name">) => <Icon name="oakd-66" {...props} />;
-export const Iconoakd-68 = (props: Omit<IconProps, "name">) => <Icon name="oakd-68" {...props} />;
-export const Iconoakd-73 = (props: Omit<IconProps, "name">) => <Icon name="oakd-73" {...props} />;
-export const Iconoakd-74 = (props: Omit<IconProps, "name">) => <Icon name="oakd-74" {...props} />;
-export const Iconoakd-75 = (props: Omit<IconProps, "name">) => <Icon name="oakd-75" {...props} />;
-export const Iconoakd-76 = (props: Omit<IconProps, "name">) => <Icon name="oakd-76" {...props} />;
-export const Iconoakd-77 = (props: Omit<IconProps, "name">) => <Icon name="oakd-77" {...props} />;
-export const Iconoakd-78 = (props: Omit<IconProps, "name">) => <Icon name="oakd-78" {...props} />;
-export const Iconoakd-79 = (props: Omit<IconProps, "name">) => <Icon name="oakd-79" {...props} />;
-export const Iconoakd-80 = (props: Omit<IconProps, "name">) => <Icon name="oakd-80" {...props} />;
-export const Iconoakd-81 = (props: Omit<IconProps, "name">) => <Icon name="oakd-81" {...props} />;
-export const Iconoakd-82 = (props: Omit<IconProps, "name">) => <Icon name="oakd-82" {...props} />;
-export const Iconoakd-85 = (props: Omit<IconProps, "name">) => <Icon name="oakd-85" {...props} />;
-export const Iconoakd-86 = (props: Omit<IconProps, "name">) => <Icon name="oakd-86" {...props} />;
-export const Iconoakd-87 = (props: Omit<IconProps, "name">) => <Icon name="oakd-87" {...props} />;
-export const Iconoakd-88 = (props: Omit<IconProps, "name">) => <Icon name="oakd-88" {...props} />;
-export const Iconoakd-95 = (props: Omit<IconProps, "name">) => <Icon name="oakd-95" {...props} />;
-export const Iconoakd-96 = (props: Omit<IconProps, "name">) => <Icon name="oakd-96" {...props} />;
-export const Iconoakd-97 = (props: Omit<IconProps, "name">) => <Icon name="oakd-97" {...props} />;
-export const Iconoakd-98 = (props: Omit<IconProps, "name">) => <Icon name="oakd-98" {...props} />;
 export const IconAngle = (props: Omit<IconProps, "name">) => <Icon name="Angle" {...props} />;
 export const IconApps = (props: Omit<IconProps, "name">) => <Icon name="Apps" {...props} />;
 export const IconArrow = (props: Omit<IconProps, "name">) => <Icon name="Arrow" {...props} />;
