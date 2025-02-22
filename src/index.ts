@@ -15,6 +15,7 @@ import Card from "./Atom/Card/Card";
 import Input from "./Atom/Input/Input";
 import Divider from "./Atom/Divider/Divider";
 import Aspect from "./Layout/Aspect/Aspect";
+import Collapsible from "./Atom/Collapsible/Collapsible";
 
 export {
 	Aspect,
@@ -36,6 +37,7 @@ export {
 	Card,
 	Input,
 	Divider,
+	Collapsible
 };
 
 export * from "./Icon/Icons.bin";
