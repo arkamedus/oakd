@@ -16,6 +16,7 @@ input.oakd.input {
     background: transparent;
     padding-top: calc(var(--leading) / 2);
     padding-bottom: calc(var(--leading) / 2);
+    flex-grow: 1;
 }
 
 input.oakd.input.size-default {

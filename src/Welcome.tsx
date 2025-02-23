@@ -55,7 +55,7 @@ export const Welcome = () => {
 					</Paragraph>
 					<Space direction="horizontal" gap>
 						<a
-							href="https://github.com/arkamedus/components"
+							href="https://github.com/arkamedus/oakd"
 							target="_blank"
 							style={{
 								color: "#007a88",

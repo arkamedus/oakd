@@ -1,0 +1,28 @@
+LICENSE.txt
+
+Icon / SVG Icons & Icon Pack License Terms for oakd
+
+1. GRANT OF LICENSE:
+   - The icons, images, and source files, (hereinafter referred to as "Icons") provided as part of the oakd icon pack are licensed, not sold, to you by OakFrame Interactive Ltd and Gordon Goodrum ("Licensor").
+   - You are granted a non-exclusive, non-transferable, worldwide license to use the Icons as part of projects that incorporate the oakd framework.
+   - This license allows for the use of the Icons in personal, commercial, and client projects under the oakd framework. You may create derivative works and incorporate the Icons into products that are sold, as long as the Icons themselves are not the primary value of the product sold.
+
+2. RESTRICTIONS:
+   - You may NOT resell, redistribute, sublicense, or transfer the Icons or rights to use the Icons to any third party as standalone files.
+   - The Icons may NOT be used in a standalone fashion but must be part of a project that incorporates the oakd framework.
+   - You are permitted to modify, edit, and create derivative works from the Icons, provided these actions do not facilitate the standalone resale or distribution of the original or modified Icons.
+   - The Icons may NOT be placed on any website in a complete or archived downloadable format or enabled to be distributed via mobile devices or any form of broadcasting where they are separable or usable on their own.
+
+3. COPYRIGHT:
+   - The Icons are protected by copyright and other intellectual property laws and treaties. OakFrame Interactive Ltd, or its licensors own all rights, title, and interest in the Icons.
+
+4. TERMINATION:
+   - The license rights granted under this agreement are perpetual unless terminated by the Licensor.
+   - The Licensor reserves the right to terminate the license if you fail to comply with any of the terms and conditions hereof.
+   - Upon termination of the license, you shall cease all use of the Icons and destroy all copies of the Icons.
+
+5. LIABILITY:
+   - The Icons are provided "as is" without warranties of any kind, either express or implied. The Licensor does not warrant that the Icons will meet your requirements or that operation of the Icons will be uninterrupted or error-free.
+   - In no event will oakd, or the Licensor be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of the use of or inability to use the Icons, even if the Licensor has been advised of the possibility of such damages.
+
+By using the Icons provided by oakd, you agree to be bound by the terms of this license. If you do not agree to the terms of this license, do not use the Icons.

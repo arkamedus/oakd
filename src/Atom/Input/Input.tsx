@@ -80,7 +80,7 @@ const Input: React.FC<InputProps> = ({
 			style={style}
 			data-testid="InputContainer"
 		>
-			<Space gap align="center" direction="horizontal">
+			<Space gap align="center" direction="horizontal" wide>
 				{icon &&
 					(typeof icon === "string" ? (
 						<Icon name={icon} size={sizeMinusOne(size)} />

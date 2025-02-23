@@ -1,6 +1,6 @@
 {
   "name": "oakd",
-  "version": "2.1.11",
+  "version": "2.1.23",
   "main": "build/index.js",
   "module": "build/index.esm.js",
   "files": [
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkamedus/components.git"
+    "url": "git+https://github.com/arkamedus/oakd.git"
   },
   "keywords": [
     "oakd",

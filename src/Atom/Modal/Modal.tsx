@@ -4,6 +4,8 @@ import Paragraph from "../Paragraph/Paragraph";
 import Button from "../Button/Button";
 import { IconX } from "../../Icon/Icons.bin";
 import "./Modal.css";
+import Content from "../../Layout/Content/Content";
+import Page from "../../Layout/Page/Page";
 
 // Modal Component
 const Modal = ({
@@ -25,28 +27,25 @@ const Modal = ({
 }) =>
 	visible ? (
 		<div className="modal-container" onClick={onClose} style={style}>
-			<div
+			<Page
 				className={["modal", className].join(" ")}
 				onClick={(e) => e.stopPropagation()}
 			>
-				<Space direction={"vertical"} gap>
-					<Space justify={"between"} align={"start"} gap>
-						<Paragraph>{title}</Paragraph>
-						<Button
-							onClick={() => {
-								if (onClose) {
-									onClose();
-								}
-							}}
-						>
-							<IconX />{" "}
-						</Button>
+					<Content wide pad>
+						<Space justify={"between"} noWrap align={"start"} gap>
+						{title}
+						<Button size={"small"} icon={"X"} type="default" onClick={() => {
+							if (onClose) {
+								onClose()
+							}
+						}}></Button>
 					</Space>
-					<Space direction={"vertical"} gap>
-						<Paragraph>{content || children}</Paragraph>
-					</Space>
-				</Space>
-			</div>
+					</Content>
+
+					<Content grow>{content||children}</Content>
+
+
+			</Page>
 		</div>
 	) : null;
 
