@@ -16,6 +16,7 @@ const Card: React.FC<CardProps> = ({
 	wide,
 	className,
 	pad,
+	onClick
 }) => {
 	const classNames = ["oakd", "card"];
 	if (pad) {
@@ -33,6 +34,7 @@ const Card: React.FC<CardProps> = ({
 			className={classNames.join(" ")}
 			style={style}
 			role="region"
+			onClick={onClick}
 		>
 			{children}
 		</div>

@@ -23,8 +23,6 @@
     box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius);
     overflow: auto;
-
-
 }
 
 .actions {

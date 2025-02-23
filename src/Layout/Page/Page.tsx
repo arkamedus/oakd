@@ -10,12 +10,13 @@ const Page: React.FC<PageProps> = ({
 	fixed,
 	gap,
 	className,
+	onClick
 }) => {
 	const classes = ["oakd", "page", gap && "gap", fixed && "fixed", className]
 		.filter(Boolean)
 		.join(" ");
 	return (
-		<div id={id} key={key} data-testid="Page" className={classes} style={style}>
+		<div id={id} key={key} data-testid="Page" className={classes} style={style} onClick={onClick}>
 			{children}
 		</div>
 	);

@@ -11,7 +11,6 @@ import Page from "../../Layout/Page/Page";
 const Modal = ({
 	visible,
 	title,
-	content,
 	onClose,
 	children,
 	className,
@@ -20,7 +19,6 @@ const Modal = ({
 	visible: boolean;
 	title: React.ReactNode;
 	children?: React.ReactNode;
-	content?: React.ReactNode;
 	onClose: () => void;
 	className?: string;
 	style?: any;
@@ -32,17 +30,17 @@ const Modal = ({
 				onClick={(e) => e.stopPropagation()}
 			>
 					<Content wide pad>
-						<Space justify={"between"} noWrap align={"start"} gap>
+						<Space justify={"between"} noWrap align={"center"} gap>
 						{title}
 						<Button size={"small"} icon={"X"} type="default" onClick={() => {
 							if (onClose) {
 								onClose()
 							}
-						}}></Button>
+						}}/>
 					</Space>
 					</Content>
 
-					<Content grow>{content||children}</Content>
+					<Content grow>{children}</Content>
 
 
 			</Page>

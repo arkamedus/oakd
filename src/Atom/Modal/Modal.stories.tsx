@@ -4,6 +4,7 @@ import { Modal } from "./Modal";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import Button from "../Button/Button";
+import Aspect from "../../Layout/Aspect/Aspect";
 
 const meta: Meta<typeof Modal> = {
 	title: "Design System/Atomic/Modal",
@@ -18,25 +19,23 @@ const Template: StoryFn<{
 }> = ({ open, setOpen }) => (
 	<Modal
 		visible={open}
-		title="Modal Title"
-		content={
-			<Space direction="vertical" gap>
-				<Paragraph>Some content inside the modal.</Paragraph>
-				<Paragraph>More content can go here.</Paragraph>
-			</Space>
-		}
+		title={<Paragraph>Modal Title</Paragraph>}
 		onClose={() => setOpen(false)}
-	/>
+	><Space direction="vertical" gap>
+		<Paragraph>Some content inside the modal.</Paragraph>
+		<Paragraph>More content can go here.</Paragraph>
+	</Space></Modal>
 );
 
 export const Default = () => {
 	const [open, setOpen] = useState(false);
 	return (
-		<Space gap>
-			<Button type="primary" onClick={() => setOpen(true)}>
-				Open Modal
+		<Aspect ratio={"21x9"}><Space gap>
+			<Button icon={"Share"} type="primary" onClick={() => setOpen(true)}>
+				<Paragraph>Open Modal</Paragraph>
 			</Button>
 			<Template open={open} setOpen={setOpen} />
 		</Space>
+		</Aspect>
 	);
 };
