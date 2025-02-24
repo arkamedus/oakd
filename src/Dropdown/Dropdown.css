@@ -1,0 +1,53 @@
+.oakd-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.oakd-dropdown-trigger {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.oakd-dropdown-content {
+    position: absolute;
+    z-index: 1000;
+    background-color: var(--background, #fff);
+    min-width: 200px;
+    width: max-content;
+    border: 1px solid var(--border-color, #ccc);
+    padding: var(--leading, 8px);
+    border-radius: var(--border-radius, 4px);
+    display: none;
+    margin-top: var(--leading, 8px);
+}
+
+/* Direction positioning */
+.oakd-dropdown-content.bottom-left {
+    top: 100%;
+    left: 0;
+}
+
+.oakd-dropdown-content.bottom-right {
+    top: 100%;
+    right: 0;
+}
+
+.oakd-dropdown-content.top-left {
+    bottom: 100%;
+    left: 0;
+}
+
+.oakd-dropdown-content.top-right {
+    bottom: 100%;
+    right: 0;
+}
+
+.oakd-dropdown-content.fixed {
+    position: fixed;
+}
+
+.oakd-dropdown-content.active {
+    display: block;
+}

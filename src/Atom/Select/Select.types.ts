@@ -3,11 +3,13 @@ import { ButtonType } from "../Button/Button.types";
 import { CoreLayoutProps } from "../../Core/Core.types";
 
 export type CoreComponentSizeType = "default" | "small" | "large";
+export type DropdownDirection =
+	"bottom-left" | "bottom-right" | "top-left" | "top-right";
 
 export interface SelectOption<T> {
 	element: React.ReactNode;
 	value: T;
-	category?: string; // Optional category for grouping options
+	category?: string;
 }
 
 export interface SelectProps<T> extends CoreLayoutProps {
@@ -22,4 +24,5 @@ export interface SelectProps<T> extends CoreLayoutProps {
 		order?: string[];
 	};
 	fixed?: boolean;
+	direction?: DropdownDirection;
 }

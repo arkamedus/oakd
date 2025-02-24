@@ -19,10 +19,29 @@
 	border-radius: var(--border-radius, 4px);
 }
 
-/* Left/right alignment */
-.oakd-select__dropdown--left {
+/* Direction positioning */
+.oakd-select__dropdown--bottom-left {
+	top: calc(100% + var(--leading, 8px));
 	left: 0;
 	right: auto;
+}
+
+.oakd-select__dropdown--bottom-right {
+	top: calc(100% + var(--leading, 8px));
+	left: auto;
+	right: 0;
+}
+
+.oakd-select__dropdown--top-left {
+	bottom: calc(100% + var(--leading, 8px));
+	left: 0;
+	right: auto;
+}
+
+.oakd-select__dropdown--top-right {
+	bottom: calc(100% + var(--leading, 8px));
+	left: auto;
+	right: 0;
 }
 
 /* When the dropdown is active, show it */
@@ -38,8 +57,8 @@
 /* When absolute mode is active */
 .oakd-select__dropdown--absolute {
 	position: absolute;
-	top: 100%;
-	left: 0;
+	//top: 100%;
+	//left: 0;
 }
 
 .oakd-select__item {

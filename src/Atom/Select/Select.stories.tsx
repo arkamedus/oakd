@@ -3,6 +3,7 @@ import { Meta } from "@storybook/react";
 import Select from "./Select";
 import Paragraph from "../Paragraph/Paragraph";
 import Space from "../Space/Space";
+import Aspect from "../../Layout/Aspect/Aspect";
 
 const meta: Meta<typeof Select> = {
 	title: "Design System/Atomic/Select",
@@ -103,7 +104,7 @@ export const NoOptions = () => (
 );
 
 export const Sized = () => (
-	<Space gap>
+	<Aspect ratio={"16x9"}><Space gap>
 		<Select
 			size={"small"}
 			options={[
@@ -167,5 +168,30 @@ export const Sized = () => (
 			onSelected={(val) => console.log(val)}
 			placeholder="Select a long option"
 		/>
+
+
+		<Select
+			size={"large"}
+			direction={"bottom-right"}
+			options={[
+				{
+					value: "x",
+					element: (
+						<Paragraph>Very long option text that might overflow</Paragraph>
+					),
+				},
+				{
+					value: "y",
+					element: (
+						<Paragraph>
+							Another long option text that should be handled correctly
+						</Paragraph>
+					),
+				},
+			]}
+			onSelected={(val) => console.log(val)}
+			placeholder="top left"
+		/>
 	</Space>
+	</Aspect>
 );

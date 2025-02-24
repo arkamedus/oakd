@@ -23,6 +23,7 @@ const Select: React.FC<SelectProps<any>> = ({
 	size = "default",
 	categorize,
 	fixed = false,
+	direction= "bottom-left",
 }) => {
 	const [isActive, setIsActive] = useState(false);
 	const [selectedValue, setSelectedValue] = useState<any | undefined>(
@@ -131,7 +132,7 @@ const Select: React.FC<SelectProps<any>> = ({
 			: undefined;
 
 	// Build className based on mode and active state.
-	const dropdownClassName = `oakd-select__dropdown oakd-select__dropdown--left ${
+	const dropdownClassName = `oakd-select__dropdown oakd-select__dropdown--${direction} ${
 		isActive ? "active" : ""
 	} ${fixed ? "oakd-select__dropdown--fixed" : "oakd-select__dropdown--absolute"}`;
 
