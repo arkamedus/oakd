@@ -17,6 +17,7 @@ import Divider from "./Atom/Divider/Divider";
 import Aspect from "./Layout/Aspect/Aspect";
 import Collapsible from "./Atom/Collapsible/Collapsible";
 import { Modal } from "./Atom/Modal/Modal";
+import Dropdown from "./Dropdown/Dropdown";
 
 export {
 	Aspect,
@@ -35,6 +36,7 @@ export {
 	Breadcrumb,
 	DebugLayer,
 	Select,
+	Dropdown,
 	Card,
 	Input,
 	Divider,
