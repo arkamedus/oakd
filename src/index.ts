@@ -18,6 +18,7 @@ import Aspect from "./Layout/Aspect/Aspect";
 import Collapsible from "./Atom/Collapsible/Collapsible";
 import { Modal } from "./Atom/Modal/Modal";
 import Dropdown from "./Dropdown/Dropdown";
+import Pagination from "./Atom/Pagination/Pagination";
 
 export {
 	Aspect,
@@ -33,6 +34,7 @@ export {
 	Paragraph,
 	Icon,
 	Page,
+	Pagination,
 	Breadcrumb,
 	DebugLayer,
 	Select,

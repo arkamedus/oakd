@@ -28,6 +28,7 @@ const Input: React.FC<InputProps> = ({
 	onFocus,
 	min,
 	max,
+	grow
 }) => {
 	const [internalValue, setInternalValue] = useState<string | number>(
 		defaultValue ?? value,
@@ -57,6 +58,7 @@ const Input: React.FC<InputProps> = ({
 		`type-${inputType}`,
 		hasError ? "input-error" : "",
 		disabled ? "input-disabled" : "",
+		grow ? "grow" : "",
 		className,
 	]
 		.filter(Boolean)

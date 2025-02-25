@@ -32,4 +32,5 @@ export interface InputProps {
 
 	min?: number;
 	max?: number;
+	grow?: boolean;
 }
