@@ -29,6 +29,7 @@ export interface InputProps {
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 	/** OnFocus event handler */
 	onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+	onKeyPress?: (event: any) => void;
 
 	min?: number;
 	max?: number;

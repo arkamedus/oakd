@@ -28,7 +28,8 @@ const Input: React.FC<InputProps> = ({
 	onFocus,
 	min,
 	max,
-	grow
+	grow,
+	onKeyPress,
 }) => {
 	const [internalValue, setInternalValue] = useState<string | number>(
 		defaultValue ?? value,
@@ -49,6 +50,13 @@ const Input: React.FC<InputProps> = ({
 	useEffect(() => {
 		setHasError(error);
 	}, [error]);
+
+	// Sync error flag when error prop changes
+	useEffect(() => {
+		setInternalValue(defaultValue ?? value);
+	}, [
+		defaultValue , value
+	]);
 
 	const containerClasses = [
 		"oakd",
@@ -103,6 +111,7 @@ const Input: React.FC<InputProps> = ({
 					onChange={handleChange}
 					onBlur={onBlur}
 					onFocus={onFocus}
+					onKeyPress={onKeyPress}
 				/>
 				{hasError && (
 					<span data-testid="InputError" className="input-error-icon">

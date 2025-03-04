@@ -16,9 +16,10 @@ const Card: React.FC<CardProps> = ({
 	wide,
 	className,
 	pad,
-	onClick
+	onClick,
+	type
 }) => {
-	const classNames = ["oakd", "card"];
+	const classNames = ["oakd", "card",	`type-${type}`,];
 	if (pad) {
 		classNames.push("pad");
 	}

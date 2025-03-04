@@ -1,25 +1,11 @@
 import {
 	CoreComponentSizeType,
 	CoreComponentProps,
-	CoreComponentEventProps,
+	CoreComponentEventProps, ButtonType,
 } from "../../Core/Core.types";
 import { CSSProperties } from "react";
 import { CoreIconNameType } from "../../Icon/Icons.bin";
 
-/**
- * Defines the possible button types.
- */
-export type ButtonType =
-	| "default"
-	| "primary"
-	| "danger"
-	| "warning"
-	| "ghost"
-	| "disabled";
-
-/**
- * Properties for the Button component.
- */
 export interface ButtonProps
 	extends CoreComponentProps,
 		CoreComponentEventProps {

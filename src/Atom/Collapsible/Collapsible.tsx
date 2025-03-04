@@ -62,7 +62,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 						style={{ width: "100%" }}
 					>
 						<Space wide justify={"between"} align={"center"}>
-							<Paragraph className="collapsible__title">{title}</Paragraph>
+							<span className="collapsible__title">{title}</span>
 							<IconAngle
 								className="collapsible__icon"
 								size={"small"}

@@ -56,6 +56,15 @@ export interface CoreComponentEventProps {
 	) => void;
 }
 
+export type ButtonType =
+	| "default"
+	| "primary"
+	| "danger"
+	| "warning"
+	| "ghost"
+	| "active"
+	| "disabled";
+
 export type CoreComponentSizeType = "default" | "small" | "large";
 export type CoreComponentLayoutSizingType =
 	| "default"

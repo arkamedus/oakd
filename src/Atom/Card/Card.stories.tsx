@@ -61,13 +61,37 @@ export const GridLayout = () => (
 				<Paragraph>Content of card 1.</Paragraph>
 			</Content>
 		</Card>
-		<Card>
+		<Card type={"active"}>
 			<Content pad>
 				<Title>Card 2</Title>
 				<Paragraph>Content of card 2.</Paragraph>
 			</Content>
 		</Card>
-		<Card>
+		<Card type={"primary"}>
+			<Content pad>
+				<Title>Card 2</Title>
+				<Paragraph>Content of card 2.</Paragraph>
+			</Content>
+		</Card>
+		<Card type={"ghost"}>
+			<Content pad>
+				<Title>Card 3</Title>
+				<Paragraph>Content of card 3.</Paragraph>
+			</Content>
+		</Card>
+		<Card type={"warning"}>
+			<Content pad>
+				<Title>Card 3</Title>
+				<Paragraph>Content of card 3.</Paragraph>
+			</Content>
+		</Card>
+		<Card type={"danger"}>
+			<Content pad>
+				<Title>Card 3</Title>
+				<Paragraph>Content of card 3.</Paragraph>
+			</Content>
+		</Card>
+		<Card type={"disabled"}>
 			<Content pad>
 				<Title>Card 3</Title>
 				<Paragraph>Content of card 3.</Paragraph>

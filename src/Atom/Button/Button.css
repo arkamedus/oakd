@@ -25,57 +25,6 @@
     padding-left: calc(var(--leading) * 2);
 }
 
-/* Button Types */
-.oakd.button.type-default {
-    background-color: #f0f0f0;
-}
-.oakd.button.type-default .oakd.standardized-text {
-    color: #000;
-}
-
-.oakd.button.type-primary {
-    background-color: var(--oakd-primary-color);
-    border-color: var(--oakd-primary-border);
-}
-.oakd.button.type-primary .oakd.standardized-text {
-    color: #fff;
-}
-
-.oakd.button.type-danger {
-    background-color: var(--oakd-danger-color);
-    border-color: var(--oakd-danger-border);
-}
-.oakd.button.type-danger .oakd.standardized-text {
-    color: var(--oakd-danger-text);
-}
-
-.oakd.button.type-warning {
-    background-color: var(--oakd-warning-color);
-    border-color: var(--oakd-warning-border);
-}
-.oakd.button.type-warning .oakd.standardized-text {
-    color: var(--oakd-warning-text);
-}
-
-.oakd.button.type-ghost {
-    background: #CCC4;
-}
-.oakd.button.type-ghost .oakd.standardized-text {
-    color: #666;
-}
-
-/* Disabled Button */
-.oakd.button.disabled,
-.oakd.button.type-disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-.oakd.button.disabled .oakd.standardized-text,
-.oakd.button.type-disabled .oakd.standardized-text {
-    color: #666;
-}
-
-
 /* Interactive States */
 
 .oakd.button.active:not(.disabled) {
