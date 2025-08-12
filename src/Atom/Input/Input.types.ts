@@ -1,6 +1,7 @@
-import { CoreIconNameType } from "../../Icon/Icons.bin";
+import {CoreIconNameType} from "../../Icon/Icons.bin";
+import {CoreComponentProps} from "../../Core/Core.types";
 
-export interface InputProps {
+export interface InputProps extends CoreComponentProps {
 	/** The type of the input element */
 	type?: "text" | "password" | "email" | "number";
 	/** The controlled value of the input */

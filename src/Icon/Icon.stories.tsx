@@ -55,6 +55,14 @@ export const Spin = () => {
 		</Space>
 	);
 }; //Template.bind({});
+export const Image = () => {
+	return (
+		<Space gap>
+			<Icon name="Spinner" size="large" src={"https://placehold.co/400"} spin color={"blue"} />
+			<Icon name="Spinner" size="large" src={"https://placehold.co/400"} spin preserveColor={true}/>
+		</Space>
+	);
+}; //Template.bind({});
 //Spin.args = { name: "Spinner", size: "large", style: { color: "red" }, spin:true };
 
 export const Styled = Template.bind({});
