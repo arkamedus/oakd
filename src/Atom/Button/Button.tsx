@@ -24,6 +24,9 @@ const Button: React.FC<ButtonProps> = ({
 	icon,
 	disabled,
 	role = "button",
+	onMouseDown,
+	onMouseEnter,
+	onMouseLeave
 }) => {
 	const isDisabled = type === "disabled" || disabled;
 
@@ -51,6 +54,9 @@ const Button: React.FC<ButtonProps> = ({
 
 	return (
 		<button
+			onMouseEnter={onMouseEnter}
+			onMouseDown={onMouseDown}
+			onMouseLeave={onMouseLeave}
 			style={style}
 			className={classNames}
 			onClick={handleClick}
