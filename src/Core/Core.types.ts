@@ -39,6 +39,9 @@ export interface CoreComponentEventProps {
 	onMouseEnter?: (
 		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
 	) => void;
+	onMouseDown?: (
+		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+	) => void;
 	onMouseLeave?: (
 		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
 	) => void;
