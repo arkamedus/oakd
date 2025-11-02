@@ -49,6 +49,10 @@
   --oakd-active-border: #4f80c0;
   --oakd-active-text: #21598f;
 
+  /* Active */
+  --oakd-success-color: #f4ffe9;
+  --oakd-success-border: #8dc04f;
+  --oakd-success-text: #17791d;
 
   /* Warning */
   --oakd-warning-color: #ffbf00;

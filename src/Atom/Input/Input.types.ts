@@ -1,7 +1,8 @@
-import {CoreIconNameType} from "../../Icon/Icons.bin";
-import {CoreComponentProps} from "../../Core/Core.types";
+import { CoreIconNameType } from "../../Icon/Icons.bin";
+import { CoreComponentProps } from "../../Core/Core.types";
+import React from "react";
 
-export interface InputProps extends CoreComponentProps {
+export interface InputProps extends CoreComponentProps<HTMLInputElement> {
 	/** The type of the input element */
 	type?: "text" | "password" | "email" | "number";
 	/** The controlled value of the input */
@@ -31,6 +32,8 @@ export interface InputProps extends CoreComponentProps {
 	/** OnFocus event handler */
 	onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 	onKeyPress?: (event: any) => void;
+
+	ref?: React.Ref<HTMLInputElement>;
 
 	min?: number;
 	max?: number;

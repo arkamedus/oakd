@@ -1,8 +1,7 @@
 import React from "react";
 import { Meta, StoryFn, StoryObj } from "@storybook/react";
 import Button, { ButtonGroup } from "./Button";
-import { ButtonType } from "./Button.types";
-import { CoreComponentSizeType } from "../../Core/Core.types";
+import {ButtonType, CoreComponentSizeType} from "../../Core/Core.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";

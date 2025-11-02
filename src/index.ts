@@ -1,4 +1,3 @@
-import TestComponent from "./TestComponent";
 import Page from "./Layout/Page/Page";
 import Row from "./Layout/Row/Row";
 import Col from "./Layout/Column/Column";
@@ -17,12 +16,11 @@ import Divider from "./Atom/Divider/Divider";
 import Aspect from "./Layout/Aspect/Aspect";
 import Collapsible from "./Atom/Collapsible/Collapsible";
 import { Modal } from "./Atom/Modal/Modal";
-import Dropdown from "./Dropdown/Dropdown";
+import Dropdown from "./Atom/Dropdown/Dropdown";
 import Pagination from "./Atom/Pagination/Pagination";
 
 export {
 	Aspect,
-	TestComponent,
 	Col,
 	Content,
 	ContentRow,

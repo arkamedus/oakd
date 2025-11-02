@@ -4,16 +4,16 @@ import "./Icon.css";
 import { IconMap } from "./Icons.bin";
 
 const Icon: React.FC<IconProps> = ({
-									   name,
-									   style,
-									   size = "default",
-									   className = "",
-									   spin = false,
-									   rotation = 0,
-									   src,
-									   preserveColor = false,
-									   ...props
-								   }) => {
+	name,
+	style,
+	size = "default",
+	className = "",
+	spin = false,
+	rotation = 0,
+	src,
+	preserveColor = false,
+	...props
+}) => {
 	// Resolve asset from map unless an explicit `src` is provided
 	const IconSrc = src ? undefined : IconMap[name];
 
@@ -82,8 +82,8 @@ const Icon: React.FC<IconProps> = ({
 				transformOrigin: "center",
 			}}
 		>
-      {iconElement}
-    </span>
+			{iconElement}
+		</span>
 	) : (
 		iconElement
 	);
@@ -98,19 +98,19 @@ interface IconStackProps {
 }
 
 export const IconStack: React.FC<IconStackProps> = ({
-														children,
-														className = "",
-														style,
-													}) => {
+	children,
+	className = "",
+	style,
+}) => {
 	return (
 		<span
 			data-testid="IconStack"
 			className={`oakd oakd-icon-stack ${className}`}
 			style={style}
 		>
-      {React.Children.map(children, (child) => (
-		  <span className="oakd-icon-stack__item">{child}</span>
-	  ))}
-    </span>
+			{React.Children.map(children, (child) => (
+				<span className="oakd-icon-stack__item">{child}</span>
+			))}
+		</span>
 	);
 };

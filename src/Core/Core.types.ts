@@ -21,7 +21,7 @@ export const decode__padding = (padding: CorePaddingType): string => {
 	return "pad";
 };
 
-export interface CoreComponentProps extends CoreComponentEventProps {
+export interface CoreComponentProps<T = HTMLElement> extends CoreComponentEventProps {
 	id?: string;
 	key?: React.Key;
 	style?: CSSProperties;
@@ -30,6 +30,7 @@ export interface CoreComponentProps extends CoreComponentEventProps {
 	role?: string; // Added for accessibility
 	"aria-label"?: string; // Added for accessibility
 	tabIndex?: number; // Added for keyboard interactions
+	ref?: React.Ref<T>;
 }
 
 export interface CoreComponentEventProps {

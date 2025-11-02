@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
 import { InputProps } from "./Input.types";
 import "./Input.css";
 import Space from "../Space/Space";
@@ -11,7 +11,7 @@ import { sizeMinusOne } from "../../Core/Core.utils";
  * @param {InputProps} props - The component props.
  * @returns {JSX.Element} The rendered Input component.
  */
-const Input: React.FC<InputProps> = ({
+const Input = forwardRef<HTMLInputElement, InputProps>(({
 	type = "text",
 	value = "",
 	defaultValue,
@@ -30,11 +30,16 @@ const Input: React.FC<InputProps> = ({
 	max,
 	grow,
 	onKeyPress,
-}) => {
+}, ref) => {
 	const [internalValue, setInternalValue] = useState<string | number>(
 		defaultValue ?? value,
 	);
 	const [hasError, setHasError] = useState(error);
+
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	// expose the inner input ref to parent
+	useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
 	/**
 	 * Handler for input change event
@@ -54,9 +59,7 @@ const Input: React.FC<InputProps> = ({
 	// Sync error flag when error prop changes
 	useEffect(() => {
 		setInternalValue(defaultValue ?? value);
-	}, [
-		defaultValue , value
-	]);
+	}, [defaultValue, value]);
 
 	const containerClasses = [
 		"oakd",
@@ -98,6 +101,7 @@ const Input: React.FC<InputProps> = ({
 						icon
 					))}
 				<input
+					ref={inputRef}
 					min={min}
 					max={max}
 					aria-invalid={hasError}
@@ -121,6 +125,6 @@ const Input: React.FC<InputProps> = ({
 			</Space>
 		</div>
 	);
-};
+});
 
 export default Input;

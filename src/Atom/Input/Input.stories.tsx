@@ -4,6 +4,7 @@ import Input from "./Input";
 import { InputProps } from "./Input.types";
 import Space from "../Space/Space";
 import { IconMagnify } from "../../Icon/Icons.bin";
+import Button from "../Button/Button";
 
 const meta: Meta<typeof Input> = {
 	title: "Design System/Atomic/Input",
@@ -71,4 +72,29 @@ Disabled.args = {
 	placeholder: "Disabled input",
 	disabled: true,
 	icon: "Folder",
+};
+
+export const RefFocusTest: StoryFn<InputProps> = (args) => {
+	const inputRef = React.useRef<HTMLInputElement>(null);
+
+	const handleFocusClick = () => {
+		inputRef.current?.focus();
+	};
+
+	return (
+		<Space direction="vertical" gap>
+			<Input {...args} ref={inputRef} placeholder="Click the button to focus me..." />
+			<Button
+				type={"default"}
+				onClick={handleFocusClick}
+			>
+				Focus Input
+			</Button>
+		</Space>
+	);
+};
+
+RefFocusTest.args = {
+	type: "text",
+	placeholder: "Ref test input",
 };

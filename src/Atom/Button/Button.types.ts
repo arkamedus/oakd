@@ -1,7 +1,8 @@
 import {
 	CoreComponentSizeType,
 	CoreComponentProps,
-	CoreComponentEventProps, ButtonType,
+	CoreComponentEventProps,
+	ButtonType,
 } from "../../Core/Core.types";
 import { CSSProperties } from "react";
 import { CoreIconNameType } from "../../Icon/Icons.bin";

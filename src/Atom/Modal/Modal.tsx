@@ -29,20 +29,23 @@ const Modal = ({
 				className={["modal", className].join(" ")}
 				onClick={(e) => e.stopPropagation()}
 			>
-					<Content wide pad>
-						<Space justify={"between"} noWrap align={"center"} gap>
+				<Content wide pad>
+					<Space justify={"between"} noWrap align={"center"} gap>
 						{title}
-						<Button size={"small"} icon={"X"} type="default" onClick={() => {
-							if (onClose) {
-								onClose()
-							}
-						}}/>
+						<Button
+							size={"small"}
+							icon={"X"}
+							type="default"
+							onClick={() => {
+								if (onClose) {
+									onClose();
+								}
+							}}
+						/>
 					</Space>
-					</Content>
+				</Content>
 
-					<Content grow>{children}</Content>
-
-
+				<Content grow>{children}</Content>
 			</Page>
 		</div>
 	) : null;

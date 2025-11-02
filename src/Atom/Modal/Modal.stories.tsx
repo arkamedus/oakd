@@ -21,21 +21,24 @@ const Template: StoryFn<{
 		visible={open}
 		title={<Paragraph>Modal Title</Paragraph>}
 		onClose={() => setOpen(false)}
-	><Space direction="vertical" gap>
-		<Paragraph>Some content inside the modal.</Paragraph>
-		<Paragraph>More content can go here.</Paragraph>
-	</Space></Modal>
+	>
+		<Space direction="vertical" gap>
+			<Paragraph>Some content inside the modal.</Paragraph>
+			<Paragraph>More content can go here.</Paragraph>
+		</Space>
+	</Modal>
 );
 
 export const Default = () => {
 	const [open, setOpen] = useState(false);
 	return (
-		<Aspect ratio={"21x9"}><Space gap>
-			<Button icon={"Share"} type="primary" onClick={() => setOpen(true)}>
-				<Paragraph>Open Modal</Paragraph>
-			</Button>
-			<Template open={open} setOpen={setOpen} />
-		</Space>
+		<Aspect ratio={"21x9"}>
+			<Space gap>
+				<Button icon={"Share"} type="primary" onClick={() => setOpen(true)}>
+					<Paragraph>Open Modal</Paragraph>
+				</Button>
+				<Template open={open} setOpen={setOpen} />
+			</Space>
 		</Aspect>
 	);
 };

@@ -104,94 +104,94 @@ export const NoOptions = () => (
 );
 
 export const Sized = () => (
-	<Aspect ratio={"16x9"}><Space gap>
-		<Select
-			size={"small"}
-			options={[
-				{
-					value: "x",
-					element: (
-						<Paragraph>Very long option text that might overflow</Paragraph>
-					),
-				},
-				{
-					value: "y",
-					element: (
-						<Paragraph>
-							Another long option text that should be handled correctly
-						</Paragraph>
-					),
-				},
-			]}
-			onSelected={(val) => console.log(val)}
-			placeholder="Select a long option"
-		/>
-		<Select
-			size={"default"}
-			options={[
-				{
-					value: "x",
-					element: (
-						<Paragraph>Very long option text that might overflow</Paragraph>
-					),
-				},
-				{
-					value: "y",
-					element: (
-						<Paragraph>
-							Another long option text that should be handled correctly
-						</Paragraph>
-					),
-				},
-			]}
-			onSelected={(val) => console.log(val)}
-			placeholder="Select a long option"
-		/>
-		<Select
-			size={"large"}
-			options={[
-				{
-					value: "x",
-					element: (
-						<Paragraph>Very long option text that might overflow</Paragraph>
-					),
-				},
-				{
-					value: "y",
-					element: (
-						<Paragraph>
-							Another long option text that should be handled correctly
-						</Paragraph>
-					),
-				},
-			]}
-			onSelected={(val) => console.log(val)}
-			placeholder="Select a long option"
-		/>
+	<Aspect ratio={"16x9"}>
+		<Space gap>
+			<Select
+				size={"small"}
+				options={[
+					{
+						value: "x",
+						element: (
+							<Paragraph>Very long option text that might overflow</Paragraph>
+						),
+					},
+					{
+						value: "y",
+						element: (
+							<Paragraph>
+								Another long option text that should be handled correctly
+							</Paragraph>
+						),
+					},
+				]}
+				onSelected={(val) => console.log(val)}
+				placeholder="Select a long option"
+			/>
+			<Select
+				size={"default"}
+				options={[
+					{
+						value: "x",
+						element: (
+							<Paragraph>Very long option text that might overflow</Paragraph>
+						),
+					},
+					{
+						value: "y",
+						element: (
+							<Paragraph>
+								Another long option text that should be handled correctly
+							</Paragraph>
+						),
+					},
+				]}
+				onSelected={(val) => console.log(val)}
+				placeholder="Select a long option"
+			/>
+			<Select
+				size={"large"}
+				options={[
+					{
+						value: "x",
+						element: (
+							<Paragraph>Very long option text that might overflow</Paragraph>
+						),
+					},
+					{
+						value: "y",
+						element: (
+							<Paragraph>
+								Another long option text that should be handled correctly
+							</Paragraph>
+						),
+					},
+				]}
+				onSelected={(val) => console.log(val)}
+				placeholder="Select a long option"
+			/>
 
-
-		<Select
-			size={"large"}
-			direction={"bottom-right"}
-			options={[
-				{
-					value: "x",
-					element: (
-						<Paragraph>Very long option text that might overflow</Paragraph>
-					),
-				},
-				{
-					value: "y",
-					element: (
-						<Paragraph>
-							Another long option text that should be handled correctly
-						</Paragraph>
-					),
-				},
-			]}
-			onSelected={(val) => console.log(val)}
-			placeholder="top left"
-		/>
-	</Space>
+			<Select
+				size={"large"}
+				direction={"bottom-right"}
+				options={[
+					{
+						value: "x",
+						element: (
+							<Paragraph>Very long option text that might overflow</Paragraph>
+						),
+					},
+					{
+						value: "y",
+						element: (
+							<Paragraph>
+								Another long option text that should be handled correctly
+							</Paragraph>
+						),
+					},
+				]}
+				onSelected={(val) => console.log(val)}
+				placeholder="top left"
+			/>
+		</Space>
 	</Aspect>
 );

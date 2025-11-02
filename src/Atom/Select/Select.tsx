@@ -23,7 +23,7 @@ const Select: React.FC<SelectProps<any>> = ({
 	size = "default",
 	categorize,
 	fixed = false,
-	direction= "bottom-left",
+	direction = "bottom-left",
 }) => {
 	const [isActive, setIsActive] = useState(false);
 	const [selectedValue, setSelectedValue] = useState<any | undefined>(

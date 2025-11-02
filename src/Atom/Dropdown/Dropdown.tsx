@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import { DropdownProps } from "./Dropdown.types";
 import "./Dropdown.css";
-import Button from "../Atom/Button/Button";
+import Button from "../Button/Button";
 
 const Dropdown: React.FC<DropdownProps> = ({
-											   children,
-											   direction = "bottom-left",
-											   fixed = false,
-											   label = "Toggle Dropdown",
-											   className = "",
-										   }) => {
+	children,
+	direction = "bottom-left",
+	fixed = false,
+	label = "Toggle Dropdown",
+	className = "",
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -17,8 +17,10 @@ const Dropdown: React.FC<DropdownProps> = ({
 	const closeDropdown = () => setIsOpen(false);
 
 	const handleClickOutside = (event: MouseEvent) => {
-		if (dropdownRef.current &&
-			!dropdownRef.current.contains(event.target as Node)) {
+		if (
+			dropdownRef.current &&
+			!dropdownRef.current.contains(event.target as Node)
+		) {
 			closeDropdown();
 		}
 	};
