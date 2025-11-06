@@ -11,8 +11,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "types": ["@testing-library/jest-dom", "jest"]
-
+    "types": ["@testing-library/jest-dom", "jest","node"]
   },
   "include": ["src/**/*.mdx","src/**/*"],
   "exclude": [
