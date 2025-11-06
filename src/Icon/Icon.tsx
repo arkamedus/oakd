@@ -1,7 +1,7 @@
 import React from "react";
 import { IconProps } from "./Icon.types";
 import "./Icon.css";
-import { IconMap } from "./Icons.bin";
+import { _IconMap } from "./Icons.bin";
 
 const Icon: React.FC<IconProps> = ({
 	name,
@@ -15,7 +15,7 @@ const Icon: React.FC<IconProps> = ({
 	...props
 }) => {
 	// Resolve asset from map unless an explicit `src` is provided
-	const IconSrc = src ? undefined : IconMap[name];
+	const IconSrc = src ? undefined : _IconMap[name];
 
 	if (!src && !IconSrc) {
 		console.warn(`Icon "${name}" not found.`);

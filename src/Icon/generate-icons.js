@@ -43,7 +43,7 @@ import Icon from "./Icon";
 
 ${importStatements.join("\n")}
 
-export const IconMap: Record<string, string> = {
+export const _IconMap: Record<string, string> = {
 ${iconMapEntries.join(",\n")}
 };
 
