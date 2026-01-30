@@ -7,9 +7,10 @@ const Title: React.FC<TitleProps> = ({
 	key,
 	children,
 	style,
+	size="default",
 	className,
 }) => {
-	let classNames = ["oakd", "standardized-reset", "standardized-text", "title"];
+	let classNames = ["oakd", "standardized-reset", "standardized-text", "title",`title-${size}`];
 
 	if (className) classNames.push(className);
 

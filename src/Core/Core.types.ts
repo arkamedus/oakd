@@ -35,28 +35,31 @@ export interface CoreComponentProps<T = HTMLElement> extends CoreComponentEventP
 
 export interface CoreComponentEventProps {
 	onClick?: (
-		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+		event: React.MouseEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
 	) => void;
 	onMouseEnter?: (
-		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+		event: React.MouseEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
 	) => void;
 	onMouseDown?: (
-		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+		event: React.MouseEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
 	) => void;
 	onMouseLeave?: (
-		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>,
+		event: React.MouseEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
 	) => void;
 	onFocus?: (
-		event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>,
+		event: React.FocusEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
+	) => void;
+	onChange?: (
+		event: React.FocusEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
 	) => void;
 	onBlur?: (
-		event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>,
+		event: React.FocusEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
 	) => void;
 	onKeyDown?: (
-		event: React.KeyboardEvent<HTMLButtonElement | HTMLDivElement>,
+		event: React.KeyboardEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
 	) => void;
 	onKeyUp?: (
-		event: React.KeyboardEvent<HTMLButtonElement | HTMLDivElement>,
+		event: React.KeyboardEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
 	) => void;
 }
 
@@ -69,7 +72,7 @@ export type ButtonType =
 	| "active"
 	| "disabled";
 
-export type CoreComponentSizeType = "default" | "small" | "large";
+export type CoreComponentSizeType = "default" | "small" | "large" | "huge";
 export type CoreComponentLayoutSizingType =
 	| "default"
 	| "wide"

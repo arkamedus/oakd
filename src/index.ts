@@ -18,6 +18,8 @@ import Collapsible from "./Atom/Collapsible/Collapsible";
 import { Modal } from "./Atom/Modal/Modal";
 import Dropdown from "./Atom/Dropdown/Dropdown";
 import Pagination from "./Atom/Pagination/Pagination";
+import CodeArea from "./Atom/CodeArea/CodeArea";
+import ScriptSandbox from "./Atom/ScriptSandbox/ScriptSandbox";
 
 export {
 	Aspect,
@@ -42,6 +44,8 @@ export {
 	Divider,
 	Collapsible,
 	Modal,
+	CodeArea,
+	ScriptSandbox
 };
 
 export * from "./Icon/Icons.bin";

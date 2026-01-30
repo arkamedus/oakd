@@ -20,8 +20,20 @@ export const Multiline = () => (
 		multiline Title.
 	</Title>
 );
+export const Large = () => (
+	<Title size={"large"}>
+		This is a<br />
+		large Title.
+	</Title>
+);export const Huge = () => (
+	<Title size={"huge"}>
+		This is a<br />
+		huge Title.
+	</Title>
+);
+
 export const WithIcon = () => (
 	<Title>
-		Title with an inline <IconFolder size={"large"} />.
+		Title with an inline <IconFolder size={"large"} /> Icon.
 	</Title>
 );

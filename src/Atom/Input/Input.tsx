@@ -18,6 +18,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
 	placeholder = "",
 	error = false,
 	disabled = false,
+	readOnly = false,
 	size = "default",
 	inputType = "default", // Matches Button types
 	icon,
@@ -104,6 +105,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
 					ref={inputRef}
 					min={min}
 					max={max}
+					readOnly={readOnly}
 					aria-invalid={hasError}
 					aria-disabled={disabled}
 					data-testid="Input"

@@ -1,0 +1,233 @@
+/* CodeArea.css */
+
+/* ONE SOURCE OF TRUTH */
+.oakd.codearea-container {
+    --code-line-height: 24px;     /* <- set this once */
+    --gutter-width: 56px;         /* <- set this once */
+    padding: var(--leading);
+    box-sizing: border-box;
+}
+
+/* container */
+.oakd.codearea-container {
+    display: inline-flex;
+    flex-direction: column;
+    border: 1px solid;
+    border-radius: var(--border-radius);
+}
+
+.oakd.codearea-container.grow {
+    width: 100%;
+}
+
+/* editor wrapper */
+.oakd .codearea-editor {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* ---------- OVERLAY (no scroll) ---------- */
+.oakd .codearea-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.oakd .codearea-overlay-inner {
+    position: relative;
+    will-change: transform;
+    transform: translate(0px, 0px);
+
+    /* MUST MATCH textarea padding */
+    /*padding: var(--leading);*/
+    box-sizing: border-box;
+
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+    font-size: 14px;
+    line-height: var(--code-line-height);
+    white-space: pre;
+}
+
+/* if gutter: reserve space */
+.oakd.codearea-container.has-gutter .codearea-overlay-inner {
+    padding-left: calc(var(--leading) + var(--gutter-width));
+}
+
+/* ---------- GUTTER ---------- */
+.oakd .codearea-gutter {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: var(--gutter-width);
+    padding-left: var(--leading);
+    padding-right: calc(var(--leading) / 2);
+    box-sizing: border-box;
+
+    border-right: 1px solid rgba(0,0,0,0.12);
+
+    text-align: right;
+    pointer-events: auto; /* clickable */
+    font-size: 14px;
+    line-height: var(--code-line-height);
+}
+
+.oakd .codearea-gutter-line {
+    display: block;
+    height: var(--code-line-height);
+    line-height: var(--code-line-height);
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
+    opacity: 0.55;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+}
+
+.oakd .codearea-gutter-line.is-error {
+    opacity: 1;
+    font-weight: 800;
+    color: var(--oakd-danger-color, #d00);
+}
+
+/* ---------- LINE BACKGROUNDS (FLOW BASED) ---------- */
+.oakd .codearea-linebg-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.oakd .codearea-linebg {
+    height: var(--code-line-height);
+}
+
+.oakd .codearea-linebg.is-current {
+    background: rgba(0,0,0,0.06);
+}
+
+.oakd .codearea-linebg.is-error {
+    background: rgba(255,0,0,0.10);
+}
+
+/* ---------- HIGHLIGHTED CODE ---------- */
+.oakd .codearea-highlight {
+    position: relative;
+    margin: 0;
+    z-index: 1;
+    font-size: 14px;
+    line-height: var(--code-line-height);
+}
+
+.oakd .codearea-code {
+    display: block;
+    font-size: 14px;
+    line-height: var(--code-line-height);
+    white-space: pre;
+}
+
+.oakd .codearea-editor {
+    /*padding: var(--leading);*/
+    box-sizing: border-box;
+}
+.codearea-textarea,
+.codearea-overlay-inner {
+    padding: 0;
+}
+
+
+/* ---------- TEXTAREA (single scroller) ---------- */
+.oakd .codearea-textarea {
+    position: relative;
+    width: 100%;
+    min-height: 8em;
+    resize: vertical;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    /* MUST MATCH overlay padding */
+    /*padding: var(--leading);*/
+    box-sizing: border-box;
+
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+    font-size: 14px;
+    line-height: var(--code-line-height);
+
+    white-space: pre;
+    overflow: auto;
+
+    color: transparent;
+    caret-color: var(--oakd-code-caret, currentColor);
+}
+
+.oakd.codearea-container.has-gutter .codearea-textarea {
+    padding-left: calc(var(--leading) + var(--gutter-width));
+}
+
+.oakd .codearea-textarea::placeholder {
+    color: rgba(0,0,0,0.45);
+}
+
+/* Types */
+.oakd.codearea-container.type-default {
+    background-color: var(--background);
+    border-color: var(--oakd-default-border);
+    color: var(--font-color);
+    --oakd-code-caret: var(--font-color);
+}
+
+.oakd.codearea-container.type-primary {
+    background-color: var(--oakd-primary-color);
+    border-color: #0f4580;
+    color: #fff;
+    --oakd-code-caret: #fff;
+}
+
+.oakd.codearea-container.type-danger {
+    background-color: var(--oakd-danger-color);
+    border-color: var(--oakd-danger-border);
+    color: var(--oakd-danger-text);
+    --oakd-code-caret: var(--oakd-danger-text);
+}
+
+.oakd.codearea-container.type-warning {
+    background-color: #ffc107;
+    color: #654406;
+    --oakd-code-caret: #654406;
+}
+
+.oakd.codearea-container.type-ghost {
+    background: #ccc4;
+    color: #222;
+    --oakd-code-caret: #222;
+}
+
+.oakd.codearea-container.codearea-disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
+    --oakd-code-caret: #666;
+}
+
+.oakd.codearea-container.codearea-disabled .codearea-textarea {
+    cursor: not-allowed;
+}
+
+/* Token colors */
+.oakd .tok-comment { color: #6a737d; font-style: italic; }
+.oakd .tok-string { color: #22863a; }
+.oakd .tok-number { color: #005cc5; }
+.oakd .tok-keyword { color: #d73a49; font-weight: 700; }
+.oakd .tok-type { color: #6f42c1; font-weight: 700; }
+.oakd .tok-builtin { color: #b31d28; font-weight: 600; }
+.oakd .tok-boolean { color: #d73a49; font-weight: 700; }

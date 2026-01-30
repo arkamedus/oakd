@@ -186,7 +186,7 @@
   --border-radius: 0;
   --gap-sizing: 10pt;
 
-  /* Override other sets if you'd like them equally bold, e.g.: */
+  /* Override other sets if you'd like */
   --oakd-default-color: #000;
   --oakd-default-border: #ffffff;
   --oakd-default-text: #fff;
@@ -377,3 +377,4 @@
 {
   color: #666;
 }
+

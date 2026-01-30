@@ -15,6 +15,7 @@ export interface InputProps extends CoreComponentProps<HTMLInputElement> {
 	error?: boolean;
 	/** Disables the input element */
 	disabled?: boolean;
+	readOnly?: boolean;
 	/** Specifies the visual style type, matching button types */
 	inputType?: string;
 	/** Sets the size variations */
@@ -26,14 +27,14 @@ export interface InputProps extends CoreComponentProps<HTMLInputElement> {
 	/** Inline styles */
 	style?: React.CSSProperties;
 	/** OnChange event handler */
-	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onChange?: (event: React.ChangeEvent<any>) => void;
 	/** OnBlur event handler */
-	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+	onBlur?: (event: React.FocusEvent<any>) => void;
 	/** OnFocus event handler */
-	onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+	onFocus?: (event: React.FocusEvent<any>) => void;
 	onKeyPress?: (event: any) => void;
 
-	ref?: React.Ref<HTMLInputElement>;
+	ref?: React.Ref<any>;
 
 	min?: number;
 	max?: number;

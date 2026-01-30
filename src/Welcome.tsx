@@ -6,7 +6,7 @@ import Content from "./Layout/Content/Content";
 import Card from "./Atom/Card/Card";
 import DebugLayer from "./Atom/DebugLayer/DebugLayer";
 import Button, { ButtonGroup } from "./Atom/Button/Button";
-import { CoreIconNameType, IconSliders, IconTypes } from "./Icon/Icons.bin";
+import {CoreIconNameType, IconDots, IconHome, IconShield, IconSliders, IconTypes} from "./Icon/Icons.bin";
 import Icon from "./Icon/Icon";
 import { ButtonType } from "./Atom/Button/Button.types";
 import Row from "./Layout/Row/Row";
@@ -14,6 +14,9 @@ import Column from "./Layout/Column/Column";
 import Input from "./Atom/Input/Input";
 import Select from "./Atom/Select/Select";
 import Collapsible from "./Atom/Collapsible/Collapsible";
+import CodeArea from "./Atom/CodeArea/CodeArea";
+import Dropdown from "./Atom/Dropdown/Dropdown";
+import Breadcrumb from "./Atom/Breadcrumb/Breadcrumb";
 
 export const Welcome = () => {
 	return (
@@ -75,7 +78,7 @@ export const Welcome = () => {
 								<Space gap direction={"vertical"} style={{ width: "100%" }}>
 									<Space direction={"vertical"} gap style={{ width: "100%" }}>
 										<Paragraph>buttons</Paragraph>
-										<Space gap justify={"between"} style={{ width: "100%" }}>
+										<Space gap justify={"stretch"} style={{ width: "100%" }}>
 											{["default", "primary", "warning", "danger"]
 												.slice(0, 16)
 												.map((type: ButtonType, idx) => {
@@ -110,7 +113,7 @@ export const Welcome = () => {
 
 									<Space direction={"vertical"} gap style={{ width: "100%" }}>
 										<Paragraph>inputs</Paragraph>
-										<Space style={{ width: "100%" }} gap justify={"between"}>
+										<Space style={{ width: "100%" }} gap justify={"stretch"}>
 											<Input
 												icon={"User"}
 												placeholder={"text"}
@@ -136,7 +139,7 @@ export const Welcome = () => {
 
 									<Space direction={"vertical"} gap style={{ width: "100%" }}>
 										<Paragraph>extended inputs</Paragraph>
-										<Space style={{ width: "100%" }} gap justify={"between"}>
+										<Space style={{ width: "100%" }} wide gap justify={"between"}>
 											<Select
 												options={[
 													{
@@ -162,7 +165,11 @@ export const Welcome = () => {
 												}}
 												placeholder={<Paragraph>Choose an option</Paragraph>}
 											/>
+											<Dropdown label={<IconDots size={"small"}/>} direction={"bottom-right"}><Paragraph>This is the content.</Paragraph></Dropdown>
 										</Space>
+											<CodeArea grow lineNumbers errorLines={[3]} highlightCurrentLine style={{textAlign:"left"}}  defaultValue={"// javascript syntax highlighting\nconst name = `oakd`;\n// with configurable line support!"}/>
+
+
 									</Space>
 
 									<Collapsible
@@ -178,6 +185,8 @@ export const Welcome = () => {
 									</Collapsible>
 
 									<Space direction={"vertical"} gap>
+										<Paragraph>small utils</Paragraph>
+										<Breadcrumb items={[{text:<Paragraph><IconHome size={"small"}/> Root</Paragraph>},{text:<Paragraph>Category</Paragraph>},{text:<Paragraph><strong>Section</strong></Paragraph>}]}/>
 										<Paragraph>svg icons</Paragraph>
 										<Space style={{ width: "100%" }} gap justify={"between"}>
 											{IconTypes.slice(0, 21).map(

@@ -1,0 +1,82 @@
+.oakd.script-sandbox {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.oakd .script-sandbox__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--leading);
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.oakd .script-sandbox__title {
+    font-weight: 700;
+}
+
+.oakd .script-sandbox__controls {
+    display: flex;
+    gap: calc(var(--leading) / 2);
+}
+
+.oakd .script-sandbox__btn {
+    border: 1px solid rgba(0,0,0,0.18);
+    background: rgba(255,255,255,0.9);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.oakd .script-sandbox__btn.secondary {
+    background: transparent;
+}
+
+.oakd .script-sandbox__btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.oakd .script-sandbox__error {
+    padding: var(--leading);
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    color: var(--oakd-danger-color, #d00);
+    background: rgba(255, 0, 0, 0.06);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+}
+
+.oakd .script-sandbox__frameWrap {
+    position: relative;
+    width: 100%;
+    height: 280px; /* adjust or make a prop */
+}
+
+.oakd .script-sandbox__frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background: #fff;
+}
+
+.oakd .script-sandbox__footer {
+    padding: 8px var(--leading);
+    border-top: 1px solid rgba(0,0,0,0.12);
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.oakd .script-sandbox__footer .st {
+    font-weight: 700;
+}
+
+.oakd .script-sandbox__footer .st.running { opacity: 0.9; }
+.oakd .script-sandbox__footer .st.success { opacity: 1; }
+.oakd .script-sandbox__footer .st.error { color: var(--oakd-danger-color, #d00); }
+.oakd .script-sandbox__footer .st.reset { opacity: 0.8; }
+.oakd .script-sandbox__footer .st.idle { opacity: 0.8; }

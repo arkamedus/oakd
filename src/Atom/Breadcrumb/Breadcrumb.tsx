@@ -6,7 +6,7 @@ import Space from "../Space/Space";
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({
 	items,
-	separator = "dot",
+	separator = "default",
 	className = "",
 }) => {
 	const renderSeparator = () => {
