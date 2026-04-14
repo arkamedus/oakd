@@ -1,8 +1,9 @@
 import React from "react";
-import { ButtonType } from "../Button/Button.types";
-import { CoreLayoutProps } from "../../Core/Core.types";
-
-export type CoreComponentSizeType = "default" | "small" | "large";
+import {
+	ButtonType,
+	CoreComponentSizeType,
+	CoreLayoutProps,
+} from "../../Core/Core.types";
 export type DropdownDirection =
 	| "bottom-left"
 	| "bottom-right"
@@ -17,15 +18,14 @@ export interface SelectOption<T> {
 
 export interface SelectProps<T> extends CoreLayoutProps {
 	options: SelectOption<T>[];
+	value?: T;
 	defaultValue?: T;
-	placeholder?: React.ReactNode | string;
-	onSelected: (value: T) => void;
-	type?: ButtonType;
-	size?: CoreComponentSizeType;
-	categorize?: {
-		property: string;
-		order?: string[];
-	};
+	placeholder?: React.ReactNode;
+	onChange?: (value: T) => void;
+	variant?: ButtonType;
+	size?: Exclude<CoreComponentSizeType, "huge">;
+	categoryOrder?: string[];
 	fixed?: boolean;
 	direction?: DropdownDirection;
+	disabled?: boolean;
 }

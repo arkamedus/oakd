@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const assetDir = path.resolve(__dirname, "asset");
+const assetDir = path.resolve(__dirname||"", "asset");
 const outputFile = path.resolve(__dirname, "Icons.bin.tsx");
 
 fs.readdir(assetDir, (err, files) => {
@@ -47,9 +47,9 @@ export const _IconMap: Record<string, string> = {
 ${iconMapEntries.join(",\n")}
 };
 
-export type CoreIconNameType = ${iconTypesArray.map(a=>{return `"${a}"`}).join(" | ")};
+type CoreIconNameType = ${iconTypesArray.map(a=>{return `"${a}"`}).join(" | ")};
 
-export const IconTypes: CoreIconNameType[] = ${JSON.stringify(iconTypesArray)};
+const IconTypes: CoreIconNameType[] = ${JSON.stringify(iconTypesArray)};
 
 ${exportStatements.join("\n")}
 `;

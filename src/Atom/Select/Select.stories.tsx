@@ -1,9 +1,35 @@
-import React from "react";
-import { Meta } from "@storybook/react";
+import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import Select from "./Select";
 import Paragraph from "../Paragraph/Paragraph";
 import Space from "../Space/Space";
-import Aspect from "../../Layout/Aspect/Aspect";
+import Card from "../Card/Card";
+import Title from "../Title/Title";
+
+const statusOptions = [
+	{ value: "draft", element: <Paragraph>Draft</Paragraph>, category: "Open" },
+	{
+		value: "in_review",
+		element: <Paragraph>In review</Paragraph>,
+		category: "Open",
+	},
+	{
+		value: "scheduled",
+		element: <Paragraph>Scheduled</Paragraph>,
+		category: "Planned",
+	},
+	{
+		value: "published",
+		element: <Paragraph>Published</Paragraph>,
+		category: "Completed",
+	},
+];
+
+const teammateOptions = [
+	{ value: "maya", element: <Paragraph>Maya Chen</Paragraph> },
+	{ value: "sergio", element: <Paragraph>Sergio Diaz</Paragraph> },
+	{ value: "river", element: <Paragraph>River Patel</Paragraph> },
+];
 
 const meta: Meta<typeof Select> = {
 	title: "Design System/Atomic/Select",
@@ -13,7 +39,7 @@ const meta: Meta<typeof Select> = {
 			control: "text",
 			description: "Placeholder when no selection is made",
 		},
-		type: {
+		variant: {
 			control: {
 				type: "select",
 				options: [
@@ -25,8 +51,7 @@ const meta: Meta<typeof Select> = {
 					"disabled",
 				],
 			},
-			description: "Button type for the select trigger",
-			defaultValue: "ghost",
+			description: "Visual variant for the select trigger",
 		},
 		size: {
 			control: {
@@ -34,164 +59,74 @@ const meta: Meta<typeof Select> = {
 				options: ["default", "small", "large"],
 			},
 			description: "Size of the select trigger button",
-			defaultValue: "default",
 		},
+		onChange: { action: "changed" },
 	},
 };
+
 export default meta;
 
-export const Default = () => (
-	<Select
-		options={[
-			{ value: "1", element: <Paragraph>Option 1</Paragraph> },
-			{ value: "2", element: <Paragraph>Option 2</Paragraph> },
-		]}
-		onSelected={(val) => console.log(val)}
-		placeholder="Default placeholder"
-	/>
-);
+type Story = StoryObj<typeof Select>;
 
-export const WithCategories = () => (
-	<Select
-		options={[
-			{ value: "a", element: <Paragraph>Apple</Paragraph>, category: "Fruits" },
-			{
-				value: "b",
-				element: <Paragraph>Banana</Paragraph>,
-				category: "Fruits",
-			},
-			{
-				value: "c",
-				element: <Paragraph>Carrot</Paragraph>,
-				category: "Vegetables",
-			},
-		]}
-		onSelected={(val) => console.log(val)}
-		categorize={{ property: "category", order: ["Fruits", "Vegetables"] }}
-		placeholder="Choose an option"
-	/>
-);
+export const WorkflowStatusPicker: Story = {
+	args: {
+		options: statusOptions,
+		categoryOrder: ["Open", "Planned", "Completed"],
+		placeholder: "Choose a status",
+		variant: "ghost",
+		size: "default",
+	},
+};
 
-export const LongOptions = () => (
-	<Select
-		options={[
-			{
-				value: "x",
-				element: (
-					<Paragraph>Very long option text that might overflow</Paragraph>
-				),
-			},
-			{
-				value: "y",
-				element: (
+export const ControlledAssignmentFlow: Story = {
+	render: () => {
+		const [assignee, setAssignee] = useState<string | undefined>("maya");
+
+		return (
+			<Card pad wide style={{ maxWidth: 520 }}>
+				<Space direction="vertical" gap>
+					<Title>Assign reviewer</Title>
 					<Paragraph>
-						Another long option text that should be handled correctly
+						Pick the teammate who will review the release checklist this
+						afternoon.
 					</Paragraph>
-				),
-			},
-		]}
-		onSelected={(val) => console.log(val)}
-		placeholder="Select a long option"
-	/>
-);
+					<Select
+						value={assignee}
+						onChange={setAssignee}
+						options={teammateOptions}
+						placeholder="Select a reviewer"
+					/>
+					<Paragraph>
+						Current reviewer: <strong>{assignee || "Unassigned"}</strong>
+					</Paragraph>
+				</Space>
+			</Card>
+		);
+	},
+};
 
-export const NoOptions = () => (
-	<Select
-		options={[]}
-		onSelected={(val) => console.log(val)}
-		placeholder="No options available"
-	/>
-);
-
-export const Sized = () => (
-	<Aspect ratio={"16x9"}>
-		<Space gap>
+export const DirectionAndSizing: Story = {
+	render: () => (
+		<Space gap align="start">
 			<Select
-				size={"small"}
-				options={[
-					{
-						value: "x",
-						element: (
-							<Paragraph>Very long option text that might overflow</Paragraph>
-						),
-					},
-					{
-						value: "y",
-						element: (
-							<Paragraph>
-								Another long option text that should be handled correctly
-							</Paragraph>
-						),
-					},
-				]}
-				onSelected={(val) => console.log(val)}
-				placeholder="Select a long option"
+				size="small"
+				options={teammateOptions}
+				placeholder="Small"
+				onChange={() => undefined}
 			/>
 			<Select
-				size={"default"}
-				options={[
-					{
-						value: "x",
-						element: (
-							<Paragraph>Very long option text that might overflow</Paragraph>
-						),
-					},
-					{
-						value: "y",
-						element: (
-							<Paragraph>
-								Another long option text that should be handled correctly
-							</Paragraph>
-						),
-					},
-				]}
-				onSelected={(val) => console.log(val)}
-				placeholder="Select a long option"
+				size="default"
+				options={teammateOptions}
+				placeholder="Default"
+				onChange={() => undefined}
 			/>
 			<Select
-				size={"large"}
-				options={[
-					{
-						value: "x",
-						element: (
-							<Paragraph>Very long option text that might overflow</Paragraph>
-						),
-					},
-					{
-						value: "y",
-						element: (
-							<Paragraph>
-								Another long option text that should be handled correctly
-							</Paragraph>
-						),
-					},
-				]}
-				onSelected={(val) => console.log(val)}
-				placeholder="Select a long option"
-			/>
-
-			<Select
-				size={"large"}
-				direction={"bottom-right"}
-				options={[
-					{
-						value: "x",
-						element: (
-							<Paragraph>Very long option text that might overflow</Paragraph>
-						),
-					},
-					{
-						value: "y",
-						element: (
-							<Paragraph>
-								Another long option text that should be handled correctly
-							</Paragraph>
-						),
-					},
-				]}
-				onSelected={(val) => console.log(val)}
-				placeholder="top left"
+				size="large"
+				direction="bottom-right"
+				options={teammateOptions}
+				placeholder="Large / right aligned"
+				onChange={() => undefined}
 			/>
 		</Space>
-	</Aspect>
-);
+	),
+};

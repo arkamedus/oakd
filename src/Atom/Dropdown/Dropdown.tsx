@@ -9,6 +9,8 @@ const Dropdown: React.FC<DropdownProps> = ({
 	fixed = false,
 	label = "Toggle Dropdown",
 	className = "",
+	style,
+	...rest
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -36,9 +38,11 @@ const Dropdown: React.FC<DropdownProps> = ({
 
 	return (
 		<div
+			{...rest}
 			className={`oakd-dropdown-container ${className}`}
 			ref={dropdownRef}
 			onKeyDown={handleKeyDown}
+			style={style}
 		>
 			<Button
 				onClick={toggleDropdown}

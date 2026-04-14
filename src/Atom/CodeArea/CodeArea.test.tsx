@@ -1,26 +1,62 @@
 import React from "react";
-import { render } from "@testing-library/react";
-
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import CodeArea from "./CodeArea";
-import { CodeAreaProps } from "./CodeArea.types";
 
-describe("Test Component", () => {
-  let props: CodeAreaProps;
-
-  beforeEach(() => {
-    props = {
-      foo: "bar"
-    };
+describe("CodeArea Component", () => {
+  it("renders the provided source in the textarea", () => {
+    render(<CodeArea defaultValue={"const answer = 42;"} />);
+    expect(screen.getByTestId("CodeAreaTextarea")).toHaveValue(
+      "const answer = 42;",
+    );
   });
 
-  const renderComponent = () => render(<CodeArea {...props} />);
+  it("shows a line-number gutter when enabled", () => {
+    const { container } = render(
+      <CodeArea defaultValue={"a\nb\nc"} lineNumbers />,
+    );
+    expect(container.querySelector(".codearea-gutter")).toBeInTheDocument();
+    expect(container.querySelectorAll(".codearea-gutter-line")).toHaveLength(3);
+  });
 
-  it("should render foo text correctly", () => {
-    props.foo = "custom foo prop";
-    const { getByTestId } = renderComponent();
+  it("notifies callers when the source changes", () => {
+    const handleChange = jest.fn();
+    render(
+      <CodeArea defaultValue={"let count = 0;"} onChange={handleChange} />,
+    );
 
-    const component = getByTestId("CodeArea");
+    fireEvent.change(screen.getByTestId("CodeAreaTextarea"), {
+      target: { value: "let count = 1;" },
+    });
 
-    expect(component).toHaveTextContent("custom foo prop");
+    expect(handleChange).toHaveBeenCalled();
+    expect(screen.getByTestId("CodeAreaTextarea")).toHaveValue(
+      "let count = 1;",
+    );
+  });
+
+  it("clears current-line highlighting when focus leaves the editor", () => {
+    const { container } = render(
+      <CodeArea
+        defaultValue={"first line\nsecond line"}
+        highlightCurrentLine
+        lineNumbers
+      />,
+    );
+
+    const textarea = screen.getByTestId("CodeAreaTextarea");
+    act(() => {
+      fireEvent.focus(textarea);
+      fireEvent.select(textarea, {
+        target: { selectionStart: 11, selectionEnd: 11 },
+      });
+    });
+
+    expect(container.querySelector(".codearea-linebg.is-current")).toBeInTheDocument();
+
+    act(() => {
+      fireEvent.blur(textarea);
+    });
+
+    expect(container.querySelector(".codearea-linebg.is-current")).toBeNull();
   });
 });

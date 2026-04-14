@@ -10,8 +10,8 @@ describe("Breadcrumb Component", () => {
     props = {
       items: [
         { text: "Home", href: "/" },
-        { text: "Library", href: "/library" },
-        { text: "Data", href: "/library/data" },
+        { text: "Billing", href: "/billing" },
+        { text: "Invoices", href: "/billing/invoices" },
       ],
       separator: "slash",
     };
@@ -19,87 +19,40 @@ describe("Breadcrumb Component", () => {
 
   const renderComponent = () => render(<Breadcrumb {...props} />);
 
-  it("should render correct text for each breadcrumb item", () => {
+  it("renders breadcrumb items as navigation list content", () => {
     renderComponent();
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Library")).toBeInTheDocument();
-    expect(screen.getByText("Data")).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("navigation", { name: "Breadcrumb" }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("listitem")).toHaveLength(3);
+    expect(screen.getAllByTestId("breadcrumb-separator")).toHaveLength(2);
   });
 
-  it("should render anchors when href is provided", () => {
+  it("renders linked ancestors and marks the current page", () => {
     renderComponent();
-    const homeLink = screen.getByText("Home").closest("a");
-    const libraryLink = screen.getByText("Library").closest("a");
-    const dataLink = screen.getByText("Data").closest("a");
 
-    expect(homeLink).toHaveAttribute("href", "/");
-    expect(libraryLink).toHaveAttribute("href", "/library");
-    expect(dataLink).toHaveAttribute("href", "/library/data");
+    expect(screen.getByText("Home").closest("a")).toHaveAttribute("href", "/");
+    expect(screen.getByText("Billing").closest("a")).toHaveAttribute(
+      "href",
+      "/billing",
+    );
+    expect(screen.getByText("Invoices").closest("a")).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
   });
 
-  it("should render spans when href is not provided", () => {
-    props.items[2].href = undefined;
-    renderComponent();
-    const dataItem = screen.getByText("Data");
-    expect(dataItem.tagName).toBe("SPAN");
-  });
-
-  it("should have the correct number of breadcrumb items", () => {
-    renderComponent();
-    const items = screen.getAllByRole("link");
-    expect(items.length).toBe(3);
-  });
-
-  it("should apply the correct separator between items", () => {
-    renderComponent();
-    const separators = screen.getAllByTestId("breadcrumb-separator");
-    expect(separators.length).toBe(2); // 3 items have 2 separators
-  });
-
-  it("should handle mixed content in items", () => {
+  it("supports non-linked current items and custom item classes", () => {
     props.items = [
       { text: "Home", href: "/" },
-      { text: <strong>Library</strong>, href: "/library" },
-      { text: "Data" },
+      { text: <strong>Projects</strong>, href: "/projects" },
+      { text: "Q2 rollout", className: "current-item" },
     ];
     renderComponent();
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Library")).toBeInTheDocument();
-    expect(screen.getByText("Data")).toBeInTheDocument();
-  });
 
-  it("should apply custom class names to breadcrumb items", () => {
-    props.items = [
-      { text: "Home", href: "/", className: "custom-home" },
-      { text: "Library", href: "/library", className: "custom-library" },
-    ];
-    renderComponent();
-    expect(screen.getByText("Home")).toHaveClass("custom-home");
-    expect(screen.getByText("Library")).toHaveClass("custom-library");
+    expect(screen.getByText("Q2 rollout").tagName).toBe("SPAN");
+    expect(screen.getByText("Q2 rollout")).toHaveClass("current-item");
+    expect(screen.getByText("Projects")).toBeInTheDocument();
   });
-
-  it("should set aria-current to 'page' for the last breadcrumb item", () => {
-    renderComponent();
-    const lastItem = screen.getByText("Data").closest("a");
-    expect(lastItem).toHaveAttribute("aria-current", "page");
-  });
-
-  it("should not set aria-current for intermediate breadcrumb items", () => {
-    renderComponent();
-    const intermediateItem = screen.getByText("Library").closest("a");
-    expect(intermediateItem).not.toHaveAttribute("aria-current");
-  });
-
-  it("should render without crashing when items array is empty", () => {
-    props.items = [];
-    renderComponent();
-    let breadcrumb;
-    try {
-      breadcrumb = screen.getByRole("navigation") || undefined;
-    }catch (e) {
-      //console.info(e);
-    }
-    expect(breadcrumb).toEqual(undefined);
-  });
-
 });

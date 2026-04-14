@@ -4,6 +4,7 @@ const tsParser = require("@typescript-eslint/parser");
 const prettier = require("eslint-config-prettier");
 const prettierPlugin = require("eslint-plugin-prettier");
 const react = require("eslint-plugin-react");
+const globals = require("globals");
 
 module.exports = [
     js.configs.recommended,
@@ -15,9 +16,8 @@ module.exports = [
             sourceType: "module",
             ecmaVersion: "latest",
             globals: {
-                window: "readonly",
-                document: "readonly",
-                HTMLImageElement: "readonly"
+                ...globals.browser,
+                ...globals.node
             }
         },
         plugins: {
@@ -26,7 +26,8 @@ module.exports = [
             prettier: prettierPlugin
         },
         rules: {
-            "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+            "no-undef": "off",
+            "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
             "react/react-in-jsx-scope": "off",
             "prettier/prettier": ["error", { useTabs: true }]
         }

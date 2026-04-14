@@ -9,10 +9,10 @@ describe("Button Component", () => {
 
   beforeEach(() => {
     props = {
-      type: "primary",
+      variant: "primary",
       disabled: false,
       onClick: jest.fn(),
-      children: "Click Me"
+      children: "Click Me",
     };
   });
 
@@ -36,5 +36,13 @@ describe("Button Component", () => {
     expect(button).toHaveClass("disabled");
     fireEvent.click(button);
     expect(props.onClick).not.toHaveBeenCalled();
+  });
+
+  it("should pass through native button props", () => {
+    render(<Button {...props} aria-expanded data-testid="native-button" />);
+    expect(screen.getByTestId("native-button")).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
   });
 });

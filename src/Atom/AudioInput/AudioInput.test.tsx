@@ -1,10 +1,16 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import AudioInput from "./AudioInput";
 import { AudioInputProps } from "./AudioInput.types";
 
 describe("AudioInput Component", () => {
   let props: AudioInputProps;
+  let mockRecorder: {
+    start: jest.Mock;
+    stop: jest.Mock;
+    ondataavailable: null | ((event: { data: Blob }) => void);
+    state: string;
+  };
 
   beforeEach(() => {
     props = {
@@ -12,7 +18,6 @@ describe("AudioInput Component", () => {
       disabled: false,
     };
 
-    // Mock MediaDevices
     Object.defineProperty(global.navigator, "mediaDevices", {
       value: {
         getUserMedia: jest.fn().mockResolvedValue({}),
@@ -20,71 +25,67 @@ describe("AudioInput Component", () => {
       writable: true,
     });
 
-    // Mock MediaRecorder
-    global.MediaRecorder = jest.fn().mockImplementation(function (stream) {
-      return {
-        start: jest.fn(() => {
-          this.state = "recording";
-        }),
-        stop: jest.fn(() => {
-          if (this.ondataavailable) {
-            const event = { data: new Blob() };
-            this.ondataavailable(event);
-          }
-          this.state = "inactive";
-        }),
-        ondataavailable: null,
-        stream: stream,
-        state: "inactive",
-      };
-    }) as any;
+    global.URL.createObjectURL = jest.fn(() => "blob:recording-preview");
 
-    // Add the static method `isTypeSupported` to the MediaRecorder mock
+    mockRecorder = {
+      start: jest.fn(() => {
+        mockRecorder.state = "recording";
+      }),
+      stop: jest.fn(() => {
+        mockRecorder.ondataavailable?.({ data: new Blob(["audio"]) });
+        mockRecorder.state = "inactive";
+      }),
+      ondataavailable: null,
+      state: "inactive",
+    };
+
+    global.MediaRecorder = jest.fn(() => mockRecorder) as any;
     (global.MediaRecorder as any).isTypeSupported = jest.fn(() => true);
   });
 
-  const setup = () => render(<AudioInput {...props} />);
+  const renderComponent = () => render(<AudioInput {...props} />);
 
-  it("should render the AudioInput component", () => {
-    setup();
-    expect(screen.getByText(/Click to record/i)).toBeInTheDocument();
-  });
+  it("starts recording after requesting microphone access", async () => {
+    renderComponent();
 
-  it("should start recording when the microphone button is clicked", async () => {
-    setup();
-    const buttons = screen.getAllByTestId("Button");
-    const recordButton = buttons[0];
-    fireEvent.click(recordButton);
+    fireEvent.click(screen.getAllByRole("button")[0]);
 
     await waitFor(() => {
-      expect(screen.getByText(/Recording.../i)).toBeInTheDocument();
+      expect(navigator.mediaDevices.getUserMedia).toHaveBeenCalledWith({
+        audio: true,
+      });
+      expect(mockRecorder.start).toHaveBeenCalled();
+      expect(screen.getByText("Recording...")).toBeInTheDocument();
     });
   });
 
-  it("should stop recording when the button is clicked again", async () => {
-    setup();
-    const buttons = screen.getAllByTestId("Button");
-    const recordButton = buttons[0];
+  it("publishes a preview URL when a recording is finished", async () => {
+    const { container } = renderComponent();
 
-    // Start recording
+    const recordButton = screen.getAllByRole("button")[0];
+    fireEvent.click(recordButton);
+    await screen.findByText("Recording...");
     fireEvent.click(recordButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Recording.../i)).toBeInTheDocument();
+      expect(props.onChange).toHaveBeenCalledWith("blob:recording-preview");
+      expect(container.querySelector("audio")).toHaveAttribute(
+        "src",
+        "blob:recording-preview",
+      );
+      expect(screen.getByText("Click to record")).toBeInTheDocument();
     });
-
-    // Stop recording
-    fireEvent.click(recordButton);
-
-    expect(screen.getByText(/Click to record/i)).toBeInTheDocument();
   });
 
-  it("should disable the component when disabled is true", () => {
+  it("disables recording and reset actions when disabled", () => {
     props.disabled = true;
-    setup();
+    renderComponent();
 
-    const buttons = screen.getAllByTestId("Button");
-    const recordButton = buttons[0];
+    const [recordButton, resetButton] = screen.getAllByRole("button");
     expect(recordButton).toBeDisabled();
+    expect(resetButton).toBeDisabled();
+
+    fireEvent.click(recordButton);
+    expect(navigator.mediaDevices.getUserMedia).not.toHaveBeenCalled();
   });
 });

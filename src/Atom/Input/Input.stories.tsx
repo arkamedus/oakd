@@ -31,6 +31,42 @@ const meta: Meta<typeof Input> = {
 			control: "boolean",
 			description: "Displays an error state",
 		},
+		variant: {
+			control: "select",
+			options: ["default", "primary", "danger", "warning", "ghost", "disabled"],
+			description: "Set the input container variant",
+			defaultValue: "default",
+		},
+		onChange: {
+			action: "changed",
+			description: "Called when the input value changes",
+			table: { category: "Events" },
+		},
+		onFocus: {
+			action: "focused",
+			description: "Called when the input receives focus",
+			table: { category: "Events" },
+		},
+		onBlur: {
+			action: "blurred",
+			description: "Called when the input loses focus",
+			table: { category: "Events" },
+		},
+		onKeyDown: {
+			action: "keyDown",
+			description: "Called when a key is pressed down while focused",
+			table: { category: "Events" },
+		},
+		onKeyUp: {
+			action: "keyUp",
+			description: "Called when a key is released while focused",
+			table: { category: "Events" },
+		},
+		onKeyPress: {
+			action: "keyPress",
+			description: "Legacy keypress handler supported for compatibility",
+			table: { category: "Events" },
+		},
 	},
 };
 
@@ -83,11 +119,12 @@ export const RefFocusTest: StoryFn<InputProps> = (args) => {
 
 	return (
 		<Space direction="vertical" gap>
-			<Input {...args} ref={inputRef} placeholder="Click the button to focus me..." />
-			<Button
-				type={"default"}
-				onClick={handleFocusClick}
-			>
+			<Input
+				{...args}
+				ref={inputRef}
+				placeholder="Click the button to focus me..."
+			/>
+			<Button variant={"default"} onClick={handleFocusClick}>
 				Focus Input
 			</Button>
 		</Space>

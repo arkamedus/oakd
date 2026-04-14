@@ -1,10 +1,27 @@
 // Tabs.tsx
 import React from "react";
-import { TabsProps } from "./Tabs.types";
+import { TabProps, TabsProps } from "./Tabs.types";
 import "./Tabs.css";
 import Space from "../Space/Space";
 import { IconAngle } from "../../Icon/Icons.bin";
 import Button, { ButtonGroup } from "../Button/Button";
+
+const getTabKey = (child: React.ReactNode, index: number) =>
+	React.isValidElement(child)
+		? child.key?.toString() || index.toString()
+		: index.toString();
+
+const getFirstTabKey = (children: React.ReactNode) => {
+	let firstKey: string | undefined;
+
+	React.Children.forEach(children, (child, index) => {
+		if (firstKey === undefined && React.isValidElement(child)) {
+			firstKey = getTabKey(child, index);
+		}
+	});
+
+	return firstKey;
+};
 
 const Tabs: React.FC<TabsProps> = ({
 	children,
@@ -17,7 +34,7 @@ const Tabs: React.FC<TabsProps> = ({
 }) => {
 	const [activeKeyState, setActiveKeyState] = React.useState<
 		string | undefined
-	>(defaultActiveKey ?? React.Children.toArray(children)[0]?.key?.toString());
+	>(defaultActiveKey ?? getFirstTabKey(children));
 	const activeKeyControlled = activeKey !== undefined;
 	const activeKeyCurrent = activeKeyControlled ? activeKey : activeKeyState;
 
@@ -29,7 +46,9 @@ const Tabs: React.FC<TabsProps> = ({
 	};
 
 	const renderTab = (child: React.ReactElement, index: number) => {
-		const key = child.key?.toString() || index.toString();
+		const key = getTabKey(child, index);
+		const tabId = `oakd-tab-${key}`;
+		const panelId = `oakd-tabpanel-${key}`;
 		const isActive = key === activeKeyCurrent;
 		const tabClassName = [
 			"oakd",
@@ -44,6 +63,8 @@ const Tabs: React.FC<TabsProps> = ({
 				className={tabClassName}
 				data-testid="Tab"
 				role="tab"
+				id={tabId}
+				aria-controls={panelId}
 				aria-selected={isActive}
 				onClick={() => handleTabClick(key)}
 			>
@@ -58,10 +79,14 @@ const Tabs: React.FC<TabsProps> = ({
 	const renderContent = () => {
 		return React.Children.map(children, (child, index) => {
 			if (!React.isValidElement(child)) return null;
-			const key = child.key?.toString() || index.toString();
+			const key = getTabKey(child, index);
+			const tabId = `oakd-tab-${key}`;
+			const panelId = `oakd-tabpanel-${key}`;
 			return (
 				<div
 					role="tabpanel"
+					id={panelId}
+					aria-labelledby={tabId}
 					key={key}
 					hidden={key !== activeKeyCurrent}
 					className={key !== activeKeyCurrent ? "hidden" : ""}
@@ -86,7 +111,11 @@ const Tabs: React.FC<TabsProps> = ({
 				style={{}}
 				noWrap
 			>
-				<ButtonGroup direction={orientation}>
+				<ButtonGroup
+					direction={orientation}
+					role="tablist"
+					aria-orientation={orientation}
+				>
 					{React.Children.map(children, renderTab)}
 				</ButtonGroup>
 				{renderContent()}
@@ -94,12 +123,6 @@ const Tabs: React.FC<TabsProps> = ({
 		</div>
 	);
 };
-
-interface TabProps {
-	label: string;
-	icon?: React.ReactNode;
-	children?: React.ReactNode;
-}
 
 export const Tab: React.FC<TabProps> = ({ children }) => {
 	return <>{children}</>;

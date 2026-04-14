@@ -14,9 +14,9 @@
 
 
 .collapsible__toggle {
-  flex: 1;
   display: flex;
   align-items: center;
+  width: 100%;
   border: none;
   background: transparent;
   color: inherit;
@@ -26,11 +26,6 @@
 
 .collapsible__toggle:hover {
   text-decoration: underline;
-}
-
-.collapsible__action {
-  align-self: stretch;
-  margin-left: var(--leading);
 }
 
 .collapsible__content {

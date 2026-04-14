@@ -1,18 +1,15 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Collapsible from "./Collapsible";
 import { CollapsibleProps } from "./Collapsible.types";
-import Button from "../Button/Button";
-import Paragraph from "../Paragraph/Paragraph";
 
 describe("Collapsible Component", () => {
   let props: CollapsibleProps;
 
   beforeEach(() => {
     props = {
-      title: "Test Title",
-      children: <div>Test Content</div>,
-      action: <Button size={"small"}><Paragraph>Test Action</Paragraph></Button>,
+      title: "Release notes",
+      children: <div>Three issues were resolved in this deploy.</div>,
       defaultOpen: false,
       onToggle: jest.fn(),
     };
@@ -20,50 +17,50 @@ describe("Collapsible Component", () => {
 
   const renderComponent = () => render(<Collapsible {...props} />);
 
-  it("should render title, action, and content", () => {
-    const { getByText } = renderComponent();
-    expect(getByText("Test Title")).toBeInTheDocument();
-    expect(getByText("Test Action")).toBeInTheDocument();
-    expect(getByText("Test Content")).toBeInTheDocument();
-  });
-
-  it("should not show content when collapsed", () => {
+  it("renders a single trigger and the content region", () => {
     const { container } = renderComponent();
-    expect(container.querySelector(".collapsible__content")).toHaveStyle("height: 0");
+
+    expect(
+      screen.getByRole("button", { name: /release notes/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Three issues were resolved in this deploy.")).toBeInTheDocument();
+    expect(container.querySelector(".collapsible__content")).toHaveStyle(
+      "height: 0",
+    );
   });
 
-  it("should toggle open state when clicked", async () => {
-    const { getByText } = renderComponent();
-    const toggleButton = getByText("Test Title");
+  it("opens and reports state changes when toggled", async () => {
+    const { container } = renderComponent();
 
-    fireEvent.click(toggleButton);
+    fireEvent.click(screen.getByRole("button", { name: /release notes/i }));
 
     await waitFor(() => {
-      expect(getByText("Test Title").parentNode.parentNode).toHaveAttribute("aria-expanded", "true");
+      expect(
+        screen.getByRole("button", { name: /release notes/i }),
+      ).toHaveAttribute("aria-expanded", "true");
+      expect(
+        screen.getByRole("button", { name: /release notes/i }),
+      ).toHaveAttribute(
+        "aria-controls",
+        container.querySelector(".collapsible__content")?.getAttribute("id"),
+      );
+      expect(container.querySelector(".collapsible__content")).toHaveStyle(
+        "height: auto",
+      );
     });
 
     expect(props.onToggle).toHaveBeenCalledWith(true);
   });
 
-  it("should update content height to auto when opened", async () => {
-    const { getByText, container } = renderComponent();
-    const toggleButton = getByText("Test Title");
+  it("respects the default open state", () => {
+    props.defaultOpen = true;
+    const { container } = renderComponent();
 
-    fireEvent.click(toggleButton);
-
-    await waitFor(() => {
-      expect(container.querySelector(".collapsible__content")).toHaveStyle("height: auto");
-    });
-  });
-
-  it("should call onToggle when the component is toggled", async () => {
-    const { getByText } = renderComponent();
-    const toggleButton = getByText("Test Title");
-
-    fireEvent.click(toggleButton);
-
-    await waitFor(() => {
-      expect(props.onToggle).toHaveBeenCalled();
-    });
+    expect(
+      screen.getByRole("button", { name: /release notes/i }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(container.querySelector(".collapsible__content")).toHaveStyle(
+      "height: auto",
+    );
   });
 });

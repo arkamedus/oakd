@@ -1,23 +1,26 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Paragraph from "./Paragraph";
-import { ParagraphProps } from "./Paragraph.types";
 
-describe("Test Component", () => {
-  let props: ParagraphProps;
+describe("Paragraph Component", () => {
+  it("renders paragraph content with semantic markup", () => {
+    render(<Paragraph>Helpful supporting copy.</Paragraph>);
+    const paragraph = screen.getByText("Helpful supporting copy.");
 
-  beforeEach(() => {
-    props = {};
+    expect(paragraph.tagName).toBe("P");
+    expect(paragraph).toHaveClass("paragraph");
   });
 
-  const renderComponent = () => render(<Paragraph {...props} />);
+  it("forwards presentation props to the paragraph element", () => {
+    render(
+      <Paragraph className="muted" style={{ maxWidth: 420 }} aria-live="polite">
+        Status message
+      </Paragraph>,
+    );
 
-  it("should render foo text correctly", () => {
-    props.children = "custom foo prop";
-    const { getByTestId } = renderComponent();
-
-    const component = getByTestId("Paragraph");
-
-    expect(component).toHaveTextContent("custom foo prop");
+    const paragraph = screen.getByText("Status message");
+    expect(paragraph).toHaveClass("muted");
+    expect(paragraph).toHaveStyle("max-width: 420px");
+    expect(paragraph).toHaveAttribute("aria-live", "polite");
   });
 });

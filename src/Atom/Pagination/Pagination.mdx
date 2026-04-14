@@ -1,5 +1,5 @@
 import { Controls, Meta, Primary, Stories } from "@storybook/blocks";
-import meta from './Pagination.stories';
+import meta from "./Pagination.stories";
 
 <Meta of={meta} />
 
@@ -8,9 +8,10 @@ import meta from './Pagination.stories';
 The `Pagination` component is a crucial part of any application that requires users to scroll through multiple pages of data. Its purpose is to simplify navigation, allowing smooth transitions between content without overwhelming the user with too many options.
 
 ### Key Features:
+
 - **Adaptive Design:** Intelligently adjusts the number of shown pagination numbers based on the size of the data set and screen space.
 - **Smart UX:** Only relevant and reachable page numbers are displayed, ensuring less clutter while retaining necessary functionality.
-- **Accessible Interaction:** Offers smooth transition through pages ensuring keyboard accessibility and support
+- **Accessible Interaction:** Previous and next controls are rendered as native buttons so keyboard and disabled states behave consistently.
 
 <Primary />
 
@@ -18,6 +19,6 @@ The `Pagination` component is a crucial part of any application that requires us
 
 # Pagination Component
 
-Below are example illustrations or showcase of various components' behavior or renderings found on our design system.
+The stories below focus on realistic page navigation states: early pages, middle-of-list navigation, and reduced-control variants.
 
-<Stories/>
+<Stories />

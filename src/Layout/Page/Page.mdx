@@ -5,16 +5,28 @@ import meta from './Page.stories';
 
 # Page
 
-
-## Usage
-
-
-## Example
+The `Page` component is the outer layout shell for a screen. Use it to stack
+headers, toolbars, content regions, sidebars, and footers into a single page
+flow before filling those regions with `Content`, `Row`, `Col`, and other oakd
+components.
 
 <Primary />
 
 <Controls />
 
-## Stories
+## Story Progression
+
+- Start with `Default` and `WithGap` for the smallest possible setup.
+- Move to `BasicAppShell` for a practical header-plus-body layout.
+- Use the larger stories for realistic examples of dashboards, sidebars, and
+  document-style pages.
+
+## What To Validate
+
+- `Page` provides the outer wrapper while inner sections handle the actual
+  content structure.
+- `gap` is useful when you want stacked sections to breathe without custom CSS.
+- `fixed` works well for app shells where the viewport should remain stable
+  while inner content areas scroll.
 
 <Stories />

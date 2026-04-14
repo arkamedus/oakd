@@ -7,15 +7,23 @@ const Title: React.FC<TitleProps> = ({
 	key,
 	children,
 	style,
-	size="default",
+	size = "default",
 	className,
+	...rest
 }) => {
-	let classNames = ["oakd", "standardized-reset", "standardized-text", "title",`title-${size}`];
+	let classNames = [
+		"oakd",
+		"standardized-reset",
+		"standardized-text",
+		"title",
+		`title-${size}`,
+	];
 
 	if (className) classNames.push(className);
 
 	return (
 		<h1
+			{...rest}
 			id={id}
 			key={key}
 			data-testid={"Title"}

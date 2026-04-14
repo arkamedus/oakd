@@ -1,13 +1,13 @@
-import React, { memo } from "react";
+import React from "react";
 import { BreadcrumbProps } from "./Breadcrumb.types";
 import Icon from "../../Icon/Icon";
 import "./Breadcrumb.css";
-import Space from "../Space/Space";
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({
 	items,
 	separator = "default",
 	className = "",
+	...rest
 }) => {
 	const renderSeparator = () => {
 		switch (separator) {
@@ -53,36 +53,47 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
 	};
 
 	return (
-		<Space
+		<nav
+			{...rest}
 			className={`oakd-breadcrumb ${className}`.trim()}
-			gap
+			aria-label="Breadcrumb"
 			data-testid="Breadcrumb"
 		>
-			{items.map((item, index) => (
-				<React.Fragment key={index}>
-					{index > 0 && renderSeparator()}
-					{typeof item.text === "string" ? (
-						item.href ? (
-							<a
-								href={item.href}
-								className={`oakd-breadcrumb__item ${item.className || ""}`.trim()}
-								aria-current={index === items.length - 1 ? "page" : undefined}
-							>
-								{item.text}
-							</a>
-						) : (
-							<span
-								className={`oakd-breadcrumb__item ${item.className || ""}`.trim()}
-							>
-								{item.text}
-							</span>
-						)
+			<ol className="oakd-breadcrumb__list">
+				{items.map((item, index) => {
+					const content = item.href ? (
+						<a
+							href={item.href}
+							className={`oakd-breadcrumb__item ${item.className || ""}`.trim()}
+							aria-current={index === items.length - 1 ? "page" : undefined}
+						>
+							{item.text}
+						</a>
 					) : (
-						item.text
-					)}
-				</React.Fragment>
-			))}
-		</Space>
+						<span
+							className={`oakd-breadcrumb__item ${item.className || ""}`.trim()}
+							aria-current={index === items.length - 1 ? "page" : undefined}
+						>
+							{item.text}
+						</span>
+					);
+
+					return (
+						<li className="oakd-breadcrumb__listItem" key={`${index}`}>
+							{index > 0 && (
+								<span
+									className="oakd-breadcrumb__separatorWrap"
+									aria-hidden="true"
+								>
+									{renderSeparator()}
+								</span>
+							)}
+							{content}
+						</li>
+					);
+				})}
+			</ol>
+		</nav>
 	);
 };
 

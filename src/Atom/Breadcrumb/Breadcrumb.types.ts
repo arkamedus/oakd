@@ -1,11 +1,16 @@
-export interface BreadcrumbItem extends Omit<any, "className"> {
-	text: string | any;
+import React from "react";
+import { CoreComponentProps } from "../../Core/Core.types";
+
+export interface BreadcrumbItem {
+	text: React.ReactNode;
+	href?: string;
+	className?: string;
 }
 
-export type BreadcrumbSeperatorType = "default" | "dot" | "slash" | "backslash";
+export type BreadcrumbSeparatorType = "default" | "dot" | "slash" | "backslash";
 
-export interface BreadcrumbProps {
-	items?: BreadcrumbItem[];
-	separator?: BreadcrumbSeperatorType;
+export interface BreadcrumbProps extends CoreComponentProps<HTMLElement> {
+	items: BreadcrumbItem[];
+	separator?: BreadcrumbSeparatorType;
 	className?: string;
 }

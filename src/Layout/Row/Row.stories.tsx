@@ -3,10 +3,10 @@ import { Meta, StoryFn } from "@storybook/react";
 import Row from "./Row";
 import Col from "../Column/Column";
 import DebugLayer from "../../Atom/DebugLayer/DebugLayer";
-import Column from "../Column/Column";
 
 const meta: Meta<typeof Row> = {
 	title: "Design System/Layout/Row",
+	component: Row,
 	argTypes: {
 		pastel: {
 			control: "boolean",
@@ -34,19 +34,19 @@ const Template: StoryFn<{ pastel: boolean; gap: boolean }> = ({
 export const Default = Template.bind({});
 Default.args = { pastel: false, gap: false };
 
-export const withColumnsGap = Template.bind({});
-withColumnsGap.args = { pastel: true, gap: true };
+export const WithColumnsGap = Template.bind({});
+WithColumnsGap.args = { pastel: true, gap: true };
 
-export const withResponsiveColumnsGap = () => (
+export const AnalyticsLayout = () => (
 	<Row gap>
-		<Column xs={24}>
-			<DebugLayer label={"DebugLayer (Column 1)"} />
-		</Column>
-		<Column xs={24} md={12}>
-			<DebugLayer />
-		</Column>
-		<Column xs={24} md={12}>
-			<DebugLayer />
-		</Column>
+		<Col xs={24}>
+			<DebugLayer label={"Top summary"} />
+		</Col>
+		<Col xs={24} md={12}>
+			<DebugLayer label={"Channel breakdown"} />
+		</Col>
+		<Col xs={24} md={12}>
+			<DebugLayer label={"Recent activity"} />
+		</Col>
 	</Row>
 );

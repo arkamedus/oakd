@@ -1,26 +1,26 @@
 import React from "react";
-import { render } from "@testing-library/react";
-
+import { render, screen } from "@testing-library/react";
 import Title from "./Title";
-import { TitleProps } from "./Title.types";
 
-describe("Test Component", () => {
-  let props: TitleProps;
+describe("Title Component", () => {
+  it("renders heading content as an h1", () => {
+    render(<Title>Project Overview</Title>);
+    const heading = screen.getByRole("heading", { name: "Project Overview" });
 
-  beforeEach(() => {
-    props = {
-      children: "bar",
-    };
+    expect(heading.tagName).toBe("H1");
+    expect(heading).toHaveClass("title-default");
   });
 
-  const renderComponent = () => render(<Title {...props} />);
+  it("applies size classes and forwards DOM attributes", () => {
+    render(
+      <Title size="large" id="project-title" aria-live="polite">
+        Build Status
+      </Title>,
+    );
 
-  it("should render foo text correctly", () => {
-    props.children = "custom foo prop";
-    const { getByTestId } = renderComponent();
-
-    const component = getByTestId("Title");
-
-    expect(component).toHaveTextContent("custom foo prop");
+    const heading = screen.getByRole("heading", { name: "Build Status" });
+    expect(heading).toHaveClass("title-large");
+    expect(heading).toHaveAttribute("id", "project-title");
+    expect(heading).toHaveAttribute("aria-live", "polite");
   });
 });

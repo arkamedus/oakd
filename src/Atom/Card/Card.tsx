@@ -17,7 +17,8 @@ const Card: React.FC<CardProps> = ({
 	className,
 	pad,
 	onClick,
-	type= "default",
+	type = "default",
+	...rest
 }) => {
 	const classNames = ["oakd", "card", `type-${type}`];
 	if (pad) {
@@ -31,6 +32,7 @@ const Card: React.FC<CardProps> = ({
 	}
 	return (
 		<div
+			{...rest}
 			data-testid="Card"
 			className={classNames.join(" ")}
 			style={style}

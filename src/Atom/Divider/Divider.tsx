@@ -5,10 +5,12 @@ import "./Divider.css";
 const Divider: React.FC<DividerProps> = ({
 	orientation = "horizontal",
 	className = "",
+	...rest
 }) => {
 	const dividerClass = `oakd divider ${orientation} ${className}`.trim();
 	return (
 		<div
+			{...rest}
 			data-testid="Divider"
 			className={dividerClass}
 			role="separator"

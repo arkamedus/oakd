@@ -1,45 +1,49 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Modal } from "./Modal";
+import { ModalProps } from "./Modal.types";
 
 describe("Modal Component", () => {
-  let props: any;
+  let props: ModalProps;
 
   beforeEach(() => {
     props = {
       visible: false,
-      title: "Test Modal",
-      content: "This is a test",
+      title: "Delete integration",
       onClose: jest.fn(),
+      children: <div>Removing this integration will revoke all active tokens.</div>,
     };
   });
 
   const renderComponent = () => render(<Modal {...props} />);
 
-  it("should not render when visible is false", () => {
-    props.visible = false;
+  it("does not render when hidden", () => {
     const { container } = renderComponent();
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("should render the modal when visible is true", () => {
+  it("renders accessible dialog content when visible", () => {
     props.visible = true;
-    const { getByText } = renderComponent();
-    expect(getByText("Test Modal")).toBeInTheDocument();
+    renderComponent();
+
+    expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
+    expect(screen.getByText("Delete integration")).toBeInTheDocument();
+    expect(
+      screen.getByText("Removing this integration will revoke all active tokens."),
+    ).toBeInTheDocument();
   });
 
-  it("should call onClose when clicking the close button", () => {
+  it("closes from the overlay and close button, but not from the dialog body", () => {
     props.visible = true;
-    const { getByText } = renderComponent();
-    const closeButton = getByText("×");
-    fireEvent.click(closeButton);
-    expect(props.onClose).toHaveBeenCalled();
-  });
+    const { container } = renderComponent();
 
-  it("should render children correctly", () => {
-    props.visible = true;
-    props.children = <div data-testid="child">Child Content</div>;
-    const { getByTestId } = renderComponent();
-    expect(getByTestId("child")).toHaveTextContent("Child Content");
+    const overlay = container.querySelector(".modal-container") as HTMLElement;
+    fireEvent.click(screen.getByRole("dialog"));
+    expect(props.onClose).not.toHaveBeenCalled();
+
+    fireEvent.click(overlay);
+    fireEvent.click(screen.getByRole("button", { name: "Close modal" }));
+
+    expect(props.onClose).toHaveBeenCalledTimes(2);
   });
 });

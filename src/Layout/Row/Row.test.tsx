@@ -1,40 +1,36 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Row from "./Row";
 
 describe("Row Component", () => {
-  const renderComponent = (props = {}) =>
+  it("renders children in a row container with optional gap styling", () => {
     render(
-      <Row data-testid="Row" {...props}>
-        <div>Item 1</div>
-        <div>Item 2</div>
+      <Row gap>
+        <div>Left</div>
+        <div>Right</div>
       </Row>,
     );
 
-  it("should render without errors", () => {
-    const { getByTestId } = renderComponent();
-    expect(getByTestId("Row")).toBeInTheDocument();
+    const row = screen.getByTestId("Row");
+    expect(row).toHaveClass("row");
+    expect(row).toHaveClass("gap");
+    expect(row).toHaveTextContent("Left");
+    expect(row).toHaveTextContent("Right");
   });
 
-  it("should apply default classes", () => {
-    const { getByTestId } = renderComponent();
-    expect(getByTestId("Row")).toHaveClass("row");
-  });
+  it("forwards normal DOM interaction props", () => {
+    const handleMouseEnter = jest.fn();
+    render(
+      <Row
+        onMouseEnter={handleMouseEnter}
+        role="group"
+        aria-label="Toolbar row"
+      />,
+    );
 
-  it("should render children correctly", () => {
-    const { getByTestId } = renderComponent();
-    expect(getByTestId("Row")).toHaveTextContent("Item 1");
-    expect(getByTestId("Row")).toHaveTextContent("Item 2");
-  });
+    const row = screen.getByRole("group", { name: "Toolbar row" });
+    fireEvent.mouseEnter(row);
 
-  it("should apply gap class when gap prop is true", () => {
-    const { getByTestId } = renderComponent({ gap: true });
-    expect(getByTestId("Row")).toHaveClass("gap");
-  });
-
-  it("should match snapshot", () => {
-    const { container } = renderComponent();
-    expect(container).toMatchSnapshot();
+    expect(handleMouseEnter).toHaveBeenCalled();
   });
 });

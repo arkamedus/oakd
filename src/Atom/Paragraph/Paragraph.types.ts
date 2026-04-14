@@ -1,3 +1,3 @@
-import { CoreLayoutProps } from "../../Core/Core.types";
+import { CoreComponentProps } from "../../Core/Core.types";
 
-export interface ParagraphProps extends CoreLayoutProps {}
+export interface ParagraphProps extends CoreComponentProps<HTMLParagraphElement> {}

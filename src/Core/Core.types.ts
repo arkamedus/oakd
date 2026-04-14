@@ -21,46 +21,21 @@ export const decode__padding = (padding: CorePaddingType): string => {
 	return "pad";
 };
 
-export interface CoreComponentProps<T = HTMLElement> extends CoreComponentEventProps {
+export interface CoreComponentEventProps<T = HTMLElement> extends Omit<
+	React.HTMLAttributes<T>,
+	"children" | "className" | "style" | "onChange"
+> {}
+
+export interface CoreComponentProps<T = HTMLElement> extends Omit<
+	React.HTMLAttributes<T>,
+	"children" | "className" | "style" | "onChange"
+> {
 	id?: string;
 	key?: React.Key;
 	style?: CSSProperties;
 	children?: React.ReactNode;
 	className?: string;
-	role?: string; // Added for accessibility
-	"aria-label"?: string; // Added for accessibility
-	tabIndex?: number; // Added for keyboard interactions
 	ref?: React.Ref<T>;
-}
-
-export interface CoreComponentEventProps {
-	onClick?: (
-		event: React.MouseEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
-	onMouseEnter?: (
-		event: React.MouseEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
-	onMouseDown?: (
-		event: React.MouseEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
-	onMouseLeave?: (
-		event: React.MouseEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
-	onFocus?: (
-		event: React.FocusEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
-	onChange?: (
-		event: React.FocusEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
-	onBlur?: (
-		event: React.FocusEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
-	onKeyDown?: (
-		event: React.KeyboardEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
-	onKeyUp?: (
-		event: React.KeyboardEvent<HTMLTextAreaElement | HTMLButtonElement | HTMLDivElement>,
-	) => void;
 }
 
 export type ButtonType =
@@ -95,11 +70,15 @@ export type ComponentJustifyType =
 	| "between"
 	| "evenly";
 
-export interface CoreLayoutProps extends CoreComponentProps {
+export interface CoreLayoutProps<
+	T = HTMLElement,
+> extends CoreComponentProps<T> {
 	gap?: number | boolean;
 }
 
-export interface CoreContentProps extends CoreComponentProps {
+export interface CoreContentProps<
+	T = HTMLElement,
+> extends CoreComponentProps<T> {
 	wide?: boolean;
 	pad?: CorePaddingType;
 }

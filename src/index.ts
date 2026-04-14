@@ -45,7 +45,7 @@ export {
 	Collapsible,
 	Modal,
 	CodeArea,
-	ScriptSandbox
+	ScriptSandbox,
 };
 
 export * from "./Icon/Icons.bin";

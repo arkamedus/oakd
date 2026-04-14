@@ -4,31 +4,28 @@ import "./Collapsible.css";
 import { IconAngle } from "../../Icon/Icons.bin";
 import Space from "../Space/Space";
 import Content from "../../Layout/Content/Content";
-import Paragraph from "../Paragraph/Paragraph";
 
 /**
  * The Collapsible component renders a section that can be expanded or collapsed.
- * It displays a title and an optional action area, along with its children content.
+ * It displays a single trigger row and the associated collapsible content.
  *
  * It accepts the following props:
  * - title (string): The title text to display.
  * - children (React.ReactNode): The content to show when expanded.
  * - defaultOpen (boolean): Initial state of the collapsible section (open/closed).
  * - onToggle (function): Callback function triggered when the section is opened or closed.
- * - action (React.ReactNode): Optional component to render an action area beside the title.
- *
  * The component maintains an internal state to track whether it is expanded or collapsed,
  * and it animates the height of the content area during transitions.
  */
 const Collapsible: React.FC<CollapsibleProps> = ({
 	title,
 	children,
-	action,
 	defaultOpen = false,
 	onToggle,
 }) => {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
 	const [contentHeight, setContentHeight] = useState<string | number>("auto");
+	const contentId = React.useId();
 
 	/**
 	 * Toggles the open state and triggers the onToggle callback if provided.
@@ -46,37 +43,29 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 	}, [isOpen, onToggle]);
 
 	return (
-		<Space
-			className="collapsible"
-			data-testid="Collapsible"
-			align={"center"}
-			wide
-		>
+		<Space className="collapsible" data-testid="Collapsible" wide>
 			<Content pad wide>
-				<Space wide gap justify={"between"} align={"center"}>
-					<button
-						className="collapsible__toggle"
-						aria-expanded={isOpen}
-						onClick={toggle}
-						type="button"
-						style={{ width: "100%" }}
-					>
-						<Space wide justify={"between"} align={"center"}>
-							<span className="collapsible__title">{title}</span>
-							<IconAngle
-								className="collapsible__icon"
-								size={"small"}
-								rotation={isOpen ? 90 : 0}
-								//name="caret"
-								role="img"
-								aria-hidden="true"
-							/>
-						</Space>
-					</button>
-					{action && action}
-				</Space>
+				<button
+					className="collapsible__toggle"
+					aria-expanded={isOpen}
+					aria-controls={contentId}
+					onClick={toggle}
+					type="button"
+				>
+					<Space wide justify={"between"} align={"center"}>
+						<span className="collapsible__title">{title}</span>
+						<IconAngle
+							className="collapsible__icon"
+							size={"small"}
+							rotation={isOpen ? 90 : 0}
+							role="img"
+							aria-hidden="true"
+						/>
+					</Space>
+				</button>
 			</Content>
 			<div
+				id={contentId}
 				className="collapsible__content"
 				style={{
 					transition: "height 0.3s ease-in-out",

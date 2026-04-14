@@ -5,15 +5,17 @@ import meta from './Tabs.stories';
 
 # Tabs
 
-The **Tabs** component is used to switch between different views or sections of content within the same context. It allows users to navigate between related content without leaving the page.
+The `Tabs` component lets users move between related views without leaving the
+current workspace. It supports horizontal and vertical layouts, default or
+controlled active keys, and accessible `tab` / `tabpanel` relationships.
 
 <Primary />
-
 <Controls />
 
-## Key Features
-- **Dynamic Content**: Only the content of the active tab is displayed, which helps in reducing clutter and improving user experience.
-- **Customizable Orientation**: Supports both horizontal and vertical layouts to fit different design needs.
-- **Controlled and Uncontrolled Modes**: Can be used as a controlled component with `activeKey` or as an uncontrolled component with `defaultActiveKey`.
+## What To Validate
+
+- The active tab and active panel stay in sync.
+- `onChange` reports the selected tab key.
+- Each tab is linked to its panel with `aria-controls` and `aria-labelledby`.
 
 <Stories />

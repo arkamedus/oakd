@@ -7,10 +7,10 @@ export type DropdownDirection =
 	| "top-left"
 	| "top-right";
 
-export interface DropdownProps extends CoreLayoutProps {
+export interface DropdownProps extends CoreLayoutProps<HTMLDivElement> {
 	children?: React.ReactNode;
 	direction?: DropdownDirection;
 	fixed?: boolean;
-	label?: React.ReactNode | string;
+	label?: React.ReactNode;
 	className?: string;
 }

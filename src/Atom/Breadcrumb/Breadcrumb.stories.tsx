@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import Breadcrumb from "./Breadcrumb";
 import { IconMagnify } from "../../Icon/Icons.bin";
 
@@ -20,9 +20,8 @@ const meta: Meta<typeof Breadcrumb> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Breadcrumb>;
 
-const Template: StoryFn = (args) => <Breadcrumb {...args} />;
+const Template: StoryFn<typeof Breadcrumb> = (args) => <Breadcrumb {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -67,9 +66,9 @@ WithDotSeparator.args = {
 export const CustomIconSeparator = Template.bind({});
 CustomIconSeparator.args = {
 	items: [
-		{ text: "Home", href: "/", icon: <IconMagnify size="small" /> },
-		{ text: "Library", href: "/library", icon: <IconMagnify size="small" /> },
-		{ text: "Data", href: "/library/data", icon: <IconMagnify size="small" /> },
+		{ text: <IconMagnify size="small" />, href: "/" },
+		{ text: "Library", href: "/library" },
+		{ text: "Data", href: "/library/data" },
 	],
 	separator: "slash",
 };

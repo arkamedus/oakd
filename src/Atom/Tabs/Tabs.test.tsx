@@ -1,9 +1,8 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Tabs from "./Tabs";
+import Tabs, { Tab } from "./Tabs";
 import { TabsProps } from "./Tabs.types";
-import Card from "../Card/Card";
 
 describe("Tabs Component", () => {
   let renderTabs: (props?: TabsProps) => void;
@@ -12,49 +11,65 @@ describe("Tabs Component", () => {
     renderTabs = (props = {}) =>
       render(
         <Tabs {...props}>
-          <Card key="1"  />
-          <Card key="2" />
-          <Card key="3"  />
+          <Tab key="overview" label="Overview">
+            Overview panel
+          </Tab>
+          <Tab key="usage" label="Usage">
+            Usage panel
+          </Tab>
+          <Tab key="history" label="History">
+            History panel
+          </Tab>
         </Tabs>,
       );
   });
 
-  it("should render the Tabs component", () => {
+  it("renders a tablist with the first tab active by default", () => {
     renderTabs();
-    expect(screen.getByTestId("Tabs")).toBeInTheDocument();
+
+    expect(screen.getByRole("tablist")).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Overview" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    expect(screen.getByRole("tabpanel")).toHaveTextContent("Overview panel");
   });
 
-  it("should render the correct number of Tab components", () => {
+  it("changes the active tab and panel content when a tab is clicked", () => {
     renderTabs();
-    expect(screen.getAllByTestId("Tab")).toHaveLength(3);
+
+    fireEvent.click(screen.getByRole("tab", { name: "Usage" }));
+
+    expect(screen.getByRole("tab", { name: "Usage" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    expect(screen.getByRole("tabpanel")).toHaveTextContent("Usage panel");
   });
 
-  it("should set the correct active tab", () => {
-    renderTabs();
-    const tab2 = screen.getByText("Tab 2");
-    fireEvent.click(tab2);
-    expect(tab2).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByText("Tab 1")).toHaveAttribute("aria-selected", "false");
-  });
-
-  it("should change the content when a different tab is clicked", () => {
-    renderTabs();
-    const tab3 = screen.getByText("Tab 3");
-    fireEvent.click(tab3);
-    expect(tab3).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByText("Tab 1")).toHaveAttribute("aria-selected", "false");
-  });
-
-  it("should respect defaultActiveKey prop", () => {
-    renderTabs({ defaultActiveKey: "2" });
-    expect(screen.getByText("Tab 2")).toHaveAttribute("aria-selected", "true");
-  });
-
-  it("should call onChange when the active tab changes", () => {
+  it("supports controlled defaults and change notifications", () => {
     const handleChange = jest.fn();
-    renderTabs({ onChange: handleChange });
-    const tab3 = screen.getByText("Tab 3");
-    fireEvent.click(tab3);
-    expect(handleChange).toHaveBeenCalledWith("3");
+    renderTabs({ defaultActiveKey: "history", onChange: handleChange });
+
+    const historyTab = screen.getByRole("tab", { name: "History" });
+    expect(historyTab).toHaveAttribute("aria-selected", "true");
+
+    fireEvent.click(screen.getByRole("tab", { name: "Usage" }));
+    expect(handleChange).toHaveBeenCalledWith("usage");
+  });
+
+  it("wires tabs to tabpanels with accessible relationships", () => {
+    renderTabs();
+
+    const overviewTab = screen.getByRole("tab", { name: "Overview" });
+    const panel = screen.getByRole("tabpanel");
+    expect(overviewTab).toHaveAttribute(
+      "aria-controls",
+      panel.getAttribute("id"),
+    );
+    expect(panel).toHaveAttribute(
+      "aria-labelledby",
+      overviewTab.getAttribute("id"),
+    );
   });
 });

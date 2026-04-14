@@ -1,22 +1,38 @@
 /* Base styles for the breadcrumb component */
 .oakd-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: var(--leading);
   font-size: var(--font-size);
   color: var(--oakd-gray);
 }
 
-.oakd-breadcrumb-item {
+.oakd-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  gap: var(--leading);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.oakd-breadcrumb__listItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--leading);
+}
+
+.oakd-breadcrumb__item {
   color: var(--oakd-gray);
 }
 
-.oakd-breadcrumb-item:hover {
+.oakd-breadcrumb__item:hover {
   color: var(--oakd-black);
 }
 
 /* Styles for the separator */
-.oakd-breadcrumb-separator {
+.oakd-breadcrumb__separatorWrap {
+  display: inline-flex;
+  align-items: center;
+}
+
+.oakd-breadcrumb__separator {
   color: var(--oakd-gray);
-  //flex-shrink: 0;
 }

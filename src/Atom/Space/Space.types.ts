@@ -6,7 +6,10 @@ import {
 	CoreLayoutProps,
 } from "../../Core/Core.types";
 
-export interface SpaceProps extends CoreLayoutProps, CoreComponentEventProps {
+export interface SpaceProps
+	extends
+		CoreLayoutProps<HTMLSpanElement>,
+		CoreComponentEventProps<HTMLSpanElement> {
 	direction?: CoreComponentLayoutDirectionType;
 	align?: ComponentAlignType;
 	justify?: ComponentJustifyType;

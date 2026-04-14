@@ -11,6 +11,7 @@ const Row: React.FC<RowProps> = ({
 	children,
 	className,
 	gap,
+	...rest
 }) => {
 	const classNames = ["oakd", "row"];
 	if (gap) {
@@ -21,6 +22,7 @@ const Row: React.FC<RowProps> = ({
 	}
 	return (
 		<div
+			{...rest}
 			data-testid="Row"
 			id={id}
 			key={key}

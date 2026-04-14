@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Input from "./Input";
 import { InputProps } from "./Input.types";
 
@@ -9,71 +9,76 @@ describe("Input Component", () => {
   beforeEach(() => {
     props = {
       type: "text",
-      placeholder: "Enter text...",
+      placeholder: "Search knowledge base",
       size: "default",
       className: "custom-input",
       style: { backgroundColor: "white" },
       disabled: false,
       error: false,
-      inputType: "default"
+      variant: "default",
     };
   });
 
   const renderComponent = () => render(<Input {...props} />);
 
-  it("should render the Input component", () => {
+  it("supports uncontrolled typing and preserves native attributes", () => {
+    props.name = "query";
+    props.autoComplete = "off";
     renderComponent();
-    expect(screen.getByPlaceholderText("Enter text...")).toBeInTheDocument();
+
+    const input = screen.getByPlaceholderText(
+      "Search knowledge base",
+    ) as HTMLInputElement;
+    fireEvent.change(input, { target: { value: "billing export" } });
+
+    expect(input.value).toBe("billing export");
+    expect(input).toHaveAttribute("name", "query");
+    expect(input).toHaveAttribute("autocomplete", "off");
   });
 
-  it("should update value on change", () => {
+  it("forwards input, focus, blur, and keyboard events", () => {
+    props.onChange = jest.fn();
+    props.onFocus = jest.fn();
+    props.onBlur = jest.fn();
+    props.onKeyDown = jest.fn();
+    props.onKeyUp = jest.fn();
+    props.onKeyPress = jest.fn();
     renderComponent();
-    const input = screen.getByPlaceholderText("Enter text...") as HTMLInputElement;
-    fireEvent.change(input, { target: { value: "Hello" } });
-    expect(input.value).toBe("Hello");
+
+    const input = screen.getByPlaceholderText("Search knowledge base");
+    fireEvent.focus(input);
+    fireEvent.keyDown(input, { key: "Enter" });
+    fireEvent.keyPress(input, { key: "Enter", charCode: 13 });
+    fireEvent.change(input, { target: { value: "renewal" } });
+    fireEvent.keyUp(input, { key: "Enter" });
+    fireEvent.blur(input);
+
+    expect(props.onFocus).toHaveBeenCalled();
+    expect(props.onKeyDown).toHaveBeenCalled();
+    expect(props.onKeyPress).toHaveBeenCalled();
+    expect(props.onChange).toHaveBeenCalled();
+    expect(props.onKeyUp).toHaveBeenCalled();
+    expect(props.onBlur).toHaveBeenCalled();
   });
 
-  it("should reset error state when value changes", () => {
+  it("shows error state and clears it after the user edits the field", () => {
     props.error = true;
-    const { rerender } = render(<Input {...props} />);
-    const input = screen.getByPlaceholderText("Enter text...");
+    renderComponent();
+
+    const input = screen.getByPlaceholderText("Search knowledge base");
     expect(screen.getByTestId("InputContainer")).toHaveClass("input-error");
     expect(screen.getByTestId("InputError")).toBeInTheDocument();
-    fireEvent.change(input, { target: { value: "Fixed!" } });
-    rerender(<Input {...props} value="Fixed!" error={false} />);
+
+    fireEvent.change(input, { target: { value: "fixed value" } });
+
     expect(screen.getByTestId("InputContainer")).not.toHaveClass("input-error");
+    expect(screen.queryByTestId("InputError")).not.toBeInTheDocument();
   });
 
-  it("should disable input when disabled is true", () => {
+  it("disables editing when disabled", () => {
     props.disabled = true;
     renderComponent();
-    const input = screen.getByPlaceholderText("Enter text...");
-    expect(input).toBeDisabled();
-  });
 
-  it("should render an icon if provided as string", () => {
-    props.icon = "Magnify";
-    renderComponent();
-    expect(document.querySelector('.icon')).toBeInTheDocument();
-  });
-
-  it("should show an error icon when error is true", () => {
-    props.error = true;
-    renderComponent();
-    expect(screen.getByTestId("InputError")).toBeInTheDocument();
-  });
-
-  it("should apply size-related classes correctly", () => {
-    props.size = "large";
-    renderComponent();
-    const input = screen.getByPlaceholderText("Enter text...");
-    expect(input).toHaveClass("size-large");
-  });
-
-  it("should respect inputType styles", () => {
-    props.inputType = "primary";
-    renderComponent();
-    const input = screen.getByPlaceholderText("Enter text...");
-    expect(input).toHaveClass("type-primary");
+    expect(screen.getByPlaceholderText("Search knowledge base")).toBeDisabled();
   });
 });

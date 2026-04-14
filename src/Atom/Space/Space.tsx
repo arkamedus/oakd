@@ -17,6 +17,7 @@ const Space: React.FC<SpaceProps> = ({
 	wide,
 	noWrap,
 	onClick,
+	...rest
 }) => {
 	let classNames = ["oakd", "space"];
 	if (className) classNames.push(className);
@@ -37,6 +38,7 @@ const Space: React.FC<SpaceProps> = ({
 
 	return (
 		<span
+			{...rest}
 			id={id}
 			key={key}
 			onClick={handleClick}

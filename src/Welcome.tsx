@@ -6,7 +6,14 @@ import Content from "./Layout/Content/Content";
 import Card from "./Atom/Card/Card";
 import DebugLayer from "./Atom/DebugLayer/DebugLayer";
 import Button, { ButtonGroup } from "./Atom/Button/Button";
-import {CoreIconNameType, IconDots, IconHome, IconShield, IconSliders, IconTypes} from "./Icon/Icons.bin";
+import {
+	CoreIconNameType,
+	IconDots,
+	IconHome,
+	IconShield,
+	IconSliders,
+	IconTypes,
+} from "./Icon/Icons.bin";
 import Icon from "./Icon/Icon";
 import { ButtonType } from "./Atom/Button/Button.types";
 import Row from "./Layout/Row/Row";
@@ -87,7 +94,7 @@ export const Welcome = () => {
 															key={`button-${idx}`}
 															icon={"Star"}
 															size={"small"}
-															type={type}
+															variant={type}
 														>
 															<Paragraph>{type}</Paragraph>
 														</Button>
@@ -95,15 +102,19 @@ export const Welcome = () => {
 												})}
 											<ButtonGroup>
 												<Button
-													type={"default"}
+													variant={"default"}
 													size={"small"}
 													icon={"Layers"}
 												/>
-												<Button type={"ghost"} size={"small"} icon={"Triangle"}>
+												<Button
+													variant={"ghost"}
+													size={"small"}
+													icon={"Triangle"}
+												>
 													<Paragraph>groups</Paragraph>
 												</Button>
 												<Button
-													type={"warning"}
+													variant={"warning"}
 													size={"small"}
 													icon={"Trash"}
 												/>
@@ -118,19 +129,19 @@ export const Welcome = () => {
 												icon={"User"}
 												placeholder={"text"}
 												type={"text"}
-												inputType={"default"}
+												variant={"default"}
 											/>
 											<Input
 												icon={"Star"}
 												placeholder={"password"}
 												type={"password"}
-												inputType={"default"}
+												variant={"default"}
 											/>
 											<Input
 												icon={"List"}
 												placeholder={"errored"}
 												type={"number"}
-												inputType={"default"}
+												variant={"default"}
 												error
 												defaultValue={-1}
 											/>
@@ -139,7 +150,12 @@ export const Welcome = () => {
 
 									<Space direction={"vertical"} gap style={{ width: "100%" }}>
 										<Paragraph>extended inputs</Paragraph>
-										<Space style={{ width: "100%" }} wide gap justify={"between"}>
+										<Space
+											style={{ width: "100%" }}
+											wide
+											gap
+											justify={"between"}
+										>
 											<Select
 												options={[
 													{
@@ -158,18 +174,27 @@ export const Welcome = () => {
 														category: "Vegetables",
 													},
 												]}
-												onSelected={(val) => console.log(val)}
-												categorize={{
-													property: "category",
-													order: ["Fruits", "Vegetables"],
-												}}
+												onChange={(val) => console.log(val)}
+												categoryOrder={["Fruits", "Vegetables"]}
 												placeholder={<Paragraph>Choose an option</Paragraph>}
 											/>
-											<Dropdown label={<IconDots size={"small"}/>} direction={"bottom-right"}><Paragraph>This is the content.</Paragraph></Dropdown>
+											<Dropdown
+												label={<IconDots size={"small"} />}
+												direction={"bottom-right"}
+											>
+												<Paragraph>This is the content.</Paragraph>
+											</Dropdown>
 										</Space>
-											<CodeArea grow lineNumbers errorLines={[3]} highlightCurrentLine style={{textAlign:"left"}}  defaultValue={"// javascript syntax highlighting\nconst name = `oakd`;\n// with configurable line support!"}/>
-
-
+										<CodeArea
+											grow
+											lineNumbers
+											errorLines={[3]}
+											highlightCurrentLine
+											style={{ textAlign: "left" }}
+											defaultValue={
+												"// javascript syntax highlighting\nconst name = `oakd`;\n// with configurable line support!"
+											}
+										/>
 									</Space>
 
 									<Collapsible
@@ -186,10 +211,28 @@ export const Welcome = () => {
 
 									<Space direction={"vertical"} gap>
 										<Paragraph>small utils</Paragraph>
-										<Breadcrumb items={[{text:<Paragraph><IconHome size={"small"}/> Root</Paragraph>},{text:<Paragraph>Category</Paragraph>},{text:<Paragraph><strong>Section</strong></Paragraph>}]}/>
+										<Breadcrumb
+											items={[
+												{
+													text: (
+														<Paragraph>
+															<IconHome size={"small"} /> Root
+														</Paragraph>
+													),
+												},
+												{ text: <Paragraph>Category</Paragraph> },
+												{
+													text: (
+														<Paragraph>
+															<strong>Section</strong>
+														</Paragraph>
+													),
+												},
+											]}
+										/>
 										<Paragraph>svg icons</Paragraph>
 										<Space style={{ width: "100%" }} gap justify={"between"}>
-											{IconTypes.slice(0, 21).map(
+											{IconTypes.slice(0, 72).map(
 												(icon: CoreIconNameType, idx: number) => {
 													return (
 														<Paragraph>

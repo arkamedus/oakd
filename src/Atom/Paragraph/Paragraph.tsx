@@ -8,6 +8,7 @@ const Paragraph: React.FC<ParagraphProps> = ({
 	style,
 	children,
 	className,
+	...rest
 }) => {
 	let classNames = [
 		"oakd",
@@ -18,7 +19,12 @@ const Paragraph: React.FC<ParagraphProps> = ({
 	if (className) classNames.push(className);
 
 	return (
-		<p data-testid={"Paragraph"} style={style} className={classNames.join(" ")}>
+		<p
+			{...rest}
+			data-testid={"Paragraph"}
+			style={style}
+			className={classNames.join(" ")}
+		>
 			{children}
 		</p>
 	);

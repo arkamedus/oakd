@@ -1,26 +1,54 @@
 import React from "react";
-import { render } from "@testing-library/react";
-
+import { fireEvent, render, screen } from "@testing-library/react";
 import Dropdown from "./Dropdown";
-import { DropdownProps } from "./Dropdown.types";
 
-describe("Test Component", () => {
-  let props: DropdownProps;
+describe("Dropdown Component", () => {
+  it("opens and closes the menu from the trigger button", () => {
+    render(
+      <Dropdown label="Actions">
+        <div>Archive item</div>
+      </Dropdown>,
+    );
 
-  beforeEach(() => {
-    props = {
+    const trigger = screen.getByRole("button", { name: "Actions" });
+    fireEvent.click(trigger);
 
-    };
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByText("Archive item").parentElement).toHaveClass(
+      "active",
+    );
+
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 
-  const renderComponent = () => render(<Dropdown {...props} />);
+  it("closes when escape is pressed", () => {
+    render(
+      <Dropdown label="More">
+        <div>Duplicate</div>
+      </Dropdown>,
+    );
 
-  it("should render foo text correctly", () => {
-    props.children = "custom foo prop";
-    const { getByTestId } = renderComponent();
+    const trigger = screen.getByRole("button", { name: "More" });
+    fireEvent.click(trigger);
+    fireEvent.keyDown(trigger.closest(".oakd-dropdown-container")!, {
+      key: "Escape",
+    });
 
-    const component = getByTestId("Dropdown");
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+  });
 
-    expect(component).toHaveTextContent("custom foo prop");
+  it("closes when clicking outside", () => {
+    render(
+      <Dropdown label="Quick actions">
+        <div>Rename</div>
+      </Dropdown>,
+    );
+
+    const trigger = screen.getByRole("button", { name: "Quick actions" });
+    fireEvent.click(trigger);
+    fireEvent.mouseDown(document);
+
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 });

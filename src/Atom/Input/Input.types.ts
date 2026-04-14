@@ -1,42 +1,18 @@
 import { CoreIconNameType } from "../../Icon/Icons.bin";
-import { CoreComponentProps } from "../../Core/Core.types";
+import { ButtonType, CoreComponentSizeType } from "../../Core/Core.types";
 import React from "react";
 
-export interface InputProps extends CoreComponentProps<HTMLInputElement> {
-	/** The type of the input element */
-	type?: "text" | "password" | "email" | "number";
-	/** The controlled value of the input */
-	value?: string;
-	/** The default value for uncontrolled usage */
-	defaultValue?: string | number;
-	/** Placeholder text for the input */
-	placeholder?: string;
+export interface InputProps extends Omit<
+	React.InputHTMLAttributes<HTMLInputElement>,
+	"size"
+> {
 	/** Displays an error state */
 	error?: boolean;
-	/** Disables the input element */
-	disabled?: boolean;
-	readOnly?: boolean;
-	/** Specifies the visual style type, matching button types */
-	inputType?: string;
+	/** Specifies the visual style variant, matching button variants */
+	variant?: ButtonType;
 	/** Sets the size variations */
-	size?: "small" | "default" | "large";
+	size?: Exclude<CoreComponentSizeType, "huge">;
 	/** Optional icon (either an oakd icon name or a JSX element) */
 	icon?: CoreIconNameType | React.JSX.Element;
-	/** Additional class names */
-	className?: string;
-	/** Inline styles */
-	style?: React.CSSProperties;
-	/** OnChange event handler */
-	onChange?: (event: React.ChangeEvent<any>) => void;
-	/** OnBlur event handler */
-	onBlur?: (event: React.FocusEvent<any>) => void;
-	/** OnFocus event handler */
-	onFocus?: (event: React.FocusEvent<any>) => void;
-	onKeyPress?: (event: any) => void;
-
-	ref?: React.Ref<any>;
-
-	min?: number;
-	max?: number;
 	grow?: boolean;
 }

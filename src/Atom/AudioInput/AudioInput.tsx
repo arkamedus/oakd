@@ -3,7 +3,7 @@ import { AudioInputProps } from "./AudioInput.types";
 import "./AudioInput.css";
 import Space from "../Space/Space";
 import Button from "../Button/Button";
-import {IconMicrophone, IconStar, IconX} from "../../Icon/Icons.bin";
+import { IconMicrophone, IconStar, IconX } from "../../Icon/Icons.bin";
 
 /**
  * AudioInput component allows users to record audio and provides play
@@ -86,7 +86,7 @@ const AudioInput: React.FC<AudioInputProps> = ({ onChange, disabled }) => {
 				<Button
 					onClick={toggleRecording}
 					disabled={disabled}
-					type={isRecording?"primary":"default"}
+					variant={isRecording ? "primary" : "default"}
 					className="icon-button"
 				>
 					{isRecording ? <IconMicrophone /> : <IconMicrophone />}

@@ -8,6 +8,6 @@ export interface DebugLayerProps extends CoreComponentProps {
 	/**
 	 * Optional label text to display on the debug overlay
 	 */
-	label?: string | React.ReactNode;
-	extra?: string | React.ReactNode;
+	label?: React.ReactNode;
+	extra?: React.ReactNode;
 }
