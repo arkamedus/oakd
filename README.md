@@ -11,7 +11,7 @@ layout, typography, inputs, navigation, and composition while keeping install
 weight and integration overhead low.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![Tests Passing](https://img.shields.io/badge/Tests-Passing-brightgreen.svg) ![Functional Coverage](https://img.shields.io/badge/Functional_Coverage-92%25-brightgreen.svg) ![Branch Coverage](https://img.shields.io/badge/Branch_Coverage-75%25-green.svg)
-[![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://oakframe.org/oakd)
+[![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://oakd.oakframe.org/)
 ![oak Preview](./preview.png)
 
 
