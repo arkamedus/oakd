@@ -103,7 +103,7 @@ describe("MultiLineChart Component", () => {
   it("uses the measured frame height when the container grows", async () => {
     render(
       <MultiLineChart
-        fillHeight
+        fill
         lines={[
           {
             label: "Visits",
@@ -147,7 +147,7 @@ describe("MultiLineChart Component", () => {
   it("does not keep increasing height in fill mode after measurement", async () => {
     render(
       <MultiLineChart
-        fillHeight
+        fill
         lines={[
           {
             label: "Visits",

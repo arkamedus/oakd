@@ -223,7 +223,7 @@ export const PrimaryChartWithGrowingSupportRail: Story = {
 						</Paragraph>
 						<Card pad wide grow fill>
 							<EmbeddingHeatmap
-								fillHeight
+								fill
 								embedding={[
 									[0.12, 0.2, 0.31, 0.42, 0.5, 0.58],
 									[0.64, 0.71, 0.48, 0.26, 0.15, 0.09],

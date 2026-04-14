@@ -48,14 +48,13 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 	lines,
 	height,
 	fill = false,
-	fillHeight = false,
 	hoverLabel,
 	smooth = false,
 	showVerticalTicks = false,
 	className = "",
 	style,
 }) => {
-	const shouldFill = fill || fillHeight;
+	const shouldFill = fill;
 	const frameRef = useRef<HTMLDivElement>(null);
 	const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
 	const [hoverX, setHoverX] = useState<number | null>(null);

@@ -81,7 +81,7 @@ describe("Row Component", () => {
                     <Paragraph>Summary</Paragraph>
                     <Card pad wide fill>
                       <MultiLineChart
-                        fillHeight
+                        fill
                         lines={[
                           {
                             label: "Signups",
@@ -136,7 +136,7 @@ describe("Row Component", () => {
                   <Paragraph>Embedding grows here.</Paragraph>
                   <Card pad wide grow fill aria-label="Embedding grow card">
                     <EmbeddingHeatmap
-                      fillHeight
+                      fill
                       embedding={[
                         [0.1, 0.2, 0.3],
                         [0.4, 0.5, 0.6],

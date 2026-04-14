@@ -20,11 +20,11 @@ describe("EmbeddingHeatmap Component", () => {
     expect(screen.getByText("No embedding data.")).toBeInTheDocument();
   });
 
-  it("supports explicit fill-height mode for matrix layouts", () => {
+  it("supports explicit fill mode for matrix layouts", () => {
     render(
       <div style={{ height: 320 }}>
         <EmbeddingHeatmap
-          fillHeight
+          fill
           embedding={[
             [0.1, 0.2],
             [0.3, 0.4],

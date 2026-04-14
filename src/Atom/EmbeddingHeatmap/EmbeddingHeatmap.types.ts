@@ -8,8 +8,6 @@ export interface EmbeddingHeatmapProps {
 	stripHeight?: number;
 	height?: number;
 	fill?: boolean;
-	/** @deprecated Use `fill` instead. */
-	fillHeight?: boolean;
 	className?: string;
 	style?: React.CSSProperties;
 }

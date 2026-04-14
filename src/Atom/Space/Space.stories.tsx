@@ -198,7 +198,7 @@ export const ChartFillComparison: Story = {
 											},
 										]}
 										hoverLabel="events"
-										fillHeight
+										fill
 										showVerticalTicks
 										smooth
 									/>
@@ -350,7 +350,7 @@ export const StackedBreakdownAsPrimaryPanel: Story = {
 							</Paragraph>
 							<Content grow wide>
 								<EmbeddingHeatmap
-									fillHeight
+									fill
 									embedding={[
 										[0.22, 0.31, 0.42, 0.53],
 										[0.61, 0.74, 0.29, 0.14],
@@ -390,7 +390,7 @@ export const EmbeddingAsPrimaryPanel: Story = {
 							<Content grow wide>
 								<Card pad wide fill>
 									<EmbeddingHeatmap
-										fillHeight
+										fill
 										embedding={[
 											[0.12, 0.2, 0.31, 0.42, 0.5, 0.58],
 											[0.64, 0.71, 0.48, 0.26, 0.15, 0.09],

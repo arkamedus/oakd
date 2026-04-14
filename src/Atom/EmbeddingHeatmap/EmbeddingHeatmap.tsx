@@ -21,11 +21,10 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 	stripHeight = 18,
 	height,
 	fill = false,
-	fillHeight = false,
 	className = "",
 	style,
 }) => {
-	const shouldFill = fill || fillHeight;
+	const shouldFill = fill;
 	const rows = normalizeEmbedding(embedding);
 	const flat = rows.flat();
 

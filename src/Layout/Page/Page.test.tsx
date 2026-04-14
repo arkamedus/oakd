@@ -95,7 +95,7 @@ describe("Page Component", () => {
                     <Paragraph>Summary</Paragraph>
                     <Card wide fill>
                       <MultiLineChart
-                        fillHeight
+                        fill
                         lines={[
                           {
                             label: "Signups",
