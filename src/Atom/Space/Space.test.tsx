@@ -41,6 +41,20 @@ describe("Space Component", () => {
     expect(handleClick).toHaveBeenCalled();
   });
 
+  it("renders as a block layout container so block children remain valid DOM", () => {
+    render(
+      <Space direction="vertical">
+        <p>Paragraph child</p>
+        <div>Block child</div>
+      </Space>,
+    );
+
+    const space = screen.getByTestId("Space");
+    expect(space.tagName).toBe("DIV");
+    expect(space).toContainElement(screen.getByText("Paragraph child"));
+    expect(space).toContainElement(screen.getByText("Block child"));
+  });
+
   it("supports the current vertical fill plus child grow composition", () => {
     render(
       <Space direction="vertical" wide fill>
@@ -54,5 +68,27 @@ describe("Space Component", () => {
     expect(space).toHaveClass("wide");
     expect(space).toHaveClass("fill");
     expect(screen.getByText("Body")).toHaveClass("grow");
+  });
+
+  it("defaults vertical spaces to nowrap so filled layouts do not wrap into a second column", () => {
+    render(
+      <Space direction="vertical" fill wide>
+        <div>Header</div>
+        <div>Body</div>
+      </Space>,
+    );
+
+    expect(screen.getByTestId("Space")).toHaveClass("nowrap");
+  });
+
+  it("still allows horizontal spaces to opt into nowrap explicitly", () => {
+    render(
+      <Space noWrap>
+        <div>One</div>
+        <div>Two</div>
+      </Space>,
+    );
+
+    expect(screen.getByTestId("Space")).toHaveClass("nowrap");
   });
 });

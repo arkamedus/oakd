@@ -286,8 +286,8 @@ export const Welcome = () => {
 														<Paragraph>
 															<strong>line charts</strong>
 														</Paragraph>
-														<Content grow wide>
-															<Card pad wide fill>
+														<Content grow fill wide>
+															<Card pad wide grow fill>
 																<MultiLineChart
 																	lines={[
 																		{
@@ -322,7 +322,7 @@ export const Welcome = () => {
 																		},
 																	]}
 																	hoverLabel={"events"}
-																	fillHeight
+																	fill
 																	showVerticalTicks
 																	smooth
 																/>
@@ -344,7 +344,7 @@ export const Welcome = () => {
 														<Paragraph>
 															<strong>stacked bar graphs</strong>
 														</Paragraph>
-														<Content grow wide>
+														<Content grow fill wide>
 															<StackedBreakdownChart
 																labels={[
 																	"Helpful",

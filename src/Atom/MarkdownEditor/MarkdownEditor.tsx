@@ -123,14 +123,14 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 				<Space justify="between" align="center" wide>
 					<ButtonGroup>
 						<Button
-							variant={previewMode ? "ghost" : "primary"}
+							variant={previewMode ? "ghost" : "active"}
 							onClick={() => setPreviewMode(false)}
 							icon="Pen"
 						>
 							<Paragraph>Edit</Paragraph>
 						</Button>
 						<Button
-							variant={previewMode ? "primary" : "ghost"}
+							variant={previewMode ? "active" : "ghost"}
 							onClick={() => setPreviewMode(true)}
 							icon="Book"
 						>

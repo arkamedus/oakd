@@ -1,5 +1,3 @@
 import { CoreContentProps } from "../../Core/Core.types";
 
-export interface ContentProps extends CoreContentProps<HTMLDivElement> {
-	grow?: boolean;
-}
+export interface ContentProps extends CoreContentProps<HTMLDivElement> {}

@@ -10,6 +10,7 @@ const Content: React.FC<ContentProps> = ({
 	children,
 	pad,
 	grow,
+	fill,
 	wide,
 	style,
 	...rest
@@ -19,6 +20,7 @@ const Content: React.FC<ContentProps> = ({
 		"content",
 		pad && decode__padding(pad),
 		grow && "grow",
+		fill && "fill",
 		wide && "wide",
 		className,
 	]
@@ -48,6 +50,7 @@ export const ContentRow: React.FC<ContentProps> = ({
 	style,
 	pad,
 	grow,
+	fill,
 	wide,
 	...rest
 }) => {
@@ -56,6 +59,7 @@ export const ContentRow: React.FC<ContentProps> = ({
 		"content-row",
 		pad && decode__padding(pad),
 		grow && "grow",
+		fill && "fill",
 		wide && "wide",
 		className,
 	]

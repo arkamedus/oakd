@@ -50,16 +50,12 @@ const Tabs: React.FC<TabsProps> = ({
 		const tabId = `oakd-tab-${key}`;
 		const panelId = `oakd-tabpanel-${key}`;
 		const isActive = key === activeKeyCurrent;
-		const tabClassName = [
-			"oakd",
-			"tab",
-			orientation,
-			isActive ? "active" : "",
-		].join(" ");
+		const tabClassName = ["oakd", "tab", orientation].join(" ");
 
 		return (
 			<Button
 				key={key}
+				variant={isActive ? "active" : "ghost"}
 				className={tabClassName}
 				data-testid="Tab"
 				role="tab"

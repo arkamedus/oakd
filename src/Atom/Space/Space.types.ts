@@ -8,8 +8,8 @@ import {
 
 export interface SpaceProps
 	extends
-		CoreLayoutProps<HTMLSpanElement>,
-		CoreComponentEventProps<HTMLSpanElement> {
+		CoreLayoutProps<HTMLDivElement>,
+		CoreComponentEventProps<HTMLDivElement> {
 	direction?: CoreComponentLayoutDirectionType;
 	align?: ComponentAlignType;
 	justify?: ComponentJustifyType;

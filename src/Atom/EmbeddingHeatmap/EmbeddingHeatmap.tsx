@@ -20,10 +20,12 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 	minCellWidth = 8,
 	stripHeight = 18,
 	height,
+	fill = false,
 	fillHeight = false,
 	className = "",
 	style,
 }) => {
+	const shouldFill = fill || fillHeight;
 	const rows = normalizeEmbedding(embedding);
 	const flat = rows.flat();
 
@@ -34,7 +36,7 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 					"oakd",
 					"wide",
 					"oakd-embedding-heatmap",
-					fillHeight && "oakd-embedding-heatmap--fill",
+					shouldFill && "oakd-embedding-heatmap--fill",
 					className,
 				]
 					.filter(Boolean)
@@ -59,7 +61,7 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 	const span = Math.max(max - min, 1e-6);
 	const isMatrix = rows.length > 1;
 	const columns = Math.max(...rows.map((row) => row.length), 1);
-	const resolvedHeight = fillHeight ? "100%" : height;
+	const resolvedHeight = shouldFill ? "100%" : height;
 	const rowHeight = isMatrix
 		? typeof height === "number"
 			? height / Math.max(rows.length, 1)
@@ -74,7 +76,7 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 				"oakd",
 				"wide",
 				"oakd-embedding-heatmap",
-				fillHeight && "oakd-embedding-heatmap--fill",
+				shouldFill && "oakd-embedding-heatmap--fill",
 				className,
 			]
 				.filter(Boolean)
@@ -85,7 +87,7 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 				direction="vertical"
 				gap
 				wide
-				fill={fillHeight}
+				fill={shouldFill}
 				className="oakd-embedding-heatmap__content"
 			>
 				<ChartHeader title={title} subtitle={subtitle} />
@@ -93,7 +95,7 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 					data-testid="EmbeddingHeatmapGrid"
 					className={[
 						"oakd-embedding-heatmap__grid",
-						fillHeight && "oakd-embedding-heatmap__grid--fill",
+						shouldFill && "oakd-embedding-heatmap__grid--fill",
 					]
 						.filter(Boolean)
 						.join(" ")}
@@ -102,7 +104,7 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 						gridTemplateColumns: `repeat(${columns}, minmax(${minCellWidth}px, 1fr))`,
 						width: "100%",
 						gap: 0,
-						minHeight: fillHeight ? 0 : isMatrix ? undefined : rowHeight,
+						minHeight: shouldFill ? 0 : isMatrix ? undefined : rowHeight,
 						height: resolvedHeight,
 						overflow: "hidden",
 						borderRadius: 6,
@@ -121,8 +123,8 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 									key={`${rowIndex}-${colIndex}`}
 									style={{
 										minWidth: minCellWidth,
-										minHeight: fillHeight && isMatrix ? undefined : rowHeight,
-										height: fillHeight && isMatrix ? "100%" : rowHeight,
+										minHeight: shouldFill && isMatrix ? undefined : rowHeight,
+										height: shouldFill && isMatrix ? "100%" : rowHeight,
 										background: color,
 										borderRadius: 0,
 									}}

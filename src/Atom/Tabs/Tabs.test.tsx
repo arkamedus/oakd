@@ -32,6 +32,9 @@ describe("Tabs Component", () => {
       "aria-selected",
       "true",
     );
+    expect(screen.getByRole("tab", { name: "Overview" })).toHaveClass(
+      "type-active",
+    );
     expect(screen.getByRole("tabpanel")).toHaveTextContent("Overview panel");
   });
 

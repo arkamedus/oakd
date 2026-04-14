@@ -14,10 +14,14 @@
     padding: var(--leading);
 }
 
-.oakd.card.fill {
+.oakd.card.grow {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
+    min-height: 0;
+}
+
+.oakd.card.fill {
     height: 100%;
     min-height: 0;
 }

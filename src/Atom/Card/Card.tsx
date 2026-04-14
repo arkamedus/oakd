@@ -14,6 +14,7 @@ const Card: React.FC<CardProps> = ({
 	children,
 	style,
 	wide,
+	grow,
 	fill,
 	className,
 	pad,
@@ -27,6 +28,9 @@ const Card: React.FC<CardProps> = ({
 	}
 	if (wide) {
 		classNames.push("wide");
+	}
+	if (grow) {
+		classNames.push("grow");
 	}
 	if (fill) {
 		classNames.push("fill");

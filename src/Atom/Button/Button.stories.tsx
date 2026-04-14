@@ -13,7 +13,15 @@ const meta: Meta<typeof Button> = {
 	argTypes: {
 		variant: {
 			control: "select",
-			options: ["default", "primary", "danger", "warning", "ghost", "disabled"],
+			options: [
+				"default",
+				"active",
+				"primary",
+				"danger",
+				"warning",
+				"ghost",
+				"disabled",
+			],
 			description: "Set the button variant",
 			defaultValue: "default",
 		},
@@ -129,6 +137,13 @@ Primary.args = {
 	variant: "primary",
 	icon: "Triangle",
 	children: "Primary",
+};
+
+export const Active: Story = Template.bind({});
+Active.args = {
+	variant: "active",
+	icon: "Check",
+	children: "Active",
 };
 
 export const Danger: Story = Template.bind({});

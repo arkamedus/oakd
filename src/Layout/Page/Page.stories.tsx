@@ -4,7 +4,6 @@ import Page from "./Page";
 import Content from "../Content/Content";
 import Row from "../Row/Row";
 import { Col } from "../Column/Column";
-import Aspect from "../Aspect/Aspect";
 import Paragraph from "../../Atom/Paragraph/Paragraph";
 import Space from "../../Atom/Space/Space";
 import Title from "../../Atom/Title/Title";
@@ -126,13 +125,15 @@ const noteCard = (title: string, body: string) => (
 	</Card>
 );
 
+const viewportStyle = { minHeight: "440pt", height: "440pt" } as const;
+
 export const Default: Story = {
 	args: {
 		gap: false,
 	},
 	render: (args) => (
-		<Aspect ratio="16x9">
-			<Page {...args}>
+		<Content fill pad style={viewportStyle}>
+			<Page {...args} fill>
 				<Content>
 					<Space direction="vertical" gap>
 						<Title>Simple page</Title>
@@ -143,7 +144,7 @@ export const Default: Story = {
 					</Space>
 				</Content>
 			</Page>
-		</Aspect>
+		</Content>
 	),
 };
 
@@ -152,8 +153,8 @@ export const WithGap: Story = {
 		gap: true,
 	},
 	render: (args) => (
-		<Aspect ratio="16x9">
-			<Page {...args}>
+		<Content fill pad style={viewportStyle}>
+			<Page {...args} fill>
 				<Content>
 					<Title>Header</Title>
 				</Content>
@@ -168,14 +169,14 @@ export const WithGap: Story = {
 					</Card>
 				</Content>
 			</Page>
-		</Aspect>
+		</Content>
 	),
 };
 
 export const WorkspaceSlice: Story = {
 	render: () => (
-		<Aspect ratio="21x9">
-			<Page gap>
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
 				<Content>
 					<Space justify="between" align="center" wide>
 						<Space direction="vertical" gap>
@@ -220,14 +221,14 @@ export const WorkspaceSlice: Story = {
 					</Row>
 				</Content>
 			</Page>
-		</Aspect>
+		</Content>
 	),
 };
 
 export const FixedHeaderWithGrowBody: Story = {
 	render: () => (
-		<Aspect ratio="21x9">
-			<Page gap fixed>
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
 				<Content>
 					<Space justify="between" align="center" wide>
 						<Space direction="vertical" gap>
@@ -292,14 +293,14 @@ export const FixedHeaderWithGrowBody: Story = {
 					</Space>
 				</Content>
 			</Page>
-		</Aspect>
+		</Content>
 	),
 };
 
 export const ScrollableOperationsPage: Story = {
 	render: () => (
-		<Aspect ratio="21x9">
-			<Page gap fixed>
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
 				<Content>
 					<Space justify="between" align="center" wide>
 						<Space direction="vertical" gap>
@@ -367,14 +368,14 @@ export const ScrollableOperationsPage: Story = {
 					</Space>
 				</Content>
 			</Page>
-		</Aspect>
+		</Content>
 	),
 };
 
 export const AnalyticsWorkspace: Story = {
 	render: () => (
-		<Aspect ratio="21x9">
-			<Page gap fixed>
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
 				<Content>
 					<Space justify="between" align="center" wide>
 						<Space direction="vertical" gap>
@@ -411,8 +412,8 @@ export const AnalyticsWorkspace: Story = {
 										The summary stays fixed while the main chart region consumes
 										the remaining page height.
 									</Paragraph>
-									<Content grow wide>
-										<Card pad wide fill>
+									<Content grow fill wide>
+										<Card wide fill>
 											<MultiLineChart
 												lines={[
 													{
@@ -435,7 +436,7 @@ export const AnalyticsWorkspace: Story = {
 													},
 												]}
 												hoverLabel="events"
-												fillHeight
+												fill
 												showVerticalTicks
 												smooth
 											/>
@@ -521,14 +522,14 @@ export const AnalyticsWorkspace: Story = {
 					</Space>
 				</Content>
 			</Page>
-		</Aspect>
+		</Content>
 	),
 };
 
 export const KnowledgeBaseWorkspace: Story = {
 	render: () => (
-		<Aspect ratio="21x9">
-			<Page gap fixed>
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
 				<Content>
 					<Space justify="between" align="center" wide>
 						<Space direction="vertical" gap>
@@ -623,6 +624,6 @@ export const KnowledgeBaseWorkspace: Story = {
 					</Space>
 				</Content>
 			</Page>
-		</Aspect>
+		</Content>
 	),
 };

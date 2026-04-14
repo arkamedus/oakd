@@ -117,7 +117,7 @@ describe("MultiLineChart Component", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "264");
+      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "280");
     });
     expect(screen.getByTestId("MultiLineChartRoot")).toHaveClass("oakd-multi-line-chart--fill");
     expect(screen.getByTestId("MultiLineChartFrame")).toHaveClass("oakd-multi-line-chart__frame-fill");
@@ -161,9 +161,9 @@ describe("MultiLineChart Component", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "264");
+      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "280");
     });
 
-    expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "264");
+    expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "280");
   });
 });

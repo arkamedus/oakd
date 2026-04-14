@@ -47,6 +47,7 @@ const getValueAtIndex = (values: MultiLineChartPoint[], index: number) =>
 const MultiLineChart: React.FC<MultiLineChartProps> = ({
 	lines,
 	height,
+	fill = false,
 	fillHeight = false,
 	hoverLabel,
 	smooth = false,
@@ -54,8 +55,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 	className = "",
 	style,
 }) => {
-	const rootRef = useRef<HTMLDivElement>(null);
-	const legendRef = useRef<HTMLDivElement>(null);
+	const shouldFill = fill || fillHeight;
 	const frameRef = useRef<HTMLDivElement>(null);
 	const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
 	const [hoverX, setHoverX] = useState<number | null>(null);
@@ -68,11 +68,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 
 		const measure = () => {
 			const nextWidth = getWidth(frameElement);
-			const rootHeight = getHeight(rootRef.current);
-			const legendHeight = getHeight(legendRef.current);
-			const nextHeight = fillHeight
-				? Math.max(0, rootHeight - legendHeight - 16)
-				: (height ?? 180);
+			const nextHeight = shouldFill ? getHeight(frameElement) : (height ?? 180);
 			setFrameSize((current) =>
 				current.width === nextWidth && current.height === nextHeight
 					? current
@@ -92,19 +88,13 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 		});
 
 		observer.observe(frameElement);
-		if (rootRef.current) {
-			observer.observe(rootRef.current);
-		}
-		if (legendRef.current) {
-			observer.observe(legendRef.current);
-		}
 		return () => {
 			observer.disconnect();
 			if (frameId !== null) {
 				cancelAnimationFrame(frameId);
 			}
 		};
-	}, [fillHeight, height]);
+	}, [shouldFill, height]);
 
 	if (!lines.length) {
 		return (
@@ -129,13 +119,12 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 	if (frameSize.width === 0) {
 		return (
 			<div
-				ref={rootRef}
 				data-testid="MultiLineChartRoot"
 				className={[
 					"oakd",
 					"wide",
 					"oakd-multi-line-chart",
-					fillHeight && "oakd-multi-line-chart--fill",
+					shouldFill && "oakd-multi-line-chart--fill",
 					className,
 				]
 					.filter(Boolean)
@@ -143,7 +132,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 				style={style}
 			>
 				<div className="oakd-multi-line-chart__content">
-					<div ref={legendRef}>
+					<div>
 						<ChartLegend
 							items={normalizedLines.map((line) => ({
 								label: line.label,
@@ -155,7 +144,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 						ref={frameRef}
 						className={[
 							"oakd-multi-line-chart__frame",
-							fillHeight ? "oakd-multi-line-chart__frame-fill" : "",
+							shouldFill ? "oakd-multi-line-chart__frame-fill" : "",
 						]
 							.filter(Boolean)
 							.join(" ")}
@@ -189,13 +178,12 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 
 	return (
 		<div
-			ref={rootRef}
 			data-testid="MultiLineChartRoot"
 			className={[
 				"oakd",
 				"wide",
 				"oakd-multi-line-chart",
-				fillHeight && "oakd-multi-line-chart--fill",
+				shouldFill && "oakd-multi-line-chart--fill",
 				className,
 			]
 				.filter(Boolean)
@@ -203,7 +191,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 			style={style}
 		>
 			<div className="oakd-multi-line-chart__content">
-				<div ref={legendRef}>
+				<div>
 					<ChartLegend
 						items={normalizedLines.map((line) => ({
 							label: line.label,
@@ -216,7 +204,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 					data-testid="MultiLineChartFrame"
 					className={[
 						"oakd-multi-line-chart__frame",
-						fillHeight ? "oakd-multi-line-chart__frame-fill" : "",
+						shouldFill ? "oakd-multi-line-chart__frame-fill" : "",
 					]
 						.filter(Boolean)
 						.join(" ")}

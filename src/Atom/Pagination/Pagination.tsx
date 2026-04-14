@@ -3,6 +3,7 @@ import { PaginationProps } from "./Pagination.types";
 import "./Pagination.css";
 import Button from "../Button/Button";
 import Space from "../Space/Space";
+import Paragraph from "../Paragraph/Paragraph";
 
 const range = (start: number, end: number) => {
 	return Array.from({ length: end - start + 1 }, (_, i) => start + i);
@@ -12,6 +13,7 @@ const Pagination: React.FC<PaginationProps> = ({
 	maxPage = 100,
 	currentPage = 1,
 	onPageChange,
+	count = 5,
 	size = "default",
 	disabled,
 	showPreviousNext = true,
@@ -25,14 +27,21 @@ const Pagination: React.FC<PaginationProps> = ({
 		}
 	};
 
-	const numbersToShow =
-		showNumbers && maxPage <= 10
-			? range(1, maxPage)
-			: showNumbers
-				? range(1, maxPage).filter(
-						(n) => n >= currentPage - 1 && n <= currentPage + 1,
-					)
-				: [];
+	const visibleCount = Math.max(1, Math.min(count, maxPage));
+	const halfWindow = Math.floor(visibleCount / 2);
+	const startPage = Math.min(
+		Math.max(1, currentPage - halfWindow),
+		Math.max(1, maxPage - visibleCount + 1),
+	);
+	const endPage = Math.min(maxPage, startPage + visibleCount - 1);
+	const numbersToShow = showNumbers ? range(startPage, endPage) : [];
+	const showLeadingEllipsis =
+		showNumbers && showEllipsis && numbersToShow.length > 0 && startPage > 1;
+	const showTrailingEllipsis =
+		showNumbers &&
+		showEllipsis &&
+		numbersToShow.length > 0 &&
+		endPage < maxPage;
 
 	return (
 		<Space
@@ -54,11 +63,11 @@ const Pagination: React.FC<PaginationProps> = ({
 					disabled={disabled || currentPage <= 1}
 				/>
 			)}
-			{showEllipsis && maxPage > 4 && !numbersToShow.includes(maxPage - 2) && (
-				<span className="dot">...</span>
-			)}
+			{showLeadingEllipsis && <Paragraph className="dot">...</Paragraph>}
 			{numbersToShow.map((number) => (
 				<Button
+					htmlType="button"
+					variant={currentPage === number ? "active" : "ghost"}
 					size={size}
 					key={`pagination-number-${number}`}
 					className={`pagination-button ${currentPage === number ? "current" : ""}`}
@@ -68,9 +77,7 @@ const Pagination: React.FC<PaginationProps> = ({
 					{number}
 				</Button>
 			))}
-			{showEllipsis && maxPage > 3 && !numbersToShow.includes(3) && (
-				<span className="dot">...</span>
-			)}
+			{showTrailingEllipsis && <Paragraph className="dot">...</Paragraph>}
 			{showPreviousNext && (
 				<Button
 					htmlType="button"

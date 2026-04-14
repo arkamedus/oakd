@@ -13,6 +13,7 @@ const meta: Meta<typeof Pagination> = {
 	argTypes: {
 		maxPage: { control: "number" },
 		currentPage: { control: "number" },
+		count: { control: "number" },
 		onPageChange: { action: "page changed" },
 	},
 };
@@ -25,6 +26,7 @@ export const Default: Story = {
 	args: {
 		maxPage: 10,
 		currentPage: 2,
+		count: 5,
 		showPreviousNext: true,
 		showNumbers: true,
 		showEllipsis: true,
@@ -36,6 +38,7 @@ export const WithSearchResultsContext: Story = {
 	args: {
 		maxPage: 48,
 		currentPage: 6,
+		count: 5,
 		showPreviousNext: true,
 		showNumbers: true,
 		showEllipsis: true,
@@ -58,6 +61,7 @@ export const WithManyPages: Story = {
 	args: {
 		maxPage: 100,
 		currentPage: 52,
+		count: 5,
 		showPreviousNext: true,
 		showNumbers: true,
 		showEllipsis: true,
@@ -69,6 +73,7 @@ export const WithoutPreviousNext: Story = {
 	args: {
 		maxPage: 20,
 		currentPage: 4,
+		count: 5,
 		showPreviousNext: false,
 		showNumbers: true,
 		showEllipsis: false,

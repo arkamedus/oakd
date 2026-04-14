@@ -14,6 +14,8 @@ export interface MultiLineChartSeries {
 export interface MultiLineChartProps {
 	lines: MultiLineChartSeries[];
 	height?: number;
+	fill?: boolean;
+	/** @deprecated Use `fill` instead. */
 	fillHeight?: boolean;
 	hoverLabel?: string;
 	smooth?: boolean;

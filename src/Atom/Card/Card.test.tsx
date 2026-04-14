@@ -18,6 +18,18 @@ describe("Card Component", () => {
     expect(card).toHaveClass("fill");
   });
 
+  it("treats grow and fill as separate layout contracts", () => {
+    render(
+      <Card grow fill aria-label="Growing card">
+        Flexible card
+      </Card>,
+    );
+
+    const card = screen.getByRole("region", { name: "Growing card" });
+    expect(card).toHaveClass("grow");
+    expect(card).toHaveClass("fill");
+  });
+
   it("forwards interactive props to the card container", () => {
     const handleClick = jest.fn();
 

@@ -16,6 +16,9 @@ describe("MarkdownEditor Component", () => {
         name: "Preview",
       }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Preview" })).toHaveClass(
+      "type-active",
+    );
   });
 
   it("inserts markdown syntax from the toolbar", () => {

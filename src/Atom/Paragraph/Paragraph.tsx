@@ -22,7 +22,7 @@ const Paragraph: React.FC<ParagraphProps> = ({
 		<p
 			{...rest}
 			data-testid={"Paragraph"}
-			style={style}
+			style={{ flexShrink: 0, minWidth: 0, ...style }}
 			className={classNames.join(" ")}
 		>
 			{children}

@@ -25,7 +25,7 @@ const Space: React.FC<SpaceProps> = ({
 	if (direction) classNames.push(`direction-${direction}`);
 	if (align) classNames.push(`align-${align}`);
 	if (justify) classNames.push(`justify-${justify}`);
-	if (noWrap) classNames.push(`nowrap`);
+	if (noWrap || direction === "vertical") classNames.push(`nowrap`);
 	if (gap) {
 		classNames.push("gap");
 	}
@@ -39,12 +39,12 @@ const Space: React.FC<SpaceProps> = ({
 		classNames.push("grow");
 	}
 
-	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
 		if (onClick) onClick(event);
 	};
 
 	return (
-		<span
+		<div
 			{...rest}
 			id={id}
 			onClick={handleClick}
@@ -53,7 +53,7 @@ const Space: React.FC<SpaceProps> = ({
 			className={classNames.join(" ")}
 		>
 			{children}
-		</span>
+		</div>
 	);
 };
 

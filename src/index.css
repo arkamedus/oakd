@@ -321,6 +321,13 @@ html {
   border-color: var(--oakd-active-border);
   background-color: var(--oakd-active-color);
 }
+.oakd.button.type-active {
+  border-color: var(--oakd-active-border);
+  background-color: var(--oakd-active-color);
+}
+.oakd.button.type-active .oakd.standardized-text {
+  color: var(--oakd-active-text);
+}
 .oakd.card.type-active .standardized-text {
   color: var(--oakd-active-text);
 }
@@ -385,5 +392,4 @@ html {
 {
   color: #666;
 }
-
 

@@ -80,6 +80,8 @@ export interface CoreContentProps<
 	T = HTMLElement,
 > extends CoreComponentProps<T> {
 	wide?: boolean;
+	grow?: boolean;
+	fill?: boolean;
 	pad?: CorePaddingType;
 }
 

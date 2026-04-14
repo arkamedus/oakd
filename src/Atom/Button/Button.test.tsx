@@ -45,4 +45,11 @@ describe("Button Component", () => {
       "true",
     );
   });
+
+  it("supports the active visual variant", () => {
+    render(<Button variant="active">Selected</Button>);
+    expect(screen.getByRole("button", { name: "Selected" })).toHaveClass(
+      "type-active",
+    );
+  });
 });

@@ -8,12 +8,20 @@ const Page: React.FC<PageProps> = ({
 	children,
 	style,
 	fixed,
+	fill,
 	gap,
 	className,
 	onClick,
 	...rest
 }) => {
-	const classes = ["oakd", "page", gap && "gap", fixed && "fixed", className]
+	const classes = [
+		"oakd",
+		"page",
+		gap && "gap",
+		fill && "fill",
+		fixed && "fixed",
+		className,
+	]
 		.filter(Boolean)
 		.join(" ");
 	return (

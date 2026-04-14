@@ -5,6 +5,10 @@
     min-width: 0;
 }
 
+.space.nowrap {
+    flex-wrap: nowrap;
+}
+
 .space.gap {
     column-gap: var(--leading);
     row-gap: var(--leading);

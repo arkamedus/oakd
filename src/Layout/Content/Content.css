@@ -18,6 +18,13 @@
   //background-color: var(--background);
 }
 
+.oakd.content.fill {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
 .oakd.content.grow {
   display: flex;
   flex-direction: column;
