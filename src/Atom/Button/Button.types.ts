@@ -1,25 +1,17 @@
-import {
-	CoreComponentSizeType,
-	CoreComponentProps,
-	CoreComponentEventProps,
-	ButtonType,
-} from "../../Core/Core.types";
-import { CSSProperties } from "react";
+import { CoreComponentSizeType, ButtonType } from "../../Core/Core.types";
+import React from "react";
 import { CoreIconNameType } from "../../Icon/Icons.bin";
 
-export interface ButtonProps
-	extends CoreComponentProps,
-		CoreComponentEventProps {
+export interface ButtonProps extends Omit<
+	React.ButtonHTMLAttributes<HTMLButtonElement>,
+	"type"
+> {
 	/** HTML button type */
-	buttonType?: "button" | "submit" | "reset";
-	/** Visual style type */
-	type?: ButtonType;
+	htmlType?: "button" | "submit" | "reset";
+	/** Visual style variant */
+	variant?: ButtonType;
 	/** Size of the Button */
-	size?: CoreComponentSizeType;
-	/** Inline styles for the Button */
-	style?: CSSProperties;
+	size?: Exclude<CoreComponentSizeType, "huge">;
 	/** Optional icon (name or element) */
 	icon?: CoreIconNameType | React.JSX.Element;
-	/** Disable the Button */
-	disabled?: boolean;
 }

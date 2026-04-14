@@ -12,6 +12,7 @@ const Content: React.FC<ContentProps> = ({
 	grow,
 	wide,
 	style,
+	...rest
 }) => {
 	const classes = [
 		"oakd",
@@ -25,6 +26,7 @@ const Content: React.FC<ContentProps> = ({
 		.join(" ");
 	return (
 		<div
+			{...rest}
 			id={id}
 			key={key}
 			data-testid="Content"
@@ -47,6 +49,7 @@ export const ContentRow: React.FC<ContentProps> = ({
 	pad,
 	grow,
 	wide,
+	...rest
 }) => {
 	const classes = [
 		"oakd",
@@ -60,6 +63,7 @@ export const ContentRow: React.FC<ContentProps> = ({
 		.join(" ");
 	return (
 		<div
+			{...rest}
 			id={id}
 			key={key}
 			style={style}

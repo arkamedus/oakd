@@ -1,6 +1,14 @@
 # **oakd React Component Library**
 
-A scalable and efficient TypeScript React component library for modern applications.
+A zero-dependency React component framework for modern TypeScript applications.
+
+`oakd` ships without runtime dependencies beyond React and React DOM as peer
+dependencies. That means no styling engine to install, no utility runtime to
+carry, and no extra component-layer packages for consumers to manage.
+
+It is designed to give teams a lightweight, framework-style foundation for
+layout, typography, inputs, navigation, and composition while keeping install
+weight and integration overhead low.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![Tests Passing](https://img.shields.io/badge/Tests-Passing-brightgreen.svg) ![Functional Coverage](https://img.shields.io/badge/Functional_Coverage-92%25-brightgreen.svg) ![Branch Coverage](https://img.shields.io/badge/Branch_Coverage-75%25-green.svg)
 [![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://oakframe.org/oakd)
@@ -15,6 +23,8 @@ To start using `oakd`, install it via npm:
 ```sh  
 npm install oakd  
 ```  
+
+`react` and `react-dom` should already exist in the consuming application.
 
 Then, **import the styles** in your `App.tsx` (or wherever you use `oakd` components):
 ```tsx  

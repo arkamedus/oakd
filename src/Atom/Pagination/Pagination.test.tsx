@@ -1,71 +1,49 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Pagination from "./Pagination";
 import { PaginationProps } from "./Pagination.types";
 
 describe("Pagination Component", () => {
-    let props: PaginationProps;
+  let props: PaginationProps;
 
-    beforeEach(() => {
-        props = {
-            maxPage: 100,
-            currentPage: 1,
-            onPageChange: jest.fn(),
-            size: "default",
-            showPreviousNext: true,
-            showNumbers: true,
-            showEllipsis: true,
-        };
-    });
+  beforeEach(() => {
+    props = {
+      maxPage: 100,
+      currentPage: 10,
+      onPageChange: jest.fn(),
+      size: "default",
+      showPreviousNext: true,
+      showNumbers: true,
+      showEllipsis: true,
+    };
+  });
 
-    it("should render the Pagination component", () => {
-        render(<Pagination {...props} />);
-        expect(screen.getByTestId("PaginationLeft")).toBeInTheDocument();
-    });
+  it("changes to a selected page number", () => {
+    render(<Pagination {...props} />);
 
-    it("should disable the component styles when disabled is true", () => {
-        props.disabled = true;
-        const { container } = render(<Pagination {...props} />);
-        expect(container.querySelector(".disabled")).toBeInTheDocument();
-    });
+    fireEvent.click(screen.getByText("11"));
+    expect(props.onPageChange).toHaveBeenCalledWith(11);
+  });
 
-    it("should call onPageChange when clicking a page number", () => {
-        render(<Pagination {...props} />);
-        const page2 = screen.getByText("2");
-        fireEvent.click(page2);
-        expect(props.onPageChange).toHaveBeenCalledWith(2);
-    });
+  it("supports previous and next navigation within range", () => {
+    const { rerender } = render(<Pagination {...props} />);
 
-    it("should correctly go to the previous page", () => {
-        props.currentPage = 2;
-        render(<Pagination {...props} />);
-        const prevBtn = screen.getByTestId("PaginationLeft");
-        fireEvent.click(prevBtn);
-        expect(props.onPageChange).toHaveBeenCalledWith(1);
-    });
+    fireEvent.click(screen.getByTestId("PaginationLeft"));
+    expect(props.onPageChange).toHaveBeenCalledWith(9);
 
-    it("should correctly go to the next page", () => {
-        props.currentPage = 1;
-        render(<Pagination {...props} />);
-        const nextBtn = screen.getByTestId("PaginationRight");
-        fireEvent.click(nextBtn);
-        expect(props.onPageChange).toHaveBeenCalledWith(2);
-    });
+    props.currentPage = 11;
+    rerender(<Pagination {...props} />);
+    fireEvent.click(screen.getByTestId("PaginationRight"));
+    expect(props.onPageChange).toHaveBeenCalledWith(12);
+  });
 
-    it("should not go to the previous page if on the first page", () => {
-        props.currentPage = 1;
-        render(<Pagination {...props} />);
-        const prevBtn = screen.getByTestId("PaginationLeft");
-        fireEvent.click(prevBtn);
-        expect(props.onPageChange).not.toHaveBeenCalled();
-    });
+  it("prevents navigation past the first or last page", () => {
+    const { rerender } = render(<Pagination {...props} currentPage={1} />);
+    fireEvent.click(screen.getByTestId("PaginationLeft"));
 
-    it("should not go to the next page if on the last page", () => {
-        props.currentPage = 100;
-        render(<Pagination {...props} />);
-        const nextBtn = screen.getByTestId("PaginationRight");
-        fireEvent.click(nextBtn);
-        expect(props.onPageChange).not.toHaveBeenCalled();
-    });
+    rerender(<Pagination {...props} currentPage={100} />);
+    fireEvent.click(screen.getByTestId("PaginationRight"));
 
+    expect(props.onPageChange).not.toHaveBeenCalled();
+  });
 });

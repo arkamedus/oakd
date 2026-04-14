@@ -1,9 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { ButtonProps } from "./Button.types";
 import "./Button.css";
 import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
-import Paragraph from "../Paragraph/Paragraph";
 import { sizeMinusOne } from "../../Core/Core.utils";
 import { CoreComponentLayoutDirectionType } from "../../Core/Core.types";
 
@@ -13,78 +12,89 @@ import { CoreComponentLayoutDirectionType } from "../../Core/Core.types";
  * @param {ButtonProps} props Component properties
  * @returns {JSX.Element} Rendered Button element
  */
-const Button: React.FC<ButtonProps> = ({
-	children,
-	onClick,
-	style,
-	buttonType = "button",
-	type = "default",
-	size = "default",
-	className = "",
-	icon,
-	disabled,
-	role = "button",
-	onMouseDown,
-	onMouseEnter,
-	onMouseLeave
-}) => {
-	const isDisabled = type === "disabled" || disabled;
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+	(
+		{
+			children,
+			onClick,
+			style,
+			htmlType = "button",
+			variant = "default",
+			size = "default",
+			className = "",
+			icon,
+			disabled,
+			...rest
+		},
+		ref,
+	) => {
+		const isDisabled = variant === "disabled" || disabled;
 
-	const classNames = [
-		"oakd",
-		"standardized-reset",
-		"standardized-text",
-		"button",
-		`type-${type}`,
-		`size-${size}`,
-		isDisabled ? "disabled" : "",
-		className,
-	]
-		.filter(Boolean)
-		.join(" ");
+		const classNames = [
+			"oakd",
+			"standardized-reset",
+			"standardized-text",
+			"button",
+			`type-${variant}`,
+			`size-${size}`,
+			isDisabled ? "disabled" : "",
+			className,
+		]
+			.filter(Boolean)
+			.join(" ");
 
-	/**
-	 * Handles the click event. Prevents action if disabled.
-	 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
-	 */
-	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-		if (isDisabled) return;
-		if (onClick) onClick(event);
-	};
+		/**
+		 * Handles the click event. Prevents action if disabled.
+		 * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
+		 */
+		const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+			if (isDisabled) return;
+			onClick?.(event);
+		};
 
-	return (
-		<button
-			onMouseEnter={onMouseEnter}
-			onMouseDown={onMouseDown}
-			onMouseLeave={onMouseLeave}
-			style={style}
-			className={classNames}
-			onClick={handleClick}
-			type={buttonType}
-			disabled={isDisabled}
-			role={role}
-			data-testid="Button"
-		>
-			<Space gap align="center" style={{ height: "100%" }}>
-				{icon && typeof icon === "string" ? (
-					<Icon name={icon} size={sizeMinusOne(size)} />
-				) : (
-					icon
-				)}
-				{children}
-			</Space>
-		</button>
-	);
-};
+		return (
+			<button
+				{...rest}
+				ref={ref}
+				style={style}
+				className={classNames}
+				onClick={handleClick}
+				type={htmlType}
+				disabled={isDisabled}
+				data-testid={rest["data-testid"] || "Button"}
+			>
+				<Space gap align="center" style={{ height: "100%" }}>
+					{icon && typeof icon === "string" ? (
+						<Icon name={icon} size={sizeMinusOne(size)} />
+					) : (
+						icon
+					)}
+					{children}
+				</Space>
+			</button>
+		);
+	},
+);
 
 export default Button;
 
-export const ButtonGroup: React.FC<{
-	children?: any;
+interface ButtonGroupProps extends React.HTMLAttributes<HTMLSpanElement> {
+	children?: React.ReactNode;
 	direction?: CoreComponentLayoutDirectionType;
-}> = ({ children, direction = "horizontal" }) => {
+}
+
+export const ButtonGroup: React.FC<ButtonGroupProps> = ({
+	children,
+	direction = "horizontal",
+	className = "",
+	...rest
+}) => {
 	return (
-		<Space className={`button_group ${direction}`} direction={direction}>
+		<Space
+			{...rest}
+			className={`button_group ${direction} ${className}`.trim()}
+			direction={direction}
+		>
 			{children}
 		</Space>
 	);

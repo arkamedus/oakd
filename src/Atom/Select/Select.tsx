@@ -16,32 +16,42 @@ import { sizeMinusOne } from "../../Core/Core.utils";
 
 const Select: React.FC<SelectProps<any>> = ({
 	options,
+	value,
 	defaultValue,
 	placeholder,
-	onSelected,
-	type = "ghost",
+	onChange,
+	variant = "ghost",
 	size = "default",
-	categorize,
+	categoryOrder,
 	fixed = false,
 	direction = "bottom-left",
+	disabled = false,
+	className = "",
+	style,
+	...rest
 }) => {
 	const [isActive, setIsActive] = useState(false);
-	const [selectedValue, setSelectedValue] = useState<any | undefined>(
+	const isControlled = value !== undefined;
+	const [selectedValueState, setSelectedValueState] = useState<any | undefined>(
 		defaultValue,
 	);
+	const selectedValue = isControlled ? value : selectedValueState;
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const toggleMenu = useCallback(() => {
+		if (disabled) return;
 		setIsActive((current) => !current);
-	}, []);
+	}, [disabled]);
 
 	const selectOption = useCallback(
 		(value: any) => {
-			setSelectedValue(value);
-			onSelected(value);
+			if (!isControlled) {
+				setSelectedValueState(value);
+			}
+			onChange?.(value);
 			setIsActive(false);
 		},
-		[onSelected],
+		[isControlled, onChange],
 	);
 
 	const handleButtonKeyDown = useCallback(
@@ -55,7 +65,7 @@ const Select: React.FC<SelectProps<any>> = ({
 	);
 
 	const handleOptionKeyDown = useCallback(
-		(event: KeyboardEvent<HTMLSpanElement>, value: any) => {
+		(event: KeyboardEvent<HTMLButtonElement>, value: any) => {
 			if (event.key === "Enter" || event.key === " ") {
 				event.preventDefault();
 				selectOption(value);
@@ -81,8 +91,10 @@ const Select: React.FC<SelectProps<any>> = ({
 	}, [closeMenu]);
 
 	useEffect(() => {
-		setSelectedValue(defaultValue);
-	}, [defaultValue]);
+		if (!isControlled) {
+			setSelectedValueState(defaultValue);
+		}
+	}, [defaultValue, isControlled]);
 
 	const getCategorizedOptions = useCallback(() => {
 		const categorizedOptions: { [key: string]: SelectOption<any>[] } = {};
@@ -90,7 +102,7 @@ const Select: React.FC<SelectProps<any>> = ({
 
 		options.forEach((option) => {
 			const category = option.category || "Uncategorized";
-			if (categorize && option.category) {
+			if (categoryOrder && option.category) {
 				if (!categorizedOptions[category]) {
 					categorizedOptions[category] = [];
 				}
@@ -100,7 +112,7 @@ const Select: React.FC<SelectProps<any>> = ({
 			}
 		});
 
-		const orderedCategories = categorize?.order || [];
+		const orderedCategories = categoryOrder || [];
 		const sortedCategories = Object.keys(categorizedOptions).sort((a, b) => {
 			const indexA = orderedCategories.indexOf(a);
 			const indexB = orderedCategories.indexOf(b);
@@ -111,16 +123,19 @@ const Select: React.FC<SelectProps<any>> = ({
 		});
 
 		return { categorizedOptions, sortedCategories, uncategorizedOptions };
-	}, [options, categorize]);
+	}, [options, categoryOrder]);
 
 	const { categorizedOptions, sortedCategories, uncategorizedOptions } =
 		getCategorizedOptions();
-	const shouldShowCategories = categorize && sortedCategories.length > 0;
+	const shouldShowCategories =
+		!!categoryOrder?.length && sortedCategories.length > 0;
 
-	const selectedElement = (typeof selectedValue === "string" &&
-	selectedValue !== ""
-		? options.find((option) => option.value === selectedValue)?.element
-		: placeholder) || <span>Select an option</span>;
+	const selectedOption = options.find(
+		(option) => option.value === selectedValue,
+	);
+	const selectedElement = selectedOption?.element || placeholder || (
+		<span>Select an option</span>
+	);
 
 	// When fixed mode is active, compute the dropdown's top/left positions.
 	const fixedStyle =
@@ -137,14 +152,21 @@ const Select: React.FC<SelectProps<any>> = ({
 	} ${fixed ? "oakd-select__dropdown--fixed" : "oakd-select__dropdown--absolute"}`;
 
 	return (
-		<div ref={dropdownRef} className="oakd-select" data-testid="Select">
+		<div
+			{...rest}
+			ref={dropdownRef}
+			className={["oakd-select", className].filter(Boolean).join(" ")}
+			style={style}
+			data-testid="Select"
+		>
 			<Button
 				onClick={toggleMenu}
 				className="oakd-select__button"
-				type={type}
+				variant={variant}
 				size={size}
 				aria-haspopup="listbox"
 				aria-expanded={isActive}
+				disabled={disabled}
 				onKeyDown={handleButtonKeyDown}
 			>
 				<Space align="center" gap>
@@ -155,6 +177,7 @@ const Select: React.FC<SelectProps<any>> = ({
 			<div
 				className={dropdownClassName}
 				role="listbox"
+				aria-hidden={!isActive}
 				style={fixed ? fixedStyle : undefined}
 			>
 				<Space direction="vertical" gap wide justify="stretch">
@@ -169,31 +192,33 @@ const Select: React.FC<SelectProps<any>> = ({
 											<Divider />
 										</Space>
 										{categorizedOptions[category].map((option) => (
-											<span
+											<button
 												key={String(option.value)}
+												type="button"
 												className="oakd-select__item"
 												role="option"
-												tabIndex={0}
+												aria-selected={option.value === selectedValue}
 												onClick={() => selectOption(option.value)}
 												onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
 											>
 												{option.element}
-											</span>
+											</button>
 										))}
 									</Space>
 								</div>
 							))
 						: uncategorizedOptions.map((option) => (
-								<span
+								<button
 									key={String(option.value)}
+									type="button"
 									className="oakd-select__item"
 									role="option"
-									tabIndex={0}
+									aria-selected={option.value === selectedValue}
 									onClick={() => selectOption(option.value)}
 									onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
 								>
 									{option.element}
-								</span>
+								</button>
 							))}
 				</Space>
 			</div>

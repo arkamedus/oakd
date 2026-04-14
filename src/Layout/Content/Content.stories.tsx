@@ -1,17 +1,25 @@
 import React from "react";
+import { Meta } from "@storybook/react";
 import Content from "./Content";
 import DebugLayer from "../../Atom/DebugLayer/DebugLayer";
 import Paragraph from "../../Atom/Paragraph/Paragraph";
+import Space from "../../Atom/Space/Space";
+import Title from "../../Atom/Title/Title";
 
-export default {
+const meta: Meta<typeof Content> = {
 	title: "Design System/Atomic/Content",
+	component: Content,
 };
+export default meta;
 
 export const Default = () => (
 	<Content>
-		<DebugLayer label={"DebugLayer"}>
-			<Paragraph>Paragraph text.</Paragraph>
-		</DebugLayer>
+		<Space direction="vertical" gap>
+			<Title>Overview</Title>
+			<Paragraph>
+				Content provides predictable inner spacing for grouped UI.
+			</Paragraph>
+		</Space>
 	</Content>
 );
 

@@ -1,31 +1,30 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Divider from "./Divider";
 
 describe("Divider Component", () => {
-  const renderComponent = (props = {}) => render(<Divider {...props} />);
+  it("renders a semantic separator with orientation metadata", () => {
+    render(<Divider orientation="vertical" />);
+    const divider = screen.getByRole("separator");
 
-  it("should render without errors", () => {
-    const { getByTestId } = renderComponent();
-    const component = getByTestId("Divider");
-    expect(component).toBeInTheDocument();
+    expect(divider).toHaveClass("vertical");
+    expect(divider).toHaveAttribute("aria-orientation", "vertical");
   });
 
-  it("should not have any default text content", () => {
-    const { getByTestId } = renderComponent();
-    const component = getByTestId("Divider");
-    expect(component).toBeEmptyDOMElement();
-  });
+  it("forwards standard DOM props to the separator element", () => {
+    const handleMouseEnter = jest.fn();
+    render(
+      <Divider
+        className="subtle"
+        aria-label="Section divider"
+        onMouseEnter={handleMouseEnter}
+      />,
+    );
 
-  it("should apply the correct orientation class", () => {
-    const { getByTestId } = renderComponent({ orientation: "vertical" });
-    const component = getByTestId("Divider");
-    expect(component).toHaveClass("vertical");
-  });
+    const divider = screen.getByRole("separator", { name: "Section divider" });
+    fireEvent.mouseEnter(divider);
 
-  it("should handle custom class names", () => {
-    const { getByTestId } = renderComponent({ className: "custom-class" });
-    const component = getByTestId("Divider");
-    expect(component).toHaveClass("custom-class");
+    expect(handleMouseEnter).toHaveBeenCalled();
+    expect(divider).toHaveClass("subtle");
   });
 });

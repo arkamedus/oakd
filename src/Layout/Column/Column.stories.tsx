@@ -39,25 +39,25 @@ export default meta;
 
 const Template: StoryFn<typeof Column> = (args) => (
 	<Column {...args}>
-		<DebugLayer label="Column Content" />
+		<DebugLayer label="Responsive column" />
 	</Column>
 );
 
 export const Default = Template.bind({});
 Default.args = { xs: 24, md: 12, lg: 8 };
 
-export const withResponsiveColumnsGap = () => (
+export const DashboardGrid = () => (
 	<Row gap>
 		<Column xs={24}>
-			<DebugLayer label={"DebugLayer (Column 1)"} />
+			<DebugLayer label={"Header panel"} />
 		</Column>
 		<Column xs={24} md={12}>
 			<Aspect ratio={"16x9"}>
-				<DebugLayer label={"16x9"} style={{ height: "100%" }} />
+				<DebugLayer label={"Traffic chart"} style={{ height: "100%" }} />
 			</Aspect>
 		</Column>
 		<Column xs={24} md={12}>
-			<DebugLayer />
+			<DebugLayer label={"Conversion summary"} />
 		</Column>
 	</Row>
 );

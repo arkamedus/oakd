@@ -5,7 +5,7 @@ import meta from './Button.stories';
 
 # Button
 
-The `Button` component is an interactive element designed for user engagement. It supports multiple types and sizes and can include icons and labels as needed. It adheres to accessibility standards with appropriate roles and disabled behavior.
+The `Button` component is an interactive element designed for user engagement. It supports multiple variants and sizes, accepts native button props, and can include icons and labels as needed.
 
 <Primary />
 
@@ -19,10 +19,11 @@ The `Button` component provides a versatile control for actions such as submitti
 
 **Props**:
 
-- `type`: Sets the visual style of the button (e.g., default, primary, danger, warning, ghost, disabled).
+- `variant`: Sets the visual style of the button (e.g., default, primary, danger, warning, ghost, disabled).
+- `htmlType`: Sets the native HTML button type (`button`, `submit`, or `reset`).
 - `size`: Adjusts the size of the button (default, small, large).
 - `disabled`: Disables the button and prevents interactions.
 - `icon`: Optionally displays an icon either as a string (icon name) or as a JSX element.
-- `label`: Additional text label to be displayed alongside children.
+- Native button props such as `aria-*`, `data-*`, and keyboard handlers pass through to the rendered `<button>`.
 
 <Stories />

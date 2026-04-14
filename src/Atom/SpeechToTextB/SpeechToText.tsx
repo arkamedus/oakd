@@ -7,6 +7,10 @@ import Button from "../Button/Button";
 import { IconTriangle } from "../../Icon/Icons.bin";
 import Paragraph from "../Paragraph/Paragraph";
 
+type SpeechRecognitionResultEventLike = {
+	results: ArrayLike<ArrayLike<{ transcript: string }> & { isFinal?: boolean }>;
+};
+
 const SpeechToText: React.FC<SpeechToTextProps> = ({
 	buttonText = "Start Speaking",
 	onChange,
@@ -41,7 +45,7 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
 		const recognition = recognitionRef.current;
 		if (!recognition) return;
 
-		const handleResult = (event: SpeechRecognitionEvent) => {
+		const handleResult = (event: SpeechRecognitionResultEventLike) => {
 			console.log("Speech recognition event:", event);
 			const results = event.results;
 			if (results && results.length > 0) {
@@ -110,7 +114,7 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
 			<Space>
 				<Button
 					onClick={toggleListening}
-					type="primary"
+					variant="primary"
 					icon={<IconTriangle />}
 				>
 					{isListening ? "Listening..." : buttonText}

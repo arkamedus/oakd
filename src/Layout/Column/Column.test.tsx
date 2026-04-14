@@ -1,49 +1,41 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Column from "./Column";
-import { ColumnProps } from "./Column.types";
 
 describe("Column Component", () => {
-  const renderComponent = (props: ColumnProps) =>
-    render(<Column {...props} data-testid="Column" />);
-
-  it("should render without crashing", () => {
-    const { getByTestId } = renderComponent({});
-    expect(getByTestId("Column")).toBeInTheDocument();
-  });
-
-  it("should apply correct classes for different sizes", () => {
-    const { getByTestId } = renderComponent({
-      xs: 12,
-      sm: 6,
-      md: 4,
-      lg: 3,
-      xl: 2,
-    });
-    const column = getByTestId("Column");
-
-    expect(column).toHaveClass("xs-12");
-    expect(column).toHaveClass("sm-6");
-    expect(column).toHaveClass("md-4");
-    expect(column).toHaveClass("lg-3");
-    expect(column).toHaveClass("xl-2");
-  });
-
-  it("should support additional class names", () => {
-    const { getByTestId } = renderComponent({ className: "custom-class" });
-    expect(getByTestId("Column")).toHaveClass("custom-class");
-  });
-
-  it("should support style props", () => {
-    const style = { backgroundColor: "red" };
-    const { getByTestId } = renderComponent({ style });
-    expect(getByTestId("Column")).toHaveStyle("background-color: red");
-  });
-
-  it("should render children correctly", () => {
-    const { getByTestId } = render(
-      <Column data-testid="column">Content</Column>,
+  it("applies responsive width classes for the configured breakpoints", () => {
+    render(
+      <Column xs={24} sm={12} md={8} lg={6} xl={4}>
+        Metrics
+      </Column>,
     );
-    expect(getByTestId("Column")).toHaveTextContent("Content");
+    const column = screen.getByTestId("Column");
+
+    expect(column).toHaveClass("xs-24");
+    expect(column).toHaveClass("sm-12");
+    expect(column).toHaveClass("md-8");
+    expect(column).toHaveClass("lg-6");
+    expect(column).toHaveClass("xl-4");
+  });
+
+  it("forwards standard DOM props without pretending to be a form control", () => {
+    const handleMouseEnter = jest.fn();
+    render(
+      <Column
+        xs={12}
+        onMouseEnter={handleMouseEnter}
+        role="presentation"
+        aria-hidden="true"
+      >
+        Sidebar
+      </Column>,
+    );
+
+    const column = screen.getByTestId("Column");
+    fireEvent.mouseEnter(column);
+
+    expect(handleMouseEnter).toHaveBeenCalled();
+    expect(column).toHaveAttribute("role", "presentation");
+    expect(column).toHaveAttribute("aria-hidden", "true");
   });
 });

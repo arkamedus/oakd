@@ -1,35 +1,28 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import Content from "./Content";
-import { ContentProps } from "./Content.types";
+import { render, screen } from "@testing-library/react";
+import Content, { ContentRow } from "./Content";
 
 describe("Content Component", () => {
-  let props: ContentProps;
+  it("renders padded content with layout modifiers", () => {
+    render(
+      <Content pad="horizontal" grow wide>
+        Section body
+      </Content>,
+    );
 
-  beforeEach(() => {
-    props = {};
+    const content = screen.getByTestId("Content");
+    expect(content).toHaveTextContent("Section body");
+    expect(content).toHaveClass("pad-horizontal");
+    expect(content).toHaveClass("grow");
+    expect(content).toHaveClass("wide");
   });
 
-  const renderComponent = () => render(<Content {...props} />);
+  it("renders ContentRow as a row-oriented content wrapper", () => {
+    render(<ContentRow pad>Row item</ContentRow>);
+    const row = screen.getByTestId("ContentRow");
 
-  it("should render children correctly", () => {
-    props.children = "custom foo prop";
-    const { getByTestId } = renderComponent();
-    const component = getByTestId("Content");
-    expect(component).toHaveTextContent("custom foo prop");
-  });
-
-  it("should apply padding class when pad prop is true", () => {
-    props.pad = true;
-    const { getByTestId } = renderComponent();
-    const component = getByTestId("Content");
-    expect(component).toHaveClass("pad");
-  });
-
-  it("should apply grow class when grow prop is true", () => {
-    props.grow = true;
-    const { getByTestId } = renderComponent();
-    const component = getByTestId("Content");
-    expect(component).toHaveClass("grow");
+    expect(row).toHaveTextContent("Row item");
+    expect(row).toHaveClass("content-row");
+    expect(row).toHaveClass("pad");
   });
 });

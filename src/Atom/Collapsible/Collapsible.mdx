@@ -5,17 +5,18 @@ import meta from './Collapsible.stories';
 
 # Collapsible
 
-The `Collapsible` component is designed to hide or show content based on user interaction. It provides a toggleable section that can expand or collapse, making it ideal for displaying additional information without overwhelming the user interface.
+The `Collapsible` component reveals supporting content without forcing the page
+to navigate away or grow permanently. It fits release notes, secondary settings,
+knowledge-base sections, and anywhere a team needs progressive disclosure.
 
 <Primary />
-
 <Controls />
 
-# Collapsible Component
+## What To Validate
 
-## Key Features
-- **Toggle Functionality**: Users can expand or collapse the section to view or hide content.
-- **Animation**: Smooth transitions for height and opacity when toggling.
-- **Custom Action Area**: Supports an action area (e.g., buttons) alongside the title for contextual controls.
+- The trigger exposes `aria-expanded` so state changes are clear.
+- The trigger is the only interactive control in the header row.
+- `defaultOpen` matches the initial visual state.
+- Inner spacing should be provided intentionally, typically with `Content pad`.
 
 <Stories />

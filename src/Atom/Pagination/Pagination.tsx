@@ -1,6 +1,5 @@
 import React from "react";
 import { PaginationProps } from "./Pagination.types";
-import Icon from "../../Icon/Icon";
 import "./Pagination.css";
 import Button from "../Button/Button";
 import Space from "../Space/Space";
@@ -18,6 +17,7 @@ const Pagination: React.FC<PaginationProps> = ({
 	showPreviousNext = true,
 	showNumbers = true,
 	showEllipsis = true,
+	className = "",
 }) => {
 	const handlePageChange = (page: number) => {
 		if (onPageChange && page !== currentPage) {
@@ -36,21 +36,22 @@ const Pagination: React.FC<PaginationProps> = ({
 
 	return (
 		<Space
-			className={`oakd pagination size-${size} ${disabled ? "disabled" : ""}`}
+			className={`oakd pagination size-${size} ${disabled ? "disabled" : ""} ${className}`.trim()}
 			gap
 			data-testid="Pagination"
 		>
 			{showPreviousNext && (
-				<Icon
-					name="Angle"
+				<Button
+					htmlType="button"
+					variant="ghost"
 					size={size}
-					rotation={180}
-					className="arrow left"
+					icon="Angle"
+					style={{ transform: "rotate(180deg)" }}
+					className="arrow left pagination-arrow"
 					data-testid="PaginationLeft"
 					onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-					title="Previous Page"
-					role="button"
 					aria-label="Previous Page"
+					disabled={disabled || currentPage <= 1}
 				/>
 			)}
 			{showEllipsis && maxPage > 4 && !numbersToShow.includes(maxPage - 2) && (
@@ -71,17 +72,18 @@ const Pagination: React.FC<PaginationProps> = ({
 				<span className="dot">...</span>
 			)}
 			{showPreviousNext && (
-				<Icon
-					name="Angle"
+				<Button
+					htmlType="button"
+					variant="ghost"
 					size={size}
-					className="arrow right"
+					icon="Angle"
+					className="arrow right pagination-arrow"
 					data-testid="PaginationRight"
 					onClick={() =>
 						currentPage < maxPage && handlePageChange(currentPage + 1)
 					}
-					title="Next Page"
-					role="button"
 					aria-label="Next Page"
+					disabled={disabled || currentPage >= maxPage}
 				/>
 			)}
 		</Space>

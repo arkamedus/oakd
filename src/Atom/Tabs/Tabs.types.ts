@@ -1,6 +1,7 @@
 import { CoreComponentProps } from "../../Core/Core.types";
+import React from "react";
 
-export interface TabsProps extends CoreComponentProps {
+export interface TabsProps extends CoreComponentProps<HTMLDivElement> {
 	/**
 	 * The active key of the tab. If provided, it makes the component controlled.
 	 */
@@ -17,4 +18,10 @@ export interface TabsProps extends CoreComponentProps {
 	 * The orientation of the Tabs. Can be "horizontal" or "vertical".
 	 */
 	orientation?: "horizontal" | "vertical";
+}
+
+export interface TabProps {
+	label: string;
+	icon?: React.ReactNode;
+	children?: React.ReactNode;
 }

@@ -13,6 +13,6 @@ export type AspectRatio =
 	| "32x9"
 	| "1x2";
 
-export interface AspectProps extends CoreLayoutProps {
+export interface AspectProps extends CoreLayoutProps<HTMLDivElement> {
 	ratio?: AspectRatio; // Aspect ratio selection
 }

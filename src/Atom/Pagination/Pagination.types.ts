@@ -4,9 +4,10 @@ export interface PaginationProps {
 	maxPage?: number;
 	currentPage?: number;
 	onPageChange?: (page: number) => void;
-	size?: CoreComponentSizeType;
+	size?: Exclude<CoreComponentSizeType, "huge">;
 	showPreviousNext?: boolean;
 	showNumbers?: boolean;
 	showEllipsis?: boolean;
 	disabled?: boolean;
+	className?: string;
 }

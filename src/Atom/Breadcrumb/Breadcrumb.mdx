@@ -1,11 +1,11 @@
 import { Controls, Meta, Primary, Stories } from "@storybook/blocks";
-import meta from './Breadcrumb.stories';
+import meta from "./Breadcrumb.stories";
 
 <Meta of={meta} />
 
 # Breadcrumb
 
-The `Breadcrumb` component displays a navigational hierarchy that helps users understand their location within a website or application. It shows the path from the homepage to the current page, with each segment of the path being a clickable link (except for the last item, which is typically a static label).
+The `Breadcrumb` component displays a navigational hierarchy that helps users understand their location within a website or application. It renders semantic navigation markup with a list of breadcrumb items, and marks the current page with `aria-current="page"`.
 
 <Primary />
 
@@ -13,6 +13,6 @@ The `Breadcrumb` component displays a navigational hierarchy that helps users un
 
 # Breadcrumb Component
 
-Below are examples of the `Breadcrumb` component with different configurations:
+The stories below show common breadcrumb patterns such as route paths, mixed content, and icon-led roots.
 
 <Stories />

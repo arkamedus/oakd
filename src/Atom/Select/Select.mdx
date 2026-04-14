@@ -1,18 +1,21 @@
-import { Controls, Meta, Primary, Stories, Title } from "@storybook/blocks";
+import { Controls, Meta, Primary, Stories } from "@storybook/blocks";
 import meta from './Select.stories';
 
 <Meta of={meta} />
 
 # Select
 
-The `Select` component is a flexible dropdown selector that allows users to choose from a list of options. It supports categorization, accessibility enhancements like keyboard navigation and ARIA attributes, and a `size` prop for adjusting the trigger button’s size in line with other oakd components.
+The `Select` component handles both simple pickers and categorized menus. It
+supports controlled and uncontrolled usage, keyboard selection, custom option
+content, and visual sizing that matches the rest of the oakd input family.
 
 <Primary />
-
 <Controls />
 
-# Select Component
+## What To Validate
 
-The Select component allows users to select an option from a dropdown list. It accepts an array of options, supports optional categorization, and renders custom placeholder text via the `placeholder` prop. The component also supports a `size` prop to adjust the visual size of the trigger button, ensuring consistency within oakd’s design system.
+- `onChange` reports the selected value rather than raw DOM events.
+- Controlled `value` flows keep the trigger label in sync with application state.
+- `categoryOrder` groups options in a predictable order when menus get larger.
 
 <Stories />

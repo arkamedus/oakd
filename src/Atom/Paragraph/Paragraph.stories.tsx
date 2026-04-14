@@ -16,7 +16,11 @@ export default meta;
 type Story = StoryObj<typeof Paragraph>;
 
 export const Default: Story = {
-	render: () => <Paragraph>This is some text.</Paragraph>,
+	render: () => (
+		<Paragraph>
+			Paragraph text should read like product copy, not placeholder filler.
+		</Paragraph>
+	),
 };
 
 export const SmallText: Story = {
@@ -46,10 +50,10 @@ export const EmphasizedText: Story = {
 export const LongText: Story = {
 	render: () => (
 		<Paragraph>
-			<IconMagnify size={"small"} /> Lorem ipsum <strong>dolor sit</strong>{" "}
-			amet, consectetur adipiscing elit. Pellentesque sit amet tellus in{" "}
-			<em>urna varius</em> tincidunt et a enim. Duis sit amet eros ut velit
-			pharetra fermentum. Sed vel lectus at arcu ultricies luctus a sed neque.
+			<IconMagnify size={"small"} /> Search indexes update every 15 minutes, so
+			recent changes may take a moment to appear in results. Use{" "}
+			<strong>filters</strong> to narrow large datasets and <em>saved views</em>{" "}
+			to preserve your working context.
 		</Paragraph>
 	),
 };

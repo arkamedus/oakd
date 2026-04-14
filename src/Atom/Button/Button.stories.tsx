@@ -1,22 +1,20 @@
 import React from "react";
 import { Meta, StoryFn, StoryObj } from "@storybook/react";
 import Button, { ButtonGroup } from "./Button";
-import {ButtonType, CoreComponentSizeType} from "../../Core/Core.types";
+import { ButtonType, CoreComponentSizeType } from "../../Core/Core.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
-import Card from "../Card/Card";
-import DebugLayer from "../DebugLayer/DebugLayer";
 
 const meta: Meta<typeof Button> = {
 	title: "Design System/Atomic/Button",
 	component: Button,
 	tags: ["!autodocs"],
 	argTypes: {
-		type: {
+		variant: {
 			control: "select",
 			options: ["default", "primary", "danger", "warning", "ghost", "disabled"],
-			description: "Set the button type",
+			description: "Set the button variant",
 			defaultValue: "default",
 		},
 		size: {
@@ -37,8 +35,8 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 const Template: StoryFn<{
-	type: ButtonType;
-	size: CoreComponentSizeType;
+	variant: ButtonType;
+	size: Exclude<CoreComponentSizeType, "huge">;
 	disabled: boolean;
 	icon: CoreIconNameType;
 	children: React.ReactNode;
@@ -97,7 +95,7 @@ const Template: StoryFn<{
 
 export const Default: Story = Template.bind({});
 Default.args = {
-	type: "default",
+	variant: "default",
 	size: "default",
 	disabled: false,
 	icon: "Plus",
@@ -128,35 +126,35 @@ export const InVerticalButtonGroup = () => (
 
 export const Primary: Story = Template.bind({});
 Primary.args = {
-	type: "primary",
+	variant: "primary",
 	icon: "Triangle",
 	children: "Primary",
 };
 
 export const Danger: Story = Template.bind({});
 Danger.args = {
-	type: "danger",
+	variant: "danger",
 	icon: "Triangle",
 	children: "Danger",
 };
 
 export const Warning: Story = Template.bind({});
 Warning.args = {
-	type: "warning",
+	variant: "warning",
 	icon: "Triangle",
 	children: "Warning",
 };
 
 export const Ghost: Story = Template.bind({});
 Ghost.args = {
-	type: "ghost",
+	variant: "ghost",
 	icon: "Triangle",
 	children: "Ghost",
 };
 
 export const Disabled: Story = Template.bind({});
 Disabled.args = {
-	type: "disabled",
+	variant: "disabled",
 	disabled: true,
 	icon: "Folder",
 	children: "Disabled",

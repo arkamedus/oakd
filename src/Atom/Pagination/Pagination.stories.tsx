@@ -1,9 +1,10 @@
 import React from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import Pagination from "./Pagination";
-import DebugLayer from "../DebugLayer/DebugLayer";
+import Card from "../Card/Card";
 import Space from "../Space/Space";
-import { IconMagnify, IconList, IconStar } from "../../Icon/Icons.bin";
+import Paragraph from "../Paragraph/Paragraph";
+import Title from "../Title/Title";
 
 const meta: Meta<typeof Pagination> = {
 	title: "Design System/Atomic/Pagination",
@@ -12,55 +13,53 @@ const meta: Meta<typeof Pagination> = {
 	argTypes: {
 		maxPage: { control: "number" },
 		currentPage: { control: "number" },
+		onPageChange: { action: "page changed" },
 	},
 };
+
 export default meta;
 
-const Template: StoryFn<typeof Pagination> = (args) => <Pagination {...args} />;
+type Story = StoryObj<typeof Pagination>;
 
-export const DefaultPagination = Template.bind({});
-DefaultPagination.args = {
-	maxPage: 100,
-	currentPage: 2,
-	showPreviousNext: true,
-	showNumbers: true,
-	showEllipsis: true,
-	size: "small",
+export const SearchResultsFooter: Story = {
+	args: {
+		maxPage: 48,
+		currentPage: 6,
+		showPreviousNext: true,
+		showNumbers: true,
+		showEllipsis: true,
+		size: "small",
+	},
+	render: (args) => (
+		<Card pad wide style={{ maxWidth: 720 }}>
+			<Space direction="vertical" gap>
+				<Title>Customer search results</Title>
+				<Paragraph>
+					Showing 126-150 of 1,184 matching customers for "renewal overdue".
+				</Paragraph>
+				<Pagination {...args} />
+			</Space>
+		</Card>
+	),
 };
 
-export const InTheMiddle = Template.bind({});
-InTheMiddle.args = {
-	maxPage: 100,
-	currentPage: 52,
-	showPreviousNext: true,
-	showNumbers: true,
-	showEllipsis: true,
-	size: "small",
+export const MidRangeNavigation: Story = {
+	args: {
+		maxPage: 100,
+		currentPage: 52,
+		showPreviousNext: true,
+		showNumbers: true,
+		showEllipsis: true,
+		size: "small",
+	},
 };
 
-export const ReducedFunctionalityPagination = Template.bind({});
-ReducedFunctionalityPagination.args = {
-	maxPage: 20,
-	currentPage: 4,
-	showPreviousNext: false,
-	showNumbers: true,
-	showEllipsis: false,
+export const CompactNavigation: Story = {
+	args: {
+		maxPage: 20,
+		currentPage: 4,
+		showPreviousNext: false,
+		showNumbers: true,
+		showEllipsis: false,
+	},
 };
-
-export const LimitedPagesVariation = Template.bind({});
-LimitedPagesVariation.args = {
-	maxPage: 10,
-	currentPage: 1,
-};
-
-export const DebugLayerPagination = () => (
-	<DebugLayer label={"DebugLayer inside Pagination"}>
-		<Pagination
-			currentPage={1}
-			maxPage={10}
-			showPreviousNext={true}
-			showNumbers={true}
-			showEllipsis={true}
-		/>
-	</DebugLayer>
-);

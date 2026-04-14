@@ -64,6 +64,11 @@
 .oakd-select__item {
 	cursor: pointer;
 	padding: 4px 8px;
+	background: transparent;
+	border: none;
+	width: 100%;
+	text-align: left;
+	display: block;
 }
 
 .oakd-select__item:hover,

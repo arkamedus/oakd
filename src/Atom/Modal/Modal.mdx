@@ -3,17 +3,24 @@ import meta from './Modal.stories';
 
 <Meta of={meta} />
 
-The `Modal` component displays content in a layered overlay that requires user interaction before they can return to the main content. It is often used for alerts, forms, or additional information.
+# Modal
 
+The `Modal` component presents a blocking task in a dialog overlay. It exposes
+`role="dialog"` and `aria-modal="true"`, supports overlay dismissal, and
+includes a labeled close button by default.
 
 <Primary />
-
 <Controls />
 
-## Best Practices
+## Good Use Cases
 
-- Use modals sparingly and only for content that requires user attention.
-- Ensure that the modal's purpose is clear and that it provides a straightforward way to complete tasks or dismiss information.
-- Consider using a confirmation dialog for actions that could result in data loss or other significant changes.
+- Showing a focused detail view
+- Reviewing changes before publishing
+- Capturing a focused decision without leaving the current screen
+
+## Story Progression
+
+- Start with `Default` for the simplest open-and-close pattern.
+- Use `ReviewFlow` for a more realistic confirmation-style workflow.
 
 <Stories />

@@ -9,11 +9,13 @@ const Aspect: React.FC<AspectProps> = ({
 	children,
 	className = "",
 	style,
+	...rest
 }) => {
 	const classNames = `oakd aspect aspect-${ratio} ${className}`.trim();
 
 	return (
 		<div
+			{...rest}
 			id={id}
 			key={key}
 			data-testid="Aspect"
