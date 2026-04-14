@@ -54,7 +54,7 @@ export const Default: Story = {
 	},
 };
 
-export const ReviewFlow: Story = {
+export const WithReviewFlow: Story = {
 	render: () => {
 		const [open, setOpen] = useState(false);
 

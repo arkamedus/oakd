@@ -14,5 +14,7 @@ export interface SpaceProps
 	align?: ComponentAlignType;
 	justify?: ComponentJustifyType;
 	wide?: boolean;
+	fill?: boolean;
+	grow?: boolean;
 	noWrap?: boolean;
 }

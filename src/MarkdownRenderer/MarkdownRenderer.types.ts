@@ -1,4 +1,1 @@
-export interface MarkdownRendererProps {
-  content: string;
-  isRendering?:boolean;
-}
+export type { MarkdownRendererProps } from "../Atom/MarkdownRenderer/MarkdownRenderer.types";

@@ -1,9 +1,0 @@
-.oakd.markdownrenderer {
-
-    blockquote {
-        margin: 0;
-        background: #eee;
-        padding: var(--leading);
-        font-style: oblique;
-    }
-}

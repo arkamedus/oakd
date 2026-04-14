@@ -21,7 +21,18 @@ export default meta;
 
 type Story = StoryObj<typeof Pagination>;
 
-export const SearchResultsFooter: Story = {
+export const Default: Story = {
+	args: {
+		maxPage: 10,
+		currentPage: 2,
+		showPreviousNext: true,
+		showNumbers: true,
+		showEllipsis: true,
+		size: "small",
+	},
+};
+
+export const WithSearchResultsContext: Story = {
 	args: {
 		maxPage: 48,
 		currentPage: 6,
@@ -43,7 +54,7 @@ export const SearchResultsFooter: Story = {
 	),
 };
 
-export const MidRangeNavigation: Story = {
+export const WithManyPages: Story = {
 	args: {
 		maxPage: 100,
 		currentPage: 52,
@@ -54,7 +65,7 @@ export const MidRangeNavigation: Story = {
 	},
 };
 
-export const CompactNavigation: Story = {
+export const WithoutPreviousNext: Story = {
 	args: {
 		maxPage: 20,
 		currentPage: 4,

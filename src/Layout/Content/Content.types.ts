@@ -1,5 +1,4 @@
-import { CoreContentProps, CorePaddingType } from "../../Core/Core.types";
-import React from "react";
+import { CoreContentProps } from "../../Core/Core.types";
 
 export interface ContentProps extends CoreContentProps<HTMLDivElement> {
 	grow?: boolean;

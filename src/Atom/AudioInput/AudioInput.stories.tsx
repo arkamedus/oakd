@@ -18,7 +18,7 @@ export default meta;
 
 type Story = StoryObj<typeof AudioInput>;
 
-export const VoiceNoteComposer: Story = {
+export const Default: Story = {
 	args: {
 		disabled: false,
 	},
@@ -36,7 +36,7 @@ export const VoiceNoteComposer: Story = {
 	),
 };
 
-export const DisabledState: Story = {
+export const Disabled: Story = {
 	args: {
 		disabled: true,
 	},

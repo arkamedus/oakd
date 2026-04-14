@@ -6,4 +6,5 @@ import { ButtonType, CoreContentProps } from "../../Core/Core.types";
  */
 export interface CardProps extends CoreContentProps<HTMLDivElement> {
 	type?: ButtonType;
+	fill?: boolean;
 }

@@ -23,7 +23,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
 			case "slash":
 				return (
 					<Icon
-						name="X"
+						name="Play"
 						size="small"
 						className="oakd-breadcrumb__separator"
 						data-testid="breadcrumb-separator"
@@ -32,7 +32,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
 			case "backslash":
 				return (
 					<Icon
-						name="Trash"
+						name="Diamond"
 						size="small"
 						className="oakd-breadcrumb__separator"
 						aria-hidden="true"

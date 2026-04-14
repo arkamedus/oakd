@@ -6,7 +6,6 @@ import "./Space.css";
 
 const Space: React.FC<SpaceProps> = ({
 	id,
-	key,
 	style,
 	children,
 	className,
@@ -15,6 +14,8 @@ const Space: React.FC<SpaceProps> = ({
 	align,
 	justify,
 	wide,
+	fill,
+	grow,
 	noWrap,
 	onClick,
 	...rest
@@ -31,6 +32,12 @@ const Space: React.FC<SpaceProps> = ({
 	if (wide) {
 		classNames.push("wide");
 	}
+	if (fill) {
+		classNames.push("fill");
+	}
+	if (grow) {
+		classNames.push("grow");
+	}
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		if (onClick) onClick(event);
@@ -40,7 +47,6 @@ const Space: React.FC<SpaceProps> = ({
 		<span
 			{...rest}
 			id={id}
-			key={key}
 			onClick={handleClick}
 			data-testid="Space"
 			style={style}

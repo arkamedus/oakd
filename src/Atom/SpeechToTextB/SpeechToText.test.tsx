@@ -20,8 +20,7 @@ describe("SpeechToText Component", () => {
   beforeEach(() => {
     props = {
       buttonText: "Start",
-      placeholder: "Speak something...",
-      title: "Voice to Text",
+      listeningText: "Listening...",
       onChange: jest.fn(),
     };
 
@@ -45,9 +44,8 @@ describe("SpeechToText Component", () => {
 
   const setup = () => render(<SpeechToText {...props} />);
 
-  it("renders the title and trigger label", () => {
+  it("renders the trigger label", () => {
     setup();
-    expect(screen.getByText("Voice to Text")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Start" })).toBeInTheDocument();
   });
 
@@ -58,11 +56,13 @@ describe("SpeechToText Component", () => {
     await waitFor(() => {
       expect(mockRecognition.start).toHaveBeenCalled();
       expect(screen.getByText("Listening...")).toBeInTheDocument();
-      expect(screen.getByText("(Speak now)")).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Listening..." })).toHaveClass(
+        "type-primary",
+      );
     });
   });
 
-  it("updates the transcript and calls onChange for final results", async () => {
+  it("calls onChange for final results", async () => {
     setup();
     fireEvent.click(screen.getByRole("button", { name: "Start" }));
 
@@ -75,7 +75,6 @@ describe("SpeechToText Component", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("Hello world!")).toBeInTheDocument();
       expect(props.onChange).toHaveBeenCalledWith("Hello world!");
     });
   });

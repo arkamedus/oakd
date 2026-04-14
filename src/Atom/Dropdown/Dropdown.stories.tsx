@@ -41,12 +41,14 @@ export const WithRichContent = () => (
 );
 export const Positioned = () => (
 	<Aspect ratio={"21x9"}>
-		<Dropdown direction={"bottom-right"} label="Overflow menu">
-			<Space direction="vertical" gap>
-				<Button variant="ghost">Share</Button>
-				<Button variant="ghost">Move</Button>
-				<Button variant="warning">Delete</Button>
-			</Space>
-		</Dropdown>
+		<Space wide fill justify={"end"}>
+			<Dropdown direction={"bottom-right"} label="Overflow menu">
+				<Space direction="vertical" gap>
+					<Button variant="ghost">Share</Button>
+					<Button variant="ghost">Move</Button>
+					<Button variant="warning">Delete</Button>
+				</Space>
+			</Dropdown>
+		</Space>
 	</Aspect>
 );

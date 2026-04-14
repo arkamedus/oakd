@@ -1,0 +1,32 @@
+.oakd-embedding-heatmap {
+  width: 100%;
+  min-width: 0;
+}
+
+.oakd-embedding-heatmap--fill {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.oakd-embedding-heatmap__content {
+  width: 100%;
+}
+
+.oakd-embedding-heatmap--fill .oakd-embedding-heatmap__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.oakd-embedding-heatmap__grid {
+  width: 100%;
+}
+
+.oakd-embedding-heatmap__grid--fill {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}

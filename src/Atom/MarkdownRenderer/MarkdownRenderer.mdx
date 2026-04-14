@@ -1,0 +1,19 @@
+import { Controls, Meta, Primary, Stories } from "@storybook/blocks";
+import meta from './MarkdownRenderer.stories';
+
+<Meta of={meta} />
+
+# MarkdownRenderer
+
+The `MarkdownRenderer` component previews markdown using oakd typography and
+oakd code blocks.
+
+It also supports the chat-style content that already exists in oakd:
+- `THINK` / assistant segment markers
+- inline oakd icons with `[icon:Name]`
+- streaming spinner state with `isRendering`
+- emoticon shortcuts rendered through the icon pack
+
+<Primary />
+<Controls />
+<Stories />

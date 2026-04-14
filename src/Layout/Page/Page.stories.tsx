@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import Page from "./Page";
-import Content, { ContentRow } from "../Content/Content";
+import Content from "../Content/Content";
 import Row from "../Row/Row";
 import { Col } from "../Column/Column";
 import Aspect from "../Aspect/Aspect";
@@ -13,6 +13,10 @@ import Card from "../../Atom/Card/Card";
 import Button from "../../Atom/Button/Button";
 import Tabs, { Tab } from "../../Atom/Tabs/Tabs";
 import Pagination from "../../Atom/Pagination/Pagination";
+import MultiLineChart from "../../Atom/MultiLineChart/MultiLineChart";
+import StackedBreakdownChart from "../../Atom/StackedBreakdownChart/StackedBreakdownChart";
+import EmbeddingHeatmap from "../../Atom/EmbeddingHeatmap/EmbeddingHeatmap";
+import LabelBars from "../../Atom/LabelBars/LabelBars";
 
 const meta: Meta<typeof Page> = {
 	title: "Design System/Layout/Page",
@@ -38,46 +42,85 @@ export default meta;
 
 type Story = StoryObj<typeof Page>;
 
-const releaseUpdates = [
-	"Marketing approved the revised launch copy after the pricing note was added.",
-	"Support published a troubleshooting macro for delayed provisioning tickets.",
-	"Analytics confirmed the event backfill is complete for enterprise workspaces.",
-	"Product moved the onboarding tooltip fix into the current release train.",
+const queueItems = [
+	{
+		title: "Invoice mismatch",
+		body: "The customer attached two invoices showing different tax handling between March and April.",
+	},
+	{
+		title: "Provisioning retry",
+		body: "Support needs confirmation that yesterday’s workspace sync completed before closing the ticket.",
+	},
+	{
+		title: "Renewal approval",
+		body: "Finance wants one last review of the export permissions before the amendment is countersigned.",
+	},
+	{
+		title: "Sandbox handoff",
+		body: "The solutions team asked for an updated workspace with the new webhook scopes enabled by noon.",
+	},
+	{
+		title: "Usage spike review",
+		body: "Analytics flagged an unexpected export increase in one enterprise workspace after the backfill completed.",
+	},
+	{
+		title: "Customer follow-up",
+		body: "The billing owner is waiting on confirmation that the corrected invoice was received and approved.",
+	},
 ];
 
-const activityFeed = [
+const guideItems = [
 	{
-		title: "Renewal follow-up",
-		body: "Sergio reached out to the procurement contact after the contract redlines were returned overnight.",
+		title: "Authentication setup",
+		body: "Explains token creation, callback validation, and safe secret rotation.",
 	},
 	{
-		title: "Billing verification",
-		body: "Maya validated the tax handling fix against three affected accounts and logged the before/after results.",
+		title: "Webhook troubleshooting",
+		body: "Summarizes retry timing, signature mismatches, and failed delivery checks.",
 	},
 	{
-		title: "Rollout note",
-		body: "River added a reminder to pause exports before rotating the webhook secret in production.",
+		title: "SSO provisioning notes",
+		body: "Covers attribute mapping, stale identity links, and first-login recovery steps.",
 	},
 	{
-		title: "Customer response",
-		body: "The customer success team confirmed the revised invoice layout resolved last week's formatting complaint.",
+		title: "Bulk export behavior",
+		body: "Documents pagination, retries, and how to resume interrupted exports safely.",
+	},
+	{
+		title: "Sandbox verification",
+		body: "Lists the checks the support team should complete before promoting a workspace configuration.",
+	},
+	{
+		title: "Launch-day playbook",
+		body: "Defines the release sequence, owner handoff, and rollback verification checkpoints.",
 	},
 ];
 
-const metricCard = (label: string, value: string, detail: string) => (
-	<Card pad wide>
-		<Space direction="vertical" gap>
-			<Paragraph className="muted-heavy">{label}</Paragraph>
-			<Title>{value}</Title>
-			<Paragraph>{detail}</Paragraph>
-		</Space>
-	</Card>
-);
+const updateItems = [
+	{
+		title: "April changes",
+		body: "Added a retained-events export example and clarified refresh token behavior.",
+	},
+	{
+		title: "March changes",
+		body: "Updated the bulk export pagination examples and the sandbox screenshots.",
+	},
+	{
+		title: "February changes",
+		body: "Expanded the rollback notes and added a support-ready launch checklist.",
+	},
+	{
+		title: "January changes",
+		body: "Documented the new invoice reconciliation flow for enterprise workspaces.",
+	},
+];
 
-const feedCard = (title: string, body: string) => (
+const noteCard = (title: string, body: string) => (
 	<Card pad wide>
 		<Space direction="vertical" gap>
-			<Title>{title}</Title>
+			<Paragraph>
+				<strong>{title}</strong>
+			</Paragraph>
 			<Paragraph>{body}</Paragraph>
 		</Space>
 	</Card>
@@ -90,12 +133,14 @@ export const Default: Story = {
 	render: (args) => (
 		<Aspect ratio="16x9">
 			<Page {...args}>
-				<Content pad>
-					<Title>Simple page</Title>
-					<Paragraph>
-						Start with `Page` as the outer wrapper, then place your sections
-						inside it.
-					</Paragraph>
+				<Content>
+					<Space direction="vertical" gap>
+						<Title>Simple page</Title>
+						<Paragraph>
+							Use `Page` as the outer shell, then place sections inside with
+							`Content`.
+						</Paragraph>
+					</Space>
 				</Content>
 			</Page>
 		</Aspect>
@@ -109,43 +154,68 @@ export const WithGap: Story = {
 	render: (args) => (
 		<Aspect ratio="16x9">
 			<Page {...args}>
-				<Content pad>
+				<Content>
 					<Title>Header</Title>
 				</Content>
-				<Content pad>
+				<Content>
 					<Paragraph>
-						Gap adds breathing room between stacked page sections.
+						`gap` separates stacked page sections without extra wrapper spacing.
 					</Paragraph>
+				</Content>
+				<Content>
+					<Card pad wide>
+						<Paragraph>Body section</Paragraph>
+					</Card>
 				</Content>
 			</Page>
 		</Aspect>
 	),
 };
 
-export const BasicAppShell: Story = {
+export const WorkspaceSlice: Story = {
 	render: () => (
 		<Aspect ratio="21x9">
 			<Page gap>
-				<Content pad>
+				<Content>
 					<Space justify="between" align="center" wide>
-						<Space direction="vertical">
-							<Title>Customer Workspace</Title>
+						<Space direction="vertical" gap>
+							<Title>Customer workspace</Title>
 							<Paragraph>
-								Review open work and act on the most urgent accounts.
+								Review active work and move the next account forward.
 							</Paragraph>
 						</Space>
 						<Button variant="primary">Create task</Button>
 					</Space>
 				</Content>
-				<Content grow pad>
+				<Content>
 					<Row gap>
-						<Col xs={24}>
-							<Card pad wide>
-								<Paragraph>
-									Main content lives inside the page body, whether that body is
-									a single panel, a grid, or a full workflow.
-								</Paragraph>
-							</Card>
+						<Col xs={24} md={16}>
+							{noteCard(
+								"Today’s focus",
+								"Two enterprise accounts are waiting on rollout confirmation before billing can close.",
+							)}
+						</Col>
+						<Col xs={24} md={8}>
+							{noteCard(
+								"Owner",
+								"Sergio is handling approvals while Maya validates the invoice changes.",
+							)}
+						</Col>
+					</Row>
+				</Content>
+				<Content>
+					<Row gap>
+						<Col xs={24} md={12}>
+							{noteCard(
+								"Billing",
+								"One corrected invoice is ready to send once the tax note is approved.",
+							)}
+						</Col>
+						<Col xs={24} md={12}>
+							{noteCard(
+								"Support",
+								"Two workspaces still need confirmation that the provisioning retry completed.",
+							)}
 						</Col>
 					</Row>
 				</Content>
@@ -154,230 +224,401 @@ export const BasicAppShell: Story = {
 	),
 };
 
-export const AnalyticsDashboard: Story = {
+export const FixedHeaderWithGrowBody: Story = {
 	render: () => (
 		<Aspect ratio="21x9">
 			<Page gap fixed>
-				<Content pad>
+				<Content>
 					<Space justify="between" align="center" wide>
-						<Space direction="vertical">
-							<Title>Revenue Dashboard</Title>
+						<Space direction="vertical" gap>
+							<Title>Review queue</Title>
 							<Paragraph>
-								Weekly performance, rollout status, and the latest team notes.
+								Fixed header, growing body, and footer controls.
 							</Paragraph>
 						</Space>
-						<Space gap>
+						<Select
+							options={[
+								{
+									value: "priority",
+									element: <Paragraph>Priority first</Paragraph>,
+								},
+								{
+									value: "recent",
+									element: <Paragraph>Most recent</Paragraph>,
+								},
+							]}
+							onChange={() => undefined}
+							placeholder="Sort queue"
+						/>
+					</Space>
+				</Content>
+				<Content grow>
+					<Row gap>
+						<Col xs={24} md={15}>
+							<Content grow>
+								<Space direction="vertical" gap wide>
+									{queueItems.slice(0, 4).map((item) => (
+										<React.Fragment key={item.title}>
+											{noteCard(item.title, item.body)}
+										</React.Fragment>
+									))}
+								</Space>
+							</Content>
+						</Col>
+						<Col xs={24} md={9}>
+							<Content grow>
+								<Space direction="vertical" gap wide>
+									{noteCard(
+										"Context",
+										"The export permissions fix was deployed last night and should cover both affected accounts.",
+									)}
+									{noteCard(
+										"Next action",
+										"Validate the billing diff, then reply with the corrected line items.",
+									)}
+								</Space>
+							</Content>
+						</Col>
+					</Row>
+				</Content>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Paragraph>Showing 4 queued reviews.</Paragraph>
+						<Pagination
+							currentPage={1}
+							maxPage={5}
+							onPageChange={() => undefined}
+						/>
+					</Space>
+				</Content>
+			</Page>
+		</Aspect>
+	),
+};
+
+export const ScrollableOperationsPage: Story = {
+	render: () => (
+		<Aspect ratio="21x9">
+			<Page gap fixed>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Space direction="vertical" gap>
+							<Title>Scrollable operations page</Title>
+							<Paragraph>
+								Fixed header and footer with a long scrollable body between
+								them.
+							</Paragraph>
+						</Space>
+						<Button variant="primary">Assign owner</Button>
+					</Space>
+				</Content>
+				<Content grow>
+					<Row gap>
+						<Col xs={24} md={16}>
+							<Content grow>
+								<Space direction="vertical" gap wide>
+									{queueItems.map((item) => (
+										<React.Fragment key={item.title}>
+											{noteCard(item.title, item.body)}
+										</React.Fragment>
+									))}
+									{guideItems.slice(0, 4).map((item) => (
+										<React.Fragment key={item.title}>
+											{noteCard(item.title, item.body)}
+										</React.Fragment>
+									))}
+								</Space>
+							</Content>
+						</Col>
+						<Col xs={24} md={8}>
+							<Content grow>
+								<Space direction="vertical" gap wide>
+									{noteCard(
+										"Escalation path",
+										"Analytics owns usage spikes, support owns provisioning retries, and finance owns invoice confirmation.",
+									)}
+									{noteCard(
+										"Shift handoff",
+										"The evening team should monitor export retries between 6 PM and 8 PM while the backlog clears.",
+									)}
+									{noteCard(
+										"Tomorrow",
+										"Plan to roll the webhook scope update after the morning invoice validation completes.",
+									)}
+									{noteCard(
+										"Release note",
+										"One enterprise workspace still needs a manual sync after the permission scope change.",
+									)}
+								</Space>
+							</Content>
+						</Col>
+					</Row>
+				</Content>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Paragraph>
+							Showing 10 queue items in the current review window.
+						</Paragraph>
+						<Pagination
+							currentPage={2}
+							maxPage={8}
+							onPageChange={() => undefined}
+						/>
+					</Space>
+				</Content>
+			</Page>
+		</Aspect>
+	),
+};
+
+export const AnalyticsWorkspace: Story = {
+	render: () => (
+		<Aspect ratio="21x9">
+			<Page gap fixed>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Space direction="vertical" gap>
+							<Title>Analytics workspace</Title>
+							<Paragraph>
+								Fixed controls, growing primary panel, and a supporting rail.
+							</Paragraph>
+						</Space>
+						<Space gap align="center">
 							<Select
 								options={[
+									{ value: "week", element: <Paragraph>This week</Paragraph> },
 									{
-										value: "overview",
-										element: <Paragraph>Overview</Paragraph>,
-									},
-									{
-										value: "pipeline",
-										element: <Paragraph>Pipeline</Paragraph>,
-									},
-									{
-										value: "retention",
-										element: <Paragraph>Retention</Paragraph>,
+										value: "month",
+										element: <Paragraph>This month</Paragraph>,
 									},
 								]}
 								onChange={() => undefined}
-								placeholder="Choose a view"
+								placeholder="Time range"
 							/>
 							<Button variant="primary">Share report</Button>
 						</Space>
 					</Space>
 				</Content>
-				<Content grow pad>
-					<Space direction="vertical" gap>
-						<Row gap>
-							<Col xs={24} md={8}>
-								{metricCard("Net revenue", "$184,200", "Up 12% from last week")}
-							</Col>
-							<Col xs={24} md={8}>
-								{metricCard(
-									"Expansion deals",
-									"26",
-									"8 are ready for signature",
-								)}
-							</Col>
-							<Col xs={24} md={8}>
-								{metricCard("At-risk accounts", "9", "3 need follow-up today")}
-							</Col>
-						</Row>
-						<Row gap>
-							<Col xs={24} md={16}>
-								{feedCard(
-									"Pipeline highlights",
-									"Mid-market renewals rebounded after the pricing clarification email. Enterprise deals are still waiting on procurement review.",
-								)}
-							</Col>
-							<Col xs={24} md={8}>
-								{feedCard(
-									"Team notes",
-									"Support flagged a billing mismatch in two accounts. Product confirmed the fix will land in the next release train.",
-								)}
-							</Col>
-						</Row>
-						<Row gap>
-							<Col xs={24}>
-								<Card pad wide>
-									<Space direction="vertical" gap>
-										<Title>Latest updates</Title>
-										{releaseUpdates.map((update) => (
-											<Paragraph key={update}>{update}</Paragraph>
-										))}
-									</Space>
-								</Card>
-							</Col>
-						</Row>
-						<Row gap>
-							{activityFeed.map((item) => (
-								<Col key={item.title} xs={24} md={12}>
-									{feedCard(item.title, item.body)}
-								</Col>
-							))}
-						</Row>
-					</Space>
+				<Content grow>
+					<Row gap>
+						<Col xs={24} md={14}>
+							<Content grow>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Paragraph>
+										<strong>Primary panel</strong>
+									</Paragraph>
+									<Paragraph>
+										The summary stays fixed while the main chart region consumes
+										the remaining page height.
+									</Paragraph>
+									<Content grow wide>
+										<Card pad wide fill>
+											<MultiLineChart
+												lines={[
+													{
+														label: "Signups",
+														values: [
+															{ x: "2026-04-01", y: 18 },
+															{ x: "2026-04-02", y: 24 },
+															{ x: "2026-04-03", y: 28 },
+															{ x: "2026-04-04", y: 31 },
+														],
+													},
+													{
+														label: "Activations",
+														values: [
+															{ x: "2026-04-01", y: 12 },
+															{ x: "2026-04-02", y: 16 },
+															{ x: "2026-04-03", y: 22 },
+															{ x: "2026-04-04", y: 20 },
+														],
+													},
+												]}
+												hoverLabel="events"
+												fillHeight
+												showVerticalTicks
+												smooth
+											/>
+										</Card>
+									</Content>
+								</Space>
+							</Content>
+						</Col>
+						<Col xs={24} md={10}>
+							<Content grow>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Paragraph>
+										<strong>Supporting panels</strong>
+									</Paragraph>
+									<Paragraph>
+										These stack beside the primary chart while still
+										participating in the same page layout.
+									</Paragraph>
+									<StackedBreakdownChart
+										labels={["Helpful", "Neutral", "Risky"]}
+										xLabels={[
+											<Paragraph key="w1">Week 1</Paragraph>,
+											<Paragraph key="w2">Week 2</Paragraph>,
+											<Paragraph key="w3">Week 3</Paragraph>,
+										]}
+										rows={[
+											{
+												key: "week-1",
+												labelWeights: {
+													Helpful: 0.52,
+													Neutral: 0.28,
+													Risky: 0.2,
+												},
+											},
+											{
+												key: "week-2",
+												labelWeights: {
+													Helpful: 0.57,
+													Neutral: 0.24,
+													Risky: 0.19,
+												},
+											},
+											{
+												key: "week-3",
+												labelWeights: {
+													Helpful: 0.61,
+													Neutral: 0.21,
+													Risky: 0.18,
+												},
+											},
+										]}
+									/>
+									<EmbeddingHeatmap
+										embedding={[
+											[0.24, 0.32, 0.41, 0.58],
+											[0.62, 0.73, 0.28, 0.11],
+											[0.84, 0.67, 0.36, 0.29],
+										]}
+										height={72}
+									/>
+									<LabelBars
+										labels={[
+											{ label: "Helpful", prob: 0.68 },
+											{ label: "Neutral", prob: 0.22 },
+											{ label: "Risky", prob: 0.1 },
+										]}
+									/>
+								</Space>
+							</Content>
+						</Col>
+					</Row>
 				</Content>
-				<Content pad>
-					<Paragraph>Updated 12 minutes ago by Sergio Diaz.</Paragraph>
-				</Content>
-			</Page>
-		</Aspect>
-	),
-};
-
-export const SidebarWorkspace: Story = {
-	render: () => (
-		<Aspect ratio="21x9">
-			<Page fixed gap>
-				<Content pad>
+				<Content>
 					<Space justify="between" align="center" wide>
-						<Title>Release Operations</Title>
-						<Button variant="ghost">Open runbook</Button>
+						<Paragraph>
+							Showing 3 supporting panels beside the current trend view.
+						</Paragraph>
+						<Pagination
+							currentPage={1}
+							maxPage={4}
+							onPageChange={() => undefined}
+						/>
 					</Space>
 				</Content>
-				<ContentRow grow>
-					<Content pad style={{ minWidth: 280 }}>
-						<Space direction="vertical" gap>
-							<Title>Queues</Title>
-							<Button variant="primary">Launch checklist</Button>
-							<Button variant="ghost">Approvals</Button>
-							<Button variant="ghost">Incidents</Button>
-							<Button variant="ghost">Post-launch notes</Button>
-						</Space>
-					</Content>
-					<Content grow pad>
-						<Space direction="vertical" gap>
-							{feedCard(
-								"Checklist progress",
-								"7 of 9 launch steps are complete. The final sign-off is waiting on analytics verification.",
-							)}
-							{feedCard(
-								"Approvals",
-								"Security approved the new webhook scopes. Finance is still reviewing export permissions.",
-							)}
-							{feedCard(
-								"Recent activity",
-								"Maya posted a rollback plan, and River attached the release candidate build to the thread.",
-							)}
-							{feedCard(
-								"Escalations",
-								"One enterprise workspace still needs a manual sync after the permission scope change.",
-							)}
-							{feedCard(
-								"Shift handoff",
-								"The evening team should monitor export delays between 6 PM and 8 PM while the backlog clears.",
-							)}
-							{feedCard(
-								"Next approvals",
-								"Finance sign-off and support readiness are the last blockers before the maintenance window starts.",
-							)}
-						</Space>
-					</Content>
-				</ContentRow>
 			</Page>
 		</Aspect>
 	),
 };
 
-export const KnowledgeBasePage: Story = {
+export const KnowledgeBaseWorkspace: Story = {
 	render: () => (
 		<Aspect ratio="21x9">
 			<Page gap fixed>
-				<Content pad>
+				<Content>
 					<Space justify="between" align="center" wide>
-						<Space direction="vertical">
-							<Title>Integration Docs</Title>
+						<Space direction="vertical" gap>
+							<Title>Knowledge base workspace</Title>
 							<Paragraph>
-								Reference guides, rollout notes, and support-ready examples.
+								Sections, tabs, and a scrollable article area inside one page
+								shell.
 							</Paragraph>
 						</Space>
-						<Button variant="primary">New article</Button>
+						<Space gap align="center">
+							<Select
+								options={[
+									{ value: "guides", element: <Paragraph>Guides</Paragraph> },
+									{
+										value: "playbooks",
+										element: <Paragraph>Playbooks</Paragraph>,
+									},
+								]}
+								onChange={() => undefined}
+								placeholder="Section"
+							/>
+							<Button variant="primary">New article</Button>
+						</Space>
 					</Space>
 				</Content>
-				<Content grow pad>
-					<Tabs defaultActiveKey="guides">
-						<Tab key="guides" label="Guides">
-							<Space direction="vertical" gap>
-								{feedCard(
-									"Authentication setup",
-									"Walks through token generation, callback validation, and how to rotate secrets without downtime.",
-								)}
-								{feedCard(
-									"Webhook troubleshooting",
-									"Covers signature mismatches, retry timing, and how to inspect failed deliveries.",
-								)}
-								{feedCard(
-									"SSO provisioning notes",
-									"Explains attribute mapping, first-login edge cases, and how to recover stale identity links.",
-								)}
-							</Space>
-						</Tab>
-						<Tab key="playbooks" label="Playbooks">
-							<Space direction="vertical" gap>
-								{feedCard(
-									"Launch day playbook",
-									"A step-by-step sequence for the release captain, support team, and analytics review.",
-								)}
-								{feedCard(
-									"Rollback checklist",
-									"Defines the threshold for rollback, who approves it, and what gets verified after recovery.",
-								)}
-								{feedCard(
-									"Support handoff checklist",
-									"Summarizes what the support lead should confirm before the release announcement goes out.",
-								)}
-							</Space>
-						</Tab>
-						<Tab key="updates" label="Updates">
-							<Space direction="vertical" gap>
-								{feedCard(
-									"April changes",
-									"Added a retained-events export example and clarified token refresh behavior.",
-								)}
-								{feedCard(
-									"March changes",
-									"Documented the new pagination behavior for bulk exports and updated the sandbox screenshots.",
-								)}
-								{feedCard(
-									"February changes",
-									"Expanded the API examples to show both webhook retries and idempotent reconciliation flows.",
-								)}
-							</Space>
-						</Tab>
-					</Tabs>
+				<Content grow>
+					<Row gap>
+						<Col xs={24} md={6}>
+							<Card pad wide>
+								<Space direction="vertical" gap>
+									<Paragraph>
+										<strong>Sections</strong>
+									</Paragraph>
+									<Button variant="default">
+										<Paragraph>Integration guides</Paragraph>
+									</Button>
+									<Button variant="ghost">
+										<Paragraph>Release playbooks</Paragraph>
+									</Button>
+									<Button variant="ghost">
+										<Paragraph>Support macros</Paragraph>
+									</Button>
+									<Button variant="ghost">
+										<Paragraph>Change log</Paragraph>
+									</Button>
+								</Space>
+							</Card>
+						</Col>
+						<Col xs={24} md={18}>
+							<Content grow>
+								<Tabs defaultActiveKey="guides">
+									<Tab key="guides" label="Guides">
+										<Space direction="vertical" gap wide>
+											<Row gap>
+												{guideItems.slice(0, 4).map((item) => (
+													<Col key={item.title} xs={24} md={12}>
+														{noteCard(item.title, item.body)}
+													</Col>
+												))}
+											</Row>
+											<Row gap>
+												{guideItems.slice(4).map((item) => (
+													<Col key={item.title} xs={24} md={12}>
+														{noteCard(item.title, item.body)}
+													</Col>
+												))}
+											</Row>
+										</Space>
+									</Tab>
+									<Tab key="updates" label="Updates">
+										<Space direction="vertical" gap wide>
+											{updateItems.map((item) => (
+												<React.Fragment key={item.title}>
+													{noteCard(item.title, item.body)}
+												</React.Fragment>
+											))}
+										</Space>
+									</Tab>
+								</Tabs>
+							</Content>
+						</Col>
+					</Row>
 				</Content>
-				<Content pad>
+				<Content>
 					<Space justify="between" align="center" wide>
-						<Paragraph>Showing 6 articles across 3 sections.</Paragraph>
+						<Paragraph>Showing 10 articles across 4 sections.</Paragraph>
 						<Pagination
 							currentPage={2}
-							maxPage={8}
+							maxPage={6}
 							onPageChange={() => undefined}
-							size="small"
 						/>
 					</Space>
 				</Content>

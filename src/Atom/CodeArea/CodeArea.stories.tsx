@@ -221,7 +221,7 @@ export const WithFeaturesAndErrorLines = () => (
 	/>
 );
 
-export const LanguageSwitcher = () => {
+export const WithLanguageSelect = () => {
 	const [language, setLanguage] = useState("typescript");
 	const currentConfig = useMemo(() => languageConfig[language], [language]);
 
@@ -237,7 +237,7 @@ export const LanguageSwitcher = () => {
 						</Paragraph>
 					</Space>
 					<Select
-						value={language}
+						defaultValue={language}
 						onChange={(value) => setLanguage(value)}
 						options={Object.entries(languageConfig).map(([value, config]) => ({
 							value,
@@ -257,6 +257,7 @@ export const LanguageSwitcher = () => {
 					lineNumbers
 					highlightCurrentLine
 					grow
+					readOnly
 				/>
 			</Space>
 		</Card>

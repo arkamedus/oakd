@@ -1,0 +1,44 @@
+.oakd-markdown-renderer {
+  width: 100%;
+}
+
+.oakd-markdown-renderer a {
+  color: inherit;
+}
+
+.oakd-markdown-renderer code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+.oakd-markdown-renderer img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--button-radius);
+}
+
+.oakd-markdown-renderer blockquote,
+.oakd-markdown-renderer__think {
+  margin: 0;
+  padding-left: var(--leading);
+  border-left: 2px solid var(--oakd-default-border);
+  opacity: 0.8;
+}
+
+.oakd-markdown-renderer__quote {
+  width: 100%;
+}
+
+.oakd-markdown-renderer ul,
+.oakd-markdown-renderer ol {
+  margin: 0;
+  padding-left: calc(var(--leading) * 1.25);
+}
+
+.oakd-markdown-renderer li {
+  margin: 0;
+}
+
+.oakd-markdown-renderer pre {
+  margin: 0;
+}

@@ -1,8 +1,14 @@
-import { SpaceProps } from "../Space/Space.types";
+import React from "react";
+import { CoreComponentSizeType } from "../../Core/Core.types";
 
-export interface SpeechToTextProps extends SpaceProps {
+export interface SpeechToTextProps {
 	buttonText?: string;
+	listeningText?: string;
+	onStartListening?: () => void;
+	onInterimChange?: (text: string) => void;
 	onChange?: (text: string) => void;
-	placeholder?: string;
-	title?: string;
+	disabled?: boolean;
+	size?: Exclude<CoreComponentSizeType, "huge">;
+	className?: string;
+	style?: React.CSSProperties;
 }

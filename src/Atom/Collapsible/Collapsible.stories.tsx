@@ -19,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof Collapsible>;
 
-export const IncidentSummary: Story = {
+export const Default: Story = {
 	args: {
 		title: (
 			<Paragraph>
@@ -43,7 +43,7 @@ export const IncidentSummary: Story = {
 	},
 };
 
-export const DefaultOpen: Story = {
+export const WithDefaultOpen: Story = {
 	args: {
 		title: (
 			<Paragraph>
@@ -62,7 +62,21 @@ export const DefaultOpen: Story = {
 	},
 };
 
-export const KnowledgeBaseSections: Story = {
+export const WithCustomTitleText: Story = {
+	args: {
+		title: <Title>Release Readiness</Title>,
+		children: (
+			<Content pad>
+				<Paragraph>
+					Using a larger title component should still preserve the toggle
+					layout, icon alignment, and content spacing.
+				</Paragraph>
+			</Content>
+		),
+	},
+};
+
+export const MultipleCollapsibles: Story = {
 	render: () => (
 		<Space direction="vertical" gap style={{ maxWidth: 720 }}>
 			<Title>Implementation Notes</Title>

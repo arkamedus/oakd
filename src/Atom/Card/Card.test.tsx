@@ -5,7 +5,7 @@ import Card from "./Card";
 describe("Card Component", () => {
   it("renders content with the requested surface variant", () => {
     render(
-      <Card type="primary" pad wide>
+      <Card type="primary" pad wide fill>
         Account summary
       </Card>,
     );
@@ -15,6 +15,7 @@ describe("Card Component", () => {
     expect(card).toHaveClass("type-primary");
     expect(card).toHaveClass("pad");
     expect(card).toHaveClass("wide");
+    expect(card).toHaveClass("fill");
   });
 
   it("forwards interactive props to the card container", () => {

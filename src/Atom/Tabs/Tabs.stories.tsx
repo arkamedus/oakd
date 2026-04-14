@@ -25,7 +25,7 @@ export default meta;
 
 type Story = StoryObj<typeof Tabs>;
 
-export const ProjectWorkspace: Story = {
+export const Default: Story = {
 	args: {
 		orientation: "horizontal",
 		defaultActiveKey: "overview",
@@ -63,7 +63,7 @@ export const ProjectWorkspace: Story = {
 	),
 };
 
-export const VerticalSettingsNavigation: Story = {
+export const WithVerticalOrientation: Story = {
 	render: () => (
 		<Tabs orientation="vertical" defaultActiveKey="profile">
 			<Tab key="profile" label="Profile" icon={<IconUser />}>

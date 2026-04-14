@@ -38,4 +38,17 @@ describe("Column Component", () => {
     expect(column).toHaveAttribute("role", "presentation");
     expect(column).toHaveAttribute("aria-hidden", "true");
   });
+
+  it("acts as a flex column host for growing children", () => {
+    render(
+      <Column xs={12}>
+        <div>Header</div>
+        <div className="oakd grow">Body</div>
+      </Column>,
+    );
+
+    const column = screen.getByTestId("Column");
+    expect(column).toHaveClass("column");
+    expect(screen.getByText("Body")).toHaveClass("grow");
+  });
 });

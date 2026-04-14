@@ -1,7 +1,5 @@
 .oakd-speech-to-text {
-    width: 100%;
-}
-
-.oakd-speech-to-text > .ant-space {
-    width: 100%;
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
 }

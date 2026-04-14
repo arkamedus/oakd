@@ -68,7 +68,7 @@ export default meta;
 
 type Story = StoryObj<typeof Select>;
 
-export const WorkflowStatusPicker: Story = {
+export const Default: Story = {
 	args: {
 		options: statusOptions,
 		categoryOrder: ["Open", "Planned", "Completed"],
@@ -78,7 +78,7 @@ export const WorkflowStatusPicker: Story = {
 	},
 };
 
-export const ControlledAssignmentFlow: Story = {
+export const WithControlledValue: Story = {
 	render: () => {
 		const [assignee, setAssignee] = useState<string | undefined>("maya");
 
@@ -105,7 +105,7 @@ export const ControlledAssignmentFlow: Story = {
 	},
 };
 
-export const DirectionAndSizing: Story = {
+export const WithDirectionsAndSizes: Story = {
 	render: () => (
 		<Space gap align="start">
 			<Select

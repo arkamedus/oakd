@@ -1,0 +1,18 @@
+import { Controls, Meta, Primary, Stories } from "@storybook/blocks";
+import meta from './MarkdownEditor.stories';
+
+<Meta of={meta} />
+
+# MarkdownEditor
+
+The `MarkdownEditor` component pairs the oakd `CodeArea` editor with the oakd
+`MarkdownRenderer` preview so edit and preview modes stay visually consistent.
+
+The toolbar uses oakd icons, and preview mode renders through the same
+`MarkdownRenderer` component used elsewhere in the library. That keeps custom
+icon syntax, `THINK` segments, and streaming states consistent between authored
+and rendered markdown.
+
+<Primary />
+<Controls />
+<Stories />

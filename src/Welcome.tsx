@@ -10,12 +10,9 @@ import {
 	CoreIconNameType,
 	IconDots,
 	IconHome,
-	IconShield,
-	IconSliders,
 	IconTypes,
 } from "./Icon/Icons.bin";
 import Icon from "./Icon/Icon";
-import { ButtonType } from "./Atom/Button/Button.types";
 import Row from "./Layout/Row/Row";
 import Column from "./Layout/Column/Column";
 import Input from "./Atom/Input/Input";
@@ -24,6 +21,10 @@ import Collapsible from "./Atom/Collapsible/Collapsible";
 import CodeArea from "./Atom/CodeArea/CodeArea";
 import Dropdown from "./Atom/Dropdown/Dropdown";
 import Breadcrumb from "./Atom/Breadcrumb/Breadcrumb";
+import { ButtonType } from "./Core/Core.types";
+import Pagination from "./Atom/Pagination/Pagination";
+import MultiLineChart from "./Atom/MultiLineChart/MultiLineChart";
+import StackedBreakdownChart from "./Atom/StackedBreakdownChart/StackedBreakdownChart";
 
 export const Welcome = () => {
 	return (
@@ -38,7 +39,8 @@ export const Welcome = () => {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
-				justifyContent: "center",
+				justifyContent: "flex-start",
+				overflowY: "auto",
 				background: "linear-gradient(rgb(236 249 245), rgb(244 247 236))",
 				color: "#fff",
 				textAlign: "center",
@@ -53,7 +55,11 @@ export const Welcome = () => {
 						by <strong>Gordon Goodrum</strong>
 					</Paragraph>
 				</Space>
-				<Space direction="vertical" style={{ maxWidth: "720px" }} gap>
+				<Space
+					direction="vertical"
+					style={{ maxWidth: "720pt", width: "100%" }}
+					gap
+				>
 					<Paragraph>
 						<em>OakFrame Interactive Design & Component Library</em>
 					</Paragraph>
@@ -85,7 +91,7 @@ export const Welcome = () => {
 								<Space gap direction={"vertical"} style={{ width: "100%" }}>
 									<Space direction={"vertical"} gap style={{ width: "100%" }}>
 										<Paragraph>buttons</Paragraph>
-										<Space gap justify={"stretch"} style={{ width: "100%" }}>
+										<Space gap style={{ width: "100%" }}>
 											{["default", "primary", "warning", "danger"]
 												.slice(0, 16)
 												.map((type: ButtonType, idx) => {
@@ -124,7 +130,7 @@ export const Welcome = () => {
 
 									<Space direction={"vertical"} gap style={{ width: "100%" }}>
 										<Paragraph>inputs</Paragraph>
-										<Space style={{ width: "100%" }} gap justify={"stretch"}>
+										<Space gap wide>
 											<Input
 												icon={"User"}
 												placeholder={"text"}
@@ -230,9 +236,23 @@ export const Welcome = () => {
 												},
 											]}
 										/>
+										<Space
+											direction={"vertical"}
+											gap
+											style={{ width: "100%", textAlign: "left" }}
+										>
+											<Pagination
+												maxPage={21}
+												currentPage={5}
+												showPreviousNext
+												showNumbers
+												showEllipsis
+												size={"small"}
+											/>
+										</Space>
 										<Paragraph>svg icons</Paragraph>
 										<Space style={{ width: "100%" }} gap justify={"between"}>
-											{IconTypes.slice(0, 72).map(
+											{IconTypes.slice(0, 152).map(
 												(icon: CoreIconNameType, idx: number) => {
 													return (
 														<Paragraph>
@@ -249,6 +269,149 @@ export const Welcome = () => {
 												<em>and more!</em>
 											</Paragraph>
 										</Space>
+									</Space>
+
+									<Space direction={"vertical"} gap style={{ width: "100%" }}>
+										<Paragraph>data displays</Paragraph>
+										<Row gap>
+											<Column xs={24} md={12}>
+												<Card pad wide fill>
+													<Space
+														direction={"vertical"}
+														gap
+														wide
+														fill
+														align={"stretch"}
+													>
+														<Paragraph>
+															<strong>line charts</strong>
+														</Paragraph>
+														<Content grow wide>
+															<Card pad wide fill>
+																<MultiLineChart
+																	lines={[
+																		{
+																			label: "Signups",
+																			values: [
+																				{ x: "2026-04-01", y: 18 },
+																				{ x: "2026-04-02", y: 24 },
+																				{ x: "2026-04-03", y: 28 },
+																				{ x: "2026-04-04", y: 31 },
+																				{ x: "2026-04-05", y: 35 },
+																			],
+																		},
+																		{
+																			label: "Activations",
+																			values: [
+																				{ x: "2026-04-01", y: 12 },
+																				{ x: "2026-04-02", y: 16 },
+																				{ x: "2026-04-03", y: 22 },
+																				{ x: "2026-04-04", y: 20 },
+																				{ x: "2026-04-05", y: 26 },
+																			],
+																		},
+																		{
+																			label: "Retention",
+																			values: [
+																				{ x: "2026-04-01", y: 8 },
+																				{ x: "2026-04-02", y: 11 },
+																				{ x: "2026-04-03", y: 13 },
+																				{ x: "2026-04-04", y: 14 },
+																				{ x: "2026-04-05", y: 18 },
+																			],
+																		},
+																	]}
+																	hoverLabel={"events"}
+																	fillHeight
+																	showVerticalTicks
+																	smooth
+																/>
+															</Card>
+														</Content>
+													</Space>
+												</Card>
+											</Column>
+
+											<Column xs={24} md={12}>
+												<Card pad wide fill>
+													<Space
+														direction={"vertical"}
+														gap
+														wide
+														fill
+														align={"stretch"}
+													>
+														<Paragraph>
+															<strong>stacked bar graphs</strong>
+														</Paragraph>
+														<Content grow wide>
+															<StackedBreakdownChart
+																labels={[
+																	"Helpful",
+																	"Neutral",
+																	"Risky",
+																	"Escalated",
+																]}
+																xLabels={[
+																	<Paragraph key={"wk1"}>Week 1</Paragraph>,
+																	<Paragraph key={"wk2"}>Week 2</Paragraph>,
+																	<Paragraph key={"wk3"}>Week 3</Paragraph>,
+																	<Paragraph key={"wk4"}>Week 4</Paragraph>,
+																	<Paragraph key={"wk5"}>Week 5</Paragraph>,
+																]}
+																rows={[
+																	{
+																		key: "week-1",
+																		labelWeights: {
+																			Helpful: 0.48,
+																			Neutral: 0.27,
+																			Risky: 0.17,
+																			Escalated: 0.08,
+																		},
+																	},
+																	{
+																		key: "week-2",
+																		labelWeights: {
+																			Helpful: 0.55,
+																			Neutral: 0.2,
+																			Risky: 0.16,
+																			Escalated: 0.09,
+																		},
+																	},
+																	{
+																		key: "week-3",
+																		labelWeights: {
+																			Helpful: 0.58,
+																			Neutral: 0.18,
+																			Risky: 0.14,
+																			Escalated: 0.1,
+																		},
+																	},
+																	{
+																		key: "week-4",
+																		labelWeights: {
+																			Helpful: 0.51,
+																			Neutral: 0.24,
+																			Risky: 0.15,
+																			Escalated: 0.1,
+																		},
+																	},
+																	{
+																		key: "week-5",
+																		labelWeights: {
+																			Helpful: 0.63,
+																			Neutral: 0.16,
+																			Risky: 0.11,
+																			Escalated: 0.1,
+																		},
+																	},
+																]}
+															/>
+														</Content>
+													</Space>
+												</Card>
+											</Column>
+										</Row>
 									</Space>
 
 									<Paragraph>row w/ gap & columns</Paragraph>

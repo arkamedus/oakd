@@ -20,6 +20,12 @@ import Dropdown from "./Atom/Dropdown/Dropdown";
 import Pagination from "./Atom/Pagination/Pagination";
 import CodeArea from "./Atom/CodeArea/CodeArea";
 import ScriptSandbox from "./Atom/ScriptSandbox/ScriptSandbox";
+import MarkdownRenderer from "./Atom/MarkdownRenderer/MarkdownRenderer";
+import MarkdownEditor from "./Atom/MarkdownEditor/MarkdownEditor";
+import MultiLineChart from "./Atom/MultiLineChart/MultiLineChart";
+import StackedBreakdownChart from "./Atom/StackedBreakdownChart/StackedBreakdownChart";
+import EmbeddingHeatmap from "./Atom/EmbeddingHeatmap/EmbeddingHeatmap";
+import LabelBars from "./Atom/LabelBars/LabelBars";
 
 export {
 	Aspect,
@@ -46,6 +52,12 @@ export {
 	Modal,
 	CodeArea,
 	ScriptSandbox,
+	MarkdownRenderer,
+	MarkdownEditor,
+	MultiLineChart,
+	StackedBreakdownChart,
+	EmbeddingHeatmap,
+	LabelBars,
 };
 
 export * from "./Icon/Icons.bin";

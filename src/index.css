@@ -264,6 +264,14 @@
 .pastel-container > *:nth-child(16n+15) { background-color: #FF9AA2; } /* Coral Pink */
 .pastel-container > *:nth-child(16n+16) { background-color: #C7CEEA; } /* Cool Lavender */
 
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 .oakd * {
   box-sizing: border-box;
 }
@@ -377,4 +385,5 @@
 {
   color: #666;
 }
+
 
