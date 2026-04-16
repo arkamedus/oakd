@@ -59,7 +59,13 @@ export type CoreComponentLayoutDirectionType =
 	| "horizontal"
 	| "vertical";
 
-export type ComponentAlignType = "default" | "center" | "start" | "end";
+export type ComponentAlignType =
+	| "default"
+	| "normal"
+	| "center"
+	| "start"
+	| "end"
+	| "stretch";
 export type ComponentJustifyType =
 	| "default"
 	| "center"

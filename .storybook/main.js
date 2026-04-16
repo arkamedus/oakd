@@ -1,7 +1,8 @@
 module.exports = {
   stories: [
-    '../src/**/*.mdx',
-    "../src/**/*.stories.tsx"],
+    "../src/**/*.stories.tsx",
+   // "../src/**/*.mdx",
+  ],
 
   // Add any Storybook addons you want here: https://storybook.js.org/addons/
   addons: [

@@ -230,7 +230,7 @@ export const WithLanguageSelect = () => {
 			<Space direction="vertical" gap>
 				<Space justify="between" align="center" wide>
 					<Space direction="vertical">
-						<Title>Language-aware editor preview</Title>
+						<Title>Language-aware editor</Title>
 						<Paragraph>
 							Switch the sample language to preview different code snippets and
 							token rules.

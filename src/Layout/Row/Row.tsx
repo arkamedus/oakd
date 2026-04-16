@@ -11,11 +11,23 @@ const Row: React.FC<RowProps> = ({
 	children,
 	className,
 	gap,
+	wide,
+	grow,
+	fill,
 	...rest
 }) => {
 	const classNames = ["oakd", "row"];
 	if (gap) {
 		classNames.push("gap");
+	}
+	if (wide) {
+		classNames.push("wide");
+	}
+	if (grow) {
+		classNames.push("grow");
+	}
+	if (fill) {
+		classNames.push("fill");
 	}
 	if (className) {
 		classNames.push(className);

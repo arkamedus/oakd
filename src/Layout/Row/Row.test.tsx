@@ -52,6 +52,20 @@ describe("Row Component", () => {
     expect(row).toHaveTextContent("Right");
   });
 
+  it("applies fill and grow layout modifiers", () => {
+    render(
+      <Row gap fill grow wide>
+        <div>Panel</div>
+      </Row>,
+    );
+
+    const row = screen.getByTestId("Row");
+    expect(row).toHaveClass("gap");
+    expect(row).toHaveClass("fill");
+    expect(row).toHaveClass("grow");
+    expect(row).toHaveClass("wide");
+  });
+
   it("forwards normal DOM interaction props", () => {
     const handleMouseEnter = jest.fn();
     render(

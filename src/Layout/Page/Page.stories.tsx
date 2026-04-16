@@ -8,6 +8,7 @@ import Paragraph from "../../Atom/Paragraph/Paragraph";
 import Space from "../../Atom/Space/Space";
 import Title from "../../Atom/Title/Title";
 import Select from "../../Atom/Select/Select";
+import Input from "../../Atom/Input/Input";
 import Card from "../../Atom/Card/Card";
 import Button from "../../Atom/Button/Button";
 import Tabs, { Tab } from "../../Atom/Tabs/Tabs";
@@ -16,6 +17,7 @@ import MultiLineChart from "../../Atom/MultiLineChart/MultiLineChart";
 import StackedBreakdownChart from "../../Atom/StackedBreakdownChart/StackedBreakdownChart";
 import EmbeddingHeatmap from "../../Atom/EmbeddingHeatmap/EmbeddingHeatmap";
 import LabelBars from "../../Atom/LabelBars/LabelBars";
+import CodeArea from "../../Atom/CodeArea/CodeArea";
 
 const meta: Meta<typeof Page> = {
 	title: "Design System/Layout/Page",
@@ -125,7 +127,94 @@ const noteCard = (title: string, body: string) => (
 	</Card>
 );
 
-const viewportStyle = { minHeight: "440pt", height: "440pt" } as const;
+const chatContactCard = (
+	name: string,
+	status: string,
+	preview: string,
+	active = false,
+) => (
+	<Card pad wide type={active ? "active" : "default"}>
+		<Space direction="vertical" gap wide>
+			<Space justify="between" align="center" wide>
+				<Paragraph>
+					<strong>{name}</strong>
+				</Paragraph>
+				<Paragraph>{status}</Paragraph>
+			</Space>
+			<Paragraph>{preview}</Paragraph>
+		</Space>
+	</Card>
+);
+
+const chatBubble = (
+	message: string,
+	time: string,
+	side: "left" | "right" = "left",
+) => (
+	<Space
+		justify={side === "right" ? "end" : "start"}
+		wide
+	>
+		<Card
+			pad
+			style={{
+				maxWidth: "76%",
+			}}
+			type={side === "right" ? "active" : "default"}
+		>
+			<Space direction="vertical" gap>
+				<Paragraph>{message}</Paragraph>
+				<Paragraph>{time}</Paragraph>
+			</Space>
+		</Card>
+	</Space>
+);
+
+const viewportStyle = { minHeight: "440pt" } as const;
+const scrollPanelStyle = { minHeight: 0, overflowY: "auto" as const } as const;
+const bodyHostStyle = { minHeight: 0, overflow: "hidden" as const } as const;
+
+const sqlRules = [
+	{
+		className: "tok-keyword",
+		regex:
+			/\b(select|from|where|group by|order by|limit|join|left join|inner join|as|and|or|desc|asc|count|sum|avg|date_trunc)\b/gi,
+	},
+	{
+		className: "tok-string",
+		regex: /'([^'\\]|\\.)*'/g,
+	},
+	{
+		className: "tok-number",
+		regex: /\b\d+(\.\d+)?\b/g,
+	},
+	{
+		className: "tok-comment",
+		regex: /--.*$/gm,
+	},
+];
+
+const dataRowCard = (
+	cells: [string, string, string, string],
+	active = false,
+) => (
+	<Card pad wide type={active ? "active" : "default"}>
+		<Row gap>
+			<Col xs={24} md={7}>
+				<Paragraph>{cells[0]}</Paragraph>
+			</Col>
+			<Col xs={24} md={7}>
+				<Paragraph>{cells[1]}</Paragraph>
+			</Col>
+			<Col xs={24} md={5}>
+				<Paragraph>{cells[2]}</Paragraph>
+			</Col>
+			<Col xs={24} md={5}>
+				<Paragraph>{cells[3]}</Paragraph>
+			</Col>
+		</Row>
+	</Card>
+);
 
 export const Default: Story = {
 	args: {
@@ -622,6 +711,641 @@ export const KnowledgeBaseWorkspace: Story = {
 							onPageChange={() => undefined}
 						/>
 					</Space>
+				</Content>
+			</Page>
+		</Content>
+	),
+};
+
+export const ChatWorkspace: Story = {
+	render: () => (
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Space direction="vertical" gap>
+							<Title>Chat workspace</Title>
+							<Paragraph>
+								A contacts rail on the left and a live conversation on the
+								right.
+							</Paragraph>
+						</Space>
+						<Space gap align="center">
+							<Button variant="ghost">New chat</Button>
+							<Button variant="primary">Invite</Button>
+						</Space>
+					</Space>
+				</Content>
+				<Content grow fill style={bodyHostStyle}>
+					<Row gap fill>
+						<Col xs={24} md={6}>
+							<Card pad wide>
+								<Space direction="vertical" gap wide align="stretch">
+									<Space justify="between" align="center" wide>
+										<Paragraph>
+											<strong>Contacts</strong>
+										</Paragraph>
+										<Paragraph>12 online</Paragraph>
+									</Space>
+									<Space gap wide>
+										<Button variant="active">All</Button>
+										<Button variant="ghost">Unread</Button>
+										<Button variant="ghost">Pinned</Button>
+									</Space>
+									{chatContactCard(
+										"Jordan Lee",
+										"Today",
+										"Can you review the updated launch checklist before we post the note?",
+										true,
+									)}
+									{chatContactCard(
+										"Maya Chen",
+										"8m",
+										"The invoice correction is ready after the billing diff review.",
+									)}
+									{chatContactCard(
+										"Sergio Patel",
+										"21m",
+										"We can close the rollback note once the export retry passes.",
+									)}
+									{chatContactCard(
+										"Billing Ops",
+										"1h",
+										"Confirmed the renewal adjustment and sent the revised totals.",
+									)}
+								</Space>
+							</Card>
+						</Col>
+						<Col xs={24} md={18}>
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Space justify="between" align="center" wide>
+										<Space direction="vertical" gap>
+											<Paragraph>
+												<strong>Jordan Lee</strong>
+											</Paragraph>
+											<Paragraph>Design review · online now</Paragraph>
+										</Space>
+										<Space gap align="center">
+											<Button variant="ghost">Files</Button>
+											<Button variant="ghost">Details</Button>
+										</Space>
+									</Space>
+									<Content grow fill wide style={{ minHeight: 0 }}>
+										<Content fill style={scrollPanelStyle}>
+											<Space direction="vertical" gap wide fill align="stretch">
+												{chatBubble(
+													"I pulled the latest workspace notes into the review queue. The launch checklist still needs one last pass.",
+													"9:14 AM",
+													"left",
+												)}
+												{chatBubble(
+													"Looks good. Keep the invoice correction and the support handoff in the same thread so the customer team can follow it.",
+													"9:16 AM",
+													"right",
+												)}
+												{chatBubble(
+													"I’ll attach the billing diff and pin the approvals so the final summary stays easy to scan.",
+													"9:18 AM",
+													"left",
+												)}
+												{chatBubble(
+													"Perfect. I’m sending the final review request once the export note is updated.",
+													"9:19 AM",
+													"right",
+												)}
+												{chatBubble(
+													"The support team confirmed the retry window and the correction is ready to close.",
+													"9:24 AM",
+													"left",
+												)}
+												{chatBubble(
+													"I added the revised totals to the thread and marked the invoice for one last approval.",
+													"9:27 AM",
+													"right",
+												)}
+												{chatBubble(
+													"Great. I’m keeping this open until the launch note is published and the owner is notified.",
+													"9:31 AM",
+													"left",
+												)}
+											</Space>
+										</Content>
+									</Content>
+									<Space gap wide align="center">
+										<Input grow placeholder="Write a reply..." />
+										<Button variant="primary">Send</Button>
+									</Space>
+								</Space>
+							</Card>
+						</Col>
+					</Row>
+				</Content>
+			</Page>
+		</Content>
+	),
+};
+
+export const AssetReviewWorkspace: Story = {
+	render: () => (
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Space direction="vertical" gap>
+							<Title>Asset review workspace</Title>
+							<Paragraph>
+								A centered review surface with controls above and actions below.
+							</Paragraph>
+						</Space>
+						<Space gap align="center">
+							<Select
+								options={[
+									{ value: "review", element: <Paragraph>Review</Paragraph> },
+									{ value: "approved", element: <Paragraph>Approved</Paragraph> },
+									{ value: "needs-work", element: <Paragraph>Needs work</Paragraph> },
+								]}
+								onChange={() => undefined}
+								placeholder="Status"
+							/>
+							<Button variant="primary">Publish</Button>
+						</Space>
+					</Space>
+				</Content>
+				<Content grow fill style={bodyHostStyle}>
+					<Row gap fill style={{ minHeight: 0 }}>
+						<Col xs={24} md={5}>
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Paragraph>
+										<strong>Queue</strong>
+									</Paragraph>
+									{chatContactCard(
+										"Launch banner",
+										"1m",
+										"Needs a final contrast check before publishing.",
+										true,
+									)}
+									{chatContactCard(
+										"Homepage hero",
+										"8m",
+										"The approved crop is ready for signoff.",
+									)}
+									{chatContactCard(
+										"Billing screenshot",
+										"14m",
+										"Waiting on the updated caption and metadata.",
+									)}
+								</Space>
+							</Card>
+						</Col>
+						<Col xs={24} md={14}>
+							<Card pad wide fill grow>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Space justify="between" align="center" wide>
+										<Space direction="vertical" gap>
+											<Paragraph>
+												<strong>Preview</strong>
+											</Paragraph>
+											<Paragraph>
+												The review surface stays centered while the surrounding
+												controls remain compact.
+											</Paragraph>
+										</Space>
+										<Space gap align="center">
+											<Button variant="ghost">Crop</Button>
+											<Button variant="ghost">Annotate</Button>
+										</Space>
+									</Space>
+									<Content grow fill wide>
+										<Card pad wide fill>
+											<Space
+												direction="vertical"
+												gap
+												wide
+												fill
+												align="center"
+												justify="center"
+											>
+												<Title>Approved banner</Title>
+												<Paragraph>Centered preview pane</Paragraph>
+												<Paragraph>
+													Use this view for crop validation, copy checks, and
+													final approval.
+												</Paragraph>
+											</Space>
+										</Card>
+									</Content>
+									<Space justify="between" align="center" wide>
+										<Paragraph>Reviewed by Maya · 2 approvals</Paragraph>
+										<Space gap align="center">
+											<Button variant="ghost">Reject</Button>
+											<Button variant="active">Approve</Button>
+										</Space>
+									</Space>
+								</Space>
+							</Card>
+						</Col>
+						<Col xs={24} md={5}>
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Paragraph>
+										<strong>Details</strong>
+									</Paragraph>
+									{noteCard(
+										"Owner",
+										"Design ops owns the final publish checklist for this asset.",
+									)}
+									{noteCard(
+										"Target",
+										"This banner will ship on the launch page and the support portal.",
+									)}
+									{noteCard(
+										"Notes",
+										"The approved crop should keep the logo clear of the top edge.",
+									)}
+								</Space>
+							</Card>
+						</Col>
+					</Row>
+				</Content>
+			</Page>
+		</Content>
+	),
+};
+
+export const QueryWorkbench: Story = {
+	render: () => (
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Space direction="vertical" gap>
+							<Title>Query workbench</Title>
+							<Paragraph>
+								Edit a query, inspect visual summaries, and review result rows
+								in one bounded workspace.
+							</Paragraph>
+						</Space>
+						<Space gap align="center">
+							<Select
+								options={[
+									{ value: "prod", element: <Paragraph>Production</Paragraph> },
+									{ value: "staging", element: <Paragraph>Staging</Paragraph> },
+								]}
+								onChange={() => undefined}
+								placeholder="Dataset"
+							/>
+							<Button variant="ghost">Format SQL</Button>
+							<Button variant="primary">Run query</Button>
+						</Space>
+					</Space>
+				</Content>
+				<Content grow fill style={bodyHostStyle}>
+					<Row gap fill>
+						<Col xs={24} md={10}>
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Space justify="between" align="center" wide>
+										<Paragraph>
+											<strong>Editor</strong>
+										</Paragraph>
+										<Button variant="active">Saved query</Button>
+									</Space>
+									<Content grow fill wide>
+										<CodeArea
+											grow
+											lineNumbers
+											highlightCurrentLine
+											rules={sqlRules}
+											defaultValue={`-- Daily workspace rollup
+select
+  date_trunc('day', created_at) as day,
+  count(*) as sessions,
+  avg(duration_ms) as avg_duration,
+  sum(case when status = 'error' then 1 else 0 end) as errors
+from workspace_sessions
+where created_at >= '2026-04-01'
+group by 1
+order by 1 desc
+limit 14;`}
+										/>
+									</Content>
+									<Space gap wide>
+										{noteCard(
+											"Result shape",
+											"14 daily rows, 4 aggregate columns, and one grouped time dimension.",
+										)}
+									</Space>
+								</Space>
+							</Card>
+						</Col>
+						<Col xs={24} md={14}>
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Tabs defaultActiveKey="results">
+										<Tab key="results" label="Results">
+											<Space direction="vertical" gap wide fill align="stretch">
+												<Row gap>
+													<Col xs={24} md={14}>
+														<Card pad wide>
+															<MultiLineChart
+																lines={[
+																	{
+																		label: "Sessions",
+																		values: [
+																			{ x: "2026-04-01", y: 1220 },
+																			{ x: "2026-04-02", y: 1384 },
+																			{ x: "2026-04-03", y: 1495 },
+																			{ x: "2026-04-04", y: 1610 },
+																			{ x: "2026-04-05", y: 1552 },
+																		],
+																	},
+																	{
+																		label: "Errors",
+																		values: [
+																			{ x: "2026-04-01", y: 42 },
+																			{ x: "2026-04-02", y: 39 },
+																			{ x: "2026-04-03", y: 61 },
+																			{ x: "2026-04-04", y: 55 },
+																			{ x: "2026-04-05", y: 37 },
+																		],
+																	},
+																]}
+																hoverLabel="rows"
+																showVerticalTicks
+																smooth
+															/>
+														</Card>
+													</Col>
+													<Col xs={24} md={10}>
+														<Card pad wide>
+															<LabelBars
+																labels={[
+																	{ label: "Healthy", prob: 0.73 },
+																	{ label: "Watch", prob: 0.19 },
+																	{ label: "Critical", prob: 0.08 },
+																]}
+															/>
+														</Card>
+													</Col>
+												</Row>
+												<Card pad wide fill>
+													<Space direction="vertical" gap wide fill align="stretch">
+														<Row gap>
+															<Col xs={24} md={7}>
+																<Paragraph>
+																	<strong>Workspace</strong>
+																</Paragraph>
+															</Col>
+															<Col xs={24} md={7}>
+																<Paragraph>
+																	<strong>Owner</strong>
+																</Paragraph>
+															</Col>
+															<Col xs={24} md={5}>
+																<Paragraph>
+																	<strong>Sessions</strong>
+																</Paragraph>
+															</Col>
+															<Col xs={24} md={5}>
+																<Paragraph>
+																	<strong>Status</strong>
+																</Paragraph>
+															</Col>
+														</Row>
+														<Content grow fill style={scrollPanelStyle}>
+															<Space direction="vertical" gap wide>
+																{dataRowCard(
+																	["Northwind", "Maya Chen", "18,440", "Healthy"],
+																	true,
+																)}
+																{dataRowCard([
+																	"Atlas Labs",
+																	"Jordan Lee",
+																	"14,992",
+																	"Healthy",
+																])}
+																{dataRowCard([
+																	"Signal Ops",
+																	"Sergio Patel",
+																	"11,804",
+																	"Watch",
+																])}
+																{dataRowCard([
+																	"Vector Retail",
+																	"Priya Shah",
+																	"9,318",
+																	"Healthy",
+																])}
+																{dataRowCard([
+																	"Harbor Health",
+																	"Alex King",
+																	"8,102",
+																	"Critical",
+																])}
+																{dataRowCard([
+																	"Delta Freight",
+																	"Imani Cole",
+																	"7,885",
+																	"Watch",
+																])}
+															</Space>
+														</Content>
+													</Space>
+												</Card>
+											</Space>
+										</Tab>
+										<Tab key="schema" label="Schema">
+											<Row gap>
+												<Col xs={24} md={12}>
+													{noteCard(
+														"workspace_sessions",
+														"Fields include created_at, workspace_id, owner_id, duration_ms, and status.",
+													)}
+												</Col>
+												<Col xs={24} md={12}>
+													{noteCard(
+														"Indexes",
+														"created_at desc, workspace_id + created_at, and status for error window checks.",
+													)}
+												</Col>
+											</Row>
+										</Tab>
+									</Tabs>
+								</Space>
+							</Card>
+						</Col>
+					</Row>
+				</Content>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Paragraph>Showing 6 workspace rows from the current result set.</Paragraph>
+						<Pagination
+							currentPage={1}
+							maxPage={9}
+							onPageChange={() => undefined}
+						/>
+					</Space>
+				</Content>
+			</Page>
+		</Content>
+	),
+};
+
+export const MissionControlWorkspace: Story = {
+	render: () => (
+		<Content fill pad style={viewportStyle}>
+			<Page gap fill>
+				<Content>
+					<Space justify="between" align="center" wide>
+						<Space direction="vertical" gap>
+							<Title>Mission control workspace</Title>
+							<Paragraph>
+								A multi-surface control room with a live board, action queue,
+								and state summary.
+							</Paragraph>
+						</Space>
+						<Space gap align="center">
+							<Button variant="ghost">Standby</Button>
+							<Button variant="active">Live</Button>
+							<Button variant="primary">Broadcast update</Button>
+						</Space>
+					</Space>
+				</Content>
+				<Content grow fill style={bodyHostStyle}>
+					<Row gap fill>
+						<Col xs={24} md={5}>
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Paragraph>
+										<strong>Action queue</strong>
+									</Paragraph>
+									{noteCard(
+										"Red zone",
+										"Confirm rollback readiness before the next traffic shift.",
+									)}
+									{noteCard(
+										"Launch gate",
+										"Validate the support macro update and publish the revised note.",
+									)}
+									{noteCard(
+										"Ops owner",
+										"Keep the customer queue open until analytics signs off on the retry window.",
+									)}
+								</Space>
+							</Card>
+						</Col>
+						<Col xs={24} md={12}>
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Paragraph>
+										<strong>Control board</strong>
+									</Paragraph>
+									<Content grow fill wide>
+										<Card pad wide fill>
+											<Space direction="vertical" gap wide fill align="stretch">
+												<Row gap>
+													<Col xs={24} md={8}>
+														{noteCard(
+															"Traffic",
+															"Requests are stable and within the approved target band.",
+														)}
+													</Col>
+													<Col xs={24} md={8}>
+														{noteCard(
+															"Incidents",
+															"One workspace remains in watch mode pending the export verification pass.",
+														)}
+													</Col>
+													<Col xs={24} md={8}>
+														{noteCard(
+															"Staffing",
+															"Support and billing both have named owners covering the current shift.",
+														)}
+													</Col>
+												</Row>
+												<StackedBreakdownChart
+													labels={["Stable", "Watch", "Blocked"]}
+													xLabels={[
+														<Paragraph key="q1">08:00</Paragraph>,
+														<Paragraph key="q2">10:00</Paragraph>,
+														<Paragraph key="q3">12:00</Paragraph>,
+														<Paragraph key="q4">14:00</Paragraph>,
+													]}
+													rows={[
+														{
+															key: "08",
+															labelWeights: {
+																Stable: 0.64,
+																Watch: 0.23,
+																Blocked: 0.13,
+															},
+														},
+														{
+															key: "10",
+															labelWeights: {
+																Stable: 0.58,
+																Watch: 0.27,
+																Blocked: 0.15,
+															},
+														},
+														{
+															key: "12",
+															labelWeights: {
+																Stable: 0.69,
+																Watch: 0.19,
+																Blocked: 0.12,
+															},
+														},
+														{
+															key: "14",
+															labelWeights: {
+																Stable: 0.72,
+																Watch: 0.17,
+																Blocked: 0.11,
+															},
+														},
+													]}
+												/>
+											</Space>
+										</Card>
+									</Content>
+								</Space>
+							</Card>
+						</Col>
+						<Col xs={24} md={7}>
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
+									<Paragraph>
+										<strong>Live state</strong>
+									</Paragraph>
+									<Card pad wide>
+										<EmbeddingHeatmap
+											embedding={[
+												[0.12, 0.18, 0.31, 0.42, 0.5, 0.61],
+												[0.22, 0.36, 0.49, 0.38, 0.24, 0.15],
+												[0.41, 0.58, 0.72, 0.63, 0.31, 0.18],
+												[0.69, 0.74, 0.62, 0.44, 0.27, 0.14],
+											]}
+											height={140}
+										/>
+									</Card>
+									<LabelBars
+										labels={[
+											{ label: "Stable", prob: 0.71 },
+											{ label: "Watch", prob: 0.19 },
+											{ label: "Blocked", prob: 0.1 },
+										]}
+									/>
+									<Space gap wide>
+										<Button variant="ghost">Freeze queue</Button>
+										<Button variant="primary">Escalate</Button>
+									</Space>
+								</Space>
+							</Card>
+						</Col>
+					</Row>
 				</Content>
 			</Page>
 		</Content>

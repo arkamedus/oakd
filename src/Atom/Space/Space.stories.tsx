@@ -12,6 +12,8 @@ import EmbeddingHeatmap from "../EmbeddingHeatmap/EmbeddingHeatmap";
 import StackedBreakdownChart from "../StackedBreakdownChart/StackedBreakdownChart";
 import LabelBars from "../LabelBars/LabelBars";
 import Aspect from "../../Layout/Aspect/Aspect";
+import Collapsible from "../Collapsible/Collapsible";
+import Title from "../Title/Title";
 
 const meta: Meta<typeof Space> = {
 	title: "Design System/Atomic/Space",
@@ -24,7 +26,7 @@ const meta: Meta<typeof Space> = {
 		},
 		align: {
 			control: { type: "select" },
-			options: ["default", "normal", "center", "start", "end"],
+			options: ["default", "normal", "center", "start", "end", "stretch"],
 		},
 		justify: {
 			control: { type: "select" },
@@ -119,8 +121,8 @@ export const VerticalGrowOnSecondChild: Story = {
 	render: () => (
 		<Aspect ratio="21x9">
 			<Card pad wide fill>
-				<Content grow>
-					<Row gap style={{ height: "100%" }}>
+				<Content grow fill>
+					<Row gap fill>
 						<Column xs={24} md={12}>
 							<Card pad wide fill>
 								<Space direction="vertical" gap wide fill align="stretch">
@@ -128,7 +130,7 @@ export const VerticalGrowOnSecondChild: Story = {
 										Natural second item in a full-height stack
 									</Paragraph>
 									{simpleBox(
-										"The stack fills the panel, but this item keeps its natural height.",
+										"The stack fills the panel, but this item keeps its natural height and leaves the remaining space below it.",
 										{
 											minHeight: 120,
 										},
@@ -142,11 +144,11 @@ export const VerticalGrowOnSecondChild: Story = {
 									<Paragraph>
 										Grow on second item in a full-height stack
 									</Paragraph>
-									<Content grow wide>
-										<Card pad wide fill>
+									<Content grow fill wide>
+										<Card pad wide grow fill>
 											<Paragraph>
-												The stack fills the panel, and this item consumes the
-												remaining height.
+												The stack fills the panel, and this card grows to consume
+												the remaining height.
 											</Paragraph>
 										</Card>
 									</Content>
@@ -155,6 +157,187 @@ export const VerticalGrowOnSecondChild: Story = {
 						</Column>
 					</Row>
 				</Content>
+			</Card>
+		</Aspect>
+	),
+};
+
+export const BetweenHeaderAndDisclosure: Story = {
+	render: () => (
+		<Row gap>
+			<Column xs={24} md={12}>
+				<Card pad wide fill>
+					<Space justify="between" align="center" wide>
+						<Paragraph>
+							<strong>Queue summary</strong>
+						</Paragraph>
+						<Button variant="ghost">View all</Button>
+					</Space>
+				</Card>
+			</Column>
+			<Column xs={24} md={12}>
+				<Card pad wide>
+					<Space direction="vertical" gap wide>
+						<Paragraph>
+							<strong>Release details</strong>
+						</Paragraph>
+						<Collapsible
+							title={
+								<Paragraph>
+									<strong>Open checklist</strong>
+								</Paragraph>
+							}
+							defaultOpen
+						>
+							<Content pad>
+								<Paragraph>
+									Align the title and disclosure naturally while the content
+									stays in a separate flow block below.
+								</Paragraph>
+							</Content>
+						</Collapsible>
+					</Space>
+				</Card>
+			</Column>
+		</Row>
+	),
+};
+
+export const CenterAndStretchComparison: Story = {
+	render: () => (
+		<Aspect ratio="18x9">
+			<Card pad wide fill>
+				<Row gap fill style={{ height: "100%" }}>
+					<Column xs={24} md={10}>
+						<Card pad wide fill>
+							<Space
+								direction="vertical"
+								gap
+								wide
+								fill
+								align="center"
+								justify="center"
+							>
+								<Title>Centered status</Title>
+								<Paragraph>
+									Use `justify=&quot;center&quot;` to center content on the main axis
+									and `align=&quot;center&quot;` on the cross axis.
+								</Paragraph>
+							</Space>
+						</Card>
+					</Column>
+					<Column xs={24} md={14}>
+						<Card pad wide fill>
+							<Space direction="vertical" gap wide fill align="stretch">
+								<Paragraph>
+									<strong>Stretching detail rail</strong>
+								</Paragraph>
+								<Content grow fill wide>
+									<Card pad wide fill>
+										<Paragraph>
+											Use `align=&quot;stretch&quot;` when child surfaces should
+											expand to the full cross-axis width, and pair it with a grow
+											host only on the child that should absorb remaining height.
+										</Paragraph>
+									</Card>
+								</Content>
+							</Space>
+						</Card>
+					</Column>
+				</Row>
+			</Card>
+		</Aspect>
+	),
+};
+
+export const CenteredSummaryAndCollapsible: Story = {
+	render: () => (
+		<Row gap>
+			<Column xs={24} md={12}>
+				<Card pad wide fill>
+					<Space
+						direction="vertical"
+						gap
+						wide
+						fill
+						align="center"
+						justify="center"
+					>
+						<Title>42</Title>
+						<Paragraph>Active reviews</Paragraph>
+					</Space>
+				</Card>
+			</Column>
+			<Column xs={24} md={12}>
+				<Card pad wide>
+					<Space direction="vertical" gap wide>
+						<Paragraph>
+							<strong>Details</strong>
+						</Paragraph>
+						<Collapsible
+							title={
+								<Paragraph>
+									<strong>Deployment note</strong>
+								</Paragraph>
+							}
+							defaultOpen
+						>
+							<Content pad>
+								<Paragraph>
+									The release passed validation, but finance still needs the
+									final invoice diff before the note can be closed.
+								</Paragraph>
+							</Content>
+						</Collapsible>
+					</Space>
+				</Card>
+			</Column>
+		</Row>
+	),
+};
+
+export const CenteredMessageAndGrowingDetail: Story = {
+	render: () => (
+		<Aspect ratio="16x9">
+			<Card pad wide fill>
+				<Row gap fill style={{ height: "100%" }}>
+					<Column xs={24} md={9}>
+						<Card pad wide fill>
+							<Space
+								direction="vertical"
+								gap
+								wide
+								fill
+								align="center"
+								justify="center"
+							>
+								<Title>Launch ready</Title>
+								<Paragraph>
+									The left side stays visually centered while the right side
+									grows into the remaining height.
+								</Paragraph>
+							</Space>
+						</Card>
+					</Column>
+					<Column xs={24} md={15}>
+						<Card pad wide fill>
+							<Space direction="vertical" gap wide fill align="stretch">
+								<Paragraph>
+									<strong>Growing detail panel</strong>
+								</Paragraph>
+								<Content grow wide>
+									<Card pad wide fill>
+										<Paragraph>
+											This detail surface is the grow item. Use this pattern when
+											one side should stay centered and the other side should
+											consume the extra height.
+										</Paragraph>
+									</Card>
+								</Content>
+							</Space>
+						</Card>
+					</Column>
+				</Row>
 			</Card>
 		</Aspect>
 	),

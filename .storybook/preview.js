@@ -70,7 +70,18 @@ import {withThemeByClassName} from "@storybook/addon-themes";
 
 
 export default {
-    tags: ["autodocs"],
+    parameters: {
+        options: {
+            storySort: {
+                order: [
+                    "Welcome",
+                    "Layout",
+                    "Atom",
+                    "Icon"
+                ]
+            }
+        }
+    },
     decorators : [
         withThemeByClassName({
             themes: {
@@ -83,4 +94,3 @@ export default {
         })
     ]
 };
-

@@ -127,4 +127,39 @@ describe("Page Component", () => {
     expect(await screen.findByText("Signups")).toBeInTheDocument();
     expect(screen.getByTestId("MultiLineChartRoot")).toHaveClass("oakd-multi-line-chart--fill");
   });
+
+  it("supports a static page body with an inner scroll region", () => {
+    render(
+      <div style={{ width: 1280, height: 720 }}>
+        <Page gap fill>
+          <Content>
+            <Paragraph>Header</Paragraph>
+          </Content>
+          <Content grow fill style={{ minHeight: 0, overflow: "hidden" }}>
+            <Row gap fill>
+              <Col xs={24} md={6}>
+                <Card pad wide>
+                  <Paragraph>Contacts</Paragraph>
+                </Card>
+              </Col>
+              <Col xs={24} md={18}>
+                <Card pad wide fill>
+                  <Content grow fill style={{ minHeight: 0, overflowY: "auto" }}>
+                    <Paragraph>Message rail</Paragraph>
+                  </Content>
+                </Card>
+              </Col>
+            </Row>
+          </Content>
+        </Page>
+      </div>,
+    );
+
+    expect(screen.getByTestId("Page")).toHaveClass("fill");
+    expect(screen.getByTestId("Row")).toHaveClass("fill");
+    expect(screen.getByText("Contacts").closest("[data-testid='Card']")).not.toHaveClass("fill");
+    expect(screen.getByText("Message rail").closest("[data-testid='Content']")).toHaveStyle({
+      overflowY: "auto",
+    });
+  });
 });
