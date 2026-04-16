@@ -1,0 +1,58 @@
+.oakd.tree {
+	width: 100%;
+	min-width: 0;
+}
+
+.oakd.tree__list {
+	display: flex;
+	flex-direction: column;
+	gap: calc(var(--leading) / 2);
+}
+
+.oakd.tree__node {
+	min-width: 0;
+	position: relative;
+}
+
+.oakd.tree__node.drop-target::before {
+	content: "";
+	position: absolute;
+	left: calc(var(--tree-depth, 0) * var(--leading) * 2);
+	right: 0;
+	top: calc(var(--leading) / -4);
+	height: 1px;
+	background: rgba(0, 0, 0, 0.18);
+	pointer-events: none;
+}
+
+.oakd.tree__row {
+	display: flex;
+	align-items: center;
+	gap: calc(var(--leading) / 2);
+	width: 100%;
+	min-width: 0;
+	padding-left: calc(var(--tree-depth, 0) * var(--leading) * 1.5);
+}
+
+.oakd.tree__row.is-dragging {
+	opacity: 0.45;
+}
+
+.oakd.tree__toggle {
+	flex: 0 0 auto;
+}
+
+.oakd.tree__label {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.oakd.tree__leaf {
+	flex: 0 0 auto;
+}
+
+.oakd.tree__children {
+	display: flex;
+	flex-direction: column;
+	gap: calc(var(--leading) / 2);
+}

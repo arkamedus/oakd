@@ -32,7 +32,7 @@ describe("Collapsible Component", () => {
   it("opens and reports state changes when toggled", async () => {
     const { container } = renderComponent();
 
-    fireEvent.click(screen.getByRole("button", { name: /release notes/i }));
+    fireEvent.click(screen.getByTestId("CollapsibleToggle"));
 
     await waitFor(() => {
       expect(
@@ -50,6 +50,18 @@ describe("Collapsible Component", () => {
     });
 
     expect(props.onToggle).toHaveBeenCalledWith(true);
+  });
+
+  it("allows clicking anywhere in the padded header surface to toggle", async () => {
+    const { container } = renderComponent();
+
+    fireEvent.click(container.querySelector("[data-testid='CollapsibleToggle'] .oakd.content")!);
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: /release notes/i }),
+      ).toHaveAttribute("aria-expanded", "true");
+    });
   });
 
   it("respects the default open state", () => {

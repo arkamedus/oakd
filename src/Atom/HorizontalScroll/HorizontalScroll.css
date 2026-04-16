@@ -1,0 +1,55 @@
+.oakd.horizontal-scroll {
+	display: block;
+	width: 100%;
+	min-width: 0;
+	overflow-x: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+
+.oakd.horizontal-scroll.pad {
+	padding: var(--leading);
+}
+
+.oakd.horizontal-scroll.pad-horizontal {
+	padding: 0 var(--leading);
+}
+
+.oakd.horizontal-scroll.pad-vertical {
+	padding: var(--leading) 0;
+}
+
+.oakd.horizontal-scroll__track {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	width: max-content;
+	min-width: 100%;
+	min-height: 0;
+	align-items: stretch;
+}
+
+.oakd.horizontal-scroll__track.gap {
+	gap: var(--leading);
+}
+
+.oakd.horizontal-scroll__track.align-start {
+	align-items: flex-start;
+}
+
+.oakd.horizontal-scroll__track.align-center {
+	align-items: center;
+}
+
+.oakd.horizontal-scroll__track.align-end {
+	align-items: flex-end;
+}
+
+.oakd.horizontal-scroll__track.align-stretch {
+	align-items: stretch;
+}
+
+.oakd.horizontal-scroll__item {
+	flex: 0 0 auto;
+	min-width: max-content;
+}

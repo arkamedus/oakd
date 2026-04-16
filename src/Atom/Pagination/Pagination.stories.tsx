@@ -7,7 +7,7 @@ import Paragraph from "../Paragraph/Paragraph";
 import Title from "../Title/Title";
 
 const meta: Meta<typeof Pagination> = {
-	title: "Design System/Atomic/Pagination",
+	title: "Design System/Navigation/Pagination",
 	component: Pagination,
 	tags: ["!autodocs"],
 	argTypes: {

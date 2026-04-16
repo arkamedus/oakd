@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import Paragraph from "../Paragraph/Paragraph";
 import Space from "../Space/Space";
-import { ChartLegend, getChartColor } from "../Chart/Chart.shared";
+import {
+	ChartAxisLabel,
+	ChartLegend,
+	getChartColor,
+} from "../Chart/Chart.shared";
 import "./MultiLineChart.css";
 import {
 	MultiLineChartPoint,
@@ -44,6 +48,9 @@ const getHeight = (element: HTMLDivElement | null) => {
 const getValueAtIndex = (values: MultiLineChartPoint[], index: number) =>
 	values[index]?.y ?? 0;
 
+const TOOLTIP_WIDTH = 200;
+const TOOLTIP_GUTTER = 8;
+
 const MultiLineChart: React.FC<MultiLineChartProps> = ({
 	lines,
 	height,
@@ -51,6 +58,11 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 	hoverLabel,
 	smooth = false,
 	showVerticalTicks = false,
+	showHorizontalTicks = false,
+	showXAxisLabels = false,
+	showYAxisLabels = false,
+	xLabels,
+	yLabels,
 	className = "",
 	style,
 }) => {
@@ -163,17 +175,41 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 		...normalizedLines.flatMap((line) => line.values.map((value) => value.y)),
 		1,
 	);
-	const pad = 12;
+	const axisXLabels = xLabels?.length
+		? xLabels
+		: (normalizedLines[0]?.values.map((value) => value.x) ?? []);
+	const axisYLabels = yLabels?.length
+		? yLabels
+		: [
+				{ value: maxY, label: maxY.toLocaleString() },
+				{ value: maxY / 2, label: Math.round(maxY / 2).toLocaleString() },
+				{ value: 0, label: "0" },
+			];
+	const leftPad = showYAxisLabels ? 40 : 0;
+	const rightPad = 0;
+	const topPad = 0;
+	const bottomPad = showXAxisLabels ? 28 : 0;
 
 	const xAt = (index: number) =>
-		maxLen <= 1 ? width / 2 : pad + (index / (maxLen - 1)) * (width - pad * 2);
+		maxLen <= 1
+			? (leftPad + width - rightPad) / 2
+			: leftPad + (index / (maxLen - 1)) * (width - leftPad - rightPad);
 	const yAt = (value: number) =>
-		chartHeight - pad - (value / maxY) * (chartHeight - pad * 2);
+		chartHeight -
+		bottomPad -
+		(value / maxY) * (chartHeight - topPad - bottomPad);
 
 	const hoverDate =
 		hoverIndex !== null
 			? normalizedLines[0]?.values[hoverIndex]?.x || null
 			: null;
+	const tooltipLeft =
+		hoverX !== null
+			? Math.min(
+					Math.max(hoverX - TOOLTIP_WIDTH / 2, TOOLTIP_GUTTER),
+					Math.max(TOOLTIP_GUTTER, width - TOOLTIP_WIDTH - TOOLTIP_GUTTER),
+				)
+			: TOOLTIP_GUTTER;
 
 	return (
 		<div
@@ -214,6 +250,23 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 						height={chartHeight}
 						style={{ overflow: "visible" }}
 					>
+						{showHorizontalTicks
+							? axisYLabels.map((tick, index) => {
+									const cy = yAt(tick.value);
+									return (
+										<line
+											key={`h-tick-${index}`}
+											x1={leftPad}
+											y1={cy}
+											x2={width - rightPad}
+											y2={cy}
+											stroke="rgba(0, 0, 0, 0.08)"
+											strokeDasharray="2 4"
+										/>
+									);
+								})
+							: null}
+
 						{showVerticalTicks
 							? Array.from({ length: maxLen }).map((_, index) => {
 									const cx = xAt(index);
@@ -221,9 +274,9 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 										<line
 											key={`tick-${index}`}
 											x1={cx}
-											y1={pad}
+											y1={topPad}
 											x2={cx}
-											y2={chartHeight - pad}
+											y2={chartHeight - bottomPad}
 											stroke="rgba(0, 0, 0, 0.08)"
 											strokeDasharray="2 4"
 										/>
@@ -234,9 +287,9 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 						{hoverX !== null && hoverIndex !== null ? (
 							<line
 								x1={hoverX}
-								y1={pad}
+								y1={topPad}
 								x2={hoverX}
-								y2={chartHeight - pad}
+								y2={chartHeight - bottomPad}
 								stroke="#999"
 								strokeDasharray="4 2"
 							/>
@@ -281,9 +334,59 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 							);
 						})}
 
+						{showYAxisLabels
+							? axisYLabels.map((tick, index) => (
+									<foreignObject
+										key={`y-label-${index}`}
+										x={0}
+										y={yAt(tick.value) - 10}
+										width={leftPad - 8}
+										height={20}
+									>
+										<ChartAxisLabel align="right">{tick.label}</ChartAxisLabel>
+									</foreignObject>
+								))
+							: null}
+
+						{showXAxisLabels
+							? axisXLabels.slice(0, maxLen).map((label, index) => {
+									const layout =
+										index === 0
+											? { x: 0, align: "left" as const }
+											: index === maxLen - 1
+												? {
+														x: Math.max(0, width - 80),
+														align: "right" as const,
+													}
+												: {
+														x: Math.max(
+															0,
+															Math.min(width - 80, xAt(index) - 40),
+														),
+														align: "center" as const,
+													};
+
+									return (
+										<foreignObject
+											key={`x-label-${index}`}
+											x={layout.x}
+											y={chartHeight - bottomPad + 8}
+											width={80}
+											height={20}
+										>
+											<ChartAxisLabel align={layout.align}>
+												{label}
+											</ChartAxisLabel>
+										</foreignObject>
+									);
+								})
+							: null}
+
 						{Array.from({ length: maxLen }).map((_, index) => {
 							const cx = xAt(index);
-							const widthPerBucket = maxLen <= 1 ? width : width / maxLen;
+							const plotWidth = width - leftPad - rightPad;
+							const widthPerBucket =
+								maxLen <= 1 ? plotWidth : plotWidth / maxLen;
 
 							return (
 								<rect
@@ -310,7 +413,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 						<div
 							className="oakd-multi-line-chart__tooltip"
 							style={{
-								left: Math.min((hoverX || 0) + 10, width - 210),
+								left: tooltipLeft,
 								top: 10,
 							}}
 						>

@@ -107,3 +107,87 @@ export const VariantGallery = () => (
 		</Card>
 	</Space>
 );
+
+export const EmptyState = () => (
+	<Card>
+		<Content pad>
+			<Space direction="vertical" gap align="center" wide>
+				<Title>No items yet</Title>
+				<Paragraph>
+					This workspace is empty. Add a source, import a dataset, or create a
+					new record to begin.
+				</Paragraph>
+				<Button variant="primary">
+					<Paragraph>Create first item</Paragraph>
+				</Button>
+			</Space>
+		</Content>
+	</Card>
+);
+
+export const SuccessState = () => (
+	<Card type="active">
+		<Content pad>
+			<Space direction="vertical" gap align="center" wide>
+				<Title>Successfully Purchased</Title>
+				<Paragraph>Order number: 123456789</Paragraph>
+				<Button variant="primary">
+					<Paragraph>Go to Dashboard</Paragraph>
+				</Button>
+			</Space>
+		</Content>
+	</Card>
+);
+
+export const ErrorState = () => (
+	<Card type="warning">
+		<Content pad>
+			<Space direction="vertical" gap align="center" wide>
+				<Title>Failure in Action...</Title>
+				<Paragraph>Order number: 123456789</Paragraph>
+				<Button variant="warning">
+					<Paragraph>Review issue</Paragraph>
+				</Button>
+			</Space>
+		</Content>
+	</Card>
+);
+
+export const CompactStatus = () => (
+	<Card pad>
+		<Space gap justify="between" wide align="center">
+			<Space direction="vertical" gap>
+				<Paragraph>
+					<strong>Render queue</strong>
+				</Paragraph>
+				<Paragraph>3 scenes still processing.</Paragraph>
+			</Space>
+			<Button variant="active">
+				<Paragraph>Live</Paragraph>
+			</Button>
+		</Space>
+	</Card>
+);
+
+export const ActionSummary = () => (
+	<Card>
+		<Content pad>
+			<Space direction="vertical" gap>
+				<Title>Approve campaign assets</Title>
+				<Paragraph>
+					The revised landing page set is ready for review and can be handed to
+					the launch team.
+				</Paragraph>
+				<Divider />
+				<Space justify="end" gap wide>
+					<Button variant="ghost">
+						<Paragraph>Request changes</Paragraph>
+					</Button>
+					<Button variant="primary">
+						<Paragraph>Approve</Paragraph>
+					</Button>
+				</Space>
+			</Space>
+		</Content>
+	</Card>
+);

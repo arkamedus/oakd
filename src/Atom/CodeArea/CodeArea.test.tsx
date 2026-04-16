@@ -59,4 +59,19 @@ describe("CodeArea Component", () => {
 
     expect(container.querySelector(".codearea-linebg.is-current")).toBeNull();
   });
+
+  it("supports fill so the editor can occupy a bounded parent host", () => {
+    const { container } = render(
+      <div style={{ width: 720, height: 360, display: "flex" }}>
+        <CodeArea
+          fill
+          defaultValue={"select *\nfrom workspace_sessions;"}
+        />
+      </div>,
+    );
+
+    expect(screen.getByTestId("CodeArea")).toHaveClass("fill");
+    expect(container.querySelector(".codearea-editor")).toBeInTheDocument();
+    expect(screen.getByTestId("CodeAreaTextarea")).not.toHaveAttribute("style");
+  });
 });

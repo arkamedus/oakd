@@ -5,7 +5,7 @@ import { IconMagnify } from "../../Icon/Icons.bin";
 import Paragraph from "../Paragraph/Paragraph";
 
 const meta: Meta<typeof Breadcrumb> = {
-	title: "Design System/Atomic/Breadcrumb",
+	title: "Design System/Navigation/Breadcrumb",
 	component: Breadcrumb,
 	argTypes: {
 		separator: {

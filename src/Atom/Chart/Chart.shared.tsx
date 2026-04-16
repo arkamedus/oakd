@@ -107,3 +107,19 @@ export const ChartLegend: React.FC<{
 		))}
 	</Space>
 );
+
+export const ChartAxisLabel: React.FC<{
+	children: React.ReactNode;
+	align?: "left" | "center" | "right";
+}> = ({ children, align = "center" }) => (
+	<Paragraph
+		className="oakd-chart-axis-label"
+		style={{
+			opacity: 0.7,
+			fontSize: "0.8em",
+			textAlign: align,
+		}}
+	>
+		{children}
+	</Paragraph>
+);

@@ -151,10 +151,7 @@ const chatBubble = (
 	time: string,
 	side: "left" | "right" = "left",
 ) => (
-	<Space
-		justify={side === "right" ? "end" : "start"}
-		wide
-	>
+	<Space justify={side === "right" ? "end" : "start"} wide>
 		<Card
 			pad
 			style={{
@@ -862,8 +859,14 @@ export const AssetReviewWorkspace: Story = {
 							<Select
 								options={[
 									{ value: "review", element: <Paragraph>Review</Paragraph> },
-									{ value: "approved", element: <Paragraph>Approved</Paragraph> },
-									{ value: "needs-work", element: <Paragraph>Needs work</Paragraph> },
+									{
+										value: "approved",
+										element: <Paragraph>Approved</Paragraph>,
+									},
+									{
+										value: "needs-work",
+										element: <Paragraph>Needs work</Paragraph>,
+									},
 								]}
 								onChange={() => undefined}
 								placeholder="Status"
@@ -1012,13 +1015,12 @@ export const QueryWorkbench: Story = {
 										</Paragraph>
 										<Button variant="active">Saved query</Button>
 									</Space>
-									<Content grow fill wide>
-										<CodeArea
-											grow
-											lineNumbers
-											highlightCurrentLine
-											rules={sqlRules}
-											defaultValue={`-- Daily workspace rollup
+									<CodeArea
+										fill
+										lineNumbers
+										highlightCurrentLine
+										rules={sqlRules}
+										defaultValue={`-- Daily workspace rollup
 select
   date_trunc('day', created_at) as day,
   count(*) as sessions,
@@ -1029,8 +1031,7 @@ where created_at >= '2026-04-01'
 group by 1
 order by 1 desc
 limit 14;`}
-										/>
-									</Content>
+									/>
 									<Space gap wide>
 										{noteCard(
 											"Result shape",
@@ -1091,7 +1092,13 @@ limit 14;`}
 													</Col>
 												</Row>
 												<Card pad wide fill>
-													<Space direction="vertical" gap wide fill align="stretch">
+													<Space
+														direction="vertical"
+														gap
+														wide
+														fill
+														align="stretch"
+													>
 														<Row gap>
 															<Col xs={24} md={7}>
 																<Paragraph>
@@ -1117,7 +1124,12 @@ limit 14;`}
 														<Content grow fill style={scrollPanelStyle}>
 															<Space direction="vertical" gap wide>
 																{dataRowCard(
-																	["Northwind", "Maya Chen", "18,440", "Healthy"],
+																	[
+																		"Northwind",
+																		"Maya Chen",
+																		"18,440",
+																		"Healthy",
+																	],
 																	true,
 																)}
 																{dataRowCard([
@@ -1180,7 +1192,9 @@ limit 14;`}
 				</Content>
 				<Content>
 					<Space justify="between" align="center" wide>
-						<Paragraph>Showing 6 workspace rows from the current result set.</Paragraph>
+						<Paragraph>
+							Showing 6 workspace rows from the current result set.
+						</Paragraph>
 						<Pagination
 							currentPage={1}
 							maxPage={9}

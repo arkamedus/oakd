@@ -20,6 +20,9 @@ const Space: React.FC<SpaceProps> = ({
 	onClick,
 	...rest
 }) => {
+	const dataTestId = (rest as Record<string, unknown>)["data-testid"] as
+		| string
+		| undefined;
 	let classNames = ["oakd", "space"];
 	if (className) classNames.push(className);
 	if (direction) classNames.push(`direction-${direction}`);
@@ -48,7 +51,7 @@ const Space: React.FC<SpaceProps> = ({
 			{...rest}
 			id={id}
 			onClick={handleClick}
-			data-testid="Space"
+			data-testid={dataTestId || "Space"}
 			style={style}
 			className={classNames.join(" ")}
 		>

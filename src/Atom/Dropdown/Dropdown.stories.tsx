@@ -7,7 +7,7 @@ import Space from "../Space/Space";
 import Button from "../Button/Button";
 
 const meta: Meta<typeof Dropdown> = {
-	title: "Design System/Atomic/Dropdown",
+	title: "Design System/Navigation/Dropdown",
 	component: Dropdown,
 	argTypes: {
 		direction: {

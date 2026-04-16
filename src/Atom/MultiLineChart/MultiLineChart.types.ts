@@ -18,6 +18,11 @@ export interface MultiLineChartProps {
 	hoverLabel?: string;
 	smooth?: boolean;
 	showVerticalTicks?: boolean;
+	showHorizontalTicks?: boolean;
+	showXAxisLabels?: boolean;
+	showYAxisLabels?: boolean;
+	xLabels?: React.ReactNode[];
+	yLabels?: Array<{ value: number; label: React.ReactNode }>;
 	className?: string;
 	style?: React.CSSProperties;
 }

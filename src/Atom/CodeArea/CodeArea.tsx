@@ -132,6 +132,7 @@ const CodeArea = forwardRef<HTMLTextAreaElement, CodeAreaProps>(
 			codeType = "default",
 			size = "default",
 			grow = false,
+			fill = false,
 			lineNumbers = false,
 			highlightCurrentLine = false,
 			errorLines = [],
@@ -289,6 +290,7 @@ const CodeArea = forwardRef<HTMLTextAreaElement, CodeAreaProps>(
 			lineNumbers ? "has-gutter" : "",
 			disabled ? "codearea-disabled" : "",
 			grow ? "grow" : "",
+			fill ? "fill" : "",
 			className,
 		]
 			.filter(Boolean)
@@ -366,7 +368,6 @@ const CodeArea = forwardRef<HTMLTextAreaElement, CodeAreaProps>(
 					{/* Single scroller */}
 					<textarea
 						{...rest}
-						style={style}
 						ref={textareaRef}
 						readOnly={readOnly}
 						rows={initialRows}

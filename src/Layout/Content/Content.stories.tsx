@@ -7,7 +7,7 @@ import Space from "../../Atom/Space/Space";
 import Title from "../../Atom/Title/Title";
 
 const meta: Meta<typeof Content> = {
-	title: "Design System/Atomic/Content",
+	title: "Design System/Layout/Content",
 	component: Content,
 };
 export default meta;

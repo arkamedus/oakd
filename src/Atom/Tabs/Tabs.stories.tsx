@@ -9,7 +9,7 @@ import Card from "../Card/Card";
 import Button from "../Button/Button";
 
 const meta: Meta<typeof Tabs> = {
-	title: "Design System/Atomic/Tabs",
+	title: "Design System/Navigation/Tabs",
 	component: Tabs,
 	argTypes: {
 		orientation: {

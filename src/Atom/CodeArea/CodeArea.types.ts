@@ -33,6 +33,9 @@ export interface CodeAreaProps extends Omit<
 	/** Expand to fill available width */
 	grow?: boolean;
 
+	/** Fill the available height of the parent host */
+	fill?: boolean;
+
 	/** Show line numbers */
 	lineNumbers?: boolean;
 

@@ -51,6 +51,29 @@ describe("MultiLineChart Component", () => {
     });
   });
 
+  it("plots the first and last points at the chart edges when labels are disabled", async () => {
+    const { container } = render(
+      <MultiLineChart
+        lines={[
+          {
+            label: "Visits",
+            values: [
+              { x: "2026-04-01", y: 10 },
+              { x: "2026-04-02", y: 12 },
+            ],
+          },
+        ]}
+      />,
+    );
+
+    await waitFor(() => {
+      const path = container.querySelector("path");
+      expect(path).toBeInTheDocument();
+      expect(path?.getAttribute("d")).toContain("M 0 ");
+      expect(path?.getAttribute("d")).toContain("L 480 ");
+    });
+  });
+
   it("shows tooltip details on hover", async () => {
     const { container } = render(
       <MultiLineChart
@@ -97,6 +120,38 @@ describe("MultiLineChart Component", () => {
     await waitFor(() => {
       const guideLines = container.querySelectorAll('line[stroke="rgba(0, 0, 0, 0.08)"]');
       expect(guideLines).toHaveLength(3);
+    });
+  });
+
+  it("renders optional axis labels and horizontal guide lines", async () => {
+    const { container } = render(
+      <MultiLineChart
+        lines={[
+          {
+            label: "Visits",
+            values: [
+              { x: "2026-04-01", y: 10 },
+              { x: "2026-04-02", y: 12 },
+              { x: "2026-04-03", y: 14 },
+            ],
+          },
+        ]}
+        showHorizontalTicks
+        showXAxisLabels
+        showYAxisLabels
+        xLabels={["Apr 1", "Apr 2", "Apr 3"]}
+        yLabels={[
+          { value: 14, label: "14" },
+          { value: 7, label: "7" },
+          { value: 0, label: "0" },
+        ]}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(container.querySelectorAll('line[stroke="rgba(0, 0, 0, 0.08)"]').length).toBeGreaterThanOrEqual(3);
+      expect(screen.getByText("Apr 1")).toBeInTheDocument();
+      expect(screen.getByText("14")).toBeInTheDocument();
     });
   });
 

@@ -1,37 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Content, { ContentRow } from "./Content";
-import EmbeddingHeatmap from "../../Atom/EmbeddingHeatmap/EmbeddingHeatmap";
-import MultiLineChart from "../../Atom/MultiLineChart/MultiLineChart";
-
-class ResizeObserverMock {
-  observe() {}
-  disconnect() {}
-}
 
 describe("Content Component", () => {
-  beforeEach(() => {
-    (global as any).ResizeObserver = ResizeObserverMock;
-    Object.defineProperty(HTMLDivElement.prototype, "clientWidth", {
-      configurable: true,
-      get() {
-        const className = this.className?.toString?.() || "";
-        if (className.includes("oakd-multi-line-chart__frame")) return 480;
-        if (className.includes("oakd-multi-line-chart")) return 480;
-        return 0;
-      },
-    });
-    Object.defineProperty(HTMLDivElement.prototype, "clientHeight", {
-      configurable: true,
-      get() {
-        const className = this.className?.toString?.() || "";
-        if (className.includes("oakd-multi-line-chart__frame")) return 280;
-        if (className.includes("oakd-multi-line-chart")) return 320;
-        return 40;
-      },
-    });
-  });
-
   it("renders padded content with layout modifiers", () => {
     render(
       <Content pad="horizontal" grow wide>
@@ -69,53 +40,40 @@ describe("Content Component", () => {
     expect(contents[1]).toHaveTextContent("Body");
   });
 
-  it("supports a grow region hosting a fill-height embedding heatmap", () => {
+  it("supports a grow region hosting a direct fill child", () => {
     render(
       <Content grow pad>
         <div>Header</div>
-        <Content grow>
-          <EmbeddingHeatmap
-            fill
-            embedding={[
-              [0.1, 0.2],
-              [0.3, 0.4],
-            ]}
-          />
+        <Content grow fill>
+          <div data-testid="FillChild" className="fill">
+            Body
+          </div>
         </Content>
       </Content>,
     );
 
     const contents = screen.getAllByTestId("Content");
     expect(contents[1]).toHaveClass("grow");
-    expect(screen.getByTestId("EmbeddingHeatmapGrid")).toHaveClass(
-      "oakd-embedding-heatmap__grid--fill",
-    );
+    expect(contents[1]).toHaveClass("fill");
+    expect(screen.getByTestId("FillChild")).toHaveTextContent("Body");
   });
 
-  it("supports a grow region hosting a fill-height multi-line chart", async () => {
+  it("supports a grow region hosting an inner scroll region", () => {
     render(
       <Content grow pad>
         <div>Header</div>
-        <Content grow>
-          <MultiLineChart
-            fill
-            lines={[
-              {
-                label: "Visits",
-                values: [
-                  { x: "2026-04-01", y: 10 },
-                  { x: "2026-04-02", y: 12 },
-                ],
-              },
-            ]}
-          />
+        <Content grow fill style={{ minHeight: 0, overflow: "hidden" }}>
+          <Content grow fill style={{ minHeight: 0, overflowY: "auto" }}>
+            Scroll body
+          </Content>
         </Content>
       </Content>,
     );
 
     expect(screen.getAllByTestId("Content")[1]).toHaveClass("grow");
-    expect(await screen.findByTestId("MultiLineChartSvg")).toBeInTheDocument();
-    expect(screen.getByTestId("MultiLineChartRoot")).toHaveClass("oakd-multi-line-chart--fill");
-    expect(screen.getByTestId("MultiLineChartFrame")).toHaveClass("oakd-multi-line-chart__frame-fill");
+    expect(screen.getAllByTestId("Content")[1]).toHaveClass("fill");
+    expect(screen.getByText("Scroll body").closest("[data-testid='Content']")).toHaveStyle({
+      overflowY: "auto",
+    });
   });
 });

@@ -14,18 +14,14 @@
 
 
 .collapsible__toggle {
-  display: flex;
-  align-items: center;
+  display: block;
   width: 100%;
+  padding: 0;
   border: none;
   background: transparent;
   color: inherit;
   cursor: pointer;
   text-align: left;
-}
-
-.collapsible__toggle:hover {
-  text-decoration: underline;
 }
 
 .collapsible__content {

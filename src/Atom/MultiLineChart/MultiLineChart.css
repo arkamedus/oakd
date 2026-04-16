@@ -15,7 +15,7 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: var(--leading);
+  gap: calc(var(--leading) / 2);
   min-height: 0;
 }
 
@@ -23,6 +23,7 @@
   position: relative;
   width: 100%;
   min-height: 180px;
+  min-width: 0;
 }
 
 .oakd-multi-line-chart__frame-fill {

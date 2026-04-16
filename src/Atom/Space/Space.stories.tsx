@@ -16,7 +16,7 @@ import Collapsible from "../Collapsible/Collapsible";
 import Title from "../Title/Title";
 
 const meta: Meta<typeof Space> = {
-	title: "Design System/Atomic/Space",
+	title: "Design System/Layout/Space",
 	component: Space,
 	argTypes: {
 		gap: { control: "boolean" },
@@ -147,8 +147,8 @@ export const VerticalGrowOnSecondChild: Story = {
 									<Content grow fill wide>
 										<Card pad wide grow fill>
 											<Paragraph>
-												The stack fills the panel, and this card grows to consume
-												the remaining height.
+												The stack fills the panel, and this card grows to
+												consume the remaining height.
 											</Paragraph>
 										</Card>
 									</Content>
@@ -220,8 +220,8 @@ export const CenterAndStretchComparison: Story = {
 							>
 								<Title>Centered status</Title>
 								<Paragraph>
-									Use `justify=&quot;center&quot;` to center content on the main axis
-									and `align=&quot;center&quot;` on the cross axis.
+									Use `justify=&quot;center&quot;` to center content on the main
+									axis and `align=&quot;center&quot;` on the cross axis.
 								</Paragraph>
 							</Space>
 						</Card>
@@ -236,8 +236,9 @@ export const CenterAndStretchComparison: Story = {
 									<Card pad wide fill>
 										<Paragraph>
 											Use `align=&quot;stretch&quot;` when child surfaces should
-											expand to the full cross-axis width, and pair it with a grow
-											host only on the child that should absorb remaining height.
+											expand to the full cross-axis width, and pair it with a
+											grow host only on the child that should absorb remaining
+											height.
 										</Paragraph>
 									</Card>
 								</Content>
@@ -328,9 +329,9 @@ export const CenteredMessageAndGrowingDetail: Story = {
 								<Content grow wide>
 									<Card pad wide fill>
 										<Paragraph>
-											This detail surface is the grow item. Use this pattern when
-											one side should stay centered and the other side should
-											consume the extra height.
+											This detail surface is the grow item. Use this pattern
+											when one side should stay centered and the other side
+											should consume the extra height.
 										</Paragraph>
 									</Card>
 								</Content>

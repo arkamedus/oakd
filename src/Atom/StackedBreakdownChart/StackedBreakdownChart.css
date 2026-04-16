@@ -1,0 +1,96 @@
+.oakd-stacked-breakdown-chart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+.oakd-stacked-breakdown-chart--fill {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.oakd-stacked-breakdown-chart__body {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.oakd-stacked-breakdown-chart__body--fill {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.oakd-stacked-breakdown-chart__grid {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+  align-items: stretch;
+  min-height: 220px;
+}
+
+.oakd-stacked-breakdown-chart__grid--fill {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.oakd-stacked-breakdown-chart__column {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  justify-self: stretch;
+}
+
+.oakd-stacked-breakdown-chart__column > * {
+  min-width: 0;
+}
+
+.oakd-stacked-breakdown-chart__column-fill {
+  height: 100%;
+  min-height: 0;
+}
+
+.oakd-stacked-breakdown-chart__stack {
+  height: 180px;
+  width: 100%;
+  min-width: 10px;
+  border-radius: calc(var(--border-radius) * 0.75);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column-reverse;
+  cursor: default;
+}
+
+.oakd-stacked-breakdown-chart__stack--fill {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.oakd-stacked-breakdown-chart__stack.is-hovered {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14);
+}
+
+.oakd-stacked-breakdown-chart__segment {
+  width: 100%;
+}
+
+.oakd-stacked-breakdown-chart__tooltip {
+  position: absolute;
+  top: 10px;
+  z-index: 20;
+  min-width: 180px;
+  max-width: min(240px, calc(100% - 16px));
+  padding: var(--leading);
+  border: 1px solid var(--oakd-default-border);
+  border-radius: calc(var(--border-radius) + 3pt);
+  background: var(--background);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}

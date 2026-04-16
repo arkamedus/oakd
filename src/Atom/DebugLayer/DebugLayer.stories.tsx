@@ -4,7 +4,7 @@ import DebugLayer from "./DebugLayer";
 import { IconSliders } from "../../Icon/Icons.bin";
 
 const meta: Meta<typeof DebugLayer> = {
-	title: "Design System/Atomic/DebugLayer",
+	title: "Design System/Layout/DebugLayer",
 	component: DebugLayer,
 	parameters: {
 		docs: {

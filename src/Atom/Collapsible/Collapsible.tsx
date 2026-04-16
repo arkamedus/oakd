@@ -44,14 +44,15 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 
 	return (
 		<Space className="collapsible" data-testid="Collapsible" wide>
-			<Content pad wide>
-				<button
-					className="collapsible__toggle"
-					aria-expanded={isOpen}
-					aria-controls={contentId}
-					onClick={toggle}
-					type="button"
-				>
+			<button
+				className="collapsible__toggle"
+				aria-expanded={isOpen}
+				aria-controls={contentId}
+				onClick={toggle}
+				type="button"
+				data-testid="CollapsibleToggle"
+			>
+				<Content pad wide>
 					<Space wide justify={"between"} align={"center"}>
 						<span className="collapsible__title">{title}</span>
 						<IconAngle
@@ -62,8 +63,8 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 							aria-hidden="true"
 						/>
 					</Space>
-				</button>
-			</Content>
+				</Content>
+			</button>
 			<div
 				id={contentId}
 				className="collapsible__content"
