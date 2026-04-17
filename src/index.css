@@ -70,6 +70,35 @@
   --oakd-disabled-border: #bebebe;
   --oakd-disabled-text: #888888;
 
+  /* Card surfaces */
+  --oakd-card-default-color: #ffffff;
+  --oakd-card-default-border: #b6b5b3;
+  --oakd-card-default-text: #494949;
+
+  --oakd-card-primary-color: #dcecff;
+  --oakd-card-primary-border: #7ca7df;
+  --oakd-card-primary-text: #184a7d;
+
+  --oakd-card-active-color: #e9fcff;
+  --oakd-card-active-border: #4f80c0;
+  --oakd-card-active-text: #21598f;
+
+  --oakd-card-warning-color: #fff1cc;
+  --oakd-card-warning-border: #d8aa43;
+  --oakd-card-warning-text: #6b4200;
+
+  --oakd-card-danger-color: #ffe1e1;
+  --oakd-card-danger-border: #dd8181;
+  --oakd-card-danger-text: #8f2222;
+
+  --oakd-card-ghost-color: #f3f3f3;
+  --oakd-card-ghost-border: #d7d7d7;
+  --oakd-card-ghost-text: #666666;
+
+  --oakd-card-disabled-color: #f3f3f3;
+  --oakd-card-disabled-border: #d4d4d4;
+  --oakd-card-disabled-text: #8c8c8c;
+
   /* Heading / Typography */
   --font-family: "Courier", "Source Code Pro", "Avenir Next", Helvetica, Arial, sans-serif;
 }
@@ -115,6 +144,34 @@
     --oakd-disabled-color: #3f3f3f;
     --oakd-disabled-border: #2a2a2a;
     --oakd-disabled-text: #999999;
+
+    --oakd-card-default-color: #2f2f2f;
+    --oakd-card-default-border: #4c4c4c;
+    --oakd-card-default-text: #f5f5f5;
+
+    --oakd-card-primary-color: #254166;
+    --oakd-card-primary-border: #5d88ba;
+    --oakd-card-primary-text: #dbeaff;
+
+    --oakd-card-active-color: #1f3b44;
+    --oakd-card-active-border: #5d9ab5;
+    --oakd-card-active-text: #ddf7ff;
+
+    --oakd-card-warning-color: #4c3b12;
+    --oakd-card-warning-border: #b58900;
+    --oakd-card-warning-text: #ffe9a8;
+
+    --oakd-card-danger-color: #4a2323;
+    --oakd-card-danger-border: #cc6666;
+    --oakd-card-danger-text: #ffd4d4;
+
+    --oakd-card-ghost-color: #373737;
+    --oakd-card-ghost-border: #4a4a4a;
+    --oakd-card-ghost-text: #d2d2d2;
+
+    --oakd-card-disabled-color: #343434;
+    --oakd-card-disabled-border: #494949;
+    --oakd-card-disabled-text: #9f9f9f;
   }
 }
 
@@ -305,21 +362,35 @@ html {
 
 
 /* Button Types */
-.oakd.button.type-default,
-.oakd.card.type-default
-{
+.oakd.button.type-default {
   background-color: var(--background);
 }
-.oakd.button.type-default .oakd.standardized-text,
-.oakd.card.type-default .oakd.standardized-text
-{
+.oakd.button.type-default .oakd.standardized-text {
   color: var(--font-color);
+}
+.oakd.card.type-default {
+  background-color: var(--oakd-card-default-color);
+  border-color: var(--oakd-card-default-border);
+}
+.oakd.card.type-default {
+  color: var(--oakd-card-default-text);
+}
+.oakd.card.type-default > .oakd.standardized-text,
+.oakd.card.type-default > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-default-text);
+}
+.oakd.announcement.type-default {
+  color: var(--oakd-card-default-text);
+}
+.oakd.announcement.type-default > .oakd.standardized-text,
+.oakd.announcement.type-default > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-default-text);
 }
 
 
 .oakd.card.type-active {
-  border-color: var(--oakd-active-border);
-  background-color: var(--oakd-active-color);
+  border-color: var(--oakd-card-active-border);
+  background-color: var(--oakd-card-active-color);
 }
 .oakd.button.type-active {
   border-color: var(--oakd-active-border);
@@ -328,68 +399,190 @@ html {
 .oakd.button.type-active .oakd.standardized-text {
   color: var(--oakd-active-text);
 }
-.oakd.card.type-active .standardized-text {
-  color: var(--oakd-active-text);
+.oakd.card.type-active {
+  color: var(--oakd-card-active-text);
+}
+.oakd.card.type-active > .oakd.standardized-text,
+.oakd.card.type-active > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-active-text);
+}
+.oakd.announcement.type-active {
+  color: var(--oakd-card-active-text);
+}
+.oakd.announcement.type-active > .oakd.standardized-text,
+.oakd.announcement.type-active > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-active-text);
 }
 
 
-.oakd.button.type-primary,
-.oakd.card.type-primary
-{
+.oakd.button.type-primary {
   background-color: var(--oakd-primary-color);
   border-color: var(--oakd-primary-border);
 }
-.oakd.button.type-primary .oakd.standardized-text,
-.oakd.card.type-primary .oakd.standardized-text
-{
+.oakd.button.type-primary .oakd.standardized-text {
   color: #fff;
 }
+.oakd.card.type-primary {
+  background-color: var(--oakd-card-primary-color);
+  border-color: var(--oakd-card-primary-border);
+}
+.oakd.card.type-primary {
+  color: var(--oakd-card-primary-text);
+}
+.oakd.card.type-primary > .oakd.standardized-text,
+.oakd.card.type-primary > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-primary-text);
+}
+.oakd.announcement.type-primary {
+  color: var(--oakd-card-primary-text);
+}
+.oakd.announcement.type-primary > .oakd.standardized-text,
+.oakd.announcement.type-primary > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-primary-text);
+}
 
-.oakd.button.type-danger,
-.oakd.card.type-danger
-{
+.oakd.button.type-danger {
   background-color: var(--oakd-danger-color);
   border-color: var(--oakd-danger-border);
 }
-.oakd.button.type-danger .oakd.standardized-text,
-.oakd.card.type-danger .oakd.standardized-text
-{
+.oakd.button.type-danger .oakd.standardized-text {
   color: var(--oakd-danger-text);
 }
+.oakd.card.type-danger {
+  background-color: var(--oakd-card-danger-color);
+  border-color: var(--oakd-card-danger-border);
+}
+.oakd.card.type-danger {
+  color: var(--oakd-card-danger-text);
+}
+.oakd.card.type-danger > .oakd.standardized-text,
+.oakd.card.type-danger > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-danger-text);
+}
+.oakd.announcement.type-danger {
+  color: var(--oakd-card-danger-text);
+}
+.oakd.announcement.type-danger > .oakd.standardized-text,
+.oakd.announcement.type-danger > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-danger-text);
+}
 
-.oakd.button.type-warning,
-.oakd.card.type-warning
-{
+.oakd.button.type-warning {
   background-color: var(--oakd-warning-color);
   border-color: var(--oakd-warning-border);
 }
-.oakd.button.type-warning .oakd.standardized-text,
-.oakd.card.type-warning .oakd.standardized-text
-{
+.oakd.button.type-warning .oakd.standardized-text {
   color: var(--oakd-warning-text);
 }
+.oakd.card.type-warning {
+  background-color: var(--oakd-card-warning-color);
+  border-color: var(--oakd-card-warning-border);
+}
+.oakd.card.type-warning {
+  color: var(--oakd-card-warning-text);
+}
+.oakd.card.type-warning > .oakd.standardized-text,
+.oakd.card.type-warning > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-warning-text);
+}
+.oakd.announcement.type-warning {
+  color: var(--oakd-card-warning-text);
+}
+.oakd.announcement.type-warning > .oakd.standardized-text,
+.oakd.announcement.type-warning > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-warning-text);
+}
 
-.oakd.button.type-ghost,
-.oakd.card.type-ghost
-{
+.oakd.button.type-ghost {
   background: #CCC4;
 }
-.oakd.button.type-ghost .oakd.standardized-text,
-.oakd.card.type-ghost .oakd.standardized-text
-{
+.oakd.button.type-ghost .oakd.standardized-text {
   color: #666;
+}
+.oakd.card.type-ghost {
+  background: var(--oakd-card-ghost-color);
+  border-color: var(--oakd-card-ghost-border);
+}
+.oakd.card.type-ghost {
+  color: var(--oakd-card-ghost-text);
+}
+.oakd.card.type-ghost > .oakd.standardized-text,
+.oakd.card.type-ghost > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-ghost-text);
+}
+.oakd.announcement.type-ghost {
+  color: var(--oakd-card-ghost-text);
+}
+.oakd.announcement.type-ghost > .oakd.standardized-text,
+.oakd.announcement.type-ghost > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-ghost-text);
 }
 
 /* Disabled Button */
-.oakd.button.disabled, .oakd.button.type-disabled,
-.oakd.card.disabled, .oakd.card.type-disabled
-{
+.oakd.button.disabled, .oakd.button.type-disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
-.oakd.button.disabled .oakd.standardized-text, .oakd.button.type-disabled .oakd.standardized-text,
-.oakd.card.disabled .oakd.standardized-text, .oakd.card.type-disabled .oakd.standardized-text
-{
+.oakd.button.disabled .oakd.standardized-text, .oakd.button.type-disabled .oakd.standardized-text {
   color: #666;
 }
 
+.oakd.card.disabled, .oakd.card.type-disabled {
+  background-color: var(--oakd-card-disabled-color);
+  border-color: var(--oakd-card-disabled-border);
+  cursor: not-allowed;
+}
+
+.oakd.card.disabled, .oakd.card.type-disabled {
+  color: var(--oakd-card-disabled-text);
+}
+.oakd.card.disabled > .oakd.standardized-text,
+.oakd.card.disabled > .oakd .oakd.standardized-text,
+.oakd.card.type-disabled > .oakd.standardized-text,
+.oakd.card.type-disabled > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-disabled-text);
+}
+.oakd.announcement.type-disabled {
+  color: var(--oakd-card-disabled-text);
+}
+.oakd.announcement.type-disabled > .oakd.standardized-text,
+.oakd.announcement.type-disabled > .oakd .oakd.standardized-text {
+  color: var(--oakd-card-disabled-text);
+}
+
+/* Nested buttons must keep button text colors even inside semantic cards. */
+.oakd.card .oakd.button.type-default .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-default .oakd.standardized-text {
+  color: var(--font-color);
+}
+
+.oakd.card .oakd.button.type-active .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-active .oakd.standardized-text {
+  color: var(--oakd-active-text);
+}
+
+.oakd.card .oakd.button.type-primary .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-primary .oakd.standardized-text {
+  color: #fff;
+}
+
+.oakd.card .oakd.button.type-danger .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-danger .oakd.standardized-text {
+  color: var(--oakd-danger-text);
+}
+
+.oakd.card .oakd.button.type-warning .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-warning .oakd.standardized-text {
+  color: var(--oakd-warning-text);
+}
+
+.oakd.card .oakd.button.type-ghost .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-ghost .oakd.standardized-text,
+.oakd.card .oakd.button.disabled .oakd.standardized-text,
+.oakd.announcement .oakd.button.disabled .oakd.standardized-text,
+.oakd.card .oakd.button.type-disabled .oakd.standardized-text {
+  color: #666;
+}
+.oakd.announcement .oakd.button.type-disabled .oakd.standardized-text {
+  color: #666;
+}

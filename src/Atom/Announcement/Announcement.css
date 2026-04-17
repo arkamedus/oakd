@@ -1,7 +1,8 @@
 .oakd.announcement {
-	border: 1px solid var(--oakd-default-border);
+	border: 1px solid var(--oakd-card-default-border);
 	border-radius: var(--border-radius);
-	background: var(--background);
+	background: var(--oakd-card-default-color);
+	color: var(--oakd-card-default-text);
 	display: flex;
 	align-items: stretch;
 	width: 100%;
@@ -44,46 +45,54 @@
 }
 
 .oakd.announcement.type-default {
-	border-color: var(--oakd-default-border);
+	border-color: var(--oakd-card-default-border);
+	background: var(--oakd-card-default-color);
+	color: var(--oakd-card-default-text);
 }
 
 .oakd.announcement.type-primary {
-	border-color: var(--oakd-primary-border);
-	//background: color-mix(in srgb, var(--oakd-primary-color) 8%, var(--background));
+	border-color: var(--oakd-card-primary-border);
+	background: var(--oakd-card-primary-color);
+	color: var(--oakd-card-primary-text);
 }
 
 .oakd.announcement.type-primary .announcement__body::before {
 	opacity: 1;
 	background-image: repeating-linear-gradient(
 		-35deg,
-		rgb(231, 244, 255) 0,
-		rgb(231, 244, 255) 24px,
+		color-mix(in srgb, var(--oakd-card-primary-border) 18%, transparent) 0,
+		color-mix(in srgb, var(--oakd-card-primary-border) 18%, transparent) 24px,
 		rgba(255, 255, 255, 0) 24px,
 		rgba(255, 255, 255, 0) 48px
 	);
 }
 
 .oakd.announcement.type-warning {
-	border-color: var(--oakd-warning-border);
-	background: color-mix(in srgb, var(--oakd-warning-color) 18%, var(--background));
+	border-color: var(--oakd-card-warning-border);
+	background: var(--oakd-card-warning-color);
+	color: var(--oakd-card-warning-text);
 }
 
 .oakd.announcement.type-danger {
-	border-color: var(--oakd-danger-border);
-	background: color-mix(in srgb, var(--oakd-danger-color) 12%, var(--background));
+	border-color: var(--oakd-card-danger-border);
+	background: var(--oakd-card-danger-color);
+	color: var(--oakd-card-danger-text);
 }
 
 .oakd.announcement.type-ghost {
-	border-color: var(--oakd-ghost-border);
-	background: var(--oakd-ghost-color);
+	border-color: var(--oakd-card-ghost-border);
+	background: var(--oakd-card-ghost-color);
+	color: var(--oakd-card-ghost-text);
 }
 
 .oakd.announcement.type-active {
-	border-color: var(--oakd-active-border);
-	background: var(--oakd-active-color);
+	border-color: var(--oakd-card-active-border);
+	background: var(--oakd-card-active-color);
+	color: var(--oakd-card-active-text);
 }
 
 .oakd.announcement.type-disabled {
-	border-color: var(--oakd-disabled-border);
-	background: var(--oakd-disabled-color);
+	border-color: var(--oakd-card-disabled-border);
+	background: var(--oakd-card-disabled-color);
+	color: var(--oakd-card-disabled-text);
 }

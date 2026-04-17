@@ -63,7 +63,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				disabled={isDisabled}
 				data-testid={rest["data-testid"] || "Button"}
 			>
-				<Space gap align="center" style={{ height: "100%" }}>
+				<Space gap align="center" style={{ height: "100%" }} wide>
 					{icon && typeof icon === "string" ? (
 						<Icon name={icon} size={sizeMinusOne(size)} />
 					) : (

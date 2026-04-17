@@ -5,6 +5,6 @@ import { ButtonType, CoreContentProps } from "../../Core/Core.types";
  * Extends CoreContentProps for common layout and style props.
  */
 export interface CardProps extends CoreContentProps<HTMLDivElement> {
-	type?: ButtonType;
+	variant?: ButtonType;
 	fill?: boolean;
 }

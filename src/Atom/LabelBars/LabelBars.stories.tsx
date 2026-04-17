@@ -19,13 +19,7 @@ type Story = StoryObj<typeof LabelBars>;
 
 export const Default: Story = {
 	args: {
-		labels: [
-			{ label: "Full Support", prob: 0.99 },
-			{ label: "Support", prob: 0.84 },
-			{ label: "Billing", prob: 0.56 },
-			{ label: "Account setup", prob: 0.31 },
-			{ label: "Near Zero", prob: 0.01 },
-		],
+		labels: [{ label: "Support", prob: 0.84 }],
 	},
 };
 
@@ -39,6 +33,18 @@ export const WithScalarColors: Story = {
 			{ label: "Near Zero", prob: 0.01 },
 		],
 		colorMode: "scale",
+	},
+};
+
+export const MultipleLabels: Story = {
+	args: {
+		labels: [
+			{ label: "Full Support", prob: 0.99 },
+			{ label: "Support", prob: 0.84 },
+			{ label: "Billing", prob: 0.56 },
+			{ label: "Account setup", prob: 0.31 },
+			{ label: "Near Zero", prob: 0.01 },
+		],
 	},
 };
 

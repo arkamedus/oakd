@@ -14,15 +14,38 @@
 	position: relative;
 }
 
-.oakd.tree__node.drop-target::before {
+.oakd.tree__row::before,
+.oakd.tree__row::after,
+.oakd.tree__empty::before,
+.oakd.tree__end-slot::after {
 	content: "";
 	position: absolute;
 	left: calc(var(--tree-depth, 0) * var(--leading) * 2);
 	right: 0;
-	top: calc(var(--leading) / -4);
 	height: 1px;
-	background: rgba(0, 0, 0, 0.18);
+	background: var(--oakd-active-border);
 	pointer-events: none;
+	opacity: 0;
+}
+
+.oakd.tree__row.drop-before::before,
+.oakd.tree__empty.drop-before::before {
+	top: calc(var(--leading) / -4);
+	opacity: 1;
+}
+
+.oakd.tree__row.drop-after::after {
+	bottom: calc(var(--leading) / -4);
+	opacity: 1;
+}
+
+.oakd.tree__row.drop-after.drop-after-hidden::after {
+	opacity: 0;
+}
+
+.oakd.tree__end-slot.drop-after::after {
+	bottom: 0;
+	opacity: 1;
 }
 
 .oakd.tree__row {
@@ -32,10 +55,16 @@
 	width: 100%;
 	min-width: 0;
 	padding-left: calc(var(--tree-depth, 0) * var(--leading) * 1.5);
+	position: relative;
 }
 
 .oakd.tree__row.is-dragging {
 	opacity: 0.45;
+}
+
+.oakd.tree__row.drop-into,
+.oakd.tree__row.drop-destination-folder {
+	background: rgba(240, 51, 51, 0.14);
 }
 
 .oakd.tree__toggle {
@@ -55,4 +84,15 @@
 	display: flex;
 	flex-direction: column;
 	gap: calc(var(--leading) / 2);
+}
+
+.oakd.tree__empty {
+	position: relative;
+	padding-left: calc(var(--tree-depth, 0) * var(--leading) * 1.5);
+	min-height: var(--line-height);
+}
+
+.oakd.tree__end-slot {
+	position: relative;
+	min-height: 4px;
 }

@@ -13,6 +13,7 @@ import "./StackedBreakdownChart.css";
 
 const TOOLTIP_WIDTH = 200;
 const TOOLTIP_GUTTER = 8;
+const TOOLTIP_OFFSET = 16;
 
 const StackedBreakdownChart: React.FC<StackedBreakdownChartProps> = ({
 	title,
@@ -32,6 +33,7 @@ const StackedBreakdownChart: React.FC<StackedBreakdownChartProps> = ({
 	);
 	const bodyRef = React.useRef<HTMLDivElement>(null);
 	const [bodyWidth, setBodyWidth] = React.useState(0);
+	const [pointerX, setPointerX] = React.useState<number | null>(null);
 
 	React.useEffect(() => {
 		const element = bodyRef.current;
@@ -62,7 +64,12 @@ const StackedBreakdownChart: React.FC<StackedBreakdownChartProps> = ({
 			? ((hoveredRowIndex + 0.5) / rows.length) * bodyWidth
 			: TOOLTIP_GUTTER;
 	const tooltipLeft = Math.min(
-		Math.max(hoveredCenterX - TOOLTIP_WIDTH / 2, TOOLTIP_GUTTER),
+		Math.max(
+			(pointerX ?? hoveredCenterX) < bodyWidth / 2
+				? (pointerX ?? hoveredCenterX) + TOOLTIP_OFFSET
+				: (pointerX ?? hoveredCenterX) - TOOLTIP_WIDTH - TOOLTIP_OFFSET,
+			TOOLTIP_GUTTER,
+		),
 		Math.max(TOOLTIP_GUTTER, bodyWidth - TOOLTIP_WIDTH - TOOLTIP_GUTTER),
 	);
 
@@ -137,14 +144,33 @@ const StackedBreakdownChart: React.FC<StackedBreakdownChartProps> = ({
 												style={
 													stackHeight ? { height: stackHeight } : undefined
 												}
-												onMouseEnter={() => {
+												onMouseEnter={(event) => {
 													if (showHover) {
 														setHoveredRowIndex(rowIndex);
+														const bounds =
+															bodyRef.current?.getBoundingClientRect();
+														setPointerX(
+															bounds
+																? event.clientX - bounds.left
+																: hoveredCenterX,
+														);
+													}
+												}}
+												onMouseMove={(event) => {
+													if (showHover) {
+														const bounds =
+															bodyRef.current?.getBoundingClientRect();
+														setPointerX(
+															bounds
+																? event.clientX - bounds.left
+																: hoveredCenterX,
+														);
 													}
 												}}
 												onMouseLeave={() => {
 													if (showHover) {
 														setHoveredRowIndex(null);
+														setPointerX(null);
 													}
 												}}
 												data-testid={`StackedBreakdownRow-${row.key}`}

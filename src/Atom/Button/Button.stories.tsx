@@ -5,6 +5,7 @@ import { ButtonType, CoreComponentSizeType } from "../../Core/Core.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
+import Card from "../Card/Card";
 
 const meta: Meta<typeof Button> = {
 	title: "Design System/Atomic/Button",
@@ -174,3 +175,34 @@ Disabled.args = {
 	icon: "Folder",
 	children: "Disabled",
 };
+
+export const VariantsGallery = () => (
+	<Space direction="vertical" gap wide>
+		{(
+			[
+				"default",
+				"active",
+				"primary",
+				"warning",
+				"danger",
+				"ghost",
+				"disabled",
+			] as ButtonType[]
+		).map((variant) => (
+			<Card key={variant} pad wide variant={variant}>
+				<Space justify="between" align="center" wide>
+					<Paragraph>
+						<strong>{variant}</strong>
+					</Paragraph>
+					<Button
+						variant={variant}
+						disabled={variant === "disabled"}
+						icon="Star"
+					>
+						<Paragraph>{variant}</Paragraph>
+					</Button>
+				</Space>
+			</Card>
+		))}
+	</Space>
+);

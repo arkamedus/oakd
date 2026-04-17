@@ -10,6 +10,10 @@ class ResizeObserverMock {
 describe("MultiLineChart Component", () => {
   beforeEach(() => {
     (global as any).ResizeObserver = ResizeObserverMock;
+    Object.defineProperty(SVGSVGElement.prototype, "getBoundingClientRect", {
+      configurable: true,
+      value: () => ({ left: 0, top: 0, width: 480, height: 280 }),
+    });
     Object.defineProperty(HTMLDivElement.prototype, "clientWidth", {
       configurable: true,
       get() {
@@ -91,13 +95,39 @@ describe("MultiLineChart Component", () => {
     );
 
     await waitFor(() => {
-      const hoverRects = container.querySelectorAll("rect");
+      const hoverRects = screen.getAllByTestId(/MultiLineChartHover-/);
       expect(hoverRects.length).toBeGreaterThan(0);
-      fireEvent.mouseEnter(hoverRects[0]);
+      fireEvent.mouseEnter(hoverRects[0], { clientX: 80 });
+      fireEvent.mouseMove(hoverRects[0], { clientX: 80 });
     });
 
     expect(screen.getAllByText("Visits").length).toBeGreaterThan(0);
     expect(screen.getByText(/events/i)).toBeInTheDocument();
+    expect(screen.getByTestId("MultiLineChartTooltip")).toHaveStyle({ left: "96px" });
+  });
+
+  it("moves the tooltip away from points on the right side of the chart", async () => {
+    render(
+      <MultiLineChart
+        lines={[
+          {
+            label: "Visits",
+            values: [
+              { x: "2026-04-01", y: 10 },
+              { x: "2026-04-02", y: 12 },
+            ],
+          },
+        ]}
+      />,
+    );
+
+    await waitFor(() => {
+      const hoverRect = screen.getByTestId("MultiLineChartHover-1");
+      fireEvent.mouseEnter(hoverRect, { clientX: 420 });
+      fireEvent.mouseMove(hoverRect, { clientX: 420 });
+    });
+
+    expect(screen.getByTestId("MultiLineChartTooltip")).toHaveStyle({ left: "204px" });
   });
 
   it("renders optional vertical guide lines behind the chart", async () => {

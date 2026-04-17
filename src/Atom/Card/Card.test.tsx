@@ -5,7 +5,7 @@ import Card from "./Card";
 describe("Card Component", () => {
   it("renders content with the requested surface variant", () => {
     render(
-      <Card type="primary" pad wide fill>
+      <Card variant="primary" pad wide fill>
         Account summary
       </Card>,
     );

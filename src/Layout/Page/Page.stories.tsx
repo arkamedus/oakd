@@ -133,7 +133,7 @@ const chatContactCard = (
 	preview: string,
 	active = false,
 ) => (
-	<Card pad wide type={active ? "active" : "default"}>
+	<Card pad wide variant={active ? "active" : "default"}>
 		<Space direction="vertical" gap wide>
 			<Space justify="between" align="center" wide>
 				<Paragraph>
@@ -157,7 +157,7 @@ const chatBubble = (
 			style={{
 				maxWidth: "76%",
 			}}
-			type={side === "right" ? "active" : "default"}
+			variant={side === "right" ? "active" : "default"}
 		>
 			<Space direction="vertical" gap>
 				<Paragraph>{message}</Paragraph>
@@ -169,7 +169,8 @@ const chatBubble = (
 
 const viewportStyle = { minHeight: "440pt" } as const;
 const scrollPanelStyle = { minHeight: 0, overflowY: "auto" as const } as const;
-const bodyHostStyle = { minHeight: 0, overflow: "hidden" as const } as const;
+const bodyHostStyle = { minHeight: 0, overflow: "auto" as const } as const;
+const boundedColumnStyle = { minHeight: 0 } as const;
 
 const sqlRules = [
 	{
@@ -195,7 +196,7 @@ const dataRowCard = (
 	cells: [string, string, string, string],
 	active = false,
 ) => (
-	<Card pad wide type={active ? "active" : "default"}>
+	<Card pad wide variant={active ? "active" : "default"}>
 		<Row gap>
 			<Col xs={24} md={7}>
 				<Paragraph>{cells[0]}</Paragraph>
@@ -264,14 +265,16 @@ export const WorkspaceSlice: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Customer workspace</Title>
 							<Paragraph>
 								Review active work and move the next account forward.
 							</Paragraph>
 						</Space>
-						<Button variant="primary">Create task</Button>
+						<Button variant="primary">
+							<Paragraph>Create task</Paragraph>
+						</Button>
 					</Space>
 				</Content>
 				<Content>
@@ -316,8 +319,8 @@ export const FixedHeaderWithGrowBody: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Review queue</Title>
 							<Paragraph>
 								Fixed header, growing body, and footer controls.
@@ -339,31 +342,35 @@ export const FixedHeaderWithGrowBody: Story = {
 						/>
 					</Space>
 				</Content>
-				<Content grow>
-					<Row gap>
+				<Content grow fill style={bodyHostStyle}>
+					<Row gap fill style={boundedColumnStyle}>
 						<Col xs={24} md={15}>
-							<Content grow>
-								<Space direction="vertical" gap wide>
-									{queueItems.slice(0, 4).map((item) => (
-										<React.Fragment key={item.title}>
-											{noteCard(item.title, item.body)}
-										</React.Fragment>
-									))}
-								</Space>
+							<Content grow fill style={boundedColumnStyle}>
+								<Content grow fill wide style={scrollPanelStyle}>
+									<Space direction="vertical" gap wide align="stretch">
+										{queueItems.slice(0, 4).map((item) => (
+											<React.Fragment key={item.title}>
+												{noteCard(item.title, item.body)}
+											</React.Fragment>
+										))}
+									</Space>
+								</Content>
 							</Content>
 						</Col>
 						<Col xs={24} md={9}>
-							<Content grow>
-								<Space direction="vertical" gap wide>
-									{noteCard(
-										"Context",
-										"The export permissions fix was deployed last night and should cover both affected accounts.",
-									)}
-									{noteCard(
-										"Next action",
-										"Validate the billing diff, then reply with the corrected line items.",
-									)}
-								</Space>
+							<Content grow fill style={boundedColumnStyle}>
+								<Content grow fill wide style={scrollPanelStyle}>
+									<Space direction="vertical" gap wide align="stretch">
+										{noteCard(
+											"Context",
+											"The export permissions fix was deployed last night and should cover both affected accounts.",
+										)}
+										{noteCard(
+											"Next action",
+											"Validate the billing diff, then reply with the corrected line items.",
+										)}
+									</Space>
+								</Content>
 							</Content>
 						</Col>
 					</Row>
@@ -388,55 +395,61 @@ export const ScrollableOperationsPage: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Scrollable operations page</Title>
 							<Paragraph>
 								Fixed header and footer with a long scrollable body between
 								them.
 							</Paragraph>
 						</Space>
-						<Button variant="primary">Assign owner</Button>
+						<Button variant="primary">
+							<Paragraph>Assign owner</Paragraph>
+						</Button>
 					</Space>
 				</Content>
-				<Content grow>
-					<Row gap>
+				<Content grow fill style={bodyHostStyle}>
+					<Row gap fill style={boundedColumnStyle}>
 						<Col xs={24} md={16}>
-							<Content grow>
-								<Space direction="vertical" gap wide>
-									{queueItems.map((item) => (
-										<React.Fragment key={item.title}>
-											{noteCard(item.title, item.body)}
-										</React.Fragment>
-									))}
-									{guideItems.slice(0, 4).map((item) => (
-										<React.Fragment key={item.title}>
-											{noteCard(item.title, item.body)}
-										</React.Fragment>
-									))}
-								</Space>
+							<Content grow fill style={boundedColumnStyle}>
+								<Content grow fill wide style={scrollPanelStyle}>
+									<Space direction="vertical" gap wide align="stretch">
+										{queueItems.map((item) => (
+											<React.Fragment key={item.title}>
+												{noteCard(item.title, item.body)}
+											</React.Fragment>
+										))}
+										{guideItems.slice(0, 4).map((item) => (
+											<React.Fragment key={item.title}>
+												{noteCard(item.title, item.body)}
+											</React.Fragment>
+										))}
+									</Space>
+								</Content>
 							</Content>
 						</Col>
 						<Col xs={24} md={8}>
-							<Content grow>
-								<Space direction="vertical" gap wide>
-									{noteCard(
-										"Escalation path",
-										"Analytics owns usage spikes, support owns provisioning retries, and finance owns invoice confirmation.",
-									)}
-									{noteCard(
-										"Shift handoff",
-										"The evening team should monitor export retries between 6 PM and 8 PM while the backlog clears.",
-									)}
-									{noteCard(
-										"Tomorrow",
-										"Plan to roll the webhook scope update after the morning invoice validation completes.",
-									)}
-									{noteCard(
-										"Release note",
-										"One enterprise workspace still needs a manual sync after the permission scope change.",
-									)}
-								</Space>
+							<Content grow fill style={boundedColumnStyle}>
+								<Content grow fill wide style={scrollPanelStyle}>
+									<Space direction="vertical" gap wide align="stretch">
+										{noteCard(
+											"Escalation path",
+											"Analytics owns usage spikes, support owns provisioning retries, and finance owns invoice confirmation.",
+										)}
+										{noteCard(
+											"Shift handoff",
+											"The evening team should monitor export retries between 6 PM and 8 PM while the backlog clears.",
+										)}
+										{noteCard(
+											"Tomorrow",
+											"Plan to roll the webhook scope update after the morning invoice validation completes.",
+										)}
+										{noteCard(
+											"Release note",
+											"One enterprise workspace still needs a manual sync after the permission scope change.",
+										)}
+									</Space>
+								</Content>
 							</Content>
 						</Col>
 					</Row>
@@ -463,14 +476,14 @@ export const AnalyticsWorkspace: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Analytics workspace</Title>
 							<Paragraph>
 								Fixed controls, growing primary panel, and a supporting rail.
 							</Paragraph>
 						</Space>
-						<Space gap align="center">
+						<Space gap align="center" noWrap>
 							<Select
 								options={[
 									{ value: "week", element: <Paragraph>This week</Paragraph> },
@@ -482,14 +495,16 @@ export const AnalyticsWorkspace: Story = {
 								onChange={() => undefined}
 								placeholder="Time range"
 							/>
-							<Button variant="primary">Share report</Button>
+							<Button variant="primary">
+								<Paragraph>Share report</Paragraph>
+							</Button>
 						</Space>
 					</Space>
 				</Content>
-				<Content grow>
-					<Row gap>
+				<Content grow fill style={bodyHostStyle}>
+					<Row gap fill style={{ minHeight: 0 }}>
 						<Col xs={24} md={14}>
-							<Content grow>
+							<Content grow fill style={{ minHeight: 0 }}>
 								<Space direction="vertical" gap wide fill align="stretch">
 									<Paragraph>
 										<strong>Primary panel</strong>
@@ -532,7 +547,7 @@ export const AnalyticsWorkspace: Story = {
 							</Content>
 						</Col>
 						<Col xs={24} md={10}>
-							<Content grow>
+							<Content grow fill style={{ minHeight: 0 }}>
 								<Space direction="vertical" gap wide fill align="stretch">
 									<Paragraph>
 										<strong>Supporting panels</strong>
@@ -617,8 +632,8 @@ export const KnowledgeBaseWorkspace: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Knowledge base workspace</Title>
 							<Paragraph>
 								Sections, tabs, and a scrollable article area inside one page
@@ -637,14 +652,16 @@ export const KnowledgeBaseWorkspace: Story = {
 								onChange={() => undefined}
 								placeholder="Section"
 							/>
-							<Button variant="primary">New article</Button>
+							<Button variant="primary">
+								<Paragraph>New article</Paragraph>
+							</Button>
 						</Space>
 					</Space>
 				</Content>
-				<Content grow>
-					<Row gap>
+				<Content grow fill style={bodyHostStyle}>
+					<Row gap fill style={boundedColumnStyle}>
 						<Col xs={24} md={6}>
-							<Card pad wide>
+							<Card pad wide fill>
 								<Space direction="vertical" gap>
 									<Paragraph>
 										<strong>Sections</strong>
@@ -665,34 +682,38 @@ export const KnowledgeBaseWorkspace: Story = {
 							</Card>
 						</Col>
 						<Col xs={24} md={18}>
-							<Content grow>
+							<Content grow fill style={boundedColumnStyle}>
 								<Tabs defaultActiveKey="guides">
 									<Tab key="guides" label="Guides">
-										<Space direction="vertical" gap wide>
-											<Row gap>
-												{guideItems.slice(0, 4).map((item) => (
-													<Col key={item.title} xs={24} md={12}>
-														{noteCard(item.title, item.body)}
-													</Col>
-												))}
-											</Row>
-											<Row gap>
-												{guideItems.slice(4).map((item) => (
-													<Col key={item.title} xs={24} md={12}>
-														{noteCard(item.title, item.body)}
-													</Col>
-												))}
-											</Row>
-										</Space>
+										<Content grow fill wide style={scrollPanelStyle}>
+											<Space direction="vertical" gap wide align="stretch">
+												<Row gap>
+													{guideItems.slice(0, 4).map((item) => (
+														<Col key={item.title} xs={24} md={12}>
+															{noteCard(item.title, item.body)}
+														</Col>
+													))}
+												</Row>
+												<Row gap>
+													{guideItems.slice(4).map((item) => (
+														<Col key={item.title} xs={24} md={12}>
+															{noteCard(item.title, item.body)}
+														</Col>
+													))}
+												</Row>
+											</Space>
+										</Content>
 									</Tab>
 									<Tab key="updates" label="Updates">
-										<Space direction="vertical" gap wide>
-											{updateItems.map((item) => (
-												<React.Fragment key={item.title}>
-													{noteCard(item.title, item.body)}
-												</React.Fragment>
-											))}
-										</Space>
+										<Content grow fill wide style={scrollPanelStyle}>
+											<Space direction="vertical" gap wide align="stretch">
+												{updateItems.map((item) => (
+													<React.Fragment key={item.title}>
+														{noteCard(item.title, item.body)}
+													</React.Fragment>
+												))}
+											</Space>
+										</Content>
 									</Tab>
 								</Tabs>
 							</Content>
@@ -719,8 +740,8 @@ export const ChatWorkspace: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Chat workspace</Title>
 							<Paragraph>
 								A contacts rail on the left and a live conversation on the
@@ -728,16 +749,20 @@ export const ChatWorkspace: Story = {
 							</Paragraph>
 						</Space>
 						<Space gap align="center">
-							<Button variant="ghost">New chat</Button>
-							<Button variant="primary">Invite</Button>
+							<Button variant="ghost">
+								<Paragraph>New chat</Paragraph>
+							</Button>
+							<Button variant="primary">
+								<Paragraph>Invite</Paragraph>
+							</Button>
 						</Space>
 					</Space>
 				</Content>
 				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill>
+					<Row gap style={{ minHeight: 0 }}>
 						<Col xs={24} md={6}>
-							<Card pad wide>
-								<Space direction="vertical" gap wide align="stretch">
+							<Card pad wide fill>
+								<Space direction="vertical" gap wide fill align="stretch">
 									<Space justify="between" align="center" wide>
 										<Paragraph>
 											<strong>Contacts</strong>
@@ -745,31 +770,51 @@ export const ChatWorkspace: Story = {
 										<Paragraph>12 online</Paragraph>
 									</Space>
 									<Space gap wide>
-										<Button variant="active">All</Button>
-										<Button variant="ghost">Unread</Button>
-										<Button variant="ghost">Pinned</Button>
+										<Button variant="active">
+											<Paragraph>All</Paragraph>
+										</Button>
+										<Button variant="ghost">
+											<Paragraph>Unread</Paragraph>
+										</Button>
+										<Button variant="ghost">
+											<Paragraph>Pinned</Paragraph>
+										</Button>
 									</Space>
-									{chatContactCard(
-										"Jordan Lee",
-										"Today",
-										"Can you review the updated launch checklist before we post the note?",
-										true,
-									)}
-									{chatContactCard(
-										"Maya Chen",
-										"8m",
-										"The invoice correction is ready after the billing diff review.",
-									)}
-									{chatContactCard(
-										"Sergio Patel",
-										"21m",
-										"We can close the rollback note once the export retry passes.",
-									)}
-									{chatContactCard(
-										"Billing Ops",
-										"1h",
-										"Confirmed the renewal adjustment and sent the revised totals.",
-									)}
+									<Content grow fill wide style={scrollPanelStyle}>
+										<Space direction="vertical" gap wide align="stretch">
+											{chatContactCard(
+												"Jordan Lee",
+												"Today",
+												"Can you review the updated launch checklist before we post the note?",
+												true,
+											)}
+											{chatContactCard(
+												"Maya Chen",
+												"8m",
+												"The invoice correction is ready after the billing diff review.",
+											)}
+											{chatContactCard(
+												"Sergio Patel",
+												"21m",
+												"We can close the rollback note once the export retry passes.",
+											)}
+											{chatContactCard(
+												"Billing Ops",
+												"1h",
+												"Confirmed the renewal adjustment and sent the revised totals.",
+											)}
+											{chatContactCard(
+												"Support lead",
+												"2h",
+												"The customer summary is ready once the final approval lands.",
+											)}
+											{chatContactCard(
+												"Launch ops",
+												"Yesterday",
+												"Queue the banner review right after the billing correction closes.",
+											)}
+										</Space>
+									</Content>
 								</Space>
 							</Card>
 						</Col>
@@ -784,13 +829,17 @@ export const ChatWorkspace: Story = {
 											<Paragraph>Design review · online now</Paragraph>
 										</Space>
 										<Space gap align="center">
-											<Button variant="ghost">Files</Button>
-											<Button variant="ghost">Details</Button>
+											<Button variant="ghost">
+												<Paragraph>Files</Paragraph>
+											</Button>
+											<Button variant="ghost">
+												<Paragraph>Details</Paragraph>
+											</Button>
 										</Space>
 									</Space>
 									<Content grow fill wide style={{ minHeight: 0 }}>
 										<Content fill style={scrollPanelStyle}>
-											<Space direction="vertical" gap wide fill align="stretch">
+											<Space direction="vertical" gap wide align="stretch">
 												{chatBubble(
 													"I pulled the latest workspace notes into the review queue. The launch checklist still needs one last pass.",
 													"9:14 AM",
@@ -831,7 +880,9 @@ export const ChatWorkspace: Story = {
 									</Content>
 									<Space gap wide align="center">
 										<Input grow placeholder="Write a reply..." />
-										<Button variant="primary">Send</Button>
+										<Button variant="primary">
+											<Paragraph>Send</Paragraph>
+										</Button>
 									</Space>
 								</Space>
 							</Card>
@@ -848,8 +899,8 @@ export const AssetReviewWorkspace: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Asset review workspace</Title>
 							<Paragraph>
 								A centered review surface with controls above and actions below.
@@ -871,14 +922,16 @@ export const AssetReviewWorkspace: Story = {
 								onChange={() => undefined}
 								placeholder="Status"
 							/>
-							<Button variant="primary">Publish</Button>
+							<Button variant="primary">
+								<Paragraph>Publish</Paragraph>
+							</Button>
 						</Space>
 					</Space>
 				</Content>
 				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill style={{ minHeight: 0 }}>
+					<Row gap style={{ minHeight: 0 }}>
 						<Col xs={24} md={5}>
-							<Card pad wide fill>
+							<Card pad wide>
 								<Space direction="vertical" gap wide fill align="stretch">
 									<Paragraph>
 										<strong>Queue</strong>
@@ -903,10 +956,10 @@ export const AssetReviewWorkspace: Story = {
 							</Card>
 						</Col>
 						<Col xs={24} md={14}>
-							<Card pad wide fill grow>
+							<Card pad wide grow>
 								<Space direction="vertical" gap wide fill align="stretch">
-									<Space justify="between" align="center" wide>
-										<Space direction="vertical" gap>
+									<Space justify="between" align="center" wide gap>
+										<Space direction="vertical" gap grow>
 											<Paragraph>
 												<strong>Preview</strong>
 											</Paragraph>
@@ -915,12 +968,16 @@ export const AssetReviewWorkspace: Story = {
 												controls remain compact.
 											</Paragraph>
 										</Space>
-										<Space gap align="center">
-											<Button variant="ghost">Crop</Button>
-											<Button variant="ghost">Annotate</Button>
+										<Space gap align="center" noWrap>
+											<Button variant="ghost">
+												<Paragraph>Crop</Paragraph>
+											</Button>
+											<Button variant="ghost">
+												<Paragraph>Annotate</Paragraph>
+											</Button>
 										</Space>
 									</Space>
-									<Content grow fill wide>
+									<Content grow fill wide style={{ minHeight: 0 }}>
 										<Card pad wide fill>
 											<Space
 												direction="vertical"
@@ -939,18 +996,22 @@ export const AssetReviewWorkspace: Story = {
 											</Space>
 										</Card>
 									</Content>
-									<Space justify="between" align="center" wide>
+									<Space justify="between" align="center" wide gap>
 										<Paragraph>Reviewed by Maya · 2 approvals</Paragraph>
-										<Space gap align="center">
-											<Button variant="ghost">Reject</Button>
-											<Button variant="active">Approve</Button>
+										<Space gap align="center" noWrap>
+											<Button variant="ghost">
+												<Paragraph>Reject</Paragraph>
+											</Button>
+											<Button variant="active">
+												<Paragraph>Approve</Paragraph>
+											</Button>
 										</Space>
 									</Space>
 								</Space>
 							</Card>
 						</Col>
 						<Col xs={24} md={5}>
-							<Card pad wide fill>
+							<Card pad wide>
 								<Space direction="vertical" gap wide fill align="stretch">
 									<Paragraph>
 										<strong>Details</strong>
@@ -982,15 +1043,15 @@ export const QueryWorkbench: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Query workbench</Title>
 							<Paragraph>
 								Edit a query, inspect visual summaries, and review result rows
 								in one bounded workspace.
 							</Paragraph>
 						</Space>
-						<Space gap align="center">
+						<Space gap align="center" noWrap>
 							<Select
 								options={[
 									{ value: "prod", element: <Paragraph>Production</Paragraph> },
@@ -999,13 +1060,17 @@ export const QueryWorkbench: Story = {
 								onChange={() => undefined}
 								placeholder="Dataset"
 							/>
-							<Button variant="ghost">Format SQL</Button>
-							<Button variant="primary">Run query</Button>
+							<Button variant="ghost">
+								<Paragraph>Format SQL</Paragraph>
+							</Button>
+							<Button variant="primary">
+								<Paragraph>Run query</Paragraph>
+							</Button>
 						</Space>
 					</Space>
 				</Content>
 				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill>
+					<Row gap fill style={{ minHeight: 0 }}>
 						<Col xs={24} md={10}>
 							<Card pad wide fill>
 								<Space direction="vertical" gap wide fill align="stretch">
@@ -1013,14 +1078,17 @@ export const QueryWorkbench: Story = {
 										<Paragraph>
 											<strong>Editor</strong>
 										</Paragraph>
-										<Button variant="active">Saved query</Button>
+										<Button variant="active">
+											<Paragraph>Saved query</Paragraph>
+										</Button>
 									</Space>
-									<CodeArea
-										fill
-										lineNumbers
-										highlightCurrentLine
-										rules={sqlRules}
-										defaultValue={`-- Daily workspace rollup
+									<Content grow fill wide style={{ minHeight: 0 }}>
+										<CodeArea
+											fill
+											lineNumbers
+											highlightCurrentLine
+											rules={sqlRules}
+											defaultValue={`-- Daily workspace rollup
 select
   date_trunc('day', created_at) as day,
   count(*) as sessions,
@@ -1031,7 +1099,8 @@ where created_at >= '2026-04-01'
 group by 1
 order by 1 desc
 limit 14;`}
-									/>
+										/>
+									</Content>
 									<Space gap wide>
 										{noteCard(
 											"Result shape",
@@ -1121,7 +1190,7 @@ limit 14;`}
 																</Paragraph>
 															</Col>
 														</Row>
-														<Content grow fill style={scrollPanelStyle}>
+														<Content grow fill wide style={scrollPanelStyle}>
 															<Space direction="vertical" gap wide>
 																{dataRowCard(
 																	[
@@ -1212,8 +1281,8 @@ export const MissionControlWorkspace: Story = {
 		<Content fill pad style={viewportStyle}>
 			<Page gap fill>
 				<Content>
-					<Space justify="between" align="center" wide>
-						<Space direction="vertical" gap>
+					<Space justify="between" align="center" wide gap>
+						<Space direction="vertical" gap grow>
 							<Title>Mission control workspace</Title>
 							<Paragraph>
 								A multi-surface control room with a live board, action queue,
@@ -1221,16 +1290,22 @@ export const MissionControlWorkspace: Story = {
 							</Paragraph>
 						</Space>
 						<Space gap align="center">
-							<Button variant="ghost">Standby</Button>
-							<Button variant="active">Live</Button>
-							<Button variant="primary">Broadcast update</Button>
+							<Button variant="ghost">
+								<Paragraph>Standby</Paragraph>
+							</Button>
+							<Button variant="active">
+								<Paragraph>Live</Paragraph>
+							</Button>
+							<Button variant="primary">
+								<Paragraph>Broadcast update</Paragraph>
+							</Button>
 						</Space>
 					</Space>
 				</Content>
 				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill>
+					<Row gap style={{ minHeight: 0 }}>
 						<Col xs={24} md={5}>
-							<Card pad wide fill>
+							<Card pad wide>
 								<Space direction="vertical" gap wide fill align="stretch">
 									<Paragraph>
 										<strong>Action queue</strong>
@@ -1251,7 +1326,7 @@ export const MissionControlWorkspace: Story = {
 							</Card>
 						</Col>
 						<Col xs={24} md={12}>
-							<Card pad wide fill>
+							<Card pad wide>
 								<Space direction="vertical" gap wide fill align="stretch">
 									<Paragraph>
 										<strong>Control board</strong>
@@ -1329,7 +1404,7 @@ export const MissionControlWorkspace: Story = {
 							</Card>
 						</Col>
 						<Col xs={24} md={7}>
-							<Card pad wide fill>
+							<Card pad wide>
 								<Space direction="vertical" gap wide fill align="stretch">
 									<Paragraph>
 										<strong>Live state</strong>
@@ -1353,8 +1428,12 @@ export const MissionControlWorkspace: Story = {
 										]}
 									/>
 									<Space gap wide>
-										<Button variant="ghost">Freeze queue</Button>
-										<Button variant="primary">Escalate</Button>
+										<Button variant="ghost">
+											<Paragraph>Freeze queue</Paragraph>
+										</Button>
+										<Button variant="primary">
+											<Paragraph>Escalate</Paragraph>
+										</Button>
 									</Space>
 								</Space>
 							</Card>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Space from "./Atom/Space/Space";
 import Title from "./Atom/Title/Title";
 import Paragraph from "./Atom/Paragraph/Paragraph";
@@ -14,7 +14,7 @@ import {
 } from "./Icon/Icons.bin";
 import Icon from "./Icon/Icon";
 import Row from "./Layout/Row/Row";
-import Column from "./Layout/Column/Column";
+import Column, { Col } from "./Layout/Column/Column";
 import Input from "./Atom/Input/Input";
 import Select from "./Atom/Select/Select";
 import Collapsible from "./Atom/Collapsible/Collapsible";
@@ -25,8 +25,170 @@ import { ButtonType } from "./Core/Core.types";
 import Pagination from "./Atom/Pagination/Pagination";
 import MultiLineChart from "./Atom/MultiLineChart/MultiLineChart";
 import StackedBreakdownChart from "./Atom/StackedBreakdownChart/StackedBreakdownChart";
+import Announcement from "./Atom/Announcement/Announcement";
+import Tree from "./Atom/Tree/Tree";
+import { TreeItem } from "./Atom/Tree/Tree.types";
+
+const createWelcomeTree = (): TreeItem[] => [
+	{
+		id: "welcome-root",
+		label: <Paragraph>workspace</Paragraph>,
+		expanded: true,
+		children: [
+			{
+				id: "welcome-design",
+				label: <Paragraph>design</Paragraph>,
+				expanded: true,
+				children: [
+					{
+						id: "welcome-banner",
+						label: <Paragraph>launch-banner.png</Paragraph>,
+						icon: "Picture",
+					},
+					{
+						id: "welcome-copy",
+						label: <Paragraph>homepage-copy.md</Paragraph>,
+						icon: "Bookmark",
+					},
+				],
+			},
+			{
+				id: "welcome-notes",
+				label: <Paragraph>notes</Paragraph>,
+				expanded: true,
+				children: [
+					{
+						id: "welcome-review",
+						label: <Paragraph>review-checklist.txt</Paragraph>,
+						icon: "File",
+					},
+				],
+			},
+		],
+	},
+];
+
+const removeWelcomeNode = (
+	items: TreeItem[],
+	id: string,
+	depth = 0,
+): TreeItem[] =>
+	items
+		.map((item) => {
+			if (item.id === id) {
+				return depth === 0 ? item : null;
+			}
+			if (item.children) {
+				return {
+					...item,
+					children: removeWelcomeNode(item.children, id, depth + 1),
+				};
+			}
+			return item;
+		})
+		.filter(Boolean) as TreeItem[];
+
+const appendWelcomeChild = (
+	items: TreeItem[],
+	id: string,
+	nextChild: TreeItem,
+): TreeItem[] =>
+	items.map((item) => {
+		if (item.id === id) {
+			return {
+				...item,
+				expanded: true,
+				children: [...(item.children ?? []), nextChild],
+			};
+		}
+		if (item.children) {
+			return {
+				...item,
+				children: appendWelcomeChild(item.children, id, nextChild),
+			};
+		}
+		return item;
+	});
 
 export const Welcome = () => {
+	const [treeItems, setTreeItems] = useState<TreeItem[]>(createWelcomeTree);
+	const nextTreeId = useRef(1);
+
+	const takeTreeId = (prefix: string) => `${prefix}-${nextTreeId.current++}`;
+
+	const boundTreeItems = useMemo(() => {
+		const bindMenus = (nodes: TreeItem[], depth = 0): TreeItem[] =>
+			nodes.map((node) => {
+				const isFolder = node.children !== undefined;
+				const canDelete = depth > 0;
+
+				return {
+					...node,
+					menuContent: (
+						<Card pad wide>
+							<Space direction="vertical" gap wide>
+								<Paragraph className={"muted"}>
+									<strong>Tree actions</strong>
+								</Paragraph>
+								{isFolder && (
+									<Button
+										variant="ghost"
+										size="small"
+										onClick={() =>
+											setTreeItems((current) =>
+												appendWelcomeChild(current, node.id, {
+													id: takeTreeId("folder"),
+													label: <Paragraph>new-folder</Paragraph>,
+													expanded: true,
+													children: [],
+												}),
+											)
+										}
+									>
+										<Paragraph>Add folder</Paragraph>
+									</Button>
+								)}
+								{isFolder && (
+									<Button
+										variant="ghost"
+										size="small"
+										onClick={() =>
+											setTreeItems((current) =>
+												appendWelcomeChild(current, node.id, {
+													id: takeTreeId("leaf"),
+													label: <Paragraph>new-item</Paragraph>,
+												}),
+											)
+										}
+									>
+										<Paragraph>Add leaf</Paragraph>
+									</Button>
+								)}
+								{canDelete && (
+									<Button
+										variant="danger"
+										size="small"
+										onClick={() =>
+											setTreeItems((current) =>
+												removeWelcomeNode(current, node.id),
+											)
+										}
+									>
+										<Paragraph>Delete</Paragraph>
+									</Button>
+								)}
+							</Space>
+						</Card>
+					),
+					children: node.children
+						? bindMenus(node.children, depth + 1)
+						: undefined,
+				};
+			});
+
+		return bindMenus(treeItems);
+	}, [treeItems]);
+
 	return (
 		<div
 			className="welcome__container"
@@ -44,6 +206,7 @@ export const Welcome = () => {
 				background: "linear-gradient(rgb(236 249 245), rgb(244 247 236))",
 				color: "#fff",
 				textAlign: "center",
+				padding: "40px 0",
 			}}
 		>
 			<Content pad>
@@ -85,13 +248,13 @@ export const Welcome = () => {
 						</a>
 					</Space>
 
-					<Card style={{ width: "100%" }}>
+					<Card wide>
 						<DebugLayer label={"oakd | oakframe.org"}>
 							<Content pad>
-								<Space gap direction={"vertical"} style={{ width: "100%" }}>
-									<Space direction={"vertical"} gap style={{ width: "100%" }}>
+								<Space gap direction={"vertical"} wide>
+									<Space direction={"vertical"} gap wide>
 										<Paragraph>buttons</Paragraph>
-										<Space gap style={{ width: "100%" }}>
+										<Space gap wide>
 											{["default", "primary", "warning", "danger"]
 												.slice(0, 16)
 												.map((type: ButtonType, idx) => {
@@ -128,7 +291,7 @@ export const Welcome = () => {
 										</Space>
 									</Space>
 
-									<Space direction={"vertical"} gap style={{ width: "100%" }}>
+									<Space direction={"vertical"} gap wide>
 										<Paragraph>inputs</Paragraph>
 										<Space gap wide>
 											<Input
@@ -154,7 +317,7 @@ export const Welcome = () => {
 										</Space>
 									</Space>
 
-									<Space direction={"vertical"} gap style={{ width: "100%" }}>
+									<Space direction={"vertical"} gap wide>
 										<Paragraph>extended inputs</Paragraph>
 										<Space
 											style={{ width: "100%" }}
@@ -250,8 +413,46 @@ export const Welcome = () => {
 												size={"small"}
 											/>
 										</Space>
+										<Announcement variant={"primary"} closable>
+											This is a dismissible primary Announcement!
+										</Announcement>
+										<Row
+											gap
+											wide
+											//justify={"stretch"}
+											//align={"stretch"}
+										>
+											<Col xs={24} md={12}>
+												<Card pad>
+													<Space align={"center"} justify={"center"}>
+														<Paragraph>
+															This is a Card!
+															<br />
+															It has multiple lines or text centered
+														</Paragraph>
+													</Space>
+												</Card>
+											</Col>
+											<Col xs={12} md={6}>
+												<Card pad fill variant={"ghost"}>
+													<Space align={"end"} justify={"center"} fill>
+														<Title>42</Title>
+														<Paragraph>tk/s</Paragraph>
+													</Space>
+												</Card>
+											</Col>
+											<Col xs={12} md={6}>
+												<Card pad fill>
+													<Space align={"center"} justify={"center"} fill>
+														<Card pad variant={"ghost"}>
+															<Paragraph>Centered Card</Paragraph>
+														</Card>
+													</Space>
+												</Card>
+											</Col>
+										</Row>
 										<Paragraph>svg icons</Paragraph>
-										<Space style={{ width: "100%" }} gap justify={"between"}>
+										<Space wide gap justify={"between"}>
 											{IconTypes.slice(0, 152).map(
 												(icon: CoreIconNameType, idx: number) => {
 													return (
@@ -271,7 +472,7 @@ export const Welcome = () => {
 										</Space>
 									</Space>
 
-									<Space direction={"vertical"} gap style={{ width: "100%" }}>
+									<Space direction={"vertical"} gap wide>
 										<Paragraph>data displays</Paragraph>
 										<Row gap>
 											<Column xs={24} md={12}>
@@ -284,10 +485,10 @@ export const Welcome = () => {
 														align={"stretch"}
 													>
 														<Paragraph>
-															<strong>line charts</strong>
+															<strong>multi line graphs</strong>
 														</Paragraph>
 														<Content grow fill wide>
-															<Card pad wide grow fill>
+
 																<MultiLineChart
 																	lines={[
 																		{
@@ -326,7 +527,7 @@ export const Welcome = () => {
 																	showVerticalTicks
 																	smooth
 																/>
-															</Card>
+
 														</Content>
 													</Space>
 												</Card>
@@ -411,9 +612,31 @@ export const Welcome = () => {
 													</Space>
 												</Card>
 											</Column>
+
+											<Col xs={24} md={12}>
+												<Card pad wide>
+													<Space
+														direction={"vertical"}
+														gap
+														wide
+														align={"stretch"}
+													>
+														<Paragraph>
+															<strong>tree with drag and drop</strong>
+														</Paragraph>
+														<Paragraph>
+															Right click a folder or item to add a child
+															folder, add a leaf, or delete the current node.
+														</Paragraph>
+														<Tree
+															items={boundTreeItems}
+															onChange={setTreeItems}
+														/>
+													</Space>
+												</Card>
+											</Col>
 										</Row>
 									</Space>
-
 									<Paragraph>row w/ gap & columns</Paragraph>
 									<Row gap>
 										<Column xs={24}>

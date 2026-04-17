@@ -50,6 +50,7 @@ const getValueAtIndex = (values: MultiLineChartPoint[], index: number) =>
 
 const TOOLTIP_WIDTH = 200;
 const TOOLTIP_GUTTER = 8;
+const TOOLTIP_OFFSET = 16;
 
 const MultiLineChart: React.FC<MultiLineChartProps> = ({
 	lines,
@@ -71,6 +72,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 	const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
 	const [hoverX, setHoverX] = useState<number | null>(null);
 	const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+	const [pointerX, setPointerX] = useState<number | null>(null);
 
 	useEffect(() => {
 		const frameElement = frameRef.current;
@@ -204,9 +206,14 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 			? normalizedLines[0]?.values[hoverIndex]?.x || null
 			: null;
 	const tooltipLeft =
-		hoverX !== null
+		pointerX !== null
 			? Math.min(
-					Math.max(hoverX - TOOLTIP_WIDTH / 2, TOOLTIP_GUTTER),
+					Math.max(
+						pointerX < width / 2
+							? pointerX + TOOLTIP_OFFSET
+							: pointerX - TOOLTIP_WIDTH - TOOLTIP_OFFSET,
+						TOOLTIP_GUTTER,
+					),
 					Math.max(TOOLTIP_GUTTER, width - TOOLTIP_WIDTH - TOOLTIP_GUTTER),
 				)
 			: TOOLTIP_GUTTER;
@@ -391,18 +398,28 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 							return (
 								<rect
 									key={index}
+									data-testid={`MultiLineChartHover-${index}`}
 									x={cx - widthPerBucket / 2}
 									width={widthPerBucket}
 									y={0}
 									height={chartHeight}
 									fill="transparent"
-									onMouseEnter={() => {
+									onMouseEnter={(event) => {
+										const bounds =
+											event.currentTarget.ownerSVGElement?.getBoundingClientRect();
 										setHoverX(cx);
 										setHoverIndex(index);
+										setPointerX(bounds ? event.clientX - bounds.left : cx);
+									}}
+									onMouseMove={(event) => {
+										const bounds =
+											event.currentTarget.ownerSVGElement?.getBoundingClientRect();
+										setPointerX(bounds ? event.clientX - bounds.left : cx);
 									}}
 									onMouseLeave={() => {
 										setHoverX(null);
 										setHoverIndex(null);
+										setPointerX(null);
 									}}
 								/>
 							);
@@ -411,6 +428,7 @@ const MultiLineChart: React.FC<MultiLineChartProps> = ({
 
 					{hoverIndex !== null && hoverDate ? (
 						<div
+							data-testid="MultiLineChartTooltip"
 							className="oakd-multi-line-chart__tooltip"
 							style={{
 								left: tooltipLeft,

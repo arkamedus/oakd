@@ -127,6 +127,27 @@ export const WithDragAndDropReorder: Story = {
 	},
 };
 
+export const WithEmptyFolder: Story = {
+	render: () => {
+		const [items, setItems] = useState<TreeItem[]>([
+			{
+				id: "root",
+				label: "root",
+				expanded: true,
+				children: [
+					{
+						id: "grp-empty",
+						label: "grp_empty",
+						expanded: true,
+						children: [],
+					},
+				],
+			},
+		]);
+		return <Tree items={items} onChange={setItems} />;
+	},
+};
+
 const removeNode = (items: TreeItem[], id: string, depth = 0): TreeItem[] =>
 	items
 		.map((item) => {

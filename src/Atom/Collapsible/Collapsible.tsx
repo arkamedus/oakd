@@ -53,7 +53,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 				data-testid="CollapsibleToggle"
 			>
 				<Content pad wide>
-					<Space wide justify={"between"} align={"center"}>
+					<Space wide justify={"between"} align={"center"} noWrap>
 						<span className="collapsible__title">{title}</span>
 						<IconAngle
 							className="collapsible__icon"

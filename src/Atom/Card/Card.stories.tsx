@@ -62,44 +62,44 @@ export const WithContentActions = () => (
 );
 
 export const VariantGallery = () => (
-	<Space gap>
+	<Space gap wide direction={"vertical"} justify={"stretch"}>
 		<Card>
 			<Content pad>
 				<Title>Default</Title>
 				<Paragraph>Neutral surface for everyday content.</Paragraph>
 			</Content>
 		</Card>
-		<Card type={"active"}>
+		<Card variant={"active"}>
 			<Content pad>
 				<Title>Active</Title>
 				<Paragraph>Used to show the currently selected panel.</Paragraph>
 			</Content>
 		</Card>
-		<Card type={"primary"}>
+		<Card variant={"primary"}>
 			<Content pad>
 				<Title>Primary</Title>
 				<Paragraph>Emphasized card for featured information.</Paragraph>
 			</Content>
 		</Card>
-		<Card type={"ghost"}>
+		<Card variant={"ghost"}>
 			<Content pad>
 				<Title>Ghost</Title>
 				<Paragraph>Subtle treatment for low-emphasis groupings.</Paragraph>
 			</Content>
 		</Card>
-		<Card type={"warning"}>
+		<Card variant={"warning"}>
 			<Content pad>
 				<Title>Warning</Title>
 				<Paragraph>Calls attention to an action that needs review.</Paragraph>
 			</Content>
 		</Card>
-		<Card type={"danger"}>
+		<Card variant={"danger"}>
 			<Content pad>
 				<Title>Danger</Title>
 				<Paragraph>Critical states or destructive flows.</Paragraph>
 			</Content>
 		</Card>
-		<Card type={"disabled"}>
+		<Card variant={"disabled"}>
 			<Content pad>
 				<Title>Disabled</Title>
 				<Paragraph>Unavailable or locked content.</Paragraph>
@@ -126,7 +126,7 @@ export const EmptyState = () => (
 );
 
 export const SuccessState = () => (
-	<Card type="active">
+	<Card variant="active">
 		<Content pad>
 			<Space direction="vertical" gap align="center" wide>
 				<Title>Successfully Purchased</Title>
@@ -140,7 +140,7 @@ export const SuccessState = () => (
 );
 
 export const ErrorState = () => (
-	<Card type="warning">
+	<Card variant="warning">
 		<Content pad>
 			<Space direction="vertical" gap align="center" wide>
 				<Title>Failure in Action...</Title>

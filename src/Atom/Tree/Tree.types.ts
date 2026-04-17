@@ -14,5 +14,5 @@ export interface TreeItem {
 
 export interface TreeProps extends CoreContentProps<HTMLDivElement> {
 	items: TreeItem[];
-	onChange: (nextItems: TreeItem[]) => void;
+	onChange?: (nextItems: TreeItem[]) => void;
 }

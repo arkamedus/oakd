@@ -3,6 +3,21 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import StackedBreakdownChart from "./StackedBreakdownChart";
 
 describe("StackedBreakdownChart Component", () => {
+  beforeEach(() => {
+    Object.defineProperty(HTMLDivElement.prototype, "clientWidth", {
+      configurable: true,
+      get() {
+        const className = this.className?.toString?.() || "";
+        if (className.includes("oakd-stacked-breakdown-chart__body")) return 480;
+        return 0;
+      },
+    });
+    Object.defineProperty(HTMLDivElement.prototype, "getBoundingClientRect", {
+      configurable: true,
+      value: () => ({ left: 0, top: 0, width: 480, height: 220 }),
+    });
+  });
+
   it("renders label legends and row labels", () => {
     const { container } = render(
       <StackedBreakdownChart
@@ -60,6 +75,26 @@ describe("StackedBreakdownChart Component", () => {
     expect(within(tooltip).getByText("Week 1")).toBeInTheDocument();
     expect(within(tooltip).getByText("60.0%")).toBeInTheDocument();
     expect(within(tooltip).getByText("40.0%")).toBeInTheDocument();
+  });
+
+  it("moves the tooltip to the opposite side for right-side bars", async () => {
+    render(
+      <StackedBreakdownChart
+        labels={["Helpful"]}
+        rows={[
+          { key: "w1", labelWeights: { Helpful: 1 } },
+          { key: "w2", labelWeights: { Helpful: 1 } },
+        ]}
+      />,
+    );
+
+    const target = screen.getByTestId("StackedBreakdownRow-w2");
+    fireEvent.mouseEnter(target, { clientX: 420 });
+    fireEvent.mouseMove(target, { clientX: 420 });
+
+    expect(await screen.findByTestId("StackedBreakdownTooltip")).toHaveStyle({
+      left: "204px",
+    });
   });
 
   it("can disable hover tooltips", () => {
