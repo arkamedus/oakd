@@ -17,7 +17,7 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 	embedding,
 	title,
 	subtitle,
-	minCellWidth = 8,
+	minCellWidth = 2,
 	stripHeight = 18,
 	height,
 	fill = false,

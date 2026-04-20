@@ -1,7 +1,6 @@
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import typescript from "rollup-plugin-typescript2";
 import postcss from "rollup-plugin-postcss";
 import url from "@rollup/plugin-url";
 import copy from "rollup-plugin-copy";
@@ -9,7 +8,7 @@ import copy from "rollup-plugin-copy";
 const packageJson = require("./package.json");
 
 export default {
-  input: "src/index.ts",
+  input: "tmp/index.js",
   output: [
     {
       file: packageJson.main,
@@ -24,14 +23,13 @@ export default {
   ],
   plugins: [
     peerDepsExternal(),
-    resolve({ browser: true }),
+    resolve({ browser: true, extensions: [".mjs", ".js", ".jsx", ".json", ".node"] }),
     commonjs(),
     // Inline all SVG files as data URIs
     url({
       include: ["**/*.svg"],
       limit: Infinity,
     }),
-    typescript({ useTsconfigDeclarationDir: true }),
     postcss(), // dont extract unless you are planning on having other libs import css
     // Only copy non-inline assets (like index.css)
     copy({

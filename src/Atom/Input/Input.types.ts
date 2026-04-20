@@ -12,7 +12,7 @@ export interface InputProps extends Omit<
 	variant?: ButtonType;
 	/** Sets the size variations */
 	size?: Exclude<CoreComponentSizeType, "huge">;
-	/** Optional icon (either an oakd icon name or a JSX element) */
-	icon?: CoreIconNameType | React.JSX.Element;
+	/** Optional icon (either an oakd icon name or a renderable node) */
+	icon?: CoreIconNameType | React.ReactNode;
 	grow?: boolean;
 }

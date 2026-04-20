@@ -7,7 +7,7 @@ import { IconAngle } from "../../Icon/Icons.bin";
 import Button, { ButtonGroup } from "../Button/Button";
 
 const getTabKey = (child: React.ReactNode, index: number) =>
-	React.isValidElement(child)
+	React.isValidElement<TabProps>(child)
 		? child.key?.toString() || index.toString()
 		: index.toString();
 
@@ -15,7 +15,7 @@ const getFirstTabKey = (children: React.ReactNode) => {
 	let firstKey: string | undefined;
 
 	React.Children.forEach(children, (child, index) => {
-		if (firstKey === undefined && React.isValidElement(child)) {
+		if (firstKey === undefined && React.isValidElement<TabProps>(child)) {
 			firstKey = getTabKey(child, index);
 		}
 	});
@@ -45,7 +45,10 @@ const Tabs: React.FC<TabsProps> = ({
 		onChange?.(key);
 	};
 
-	const renderTab = (child: React.ReactElement, index: number) => {
+	const renderTab = (child: React.ReactNode, index: number) => {
+		if (!React.isValidElement<TabProps>(child)) {
+			return null;
+		}
 		const key = getTabKey(child, index);
 		const tabId = `oakd-tab-${key}`;
 		const panelId = `oakd-tabpanel-${key}`;
@@ -74,7 +77,7 @@ const Tabs: React.FC<TabsProps> = ({
 
 	const renderContent = () => {
 		return React.Children.map(children, (child, index) => {
-			if (!React.isValidElement(child)) return null;
+			if (!React.isValidElement<TabProps>(child)) return null;
 			const key = getTabKey(child, index);
 			const tabId = `oakd-tab-${key}`;
 			const panelId = `oakd-tabpanel-${key}`;

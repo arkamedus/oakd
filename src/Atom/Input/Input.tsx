@@ -9,7 +9,7 @@ import { InputProps } from "./Input.types";
 import "./Input.css";
 import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
-import { IconTriangle } from "../../Icon/Icons.bin";
+import { CoreIconNameType, IconTriangle } from "../../Icon/Icons.bin";
 import { sizeMinusOne } from "../../Core/Core.utils";
 
 type InputValue = string | number | readonly string[];
@@ -112,7 +112,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 				<Space gap align="center" direction="horizontal" wide>
 					{icon &&
 						(typeof icon === "string" ? (
-							<Icon name={icon} size={sizeMinusOne(size)} />
+							<Icon name={icon as CoreIconNameType} size={sizeMinusOne(size)} />
 						) : (
 							icon
 						))}

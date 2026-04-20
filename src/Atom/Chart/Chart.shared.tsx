@@ -116,7 +116,7 @@ export const ChartAxisLabel: React.FC<{
 		className="oakd-chart-axis-label"
 		style={{
 			opacity: 0.7,
-			fontSize: "0.8em",
+			fontSize: "0.6em",
 			textAlign: align,
 		}}
 	>

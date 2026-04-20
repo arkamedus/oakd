@@ -18,7 +18,7 @@ export type ScriptSandboxError = {
 
 export type ScriptSandboxBaseProps = Omit<
 	CoreComponentProps<HTMLDivElement>,
-	"ref"
+	"ref" | "onError"
 >;
 
 export interface ScriptSandboxProps extends ScriptSandboxBaseProps {
