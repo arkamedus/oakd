@@ -47,9 +47,9 @@ export const _IconMap: Record<string, string> = {
 ${iconMapEntries.join(",\n")}
 };
 
-type CoreIconNameType = ${iconTypesArray.map(a=>{return `"${a}"`}).join(" | ")};
+export type CoreIconNameType = ${iconTypesArray.map(a=>{return `"${a}"`}).join(" | ")};
 
-const IconTypes: CoreIconNameType[] = ${JSON.stringify(iconTypesArray)};
+export const IconTypes: CoreIconNameType[] = ${JSON.stringify(iconTypesArray)};
 
 ${exportStatements.join("\n")}
 `;

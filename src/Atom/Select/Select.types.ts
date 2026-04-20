@@ -16,8 +16,10 @@ export interface SelectOption<T> {
 	category?: string;
 }
 
-export interface SelectProps<T>
-	extends Omit<CoreLayoutProps<HTMLDivElement>, "defaultValue"> {
+export interface SelectProps<T> extends Omit<
+	CoreLayoutProps<HTMLDivElement>,
+	"defaultValue"
+> {
 	options: SelectOption<T>[];
 	value?: T;
 	defaultValue?: T;

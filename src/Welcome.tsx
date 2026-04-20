@@ -488,46 +488,44 @@ export const Welcome = () => {
 															<strong>multi line graphs</strong>
 														</Paragraph>
 														<Content grow fill wide>
-
-																<MultiLineChart
-																	lines={[
-																		{
-																			label: "Signups",
-																			values: [
-																				{ x: "2026-04-01", y: 18 },
-																				{ x: "2026-04-02", y: 24 },
-																				{ x: "2026-04-03", y: 28 },
-																				{ x: "2026-04-04", y: 31 },
-																				{ x: "2026-04-05", y: 35 },
-																			],
-																		},
-																		{
-																			label: "Activations",
-																			values: [
-																				{ x: "2026-04-01", y: 12 },
-																				{ x: "2026-04-02", y: 16 },
-																				{ x: "2026-04-03", y: 22 },
-																				{ x: "2026-04-04", y: 20 },
-																				{ x: "2026-04-05", y: 26 },
-																			],
-																		},
-																		{
-																			label: "Retention",
-																			values: [
-																				{ x: "2026-04-01", y: 8 },
-																				{ x: "2026-04-02", y: 11 },
-																				{ x: "2026-04-03", y: 13 },
-																				{ x: "2026-04-04", y: 14 },
-																				{ x: "2026-04-05", y: 18 },
-																			],
-																		},
-																	]}
-																	hoverLabel={"events"}
-																	fill
-																	showVerticalTicks
-																	smooth
-																/>
-
+															<MultiLineChart
+																lines={[
+																	{
+																		label: "Signups",
+																		values: [
+																			{ x: "2026-04-01", y: 18 },
+																			{ x: "2026-04-02", y: 24 },
+																			{ x: "2026-04-03", y: 28 },
+																			{ x: "2026-04-04", y: 31 },
+																			{ x: "2026-04-05", y: 35 },
+																		],
+																	},
+																	{
+																		label: "Activations",
+																		values: [
+																			{ x: "2026-04-01", y: 12 },
+																			{ x: "2026-04-02", y: 16 },
+																			{ x: "2026-04-03", y: 22 },
+																			{ x: "2026-04-04", y: 20 },
+																			{ x: "2026-04-05", y: 26 },
+																		],
+																	},
+																	{
+																		label: "Retention",
+																		values: [
+																			{ x: "2026-04-01", y: 8 },
+																			{ x: "2026-04-02", y: 11 },
+																			{ x: "2026-04-03", y: 13 },
+																			{ x: "2026-04-04", y: 14 },
+																			{ x: "2026-04-05", y: 18 },
+																		],
+																	},
+																]}
+																hoverLabel={"events"}
+																fill
+																showVerticalTicks
+																smooth
+															/>
 														</Content>
 													</Space>
 												</Card>

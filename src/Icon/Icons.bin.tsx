@@ -1,6 +1,6 @@
 // This file is auto-generated. Do not edit manually.
 import React from "react";
-import { IconProps } from "./Icon.types";
+import {IconProps} from "./Icon.types";
 import Icon from "./Icon";
 
 import IAngle from "./asset/oakd_IconAngle.svg";
@@ -133,778 +133,265 @@ import IWrench from "./asset/oakd_IconWrench.svg";
 import IX from "./asset/oakd_IconX.svg";
 
 export const _IconMap: Record<string, string> = {
-	Angle: IAngle,
-	Apps: IApps,
-	Arrow: IArrow,
-	Ballon: IBallon,
-	Bar: IBar,
-	Basket: IBasket,
-	Bell: IBell,
-	Bone: IBone,
-	Book: IBook,
-	Bookmark: IBookmark,
-	Branch: IBranch,
-	Broom: IBroom,
-	Bug: IBug,
-	Bulb: IBulb,
-	CPU: ICPU,
-	Calendar: ICalendar,
-	Camera: ICamera,
-	Check: ICheck,
-	Circle: ICircle,
-	Clipboard: IClipboard,
-	Clock: IClock,
-	Cloud: ICloud,
-	Code: ICode,
-	Cog: ICog,
-	Comment: IComment,
-	CommentFrame: ICommentFrame,
-	Computer: IComputer,
-	Cone: ICone,
-	Cube: ICube,
-	Cursor: ICursor,
-	Cylinder: ICylinder,
-	Database: IDatabase,
-	Diamond: IDiamond,
-	Dots: IDots,
-	Download: IDownload,
-	Drip: IDrip,
-	EmoteAngry: IEmoteAngry,
-	EmoteCat: IEmoteCat,
-	EmoteFrown: IEmoteFrown,
-	EmoteGrin: IEmoteGrin,
-	EmoteLaugh: IEmoteLaugh,
-	EmoteMeh: IEmoteMeh,
-	EmoteP: IEmoteP,
-	EmoteS: IEmoteS,
-	EmoteShock: IEmoteShock,
-	EmoteSmile: IEmoteSmile,
-	EmoteWink: IEmoteWink,
-	Envelope: IEnvelope,
-	Eraser: IEraser,
-	FaceID: IFaceID,
-	File: IFile,
-	FilmStrip: IFilmStrip,
-	Flag: IFlag,
-	Folder: IFolder,
-	Function: IFunction,
-	Gift: IGift,
-	Graph: IGraph,
-	Hashtag: IHashtag,
-	Heart: IHeart,
-	Home: IHome,
-	Infinity: IInfinity,
-	Jellyfish: IJellyfish,
-	Lambda: ILambda,
-	Layers: ILayers,
-	Layout: ILayout,
-	Leaf: ILeaf,
-	Lightning: ILightning,
-	List: IList,
-	Lock: ILock,
-	Magnify: IMagnify,
-	Map: IMap,
-	Marker: IMarker,
-	Microphone: IMicrophone,
-	Moon: IMoon,
-	Mug: IMug,
-	Octagon: IOctagon,
-	Orbit: IOrbit,
-	PaintPalette: IPaintPalette,
-	Paintbrush: IPaintbrush,
-	Pause: IPause,
-	Pen: IPen,
-	PenPaper: IPenPaper,
-	Pencil: IPencil,
-	Perfume: IPerfume,
-	Picture: IPicture,
-	PieChart: IPieChart,
-	Pin: IPin,
-	Plane: IPlane,
-	Plant: IPlant,
-	Play: IPlay,
-	Plugin: IPlugin,
-	Plus: IPlus,
-	Printer: IPrinter,
-	Refresh: IRefresh,
-	Resize: IResize,
-	Save: ISave,
-	Shapes: IShapes,
-	Share: IShare,
-	Shield: IShield,
-	Sliders: ISliders,
-	Sound: ISound,
-	Sphere: ISphere,
-	Spinner: ISpinner,
-	Square: ISquare,
-	Star: IStar,
-	Sun: ISun,
-	Table: ITable,
-	Tag: ITag,
-	Text: IText,
-	Thumbtack: IThumbtack,
-	Trash: ITrash,
-	Tree: ITree,
-	Tri: ITri,
-	Triangle: ITriangle,
-	Unlock: IUnlock,
-	User: IUser,
-	Utensils: IUtensils,
-	Vector: IVector,
-	VehicleCoup: IVehicleCoup,
-	VehicleSUV: IVehicleSUV,
-	VehicleTruck: IVehicleTruck,
-	VehicleVan: IVehicleVan,
-	VideoCamera: IVideoCamera,
-	Wand: IWand,
-	Whiteboard: IWhiteboard,
-	Wifi: IWifi,
-	Wrench: IWrench,
-	X: IX,
+  "Angle": IAngle,
+  "Apps": IApps,
+  "Arrow": IArrow,
+  "Ballon": IBallon,
+  "Bar": IBar,
+  "Basket": IBasket,
+  "Bell": IBell,
+  "Bone": IBone,
+  "Book": IBook,
+  "Bookmark": IBookmark,
+  "Branch": IBranch,
+  "Broom": IBroom,
+  "Bug": IBug,
+  "Bulb": IBulb,
+  "CPU": ICPU,
+  "Calendar": ICalendar,
+  "Camera": ICamera,
+  "Check": ICheck,
+  "Circle": ICircle,
+  "Clipboard": IClipboard,
+  "Clock": IClock,
+  "Cloud": ICloud,
+  "Code": ICode,
+  "Cog": ICog,
+  "Comment": IComment,
+  "CommentFrame": ICommentFrame,
+  "Computer": IComputer,
+  "Cone": ICone,
+  "Cube": ICube,
+  "Cursor": ICursor,
+  "Cylinder": ICylinder,
+  "Database": IDatabase,
+  "Diamond": IDiamond,
+  "Dots": IDots,
+  "Download": IDownload,
+  "Drip": IDrip,
+  "EmoteAngry": IEmoteAngry,
+  "EmoteCat": IEmoteCat,
+  "EmoteFrown": IEmoteFrown,
+  "EmoteGrin": IEmoteGrin,
+  "EmoteLaugh": IEmoteLaugh,
+  "EmoteMeh": IEmoteMeh,
+  "EmoteP": IEmoteP,
+  "EmoteS": IEmoteS,
+  "EmoteShock": IEmoteShock,
+  "EmoteSmile": IEmoteSmile,
+  "EmoteWink": IEmoteWink,
+  "Envelope": IEnvelope,
+  "Eraser": IEraser,
+  "FaceID": IFaceID,
+  "File": IFile,
+  "FilmStrip": IFilmStrip,
+  "Flag": IFlag,
+  "Folder": IFolder,
+  "Function": IFunction,
+  "Gift": IGift,
+  "Graph": IGraph,
+  "Hashtag": IHashtag,
+  "Heart": IHeart,
+  "Home": IHome,
+  "Infinity": IInfinity,
+  "Jellyfish": IJellyfish,
+  "Lambda": ILambda,
+  "Layers": ILayers,
+  "Layout": ILayout,
+  "Leaf": ILeaf,
+  "Lightning": ILightning,
+  "List": IList,
+  "Lock": ILock,
+  "Magnify": IMagnify,
+  "Map": IMap,
+  "Marker": IMarker,
+  "Microphone": IMicrophone,
+  "Moon": IMoon,
+  "Mug": IMug,
+  "Octagon": IOctagon,
+  "Orbit": IOrbit,
+  "PaintPalette": IPaintPalette,
+  "Paintbrush": IPaintbrush,
+  "Pause": IPause,
+  "Pen": IPen,
+  "PenPaper": IPenPaper,
+  "Pencil": IPencil,
+  "Perfume": IPerfume,
+  "Picture": IPicture,
+  "PieChart": IPieChart,
+  "Pin": IPin,
+  "Plane": IPlane,
+  "Plant": IPlant,
+  "Play": IPlay,
+  "Plugin": IPlugin,
+  "Plus": IPlus,
+  "Printer": IPrinter,
+  "Refresh": IRefresh,
+  "Resize": IResize,
+  "Save": ISave,
+  "Shapes": IShapes,
+  "Share": IShare,
+  "Shield": IShield,
+  "Sliders": ISliders,
+  "Sound": ISound,
+  "Sphere": ISphere,
+  "Spinner": ISpinner,
+  "Square": ISquare,
+  "Star": IStar,
+  "Sun": ISun,
+  "Table": ITable,
+  "Tag": ITag,
+  "Text": IText,
+  "Thumbtack": IThumbtack,
+  "Trash": ITrash,
+  "Tree": ITree,
+  "Tri": ITri,
+  "Triangle": ITriangle,
+  "Unlock": IUnlock,
+  "User": IUser,
+  "Utensils": IUtensils,
+  "Vector": IVector,
+  "VehicleCoup": IVehicleCoup,
+  "VehicleSUV": IVehicleSUV,
+  "VehicleTruck": IVehicleTruck,
+  "VehicleVan": IVehicleVan,
+  "VideoCamera": IVideoCamera,
+  "Wand": IWand,
+  "Whiteboard": IWhiteboard,
+  "Wifi": IWifi,
+  "Wrench": IWrench,
+  "X": IX
 };
 
-export type CoreIconNameType =
-	| "Angle"
-	| "Apps"
-	| "Arrow"
-	| "Ballon"
-	| "Bar"
-	| "Basket"
-	| "Bell"
-	| "Bone"
-	| "Book"
-	| "Bookmark"
-	| "Branch"
-	| "Broom"
-	| "Bug"
-	| "Bulb"
-	| "CPU"
-	| "Calendar"
-	| "Camera"
-	| "Check"
-	| "Circle"
-	| "Clipboard"
-	| "Clock"
-	| "Cloud"
-	| "Code"
-	| "Cog"
-	| "Comment"
-	| "CommentFrame"
-	| "Computer"
-	| "Cone"
-	| "Cube"
-	| "Cursor"
-	| "Cylinder"
-	| "Database"
-	| "Diamond"
-	| "Dots"
-	| "Download"
-	| "Drip"
-	| "EmoteAngry"
-	| "EmoteCat"
-	| "EmoteFrown"
-	| "EmoteGrin"
-	| "EmoteLaugh"
-	| "EmoteMeh"
-	| "EmoteP"
-	| "EmoteS"
-	| "EmoteShock"
-	| "EmoteSmile"
-	| "EmoteWink"
-	| "Envelope"
-	| "Eraser"
-	| "FaceID"
-	| "File"
-	| "FilmStrip"
-	| "Flag"
-	| "Folder"
-	| "Function"
-	| "Gift"
-	| "Graph"
-	| "Hashtag"
-	| "Heart"
-	| "Home"
-	| "Infinity"
-	| "Jellyfish"
-	| "Lambda"
-	| "Layers"
-	| "Layout"
-	| "Leaf"
-	| "Lightning"
-	| "List"
-	| "Lock"
-	| "Magnify"
-	| "Map"
-	| "Marker"
-	| "Microphone"
-	| "Moon"
-	| "Mug"
-	| "Octagon"
-	| "Orbit"
-	| "PaintPalette"
-	| "Paintbrush"
-	| "Pause"
-	| "Pen"
-	| "PenPaper"
-	| "Pencil"
-	| "Perfume"
-	| "Picture"
-	| "PieChart"
-	| "Pin"
-	| "Plane"
-	| "Plant"
-	| "Play"
-	| "Plugin"
-	| "Plus"
-	| "Printer"
-	| "Refresh"
-	| "Resize"
-	| "Save"
-	| "Shapes"
-	| "Share"
-	| "Shield"
-	| "Sliders"
-	| "Sound"
-	| "Sphere"
-	| "Spinner"
-	| "Square"
-	| "Star"
-	| "Sun"
-	| "Table"
-	| "Tag"
-	| "Text"
-	| "Thumbtack"
-	| "Trash"
-	| "Tree"
-	| "Tri"
-	| "Triangle"
-	| "Unlock"
-	| "User"
-	| "Utensils"
-	| "Vector"
-	| "VehicleCoup"
-	| "VehicleSUV"
-	| "VehicleTruck"
-	| "VehicleVan"
-	| "VideoCamera"
-	| "Wand"
-	| "Whiteboard"
-	| "Wifi"
-	| "Wrench"
-	| "X";
+export type CoreIconNameType = "Angle" | "Apps" | "Arrow" | "Ballon" | "Bar" | "Basket" | "Bell" | "Bone" | "Book" | "Bookmark" | "Branch" | "Broom" | "Bug" | "Bulb" | "CPU" | "Calendar" | "Camera" | "Check" | "Circle" | "Clipboard" | "Clock" | "Cloud" | "Code" | "Cog" | "Comment" | "CommentFrame" | "Computer" | "Cone" | "Cube" | "Cursor" | "Cylinder" | "Database" | "Diamond" | "Dots" | "Download" | "Drip" | "EmoteAngry" | "EmoteCat" | "EmoteFrown" | "EmoteGrin" | "EmoteLaugh" | "EmoteMeh" | "EmoteP" | "EmoteS" | "EmoteShock" | "EmoteSmile" | "EmoteWink" | "Envelope" | "Eraser" | "FaceID" | "File" | "FilmStrip" | "Flag" | "Folder" | "Function" | "Gift" | "Graph" | "Hashtag" | "Heart" | "Home" | "Infinity" | "Jellyfish" | "Lambda" | "Layers" | "Layout" | "Leaf" | "Lightning" | "List" | "Lock" | "Magnify" | "Map" | "Marker" | "Microphone" | "Moon" | "Mug" | "Octagon" | "Orbit" | "PaintPalette" | "Paintbrush" | "Pause" | "Pen" | "PenPaper" | "Pencil" | "Perfume" | "Picture" | "PieChart" | "Pin" | "Plane" | "Plant" | "Play" | "Plugin" | "Plus" | "Printer" | "Refresh" | "Resize" | "Save" | "Shapes" | "Share" | "Shield" | "Sliders" | "Sound" | "Sphere" | "Spinner" | "Square" | "Star" | "Sun" | "Table" | "Tag" | "Text" | "Thumbtack" | "Trash" | "Tree" | "Tri" | "Triangle" | "Unlock" | "User" | "Utensils" | "Vector" | "VehicleCoup" | "VehicleSUV" | "VehicleTruck" | "VehicleVan" | "VideoCamera" | "Wand" | "Whiteboard" | "Wifi" | "Wrench" | "X";
 
-export const IconTypes: CoreIconNameType[] = [
-	"Angle",
-	"Apps",
-	"Arrow",
-	"Ballon",
-	"Bar",
-	"Basket",
-	"Bell",
-	"Bone",
-	"Book",
-	"Bookmark",
-	"Branch",
-	"Broom",
-	"Bug",
-	"Bulb",
-	"CPU",
-	"Calendar",
-	"Camera",
-	"Check",
-	"Circle",
-	"Clipboard",
-	"Clock",
-	"Cloud",
-	"Code",
-	"Cog",
-	"Comment",
-	"CommentFrame",
-	"Computer",
-	"Cone",
-	"Cube",
-	"Cursor",
-	"Cylinder",
-	"Database",
-	"Diamond",
-	"Dots",
-	"Download",
-	"Drip",
-	"EmoteAngry",
-	"EmoteCat",
-	"EmoteFrown",
-	"EmoteGrin",
-	"EmoteLaugh",
-	"EmoteMeh",
-	"EmoteP",
-	"EmoteS",
-	"EmoteShock",
-	"EmoteSmile",
-	"EmoteWink",
-	"Envelope",
-	"Eraser",
-	"FaceID",
-	"File",
-	"FilmStrip",
-	"Flag",
-	"Folder",
-	"Function",
-	"Gift",
-	"Graph",
-	"Hashtag",
-	"Heart",
-	"Home",
-	"Infinity",
-	"Jellyfish",
-	"Lambda",
-	"Layers",
-	"Layout",
-	"Leaf",
-	"Lightning",
-	"List",
-	"Lock",
-	"Magnify",
-	"Map",
-	"Marker",
-	"Microphone",
-	"Moon",
-	"Mug",
-	"Octagon",
-	"Orbit",
-	"PaintPalette",
-	"Paintbrush",
-	"Pause",
-	"Pen",
-	"PenPaper",
-	"Pencil",
-	"Perfume",
-	"Picture",
-	"PieChart",
-	"Pin",
-	"Plane",
-	"Plant",
-	"Play",
-	"Plugin",
-	"Plus",
-	"Printer",
-	"Refresh",
-	"Resize",
-	"Save",
-	"Shapes",
-	"Share",
-	"Shield",
-	"Sliders",
-	"Sound",
-	"Sphere",
-	"Spinner",
-	"Square",
-	"Star",
-	"Sun",
-	"Table",
-	"Tag",
-	"Text",
-	"Thumbtack",
-	"Trash",
-	"Tree",
-	"Tri",
-	"Triangle",
-	"Unlock",
-	"User",
-	"Utensils",
-	"Vector",
-	"VehicleCoup",
-	"VehicleSUV",
-	"VehicleTruck",
-	"VehicleVan",
-	"VideoCamera",
-	"Wand",
-	"Whiteboard",
-	"Wifi",
-	"Wrench",
-	"X",
-];
+export const IconTypes: CoreIconNameType[] = ["Angle","Apps","Arrow","Ballon","Bar","Basket","Bell","Bone","Book","Bookmark","Branch","Broom","Bug","Bulb","CPU","Calendar","Camera","Check","Circle","Clipboard","Clock","Cloud","Code","Cog","Comment","CommentFrame","Computer","Cone","Cube","Cursor","Cylinder","Database","Diamond","Dots","Download","Drip","EmoteAngry","EmoteCat","EmoteFrown","EmoteGrin","EmoteLaugh","EmoteMeh","EmoteP","EmoteS","EmoteShock","EmoteSmile","EmoteWink","Envelope","Eraser","FaceID","File","FilmStrip","Flag","Folder","Function","Gift","Graph","Hashtag","Heart","Home","Infinity","Jellyfish","Lambda","Layers","Layout","Leaf","Lightning","List","Lock","Magnify","Map","Marker","Microphone","Moon","Mug","Octagon","Orbit","PaintPalette","Paintbrush","Pause","Pen","PenPaper","Pencil","Perfume","Picture","PieChart","Pin","Plane","Plant","Play","Plugin","Plus","Printer","Refresh","Resize","Save","Shapes","Share","Shield","Sliders","Sound","Sphere","Spinner","Square","Star","Sun","Table","Tag","Text","Thumbtack","Trash","Tree","Tri","Triangle","Unlock","User","Utensils","Vector","VehicleCoup","VehicleSUV","VehicleTruck","VehicleVan","VideoCamera","Wand","Whiteboard","Wifi","Wrench","X"];
 
-export const IconAngle = (props: Omit<IconProps, "name">) => (
-	<Icon name="Angle" {...props} />
-);
-export const IconApps = (props: Omit<IconProps, "name">) => (
-	<Icon name="Apps" {...props} />
-);
-export const IconArrow = (props: Omit<IconProps, "name">) => (
-	<Icon name="Arrow" {...props} />
-);
-export const IconBallon = (props: Omit<IconProps, "name">) => (
-	<Icon name="Ballon" {...props} />
-);
-export const IconBar = (props: Omit<IconProps, "name">) => (
-	<Icon name="Bar" {...props} />
-);
-export const IconBasket = (props: Omit<IconProps, "name">) => (
-	<Icon name="Basket" {...props} />
-);
-export const IconBell = (props: Omit<IconProps, "name">) => (
-	<Icon name="Bell" {...props} />
-);
-export const IconBone = (props: Omit<IconProps, "name">) => (
-	<Icon name="Bone" {...props} />
-);
-export const IconBook = (props: Omit<IconProps, "name">) => (
-	<Icon name="Book" {...props} />
-);
-export const IconBookmark = (props: Omit<IconProps, "name">) => (
-	<Icon name="Bookmark" {...props} />
-);
-export const IconBranch = (props: Omit<IconProps, "name">) => (
-	<Icon name="Branch" {...props} />
-);
-export const IconBroom = (props: Omit<IconProps, "name">) => (
-	<Icon name="Broom" {...props} />
-);
-export const IconBug = (props: Omit<IconProps, "name">) => (
-	<Icon name="Bug" {...props} />
-);
-export const IconBulb = (props: Omit<IconProps, "name">) => (
-	<Icon name="Bulb" {...props} />
-);
-export const IconCPU = (props: Omit<IconProps, "name">) => (
-	<Icon name="CPU" {...props} />
-);
-export const IconCalendar = (props: Omit<IconProps, "name">) => (
-	<Icon name="Calendar" {...props} />
-);
-export const IconCamera = (props: Omit<IconProps, "name">) => (
-	<Icon name="Camera" {...props} />
-);
-export const IconCheck = (props: Omit<IconProps, "name">) => (
-	<Icon name="Check" {...props} />
-);
-export const IconCircle = (props: Omit<IconProps, "name">) => (
-	<Icon name="Circle" {...props} />
-);
-export const IconClipboard = (props: Omit<IconProps, "name">) => (
-	<Icon name="Clipboard" {...props} />
-);
-export const IconClock = (props: Omit<IconProps, "name">) => (
-	<Icon name="Clock" {...props} />
-);
-export const IconCloud = (props: Omit<IconProps, "name">) => (
-	<Icon name="Cloud" {...props} />
-);
-export const IconCode = (props: Omit<IconProps, "name">) => (
-	<Icon name="Code" {...props} />
-);
-export const IconCog = (props: Omit<IconProps, "name">) => (
-	<Icon name="Cog" {...props} />
-);
-export const IconComment = (props: Omit<IconProps, "name">) => (
-	<Icon name="Comment" {...props} />
-);
-export const IconCommentFrame = (props: Omit<IconProps, "name">) => (
-	<Icon name="CommentFrame" {...props} />
-);
-export const IconComputer = (props: Omit<IconProps, "name">) => (
-	<Icon name="Computer" {...props} />
-);
-export const IconCone = (props: Omit<IconProps, "name">) => (
-	<Icon name="Cone" {...props} />
-);
-export const IconCube = (props: Omit<IconProps, "name">) => (
-	<Icon name="Cube" {...props} />
-);
-export const IconCursor = (props: Omit<IconProps, "name">) => (
-	<Icon name="Cursor" {...props} />
-);
-export const IconCylinder = (props: Omit<IconProps, "name">) => (
-	<Icon name="Cylinder" {...props} />
-);
-export const IconDatabase = (props: Omit<IconProps, "name">) => (
-	<Icon name="Database" {...props} />
-);
-export const IconDiamond = (props: Omit<IconProps, "name">) => (
-	<Icon name="Diamond" {...props} />
-);
-export const IconDots = (props: Omit<IconProps, "name">) => (
-	<Icon name="Dots" {...props} />
-);
-export const IconDownload = (props: Omit<IconProps, "name">) => (
-	<Icon name="Download" {...props} />
-);
-export const IconDrip = (props: Omit<IconProps, "name">) => (
-	<Icon name="Drip" {...props} />
-);
-export const IconEmoteAngry = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteAngry" {...props} />
-);
-export const IconEmoteCat = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteCat" {...props} />
-);
-export const IconEmoteFrown = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteFrown" {...props} />
-);
-export const IconEmoteGrin = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteGrin" {...props} />
-);
-export const IconEmoteLaugh = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteLaugh" {...props} />
-);
-export const IconEmoteMeh = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteMeh" {...props} />
-);
-export const IconEmoteP = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteP" {...props} />
-);
-export const IconEmoteS = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteS" {...props} />
-);
-export const IconEmoteShock = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteShock" {...props} />
-);
-export const IconEmoteSmile = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteSmile" {...props} />
-);
-export const IconEmoteWink = (props: Omit<IconProps, "name">) => (
-	<Icon name="EmoteWink" {...props} />
-);
-export const IconEnvelope = (props: Omit<IconProps, "name">) => (
-	<Icon name="Envelope" {...props} />
-);
-export const IconEraser = (props: Omit<IconProps, "name">) => (
-	<Icon name="Eraser" {...props} />
-);
-export const IconFaceID = (props: Omit<IconProps, "name">) => (
-	<Icon name="FaceID" {...props} />
-);
-export const IconFile = (props: Omit<IconProps, "name">) => (
-	<Icon name="File" {...props} />
-);
-export const IconFilmStrip = (props: Omit<IconProps, "name">) => (
-	<Icon name="FilmStrip" {...props} />
-);
-export const IconFlag = (props: Omit<IconProps, "name">) => (
-	<Icon name="Flag" {...props} />
-);
-export const IconFolder = (props: Omit<IconProps, "name">) => (
-	<Icon name="Folder" {...props} />
-);
-export const IconFunction = (props: Omit<IconProps, "name">) => (
-	<Icon name="Function" {...props} />
-);
-export const IconGift = (props: Omit<IconProps, "name">) => (
-	<Icon name="Gift" {...props} />
-);
-export const IconGraph = (props: Omit<IconProps, "name">) => (
-	<Icon name="Graph" {...props} />
-);
-export const IconHashtag = (props: Omit<IconProps, "name">) => (
-	<Icon name="Hashtag" {...props} />
-);
-export const IconHeart = (props: Omit<IconProps, "name">) => (
-	<Icon name="Heart" {...props} />
-);
-export const IconHome = (props: Omit<IconProps, "name">) => (
-	<Icon name="Home" {...props} />
-);
-export const IconInfinity = (props: Omit<IconProps, "name">) => (
-	<Icon name="Infinity" {...props} />
-);
-export const IconJellyfish = (props: Omit<IconProps, "name">) => (
-	<Icon name="Jellyfish" {...props} />
-);
-export const IconLambda = (props: Omit<IconProps, "name">) => (
-	<Icon name="Lambda" {...props} />
-);
-export const IconLayers = (props: Omit<IconProps, "name">) => (
-	<Icon name="Layers" {...props} />
-);
-export const IconLayout = (props: Omit<IconProps, "name">) => (
-	<Icon name="Layout" {...props} />
-);
-export const IconLeaf = (props: Omit<IconProps, "name">) => (
-	<Icon name="Leaf" {...props} />
-);
-export const IconLightning = (props: Omit<IconProps, "name">) => (
-	<Icon name="Lightning" {...props} />
-);
-export const IconList = (props: Omit<IconProps, "name">) => (
-	<Icon name="List" {...props} />
-);
-export const IconLock = (props: Omit<IconProps, "name">) => (
-	<Icon name="Lock" {...props} />
-);
-export const IconMagnify = (props: Omit<IconProps, "name">) => (
-	<Icon name="Magnify" {...props} />
-);
-export const IconMap = (props: Omit<IconProps, "name">) => (
-	<Icon name="Map" {...props} />
-);
-export const IconMarker = (props: Omit<IconProps, "name">) => (
-	<Icon name="Marker" {...props} />
-);
-export const IconMicrophone = (props: Omit<IconProps, "name">) => (
-	<Icon name="Microphone" {...props} />
-);
-export const IconMoon = (props: Omit<IconProps, "name">) => (
-	<Icon name="Moon" {...props} />
-);
-export const IconMug = (props: Omit<IconProps, "name">) => (
-	<Icon name="Mug" {...props} />
-);
-export const IconOctagon = (props: Omit<IconProps, "name">) => (
-	<Icon name="Octagon" {...props} />
-);
-export const IconOrbit = (props: Omit<IconProps, "name">) => (
-	<Icon name="Orbit" {...props} />
-);
-export const IconPaintPalette = (props: Omit<IconProps, "name">) => (
-	<Icon name="PaintPalette" {...props} />
-);
-export const IconPaintbrush = (props: Omit<IconProps, "name">) => (
-	<Icon name="Paintbrush" {...props} />
-);
-export const IconPause = (props: Omit<IconProps, "name">) => (
-	<Icon name="Pause" {...props} />
-);
-export const IconPen = (props: Omit<IconProps, "name">) => (
-	<Icon name="Pen" {...props} />
-);
-export const IconPenPaper = (props: Omit<IconProps, "name">) => (
-	<Icon name="PenPaper" {...props} />
-);
-export const IconPencil = (props: Omit<IconProps, "name">) => (
-	<Icon name="Pencil" {...props} />
-);
-export const IconPerfume = (props: Omit<IconProps, "name">) => (
-	<Icon name="Perfume" {...props} />
-);
-export const IconPicture = (props: Omit<IconProps, "name">) => (
-	<Icon name="Picture" {...props} />
-);
-export const IconPieChart = (props: Omit<IconProps, "name">) => (
-	<Icon name="PieChart" {...props} />
-);
-export const IconPin = (props: Omit<IconProps, "name">) => (
-	<Icon name="Pin" {...props} />
-);
-export const IconPlane = (props: Omit<IconProps, "name">) => (
-	<Icon name="Plane" {...props} />
-);
-export const IconPlant = (props: Omit<IconProps, "name">) => (
-	<Icon name="Plant" {...props} />
-);
-export const IconPlay = (props: Omit<IconProps, "name">) => (
-	<Icon name="Play" {...props} />
-);
-export const IconPlugin = (props: Omit<IconProps, "name">) => (
-	<Icon name="Plugin" {...props} />
-);
-export const IconPlus = (props: Omit<IconProps, "name">) => (
-	<Icon name="Plus" {...props} />
-);
-export const IconPrinter = (props: Omit<IconProps, "name">) => (
-	<Icon name="Printer" {...props} />
-);
-export const IconRefresh = (props: Omit<IconProps, "name">) => (
-	<Icon name="Refresh" {...props} />
-);
-export const IconResize = (props: Omit<IconProps, "name">) => (
-	<Icon name="Resize" {...props} />
-);
-export const IconSave = (props: Omit<IconProps, "name">) => (
-	<Icon name="Save" {...props} />
-);
-export const IconShapes = (props: Omit<IconProps, "name">) => (
-	<Icon name="Shapes" {...props} />
-);
-export const IconShare = (props: Omit<IconProps, "name">) => (
-	<Icon name="Share" {...props} />
-);
-export const IconShield = (props: Omit<IconProps, "name">) => (
-	<Icon name="Shield" {...props} />
-);
-export const IconSliders = (props: Omit<IconProps, "name">) => (
-	<Icon name="Sliders" {...props} />
-);
-export const IconSound = (props: Omit<IconProps, "name">) => (
-	<Icon name="Sound" {...props} />
-);
-export const IconSphere = (props: Omit<IconProps, "name">) => (
-	<Icon name="Sphere" {...props} />
-);
-export const IconSpinner = (props: Omit<IconProps, "name">) => (
-	<Icon name="Spinner" {...props} />
-);
-export const IconSquare = (props: Omit<IconProps, "name">) => (
-	<Icon name="Square" {...props} />
-);
-export const IconStar = (props: Omit<IconProps, "name">) => (
-	<Icon name="Star" {...props} />
-);
-export const IconSun = (props: Omit<IconProps, "name">) => (
-	<Icon name="Sun" {...props} />
-);
-export const IconTable = (props: Omit<IconProps, "name">) => (
-	<Icon name="Table" {...props} />
-);
-export const IconTag = (props: Omit<IconProps, "name">) => (
-	<Icon name="Tag" {...props} />
-);
-export const IconText = (props: Omit<IconProps, "name">) => (
-	<Icon name="Text" {...props} />
-);
-export const IconThumbtack = (props: Omit<IconProps, "name">) => (
-	<Icon name="Thumbtack" {...props} />
-);
-export const IconTrash = (props: Omit<IconProps, "name">) => (
-	<Icon name="Trash" {...props} />
-);
-export const IconTree = (props: Omit<IconProps, "name">) => (
-	<Icon name="Tree" {...props} />
-);
-export const IconTri = (props: Omit<IconProps, "name">) => (
-	<Icon name="Tri" {...props} />
-);
-export const IconTriangle = (props: Omit<IconProps, "name">) => (
-	<Icon name="Triangle" {...props} />
-);
-export const IconUnlock = (props: Omit<IconProps, "name">) => (
-	<Icon name="Unlock" {...props} />
-);
-export const IconUser = (props: Omit<IconProps, "name">) => (
-	<Icon name="User" {...props} />
-);
-export const IconUtensils = (props: Omit<IconProps, "name">) => (
-	<Icon name="Utensils" {...props} />
-);
-export const IconVector = (props: Omit<IconProps, "name">) => (
-	<Icon name="Vector" {...props} />
-);
-export const IconVehicleCoup = (props: Omit<IconProps, "name">) => (
-	<Icon name="VehicleCoup" {...props} />
-);
-export const IconVehicleSUV = (props: Omit<IconProps, "name">) => (
-	<Icon name="VehicleSUV" {...props} />
-);
-export const IconVehicleTruck = (props: Omit<IconProps, "name">) => (
-	<Icon name="VehicleTruck" {...props} />
-);
-export const IconVehicleVan = (props: Omit<IconProps, "name">) => (
-	<Icon name="VehicleVan" {...props} />
-);
-export const IconVideoCamera = (props: Omit<IconProps, "name">) => (
-	<Icon name="VideoCamera" {...props} />
-);
-export const IconWand = (props: Omit<IconProps, "name">) => (
-	<Icon name="Wand" {...props} />
-);
-export const IconWhiteboard = (props: Omit<IconProps, "name">) => (
-	<Icon name="Whiteboard" {...props} />
-);
-export const IconWifi = (props: Omit<IconProps, "name">) => (
-	<Icon name="Wifi" {...props} />
-);
-export const IconWrench = (props: Omit<IconProps, "name">) => (
-	<Icon name="Wrench" {...props} />
-);
-export const IconX = (props: Omit<IconProps, "name">) => (
-	<Icon name="X" {...props} />
-);
+export const IconAngle = (props: Omit<IconProps, "name">) => <Icon name="Angle" {...props} />;
+export const IconApps = (props: Omit<IconProps, "name">) => <Icon name="Apps" {...props} />;
+export const IconArrow = (props: Omit<IconProps, "name">) => <Icon name="Arrow" {...props} />;
+export const IconBallon = (props: Omit<IconProps, "name">) => <Icon name="Ballon" {...props} />;
+export const IconBar = (props: Omit<IconProps, "name">) => <Icon name="Bar" {...props} />;
+export const IconBasket = (props: Omit<IconProps, "name">) => <Icon name="Basket" {...props} />;
+export const IconBell = (props: Omit<IconProps, "name">) => <Icon name="Bell" {...props} />;
+export const IconBone = (props: Omit<IconProps, "name">) => <Icon name="Bone" {...props} />;
+export const IconBook = (props: Omit<IconProps, "name">) => <Icon name="Book" {...props} />;
+export const IconBookmark = (props: Omit<IconProps, "name">) => <Icon name="Bookmark" {...props} />;
+export const IconBranch = (props: Omit<IconProps, "name">) => <Icon name="Branch" {...props} />;
+export const IconBroom = (props: Omit<IconProps, "name">) => <Icon name="Broom" {...props} />;
+export const IconBug = (props: Omit<IconProps, "name">) => <Icon name="Bug" {...props} />;
+export const IconBulb = (props: Omit<IconProps, "name">) => <Icon name="Bulb" {...props} />;
+export const IconCPU = (props: Omit<IconProps, "name">) => <Icon name="CPU" {...props} />;
+export const IconCalendar = (props: Omit<IconProps, "name">) => <Icon name="Calendar" {...props} />;
+export const IconCamera = (props: Omit<IconProps, "name">) => <Icon name="Camera" {...props} />;
+export const IconCheck = (props: Omit<IconProps, "name">) => <Icon name="Check" {...props} />;
+export const IconCircle = (props: Omit<IconProps, "name">) => <Icon name="Circle" {...props} />;
+export const IconClipboard = (props: Omit<IconProps, "name">) => <Icon name="Clipboard" {...props} />;
+export const IconClock = (props: Omit<IconProps, "name">) => <Icon name="Clock" {...props} />;
+export const IconCloud = (props: Omit<IconProps, "name">) => <Icon name="Cloud" {...props} />;
+export const IconCode = (props: Omit<IconProps, "name">) => <Icon name="Code" {...props} />;
+export const IconCog = (props: Omit<IconProps, "name">) => <Icon name="Cog" {...props} />;
+export const IconComment = (props: Omit<IconProps, "name">) => <Icon name="Comment" {...props} />;
+export const IconCommentFrame = (props: Omit<IconProps, "name">) => <Icon name="CommentFrame" {...props} />;
+export const IconComputer = (props: Omit<IconProps, "name">) => <Icon name="Computer" {...props} />;
+export const IconCone = (props: Omit<IconProps, "name">) => <Icon name="Cone" {...props} />;
+export const IconCube = (props: Omit<IconProps, "name">) => <Icon name="Cube" {...props} />;
+export const IconCursor = (props: Omit<IconProps, "name">) => <Icon name="Cursor" {...props} />;
+export const IconCylinder = (props: Omit<IconProps, "name">) => <Icon name="Cylinder" {...props} />;
+export const IconDatabase = (props: Omit<IconProps, "name">) => <Icon name="Database" {...props} />;
+export const IconDiamond = (props: Omit<IconProps, "name">) => <Icon name="Diamond" {...props} />;
+export const IconDots = (props: Omit<IconProps, "name">) => <Icon name="Dots" {...props} />;
+export const IconDownload = (props: Omit<IconProps, "name">) => <Icon name="Download" {...props} />;
+export const IconDrip = (props: Omit<IconProps, "name">) => <Icon name="Drip" {...props} />;
+export const IconEmoteAngry = (props: Omit<IconProps, "name">) => <Icon name="EmoteAngry" {...props} />;
+export const IconEmoteCat = (props: Omit<IconProps, "name">) => <Icon name="EmoteCat" {...props} />;
+export const IconEmoteFrown = (props: Omit<IconProps, "name">) => <Icon name="EmoteFrown" {...props} />;
+export const IconEmoteGrin = (props: Omit<IconProps, "name">) => <Icon name="EmoteGrin" {...props} />;
+export const IconEmoteLaugh = (props: Omit<IconProps, "name">) => <Icon name="EmoteLaugh" {...props} />;
+export const IconEmoteMeh = (props: Omit<IconProps, "name">) => <Icon name="EmoteMeh" {...props} />;
+export const IconEmoteP = (props: Omit<IconProps, "name">) => <Icon name="EmoteP" {...props} />;
+export const IconEmoteS = (props: Omit<IconProps, "name">) => <Icon name="EmoteS" {...props} />;
+export const IconEmoteShock = (props: Omit<IconProps, "name">) => <Icon name="EmoteShock" {...props} />;
+export const IconEmoteSmile = (props: Omit<IconProps, "name">) => <Icon name="EmoteSmile" {...props} />;
+export const IconEmoteWink = (props: Omit<IconProps, "name">) => <Icon name="EmoteWink" {...props} />;
+export const IconEnvelope = (props: Omit<IconProps, "name">) => <Icon name="Envelope" {...props} />;
+export const IconEraser = (props: Omit<IconProps, "name">) => <Icon name="Eraser" {...props} />;
+export const IconFaceID = (props: Omit<IconProps, "name">) => <Icon name="FaceID" {...props} />;
+export const IconFile = (props: Omit<IconProps, "name">) => <Icon name="File" {...props} />;
+export const IconFilmStrip = (props: Omit<IconProps, "name">) => <Icon name="FilmStrip" {...props} />;
+export const IconFlag = (props: Omit<IconProps, "name">) => <Icon name="Flag" {...props} />;
+export const IconFolder = (props: Omit<IconProps, "name">) => <Icon name="Folder" {...props} />;
+export const IconFunction = (props: Omit<IconProps, "name">) => <Icon name="Function" {...props} />;
+export const IconGift = (props: Omit<IconProps, "name">) => <Icon name="Gift" {...props} />;
+export const IconGraph = (props: Omit<IconProps, "name">) => <Icon name="Graph" {...props} />;
+export const IconHashtag = (props: Omit<IconProps, "name">) => <Icon name="Hashtag" {...props} />;
+export const IconHeart = (props: Omit<IconProps, "name">) => <Icon name="Heart" {...props} />;
+export const IconHome = (props: Omit<IconProps, "name">) => <Icon name="Home" {...props} />;
+export const IconInfinity = (props: Omit<IconProps, "name">) => <Icon name="Infinity" {...props} />;
+export const IconJellyfish = (props: Omit<IconProps, "name">) => <Icon name="Jellyfish" {...props} />;
+export const IconLambda = (props: Omit<IconProps, "name">) => <Icon name="Lambda" {...props} />;
+export const IconLayers = (props: Omit<IconProps, "name">) => <Icon name="Layers" {...props} />;
+export const IconLayout = (props: Omit<IconProps, "name">) => <Icon name="Layout" {...props} />;
+export const IconLeaf = (props: Omit<IconProps, "name">) => <Icon name="Leaf" {...props} />;
+export const IconLightning = (props: Omit<IconProps, "name">) => <Icon name="Lightning" {...props} />;
+export const IconList = (props: Omit<IconProps, "name">) => <Icon name="List" {...props} />;
+export const IconLock = (props: Omit<IconProps, "name">) => <Icon name="Lock" {...props} />;
+export const IconMagnify = (props: Omit<IconProps, "name">) => <Icon name="Magnify" {...props} />;
+export const IconMap = (props: Omit<IconProps, "name">) => <Icon name="Map" {...props} />;
+export const IconMarker = (props: Omit<IconProps, "name">) => <Icon name="Marker" {...props} />;
+export const IconMicrophone = (props: Omit<IconProps, "name">) => <Icon name="Microphone" {...props} />;
+export const IconMoon = (props: Omit<IconProps, "name">) => <Icon name="Moon" {...props} />;
+export const IconMug = (props: Omit<IconProps, "name">) => <Icon name="Mug" {...props} />;
+export const IconOctagon = (props: Omit<IconProps, "name">) => <Icon name="Octagon" {...props} />;
+export const IconOrbit = (props: Omit<IconProps, "name">) => <Icon name="Orbit" {...props} />;
+export const IconPaintPalette = (props: Omit<IconProps, "name">) => <Icon name="PaintPalette" {...props} />;
+export const IconPaintbrush = (props: Omit<IconProps, "name">) => <Icon name="Paintbrush" {...props} />;
+export const IconPause = (props: Omit<IconProps, "name">) => <Icon name="Pause" {...props} />;
+export const IconPen = (props: Omit<IconProps, "name">) => <Icon name="Pen" {...props} />;
+export const IconPenPaper = (props: Omit<IconProps, "name">) => <Icon name="PenPaper" {...props} />;
+export const IconPencil = (props: Omit<IconProps, "name">) => <Icon name="Pencil" {...props} />;
+export const IconPerfume = (props: Omit<IconProps, "name">) => <Icon name="Perfume" {...props} />;
+export const IconPicture = (props: Omit<IconProps, "name">) => <Icon name="Picture" {...props} />;
+export const IconPieChart = (props: Omit<IconProps, "name">) => <Icon name="PieChart" {...props} />;
+export const IconPin = (props: Omit<IconProps, "name">) => <Icon name="Pin" {...props} />;
+export const IconPlane = (props: Omit<IconProps, "name">) => <Icon name="Plane" {...props} />;
+export const IconPlant = (props: Omit<IconProps, "name">) => <Icon name="Plant" {...props} />;
+export const IconPlay = (props: Omit<IconProps, "name">) => <Icon name="Play" {...props} />;
+export const IconPlugin = (props: Omit<IconProps, "name">) => <Icon name="Plugin" {...props} />;
+export const IconPlus = (props: Omit<IconProps, "name">) => <Icon name="Plus" {...props} />;
+export const IconPrinter = (props: Omit<IconProps, "name">) => <Icon name="Printer" {...props} />;
+export const IconRefresh = (props: Omit<IconProps, "name">) => <Icon name="Refresh" {...props} />;
+export const IconResize = (props: Omit<IconProps, "name">) => <Icon name="Resize" {...props} />;
+export const IconSave = (props: Omit<IconProps, "name">) => <Icon name="Save" {...props} />;
+export const IconShapes = (props: Omit<IconProps, "name">) => <Icon name="Shapes" {...props} />;
+export const IconShare = (props: Omit<IconProps, "name">) => <Icon name="Share" {...props} />;
+export const IconShield = (props: Omit<IconProps, "name">) => <Icon name="Shield" {...props} />;
+export const IconSliders = (props: Omit<IconProps, "name">) => <Icon name="Sliders" {...props} />;
+export const IconSound = (props: Omit<IconProps, "name">) => <Icon name="Sound" {...props} />;
+export const IconSphere = (props: Omit<IconProps, "name">) => <Icon name="Sphere" {...props} />;
+export const IconSpinner = (props: Omit<IconProps, "name">) => <Icon name="Spinner" {...props} />;
+export const IconSquare = (props: Omit<IconProps, "name">) => <Icon name="Square" {...props} />;
+export const IconStar = (props: Omit<IconProps, "name">) => <Icon name="Star" {...props} />;
+export const IconSun = (props: Omit<IconProps, "name">) => <Icon name="Sun" {...props} />;
+export const IconTable = (props: Omit<IconProps, "name">) => <Icon name="Table" {...props} />;
+export const IconTag = (props: Omit<IconProps, "name">) => <Icon name="Tag" {...props} />;
+export const IconText = (props: Omit<IconProps, "name">) => <Icon name="Text" {...props} />;
+export const IconThumbtack = (props: Omit<IconProps, "name">) => <Icon name="Thumbtack" {...props} />;
+export const IconTrash = (props: Omit<IconProps, "name">) => <Icon name="Trash" {...props} />;
+export const IconTree = (props: Omit<IconProps, "name">) => <Icon name="Tree" {...props} />;
+export const IconTri = (props: Omit<IconProps, "name">) => <Icon name="Tri" {...props} />;
+export const IconTriangle = (props: Omit<IconProps, "name">) => <Icon name="Triangle" {...props} />;
+export const IconUnlock = (props: Omit<IconProps, "name">) => <Icon name="Unlock" {...props} />;
+export const IconUser = (props: Omit<IconProps, "name">) => <Icon name="User" {...props} />;
+export const IconUtensils = (props: Omit<IconProps, "name">) => <Icon name="Utensils" {...props} />;
+export const IconVector = (props: Omit<IconProps, "name">) => <Icon name="Vector" {...props} />;
+export const IconVehicleCoup = (props: Omit<IconProps, "name">) => <Icon name="VehicleCoup" {...props} />;
+export const IconVehicleSUV = (props: Omit<IconProps, "name">) => <Icon name="VehicleSUV" {...props} />;
+export const IconVehicleTruck = (props: Omit<IconProps, "name">) => <Icon name="VehicleTruck" {...props} />;
+export const IconVehicleVan = (props: Omit<IconProps, "name">) => <Icon name="VehicleVan" {...props} />;
+export const IconVideoCamera = (props: Omit<IconProps, "name">) => <Icon name="VideoCamera" {...props} />;
+export const IconWand = (props: Omit<IconProps, "name">) => <Icon name="Wand" {...props} />;
+export const IconWhiteboard = (props: Omit<IconProps, "name">) => <Icon name="Whiteboard" {...props} />;
+export const IconWifi = (props: Omit<IconProps, "name">) => <Icon name="Wifi" {...props} />;
+export const IconWrench = (props: Omit<IconProps, "name">) => <Icon name="Wrench" {...props} />;
+export const IconX = (props: Omit<IconProps, "name">) => <Icon name="X" {...props} />;
