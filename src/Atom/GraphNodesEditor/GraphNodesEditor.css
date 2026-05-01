@@ -1,0 +1,9 @@
+.graph-nodes-editor {
+	width: 100%;
+}
+
+.graph-nodes-editor__toolbar {
+	margin-bottom: 0;
+	flex-wrap: wrap;
+	row-gap: 0.4rem;
+}

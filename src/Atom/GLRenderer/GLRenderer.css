@@ -1,0 +1,10 @@
+.gl-renderer {
+	display: block;
+	width: 100%;
+	height: auto;
+	background: linear-gradient(180deg, rgba(9, 11, 23, 0.92), rgba(20, 25, 41, 0.96));
+}
+
+.gl-renderer.fill {
+	height: 100%;
+}
