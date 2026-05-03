@@ -9,7 +9,7 @@ import { InputProps } from "./Input.types";
 import "./Input.css";
 import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
-import { CoreIconNameType, IconTriangle } from "../../Icon/Icons.bin";
+import {CoreIconNameType, IconAlert, IconTriangle} from "../../Icon/Icons.bin";
 import { sizeMinusOne } from "../../Core/Core.utils";
 
 type InputValue = string | number | readonly string[];
@@ -132,7 +132,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 					/>
 					{hasError && (
 						<span data-testid="InputError" className="input-error-icon">
-							<IconTriangle size={sizeMinusOne(size)} />
+							<IconAlert size={sizeMinusOne(size)} />
 						</span>
 					)}
 				</Space>

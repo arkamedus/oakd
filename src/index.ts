@@ -32,7 +32,7 @@ import HorizontalScroll from "./Atom/HorizontalScroll/HorizontalScroll";
 import Tree from "./Atom/Tree/Tree";
 import GLContextProvider from "./Atom/GLContextProvider/GLContextProvider";
 import GLRenderer from "./Atom/GLRenderer/GLRenderer";
-import OakGraphNodes from "./Atom/OakGraphNodes/OakGraphNodes";
+import GraphNodes from "./Atom/GraphNodes/GraphNodes";
 import GraphNodesEditor from "./Atom/GraphNodesEditor/GraphNodesEditor";
 
 export {
@@ -72,7 +72,7 @@ export {
 	Tree,
 	GLContextProvider,
 	GLRenderer,
-	OakGraphNodes,
+	GraphNodes,
 	GraphNodesEditor,
 };
 
@@ -91,13 +91,13 @@ export type {
 } from "./Atom/GLContextProvider/GLContextProvider.types";
 export type { GLRendererProps } from "./Atom/GLRenderer/GLRenderer.types";
 export type {
+	GraphNode,
 	OakGraphConnectEvent,
 	OakGraphEdge,
-	OakGraphNode,
 	OakGraphNodeTypeDefinition,
-	OakGraphNodesProps,
+	GraphNodesProps,
 	OakGraphPort,
-} from "./Atom/OakGraphNodes/OakGraphNodes.types";
+} from "./Atom/GraphNodes/GraphNodes.types";
 export type {
 	GraphNodesEditorProps,
 	GraphNodesEditorValue,

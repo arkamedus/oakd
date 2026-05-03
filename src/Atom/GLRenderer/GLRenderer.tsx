@@ -44,17 +44,22 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 		if (!canvas) return;
 		const parent = canvas.parentElement;
 		if (!parent) return;
+		const parentRect = parent.getBoundingClientRect();
 
 		const nextWidth =
 			typeof width === "number"
 				? width
-				: Math.max(1, Math.floor(parent.getBoundingClientRect().width));
+				: Math.max(1, Math.floor(parentRect.width));
+		const nextHeight =
+			fill && parentRect.height > 1
+				? Math.max(1, Math.floor(parentRect.height))
+				: height;
 		setSize((previous) =>
-			previous.width === nextWidth && previous.height === height
+			previous.width === nextWidth && previous.height === nextHeight
 				? previous
-				: { width: nextWidth, height },
+				: { width: nextWidth, height: nextHeight },
 		);
-	}, [height, width]);
+	}, [fill, height, width]);
 
 	useEffect(() => {
 		updateSize();

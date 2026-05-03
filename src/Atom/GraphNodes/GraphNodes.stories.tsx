@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import OakGraphNodes from "./OakGraphNodes";
+import GraphNodes from "./GraphNodes";
 import {
+	GraphNode,
 	OakGraphEdge,
-	OakGraphNode,
 	OakGraphNodeTypeDefinition,
-} from "./OakGraphNodes.types";
+} from "./GraphNodes.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import Card from "../Card/Card";
@@ -47,7 +47,7 @@ const nodeTypes: Record<string, OakGraphNodeTypeDefinition<any>> = {
 	},
 };
 
-const initialNodes: OakGraphNode[] = [
+const initialNodes: GraphNode[] = [
 	{ id: "node-a", type: "input", x: 40, y: 120, data: {}, title: "Input A" },
 	{ id: "node-b", type: "mix", x: 330, y: 160, data: {}, title: "Mix" },
 	{ id: "node-c", type: "output", x: 650, y: 210, data: {}, title: "Output" },
@@ -70,13 +70,13 @@ const initialEdges: OakGraphEdge[] = [
 	},
 ];
 
-const meta: Meta<typeof OakGraphNodes> = {
-	title: "Design System/Atomic/OakGraphNodes",
-	component: OakGraphNodes,
+const meta: Meta<typeof GraphNodes> = {
+	title: "Design System/Atomic/GraphNodes",
+	component: GraphNodes,
 };
 
 export default meta;
-type Story = StoryObj<typeof OakGraphNodes>;
+type Story = StoryObj<typeof GraphNodes>;
 
 export const ConfigurableNodes: Story = {
 	render: () => {
@@ -91,7 +91,7 @@ export const ConfigurableNodes: Story = {
 						Click an output port, then click an input port to connect nodes.
 					</Paragraph>
 				</Card>
-				<OakGraphNodes
+				<GraphNodes
 					nodes={nodes}
 					edges={edges}
 					nodeTypes={nodeTypes}

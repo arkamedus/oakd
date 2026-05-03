@@ -1,18 +1,18 @@
 import { CoreContentProps } from "../../Core/Core.types";
 import {
+	GraphNode,
 	OakGraphEdge,
-	OakGraphNode,
 	OakGraphNodeTypeDefinition,
-} from "../OakGraphNodes/OakGraphNodes.types";
+} from "../GraphNodes/GraphNodes.types";
 
 export interface GraphNodesEditorValue {
-	nodes: OakGraphNode[];
+	nodes: GraphNode[];
 	edges: OakGraphEdge[];
 }
 
 export interface GraphNodesEditorProps extends CoreContentProps<HTMLDivElement> {
 	nodeTypes: Record<string, OakGraphNodeTypeDefinition<any>>;
-	initialNodes?: OakGraphNode[];
+	initialNodes?: GraphNode[];
 	initialEdges?: OakGraphEdge[];
 	onChange?: (value: GraphNodesEditorValue) => void;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./GraphNodesEditor.css";
 import { GraphNodesEditorProps } from "./GraphNodesEditor.types";
-import OakGraphNodes from "../OakGraphNodes/OakGraphNodes";
+import GraphNodes from "../GraphNodes/GraphNodes";
 import Card from "../Card/Card";
 import Content from "../../Layout/Content/Content";
 import Row from "../../Layout/Row/Row";
@@ -90,7 +90,7 @@ const GraphNodesEditor: React.FC<GraphNodesEditorProps> = ({
 							</Button>
 						</Space>
 					</Card>
-					<OakGraphNodes
+					<GraphNodes
 						nodes={nodes}
 						edges={edges}
 						nodeTypes={nodeTypes}

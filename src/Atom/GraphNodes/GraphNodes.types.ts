@@ -17,13 +17,13 @@ export interface OakGraphNodeTypeDefinition<TData = Record<string, unknown>> {
 	inputs: OakGraphPort[];
 	outputs: OakGraphPort[];
 	renderBody?: (args: {
-		node: OakGraphNode<TData>;
+		node: GraphNode<TData>;
 		data: TData;
 		selected: boolean;
 	}) => React.ReactNode;
 }
 
-export interface OakGraphNode<TData = Record<string, unknown>> {
+export interface GraphNode<TData = Record<string, unknown>> {
 	id: string;
 	type: string;
 	title?: string;
@@ -47,12 +47,12 @@ export interface OakGraphConnectEvent {
 	toPortId: string;
 }
 
-export interface OakGraphNodesProps
+export interface GraphNodesProps
 	extends CoreContentProps<HTMLDivElement> {
 	nodeTypes: Record<string, OakGraphNodeTypeDefinition<any>>;
-	nodes: OakGraphNode[];
+	nodes: GraphNode[];
 	edges: OakGraphEdge[];
-	onNodesChange?: (nodes: OakGraphNode[]) => void;
+	onNodesChange?: (nodes: GraphNode[]) => void;
 	onEdgesChange?: (edges: OakGraphEdge[]) => void;
 	onConnect?: (event: OakGraphConnectEvent) => void;
 	selectedNodeId?: string | null;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import OakGraphNodes from "./OakGraphNodes";
+import GraphNodes from "./GraphNodes";
 import {
+	GraphNode,
 	OakGraphEdge,
-	OakGraphNode,
 	OakGraphNodeTypeDefinition,
-} from "./OakGraphNodes.types";
+} from "./GraphNodes.types";
 
 const nodeTypes: Record<string, OakGraphNodeTypeDefinition<any>> = {
 	a: {
@@ -22,19 +22,19 @@ const nodeTypes: Record<string, OakGraphNodeTypeDefinition<any>> = {
 	},
 };
 
-const nodes: OakGraphNode[] = [
+const nodes: GraphNode[] = [
 	{ id: "n1", type: "a", x: 20, y: 20, data: {} },
 	{ id: "n2", type: "b", x: 300, y: 20, data: {} },
 ];
 
 const edges: OakGraphEdge[] = [];
 
-describe("OakGraphNodes", () => {
+describe("GraphNodes", () => {
 	it("connects output and input ports", () => {
 		const onEdgesChange = jest.fn();
 		const onConnect = jest.fn();
 		render(
-			<OakGraphNodes
+			<GraphNodes
 				nodes={nodes}
 				edges={edges}
 				nodeTypes={nodeTypes}
@@ -59,7 +59,7 @@ describe("OakGraphNodes", () => {
 		const Harness = () => {
 			const [localNodes, setLocalNodes] = useState(nodes);
 			return (
-				<OakGraphNodes
+				<GraphNodes
 					nodes={localNodes}
 					edges={edges}
 					nodeTypes={nodeTypes}
@@ -70,7 +70,7 @@ describe("OakGraphNodes", () => {
 
 		render(<Harness />);
 		const node = screen.getByTestId("GraphNode-n1");
-		const host = screen.getByTestId("OakGraphNodes");
+		const host = screen.getByTestId("GraphNodes");
 
 		fireEvent.mouseDown(node, { clientX: 20, clientY: 20 });
 		fireEvent.mouseMove(host, { clientX: 70, clientY: 60 });

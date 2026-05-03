@@ -74,6 +74,44 @@ describe("GLRenderer", () => {
 		expect(releaseMock).toHaveBeenCalledWith(canvas);
 	});
 
+	it("uses bounded parent height when fill is enabled", () => {
+		const renderMock = jest.fn();
+		const releaseMock = jest.fn();
+		const rect = {
+			x: 0,
+			y: 0,
+			width: 640,
+			height: 480,
+			top: 0,
+			right: 640,
+			bottom: 480,
+			left: 0,
+			toJSON: () => ({}),
+		};
+		jest
+			.spyOn(HTMLElement.prototype, "getBoundingClientRect")
+			.mockImplementation(() => rect as DOMRect);
+
+		const { unmount } = mount(
+			<GLContext.Provider
+				value={{ isSupported: true, render: renderMock, release: releaseMock }}
+			>
+				<GLRenderer mesh={mesh} width={240} height={120} fill />
+			</GLContext.Provider>,
+		);
+
+		expect(renderMock).toHaveBeenCalled();
+		const latestCallIndex = renderMock.mock.calls.length - 1;
+		const latestRequest = renderMock.mock.calls[latestCallIndex][0];
+		expect(latestRequest).toEqual(
+			expect.objectContaining({
+				width: 240,
+				height: 480,
+			}),
+		);
+		unmount();
+	});
+
 	it("runs a local animation RAF loop when autoRotate is enabled", () => {
 		const renderMock = jest.fn();
 		const releaseMock = jest.fn();
@@ -160,5 +198,42 @@ describe("GLRenderer", () => {
 			if (callback) callback(40);
 		});
 		expect(renderMock).toHaveBeenCalledTimes(2);
+	});
+
+	it("passes shadow settings from rendering config", () => {
+		const renderMock = jest.fn();
+		const releaseMock = jest.fn();
+
+		const { unmount } = mount(
+			<GLContext.Provider
+				value={{ isSupported: true, render: renderMock, release: releaseMock }}
+			>
+				<GLRenderer
+					mesh={mesh}
+					width={240}
+					height={120}
+					rendering={{
+						maxFPS: 60,
+						shadowSoftness: 6.5,
+						shadowSamples: 19,
+						shadowOrthoSize: 22,
+					}}
+				/>
+			</GLContext.Provider>,
+		);
+
+		expect(renderMock).toHaveBeenCalled();
+		const latestCallIndex = renderMock.mock.calls.length - 1;
+		const latestRequest = renderMock.mock.calls[latestCallIndex][0];
+		expect(latestRequest.rendering).toEqual(
+			expect.objectContaining({
+				maxFPS: 60,
+				shadowSoftness: 6.5,
+				shadowSamples: 19,
+				shadowOrthoSize: 22,
+			}),
+		);
+
+		unmount();
 	});
 });

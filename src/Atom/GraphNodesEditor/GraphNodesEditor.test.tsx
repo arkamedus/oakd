@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import GraphNodesEditor from "./GraphNodesEditor";
-import { OakGraphNodeTypeDefinition } from "../OakGraphNodes/OakGraphNodes.types";
+import { OakGraphNodeTypeDefinition } from "../GraphNodes/GraphNodes.types";
 
 const nodeTypes: Record<string, OakGraphNodeTypeDefinition<any>> = {
 	trigger: {
@@ -30,7 +30,7 @@ describe("GraphNodesEditor", () => {
 		fireEvent.click(screen.getByText("Add Trigger"));
 		const node = screen.getByTestId(/GraphNode-/);
 		fireEvent.mouseDown(node, { clientX: 10, clientY: 10 });
-		fireEvent.mouseUp(screen.getByTestId("OakGraphNodes"));
+		fireEvent.mouseUp(screen.getByTestId("GraphNodes"));
 
 		const titleInput = screen.getByPlaceholderText("Node title");
 		fireEvent.change(titleInput, { target: { value: "Run Emails" } });

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { OakGraphConnectEvent, OakGraphEdge, OakGraphNodesProps } from "./OakGraphNodes.types";
-import "./OakGraphNodes.css";
+import { GraphNodesProps, OakGraphConnectEvent, OakGraphEdge } from "./GraphNodes.types";
+import "./GraphNodes.css";
 import Card from "../Card/Card";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
@@ -47,7 +47,7 @@ type PortDirection = "in" | "out";
 const portRefKey = (direction: PortDirection, nodeId: string, portId: string): string =>
 	`${direction}:${nodeId}:${portId}`;
 
-const OakGraphNodes: React.FC<OakGraphNodesProps> = ({
+const GraphNodes: React.FC<GraphNodesProps> = ({
 	nodes,
 	edges,
 	nodeTypes,
@@ -235,7 +235,7 @@ const OakGraphNodes: React.FC<OakGraphNodesProps> = ({
 		<div
 			{...rest}
 			ref={rootRef}
-			data-testid="OakGraphNodes"
+			data-testid="GraphNodes"
 			className={["oakd", "oak-graph-nodes", className].filter(Boolean).join(" ")}
 			style={{
 				...style,
@@ -429,4 +429,4 @@ const OakGraphNodes: React.FC<OakGraphNodesProps> = ({
 	);
 };
 
-export default OakGraphNodes;
+export default GraphNodes;

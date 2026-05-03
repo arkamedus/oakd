@@ -28,6 +28,43 @@ export interface GLRenderConfig {
 	meshQuality?: 0 | 1;
 	clearColor?: [number, number, number, number];
 	lightDirection?: [number, number, number];
+	shadowsEnabled?: boolean;
+	shadowMode?: "hard" | "soft";
+	shadowBias?: number;
+	shadowNormalBias?: number;
+	shadowSoftness?: number;
+	shadowSamples?: number;
+	shadowOrthoSize?: number;
+	shadowNear?: number;
+	shadowFar?: number;
+	cameraNear?: number;
+	cameraFar?: number;
+	renderLayer?:
+		| "final"
+		| "diffuse"
+		| "specular"
+		| "lighting"
+		| "emission"
+		| "ssao"
+		| "bloom"
+		| "depth"
+		| "normals"
+		| "shadow";
+	ssaoEnabled?: boolean;
+	ssaoRadius?: number;
+	ssaoIntensity?: number;
+	ssaoBias?: number;
+	ssaoSamples?: number;
+	bloomEnabled?: boolean;
+	bloomThreshold?: number;
+	bloomIntensity?: number;
+	bloomRadius?: number;
+	ambientColor?: [number, number, number];
+	ambientIntensity?: number;
+	rimColor?: [number, number, number];
+	rimIntensity?: number;
+	rimPower?: number;
+	emissionStrength?: number;
 }
 
 export interface GLRenderRequest {

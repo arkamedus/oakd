@@ -5,12 +5,15 @@ import GLContextProvider from "../GLContextProvider/GLContextProvider";
 import { OakMDocument, oakMToMeshData } from "../../Utils";
 import Card from "../Card/Card";
 import Content from "../../Layout/Content/Content";
+import Page from "../../Layout/Page/Page";
 import Row from "../../Layout/Row/Row";
 import Col from "../../Layout/Column/Column";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
+import Title from "../Title/Title";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import Select from "../Select/Select";
 
 const meta: Meta<typeof GLRenderer> = {
 	title: "Design System/Atomic/GLRenderer",
@@ -164,8 +167,8 @@ const cornellRoomScene = (): OakMDocument => ({
 			type: "cube",
 			position: { x: -2, y: 0, z: 0 },
 			rotationDeg: { x: 0, y: -90, z: 0 },
-			scale: { x: 2.5, y: 4, z: 0.1 },
-			material: 4,
+			scale: { x: 2.5, y: 4.14, z: 0.1 },
+			material: 2,
 			color: { r: 0.96, g: 0.45, b: 0.42, a: 1 },
 		},
 		{
@@ -174,8 +177,8 @@ const cornellRoomScene = (): OakMDocument => ({
 			type: "cube",
 			position: { x: 2, y: 0, z: 0 },
 			rotationDeg: { x: 0, y: 90, z: 0 },
-			scale: { x: 2.5, y: 4, z: 0.1 },
-			material: 3,
+			scale: { x: 2.5, y: 4.14, z: 0.1 },
+			material: 2,
 			color: { r: 0.42, g: 0.9, b: 0.54, a: 1 },
 		},
 		{
@@ -210,6 +213,17 @@ const cornellRoomScene = (): OakMDocument => ({
 		},
 	],
 });
+
+const cornellViewportStyle = { minHeight: "100vh" } as const;
+const cornellBodyHostStyle = {
+	minHeight: 0,
+	overflow: "auto" as const,
+} as const;
+const cornellBoundedStyle = { minHeight: 0 } as const;
+const cornellScrollPanelStyle = {
+	minHeight: 0,
+	overflowY: "auto" as const,
+} as const;
 
 export const BasicCube: Story = {
 	render: () => {
@@ -310,7 +324,7 @@ export const SharedContextThirtyTwoRenderers: Story = {
 								wide
 								style={{
 									display: "grid",
-									gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+									gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
 									gap: 10,
 								}}
 							>
@@ -318,13 +332,16 @@ export const SharedContextThirtyTwoRenderers: Story = {
 									<Card key={index} wide>
 										<GLRenderer
 											mesh={entry.mesh}
-											height={92}
+											height={160}
 											autoRotate={false}
 											cameraOrbitSpeed={0.08 + (index % 6) * 0.01}
 											rendering={{
 												pixelRatio: "default",
-												maxFPS: 36,
-												shadowMapSize: 512,
+												maxFPS: 24,
+												shadowMapSize: 128,
+												shadowSoftness: 8.0,
+												shadowSamples: 8,
+												shadowOrthoSize: 2,
 												meshQuality: 1,
 											}}
 										/>
@@ -358,7 +375,12 @@ export const SphereMeshQualityComparison: Story = {
 				<Row gap wide>
 					<Col xs={24} md={12}>
 						<Card pad wide>
-							<Space direction="vertical" gap wide>
+							<Space
+								direction="vertical"
+								gap
+								wide
+								style={{ maxHeight: 620, overflowY: "auto", paddingRight: 8 }}
+							>
 								<Paragraph>
 									<strong>Mesh Quality 0 · 2x2 Primitive Grid</strong>
 								</Paragraph>
@@ -369,10 +391,14 @@ export const SphereMeshQualityComparison: Story = {
 									cameraOrbitSpeed={0.1}
 									cameraDistance={4.2}
 									rendering={{
-										pixelRatio:  "default",
+										pixelRatio: "default",
 										maxFPS: 60,
 										shadowMapSize: 1024,
 										meshQuality: 0,
+										shadowMapSize: 128,
+										shadowSoftness: 8.0,
+										shadowSamples: 8,
+										shadowOrthoSize: 2,
 									}}
 								/>
 							</Space>
@@ -391,10 +417,14 @@ export const SphereMeshQualityComparison: Story = {
 									cameraOrbitSpeed={0.1}
 									cameraDistance={4.2}
 									rendering={{
-										pixelRatio:  "default",
+										pixelRatio: "default",
 										maxFPS: 60,
 										shadowMapSize: 1024,
 										meshQuality: 1,
+										shadowMapSize: 128,
+										shadowSoftness: 8.0,
+										shadowSamples: 8,
+										shadowOrthoSize: 2,
 									}}
 								/>
 							</Space>
@@ -407,6 +437,9 @@ export const SphereMeshQualityComparison: Story = {
 };
 
 export const CornellRoomRenderingTuner: Story = {
+	parameters: {
+		layout: "fullscreen",
+	},
 	render: () => {
 		const [useDefaultPixelRatio, setUseDefaultPixelRatio] = useState(true);
 		const [pixelRatio, setPixelRatio] = useState(1);
@@ -417,9 +450,49 @@ export const CornellRoomRenderingTuner: Story = {
 		const [clearG, setClearG] = useState(0.06);
 		const [clearB, setClearB] = useState(0.08);
 		const [clearA, setClearA] = useState(1);
-			const [lightX, setLightX] = useState(-0.29);
-			const [lightY, setLightY] = useState(-0.98);
-			const [lightZ, setLightZ] = useState(0.11);
+		const [lightX, setLightX] = useState(-0.29);
+		const [lightY, setLightY] = useState(-0.98);
+		const [lightZ, setLightZ] = useState(0.11);
+		const [shadowsEnabled, setShadowsEnabled] = useState(true);
+		const [shadowMode, setShadowMode] = useState<"hard" | "soft">("soft");
+		const [shadowBias, setShadowBias] = useState(0.0002);
+		const [shadowNormalBias, setShadowNormalBias] = useState(0.00012);
+		const [shadowSoftness, setShadowSoftness] = useState(1.5);
+		const [shadowSamples, setShadowSamples] = useState(9);
+		const [shadowOrthoSize, setShadowOrthoSize] = useState(24);
+		const [shadowNear, setShadowNear] = useState(1);
+		const [shadowFar, setShadowFar] = useState(120);
+		const [renderLayer, setRenderLayer] = useState<
+			| "final"
+			| "diffuse"
+			| "specular"
+			| "lighting"
+			| "emission"
+			| "ssao"
+			| "bloom"
+			| "depth"
+			| "normals"
+			| "shadow"
+		>("final");
+		const [ssaoEnabled, setSsaoEnabled] = useState(false);
+		const [ssaoRadius, setSsaoRadius] = useState(0.35);
+		const [ssaoIntensity, setSsaoIntensity] = useState(1.0);
+		const [ssaoBias, setSsaoBias] = useState(0.002);
+		const [ssaoSamples, setSsaoSamples] = useState(16);
+		const [bloomEnabled, setBloomEnabled] = useState(false);
+		const [bloomThreshold, setBloomThreshold] = useState(0.7);
+		const [bloomIntensity, setBloomIntensity] = useState(0.3);
+		const [bloomRadius, setBloomRadius] = useState(3.0);
+		const [ambientR, setAmbientR] = useState(0.92);
+		const [ambientG, setAmbientG] = useState(0.97);
+		const [ambientB, setAmbientB] = useState(1);
+		const [ambientIntensity, setAmbientIntensity] = useState(0.34);
+		const [rimR, setRimR] = useState(1);
+		const [rimG, setRimG] = useState(0.96);
+		const [rimB, setRimB] = useState(0.9);
+		const [rimIntensity, setRimIntensity] = useState(0.18);
+		const [rimPower, setRimPower] = useState(2.1);
+		const [emissionStrength, setEmissionStrength] = useState(0.24);
 
 		const mesh = useMemo(
 			() => oakMToMeshData(cornellRoomScene(), { meshQuality }),
@@ -428,177 +501,610 @@ export const CornellRoomRenderingTuner: Story = {
 
 		return (
 			<GLContextProvider>
-				<Row gap wide>
-					<Col xs={24} md={9}>
-						<Card pad wide>
-							<Space direction="vertical" gap wide>
+				<Content fill pad style={cornellViewportStyle}>
+					<Page gap fill>
+						<Content>
+							<Space direction="vertical" gap>
+								<Title>Cornell room rendering tuner</Title>
 								<Paragraph>
-									<strong>Cornell Room Rendering Controls</strong>
+									Stretch the preview surface while the control panel owns its
+									scroll region.
 								</Paragraph>
-								<Space direction="horizontal" gap wide>
-									<Button
-										variant={useDefaultPixelRatio ? "active" : "default"}
-										onClick={() => setUseDefaultPixelRatio((value) => !value)}
-									>
-										Device Pixel Ratio
-									</Button>
-									<Button
-										variant={meshQuality === 1 ? "active" : "default"}
-										onClick={() =>
-											setMeshQuality((value) => (value === 1 ? 0 : 1))
-										}
-									>
-										Mesh Quality {meshQuality}
-									</Button>
-								</Space>
-
-								<Paragraph>
-									<small>
-										Pixel Ratio{" "}
-										{!useDefaultPixelRatio ? pixelRatio.toFixed(2) : "default"}
-									</small>
-								</Paragraph>
-								<Input
-									type="range"
-									min={0.5}
-									max={2}
-									step={0.05}
-									value={pixelRatio}
-									disabled={useDefaultPixelRatio}
-									onChange={(event) =>
-										setPixelRatio(Number(event.target.value))
-									}
-								/>
-
-								<Paragraph>
-									<small>Max FPS {maxFPS}</small>
-								</Paragraph>
-								<Input
-									type="range"
-									min={5}
-									max={60}
-									step={1}
-									value={maxFPS}
-									onChange={(event) => setMaxFPS(Number(event.target.value))}
-								/>
-
-								<Paragraph>
-									<small>Shadow Map Size {shadowMapSize}</small>
-								</Paragraph>
-								<Input
-									type="range"
-									min={256}
-									max={2048}
-									step={128}
-									value={shadowMapSize}
-									onChange={(event) =>
-										setShadowMapSize(Number(event.target.value))
-									}
-								/>
-
-								<Paragraph>
-									<small>
-										Clear Color ({clearR.toFixed(2)}, {clearG.toFixed(2)},{" "}
-										{clearB.toFixed(2)}, {clearA.toFixed(2)})
-									</small>
-								</Paragraph>
-								<Input
-									type="range"
-									min={0}
-									max={1}
-									step={0.01}
-									value={clearR}
-									onChange={(event) => setClearR(Number(event.target.value))}
-								/>
-								<Input
-									type="range"
-									min={0}
-									max={1}
-									step={0.01}
-									value={clearG}
-									onChange={(event) => setClearG(Number(event.target.value))}
-								/>
-								<Input
-									type="range"
-									min={0}
-									max={1}
-									step={0.01}
-									value={clearB}
-									onChange={(event) => setClearB(Number(event.target.value))}
-								/>
-								<Input
-									type="range"
-									min={0}
-									max={1}
-									step={0.01}
-									value={clearA}
-									onChange={(event) => setClearA(Number(event.target.value))}
-								/>
-
-								<Paragraph>
-									<small>
-										Light Direction ({lightX.toFixed(2)}, {lightY.toFixed(2)},{" "}
-										{lightZ.toFixed(2)})
-									</small>
-								</Paragraph>
-								<Input
-									type="range"
-									min={-1}
-									max={1}
-									step={0.01}
-									value={lightX}
-									onChange={(event) => setLightX(Number(event.target.value))}
-								/>
-								<Input
-									type="range"
-									min={-1}
-									max={1}
-									step={0.01}
-									value={lightY}
-									onChange={(event) => setLightY(Number(event.target.value))}
-								/>
-								<Input
-									type="range"
-									min={-1}
-									max={1}
-									step={0.01}
-									value={lightZ}
-									onChange={(event) => setLightZ(Number(event.target.value))}
-								/>
 							</Space>
-						</Card>
-					</Col>
+						</Content>
+						<Content grow fill style={cornellBodyHostStyle}>
+							<Row gap fill style={cornellBoundedStyle}>
+								<Col xs={24} lg={11}>
+									<Card pad wide fill>
+										<Space direction="vertical" gap wide fill align="stretch">
+											<Paragraph>
+												<strong>Cornell Room Rendering Controls</strong>
+											</Paragraph>
+											<Space direction="horizontal" gap wide>
+												<Button
+													variant={useDefaultPixelRatio ? "active" : "default"}
+													onClick={() =>
+														setUseDefaultPixelRatio((value) => !value)
+													}
+												>
+													Device Pixel Ratio
+												</Button>
+												<Button
+													variant={meshQuality === 1 ? "active" : "default"}
+													onClick={() =>
+														setMeshQuality((value) => (value === 1 ? 0 : 1))
+													}
+												>
+													Mesh Quality {meshQuality}
+												</Button>
+												<Button
+													variant={shadowsEnabled ? "active" : "default"}
+													onClick={() => setShadowsEnabled((value) => !value)}
+												>
+													Shadows
+												</Button>
+												<Button
+													variant={ssaoEnabled ? "active" : "default"}
+													onClick={() => setSsaoEnabled((value) => !value)}
+												>
+													SSAO
+												</Button>
+												<Button
+													variant={bloomEnabled ? "active" : "default"}
+													onClick={() => setBloomEnabled((value) => !value)}
+												>
+													Bloom
+												</Button>
+											</Space>
+											<Select
+												value={renderLayer}
+												onChange={(value) => setRenderLayer(value)}
+												options={[
+													{ value: "final", element: <span>Final</span> },
+													{ value: "diffuse", element: <span>Diffuse</span> },
+													{ value: "specular", element: <span>Specular</span> },
+													{ value: "lighting", element: <span>Lighting</span> },
+													{ value: "emission", element: <span>Emission</span> },
+													{ value: "ssao", element: <span>SSAO</span> },
+													{ value: "bloom", element: <span>Bloom</span> },
+													{ value: "depth", element: <span>Depth</span> },
+													{ value: "normals", element: <span>Normals</span> },
+													{ value: "shadow", element: <span>Shadow</span> },
+												]}
+												placeholder="Render Layer"
+												direction="bottom-left"
+											/>
+											<Content grow fill wide style={cornellScrollPanelStyle}>
+												<Row gap wide>
+													<Col xs={24} md={12}>
+														<Space direction="vertical" gap wide>
+															<Paragraph>
+																<small>
+																	Pixel Ratio{" "}
+																	{!useDefaultPixelRatio
+																		? pixelRatio.toFixed(2)
+																		: "default"}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0.5}
+																max={2}
+																step={0.05}
+																value={pixelRatio}
+																disabled={useDefaultPixelRatio}
+																onChange={(event) =>
+																	setPixelRatio(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>Max FPS {maxFPS}</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={5}
+																max={60}
+																step={1}
+																value={maxFPS}
+																onChange={(event) =>
+																	setMaxFPS(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>Shadow Map Size {shadowMapSize}</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={256}
+																max={2048}
+																step={128}
+																value={shadowMapSize}
+																onChange={(event) =>
+																	setShadowMapSize(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>Shadow Mode: {shadowMode}</small>
+															</Paragraph>
+															<Select
+																value={shadowMode}
+																onChange={(value) => setShadowMode(value)}
+																options={[
+																	{ value: "hard", element: <span>Hard</span> },
+																	{ value: "soft", element: <span>Soft</span> },
+																]}
+																placeholder="Shadow Mode"
+																direction="bottom-left"
+															/>
+															<Paragraph>
+																<small>
+																	Shadow Bias {shadowBias.toFixed(5)}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={0.002}
+																step={0.00001}
+																value={shadowBias}
+																onChange={(event) =>
+																	setShadowBias(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Shadow Normal Bias{" "}
+																	{shadowNormalBias.toFixed(5)}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={0.003}
+																step={0.00001}
+																value={shadowNormalBias}
+																onChange={(event) =>
+																	setShadowNormalBias(
+																		Number(event.target.value),
+																	)
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Shadow Softness {shadowSoftness.toFixed(2)}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={32}
+																step={0.05}
+																value={shadowSoftness}
+																onChange={(event) =>
+																	setShadowSoftness(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>Shadow Samples {shadowSamples}</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={1}
+																max={25}
+																step={1}
+																value={shadowSamples}
+																onChange={(event) =>
+																	setShadowSamples(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Shadow Ortho Size {shadowOrthoSize.toFixed(1)}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={4}
+																max={60}
+																step={0.5}
+																value={shadowOrthoSize}
+																onChange={(event) =>
+																	setShadowOrthoSize(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Shadow Near/Far ({shadowNear.toFixed(1)},{" "}
+																	{shadowFar.toFixed(1)})
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0.1}
+																max={20}
+																step={0.1}
+																value={shadowNear}
+																onChange={(event) =>
+																	setShadowNear(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={20}
+																max={220}
+																step={1}
+																value={shadowFar}
+																onChange={(event) =>
+																	setShadowFar(Number(event.target.value))
+																}
+															/>
+														</Space>
+													</Col>
+													<Col xs={24} md={12}>
+														<Space direction="vertical" gap wide>
+															<Paragraph>
+																<small>
+																	Clear Color ({clearR.toFixed(2)},{" "}
+																	{clearG.toFixed(2)}, {clearB.toFixed(2)},{" "}
+																	{clearA.toFixed(2)})
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={clearR}
+																onChange={(event) =>
+																	setClearR(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={clearG}
+																onChange={(event) =>
+																	setClearG(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={clearB}
+																onChange={(event) =>
+																	setClearB(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={clearA}
+																onChange={(event) =>
+																	setClearA(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Light Direction ({lightX.toFixed(2)},{" "}
+																	{lightY.toFixed(2)}, {lightZ.toFixed(2)})
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={-1}
+																max={1}
+																step={0.01}
+																value={lightX}
+																onChange={(event) =>
+																	setLightX(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={-1}
+																max={1}
+																step={0.01}
+																value={lightY}
+																onChange={(event) =>
+																	setLightY(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={-1}
+																max={1}
+																step={0.01}
+																value={lightZ}
+																onChange={(event) =>
+																	setLightZ(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Ambient ({ambientR.toFixed(2)},{" "}
+																	{ambientG.toFixed(2)}, {ambientB.toFixed(2)})
+																	Intensity {ambientIntensity.toFixed(2)}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={ambientR}
+																onChange={(event) =>
+																	setAmbientR(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={ambientG}
+																onChange={(event) =>
+																	setAmbientG(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={ambientB}
+																onChange={(event) =>
+																	setAmbientB(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1.25}
+																step={0.01}
+																value={ambientIntensity}
+																onChange={(event) =>
+																	setAmbientIntensity(
+																		Number(event.target.value),
+																	)
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Rim ({rimR.toFixed(2)}, {rimG.toFixed(2)},{" "}
+																	{rimB.toFixed(2)}) · Intensity{" "}
+																	{rimIntensity.toFixed(2)} · Power{" "}
+																	{rimPower.toFixed(2)}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={rimR}
+																onChange={(event) =>
+																	setRimR(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={rimG}
+																onChange={(event) =>
+																	setRimG(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={rimB}
+																onChange={(event) =>
+																	setRimB(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={rimIntensity}
+																onChange={(event) =>
+																	setRimIntensity(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0.1}
+																max={8}
+																step={0.05}
+																value={rimPower}
+																onChange={(event) =>
+																	setRimPower(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>
+																	SSAO Radius {ssaoRadius.toFixed(2)} ·
+																	Intensity {ssaoIntensity.toFixed(2)} · Bias{" "}
+																	{ssaoBias.toFixed(3)} · Samples {ssaoSamples}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={1.2}
+																step={0.01}
+																value={ssaoRadius}
+																onChange={(event) =>
+																	setSsaoRadius(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={ssaoIntensity}
+																onChange={(event) =>
+																	setSsaoIntensity(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.005}
+																value={ssaoBias}
+																onChange={(event) =>
+																	setSsaoBias(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={1}
+																max={32}
+																step={1}
+																value={ssaoSamples}
+																onChange={(event) =>
+																	setSsaoSamples(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Bloom Threshold {bloomThreshold.toFixed(2)} ·
+																	Intensity {bloomIntensity.toFixed(2)} · Radius{" "}
+																	{bloomRadius.toFixed(2)}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={1}
+																step={0.01}
+																value={bloomThreshold}
+																onChange={(event) =>
+																	setBloomThreshold(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={2}
+																step={0.01}
+																value={bloomIntensity}
+																onChange={(event) =>
+																	setBloomIntensity(Number(event.target.value))
+																}
+															/>
+															<Input
+																type="range"
+																min={0}
+																max={3}
+																step={0.05}
+																value={bloomRadius}
+																onChange={(event) =>
+																	setBloomRadius(Number(event.target.value))
+																}
+															/>
+															<Paragraph>
+																<small>
+																	Emission Strength{" "}
+																	{emissionStrength.toFixed(2)}
+																</small>
+															</Paragraph>
+															<Input
+																type="range"
+																min={0}
+																max={2}
+																step={0.01}
+																value={emissionStrength}
+																onChange={(event) =>
+																	setEmissionStrength(
+																		Number(event.target.value),
+																	)
+																}
+															/>
+														</Space>
+													</Col>
+												</Row>
+											</Content>
+										</Space>
+									</Card>
+								</Col>
 
-					<Col xs={24} md={15}>
-						<Card pad wide>
-							<Space direction="vertical" gap wide>
-								<Paragraph>
-									<strong>Cornell Room Preview</strong>
-								</Paragraph>
-								<GLRenderer
-									mesh={mesh}
-									height={420}
-									autoRotate={false}
-									cameraDistance={4.8}
-									camera={{
-										from: [0, -8.5, 0],
-										to: [0, 0, 0],
-										up: [0, 0, 1],
-										fov: 0.4,
-									}}
-									rendering={{
-										pixelRatio: useDefaultPixelRatio ? "default" : pixelRatio,
-										maxFPS,
-										shadowMapSize,
-										meshQuality,
-										clearColor: [clearR, clearG, clearB, clearA],
-										lightDirection: [lightX, lightY, lightZ],
-									}}
-								/>
-							</Space>
-						</Card>
-					</Col>
-				</Row>
+								<Col xs={24} lg={13}>
+									<Card pad wide fill>
+										<Space direction="vertical" gap wide fill align="stretch">
+											<Paragraph>
+												<strong>Cornell Room Preview</strong>
+											</Paragraph>
+											<Content grow fill wide style={cornellBoundedStyle}>
+												<GLRenderer
+													mesh={mesh}
+													autoRotate={false}
+													grow
+													fill
+													cameraDistance={4.8}
+													camera={{
+														from: [0, -8.5, 0],
+														to: [0, 0, 0],
+														up: [0, 0, 1],
+														fov: 0.6,
+													}}
+													rendering={{
+														pixelRatio: useDefaultPixelRatio
+															? "default"
+															: pixelRatio,
+														maxFPS,
+														shadowMapSize,
+														meshQuality,
+														clearColor: [clearR, clearG, clearB, clearA],
+														lightDirection: [lightX, lightY, lightZ],
+														shadowsEnabled,
+														shadowMode,
+														shadowBias,
+														shadowNormalBias,
+														shadowSoftness,
+														shadowSamples,
+														shadowOrthoSize,
+														shadowNear,
+														shadowFar,
+														renderLayer,
+														ssaoEnabled,
+														ssaoRadius,
+														ssaoIntensity,
+														ssaoBias,
+														ssaoSamples,
+														bloomEnabled,
+														bloomThreshold,
+														bloomIntensity,
+														bloomRadius,
+														ambientColor: [ambientR, ambientG, ambientB],
+														ambientIntensity,
+														rimColor: [rimR, rimG, rimB],
+														rimIntensity,
+														rimPower,
+														emissionStrength,
+													}}
+												/>
+											</Content>
+										</Space>
+									</Card>
+								</Col>
+							</Row>
+						</Content>
+					</Page>
+				</Content>
 			</GLContextProvider>
 		);
 	},

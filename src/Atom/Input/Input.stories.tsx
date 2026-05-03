@@ -99,7 +99,7 @@ WithError.args = {
 	type: "text",
 	placeholder: "Invalid input",
 	error: true,
-	icon: "Apps",
+	icon: "Text",
 };
 
 export const Disabled = Template.bind({});

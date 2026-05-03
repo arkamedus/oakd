@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import GraphNodesEditor from "./GraphNodesEditor";
-import { OakGraphNodeTypeDefinition } from "../OakGraphNodes/OakGraphNodes.types";
+import { OakGraphNodeTypeDefinition } from "../GraphNodes/GraphNodes.types";
 import Paragraph from "../Paragraph/Paragraph";
 
 const nodeTypes: Record<string, OakGraphNodeTypeDefinition<any>> = {

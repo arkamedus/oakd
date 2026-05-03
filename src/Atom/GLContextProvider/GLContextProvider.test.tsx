@@ -54,6 +54,7 @@ const createMockWebGLContext = (): WebGLRenderingContext => {
 		UNSIGNED_BYTE: 0x1401,
 		TEXTURE_MIN_FILTER: 0x2801,
 		NEAREST: 0x2600,
+		LINEAR: 0x2601,
 		TEXTURE_MAG_FILTER: 0x2800,
 		TEXTURE_WRAP_S: 0x2802,
 		CLAMP_TO_EDGE: 0x812f,
@@ -72,6 +73,14 @@ const createMockWebGLContext = (): WebGLRenderingContext => {
 		COLOR_BUFFER_BIT: 0x4000,
 		DEPTH_BUFFER_BIT: 0x0100,
 		TEXTURE0: 0x84c0,
+		TEXTURE1: 0x84c1,
+		TEXTURE2: 0x84c2,
+		TEXTURE3: 0x84c3,
+		TEXTURE4: 0x84c4,
+		TEXTURE5: 0x84c5,
+		TEXTURE6: 0x84c6,
+		TEXTURE7: 0x84c7,
+		TEXTURE8: 0x84c8,
 		createShader: jest.fn(() => nextHandle()),
 		shaderSource: jest.fn(),
 		compileShader: jest.fn(),
@@ -106,20 +115,24 @@ const createMockWebGLContext = (): WebGLRenderingContext => {
 		clearColor: jest.fn(),
 		clearDepth: jest.fn(),
 		enable: jest.fn(),
+		disable: jest.fn(),
 		depthMask: jest.fn(),
 		clear: jest.fn(),
 		uniformMatrix4fv: jest.fn(),
 		uniform3f: jest.fn(),
+		uniform2f: jest.fn(),
 		uniform4fv: jest.fn(),
 		activeTexture: jest.fn(),
 		uniform1i: jest.fn(),
 		uniform1f: jest.fn(),
 		enableVertexAttribArray: jest.fn(),
 		vertexAttribPointer: jest.fn(),
+		drawArrays: jest.fn(),
 		drawElements: jest.fn(),
 		deleteFramebuffer: jest.fn(),
 		deleteTexture: jest.fn(),
 		deleteRenderbuffer: jest.fn(),
+		deleteBuffer: jest.fn(),
 	};
 
 	return gl as unknown as WebGLRenderingContext;
@@ -332,6 +345,50 @@ describe("GLContextProvider", () => {
 		flushNextFrame(20);
 
 		expect(context2D.drawImage).toHaveBeenCalledTimes(0);
+		mounted.unmount();
+	});
+
+	it("uses nearest filtering for gbuffer targets when SSAO is enabled", () => {
+		const mounted = mountProvider();
+		const context = capturedContext as GLContextValue;
+		const canvas = document.createElement("canvas");
+
+		context.render(
+			requestFor(canvas, {
+				rendering: {
+					ssaoEnabled: true,
+				},
+			}),
+		);
+		flushNextFrame(20);
+
+		const texParameteri = mockWebGL.texParameteri as jest.Mock;
+		const nearest = (mockWebGL as unknown as { NEAREST: number }).NEAREST;
+		const nearestCalls = texParameteri.mock.calls.filter(
+			(call) => call[2] === nearest,
+		);
+		expect(nearestCalls.length).toBeGreaterThan(0);
+		mounted.unmount();
+	});
+
+	it("skips SSAO and bloom passes for non-final debug layers", () => {
+		const mounted = mountProvider();
+		const context = capturedContext as GLContextValue;
+		const canvas = document.createElement("canvas");
+
+		context.render(
+			requestFor(canvas, {
+				rendering: {
+					renderLayer: "diffuse",
+					ssaoEnabled: true,
+					bloomEnabled: true,
+				},
+			}),
+		);
+		flushNextFrame(20);
+
+		const drawArrays = mockWebGL.drawArrays as jest.Mock;
+		expect(drawArrays).toHaveBeenCalledTimes(1);
 		mounted.unmount();
 	});
 });
