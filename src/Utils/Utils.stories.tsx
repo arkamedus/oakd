@@ -32,12 +32,12 @@ export const Vec2Vec3AndOakM: Story = {
 						<strong>Vec2</strong> magnitude: {vec2.mag().toFixed(2)}
 					</Paragraph>
 					<Paragraph>
-						<strong>Vec3</strong> normalized: [{vec3.x.toFixed(2)}, {vec3.y.toFixed(2)},{" "}
-						{vec3.z.toFixed(2)}]
+						<strong>Vec3</strong> normalized: [{vec3.x.toFixed(2)},{" "}
+						{vec3.y.toFixed(2)}, {vec3.z.toFixed(2)}]
 					</Paragraph>
 					<Paragraph>
-						<strong>OakM Mesh</strong> vertices: {mesh.positions.length / 3} | triangles:{" "}
-						{mesh.indices.length / 3}
+						<strong>OakM Mesh</strong> vertices: {mesh.positions.length / 3} |
+						triangles: {mesh.indices.length / 3}
 					</Paragraph>
 				</Space>
 			</Card>

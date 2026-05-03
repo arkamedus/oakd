@@ -17,7 +17,12 @@ export class Quat4 implements Quat4Like {
 		return new Quat4();
 	}
 
-	static fromEulerRad(x: number, y: number, z: number, out: Quat4 = new Quat4()): Quat4 {
+	static fromEulerRad(
+		x: number,
+		y: number,
+		z: number,
+		out: Quat4 = new Quat4(),
+	): Quat4 {
 		const halfX = x * 0.5;
 		const halfY = y * 0.5;
 		const halfZ = z * 0.5;
@@ -43,7 +48,12 @@ export class Quat4 implements Quat4Like {
 		out: Quat4 = new Quat4(),
 	): Quat4 {
 		const radians = Math.PI / 180;
-		return Quat4.fromEulerRad(xDegrees * radians, yDegrees * radians, zDegrees * radians, out);
+		return Quat4.fromEulerRad(
+			xDegrees * radians,
+			yDegrees * radians,
+			zDegrees * radians,
+			out,
+		);
 	}
 
 	static fromAxisAngle(
@@ -64,7 +74,11 @@ export class Quat4 implements Quat4Like {
 		return out.normalize();
 	}
 
-	static multiply(left: Quat4Like, right: Quat4Like, out: Quat4 = new Quat4()): Quat4 {
+	static multiply(
+		left: Quat4Like,
+		right: Quat4Like,
+		out: Quat4 = new Quat4(),
+	): Quat4 {
 		const lx = left.x;
 		const ly = left.y;
 		const lz = left.z;
@@ -80,7 +94,11 @@ export class Quat4 implements Quat4Like {
 		return out;
 	}
 
-	static rotateVec3(quat: Quat4Like, vector: Vec3Like, out: Vec3 = new Vec3()): Vec3 {
+	static rotateVec3(
+		quat: Quat4Like,
+		vector: Vec3Like,
+		out: Vec3 = new Vec3(),
+	): Vec3 {
 		const x = vector.x;
 		const y = vector.y;
 		const z = vector.z;

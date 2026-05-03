@@ -1173,10 +1173,23 @@ const createColorTarget = (
 	);
 
 	gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);
-	if (typeof WebGL2RenderingContext !== "undefined" && gl instanceof WebGL2RenderingContext) {
-		gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT24, width, height);
+	if (
+		typeof WebGL2RenderingContext !== "undefined" &&
+		gl instanceof WebGL2RenderingContext
+	) {
+		gl.renderbufferStorage(
+			gl.RENDERBUFFER,
+			gl.DEPTH_COMPONENT24,
+			width,
+			height,
+		);
 	} else {
-		gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, width, height);
+		gl.renderbufferStorage(
+			gl.RENDERBUFFER,
+			gl.DEPTH_COMPONENT16,
+			width,
+			height,
+		);
 	}
 	gl.framebufferRenderbuffer(
 		gl.FRAMEBUFFER,

@@ -59,9 +59,9 @@ export class Vec2 implements Vec2Like {
 	toDeg(): number {
 		const normalized = this.clone().normalize();
 		return (
-			(((Math.atan2(normalized.x, normalized.y + 0.0000001) / Math.PI) * 180 +
+			((Math.atan2(normalized.x, normalized.y + 0.0000001) / Math.PI) * 180 +
 				180) %
-				360)
+			360
 		);
 	}
 

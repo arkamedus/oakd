@@ -47,8 +47,7 @@ export interface OakGraphConnectEvent {
 	toPortId: string;
 }
 
-export interface GraphNodesProps
-	extends CoreContentProps<HTMLDivElement> {
+export interface GraphNodesProps extends CoreContentProps<HTMLDivElement> {
 	nodeTypes: Record<string, OakGraphNodeTypeDefinition<any>>;
 	nodes: GraphNode[];
 	edges: OakGraphEdge[];

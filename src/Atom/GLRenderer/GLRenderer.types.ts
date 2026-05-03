@@ -1,6 +1,9 @@
 import { CoreContentProps } from "../../Core/Core.types";
 import { OakMMeshData } from "../../Utils/OakM";
-import { GLRenderCamera, GLRenderConfig } from "../GLContextProvider/GLContextProvider.types";
+import {
+	GLRenderCamera,
+	GLRenderConfig,
+} from "../GLContextProvider/GLContextProvider.types";
 
 export interface GLRendererProps extends CoreContentProps<HTMLCanvasElement> {
 	mesh: OakMMeshData;

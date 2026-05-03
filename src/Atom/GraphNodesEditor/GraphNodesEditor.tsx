@@ -11,7 +11,8 @@ import Button from "../Button/Button";
 import Paragraph from "../Paragraph/Paragraph";
 import Input from "../Input/Input";
 
-const uid = (prefix = "node") => `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+const uid = (prefix = "node") =>
+	`${prefix}_${Math.random().toString(36).slice(2, 10)}`;
 
 const GraphNodesEditor: React.FC<GraphNodesEditorProps> = ({
 	nodeTypes,
@@ -56,7 +57,8 @@ const GraphNodesEditor: React.FC<GraphNodesEditorProps> = ({
 		setEdges((current) =>
 			current.filter(
 				(edge) =>
-					edge.fromNodeId !== selectedNodeId && edge.toNodeId !== selectedNodeId,
+					edge.fromNodeId !== selectedNodeId &&
+					edge.toNodeId !== selectedNodeId,
 			),
 		);
 		setSelectedNodeId(null);
@@ -65,7 +67,9 @@ const GraphNodesEditor: React.FC<GraphNodesEditorProps> = ({
 	return (
 		<Content
 			{...rest}
-			className={["oakd", "graph-nodes-editor", className].filter(Boolean).join(" ")}
+			className={["oakd", "graph-nodes-editor", className]
+				.filter(Boolean)
+				.join(" ")}
 			style={style}
 		>
 			<Row gap wide>
@@ -108,7 +112,9 @@ const GraphNodesEditor: React.FC<GraphNodesEditorProps> = ({
 							</Paragraph>
 							{selectedNode ? (
 								<>
-									<Paragraph className="muted">Node Id: {selectedNode.id}</Paragraph>
+									<Paragraph className="muted">
+										Node Id: {selectedNode.id}
+									</Paragraph>
 									<Input
 										placeholder="Node title"
 										value={selectedNode.title || ""}
@@ -116,7 +122,9 @@ const GraphNodesEditor: React.FC<GraphNodesEditorProps> = ({
 											const title = event.currentTarget.value;
 											setNodes((current) =>
 												current.map((node) =>
-													node.id === selectedNode.id ? { ...node, title } : node,
+													node.id === selectedNode.id
+														? { ...node, title }
+														: node,
 												),
 											);
 										}}

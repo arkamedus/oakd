@@ -9,7 +9,11 @@ import { InputProps } from "./Input.types";
 import "./Input.css";
 import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
-import {CoreIconNameType, IconAlert, IconTriangle} from "../../Icon/Icons.bin";
+import {
+	CoreIconNameType,
+	IconAlert,
+	IconTriangle,
+} from "../../Icon/Icons.bin";
 import { sizeMinusOne } from "../../Core/Core.utils";
 
 type InputValue = string | number | readonly string[];

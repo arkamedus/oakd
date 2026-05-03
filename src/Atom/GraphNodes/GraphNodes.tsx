@@ -1,5 +1,15 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { GraphNodesProps, OakGraphConnectEvent, OakGraphEdge } from "./GraphNodes.types";
+import React, {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from "react";
+import {
+	GraphNodesProps,
+	OakGraphConnectEvent,
+	OakGraphEdge,
+} from "./GraphNodes.types";
 import "./GraphNodes.css";
 import Card from "../Card/Card";
 import Space from "../Space/Space";
@@ -25,7 +35,8 @@ interface PendingConnection {
 	fromPortId: string;
 }
 
-const uid = (prefix = "edge") => `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+const uid = (prefix = "edge") =>
+	`${prefix}_${Math.random().toString(36).slice(2, 10)}`;
 const clamp = (value: number, min: number, max: number): number =>
 	Math.max(min, Math.min(max, value));
 
@@ -44,8 +55,11 @@ const getPath = (x1: number, y1: number, x2: number, y2: number): string => {
 
 type PortDirection = "in" | "out";
 
-const portRefKey = (direction: PortDirection, nodeId: string, portId: string): string =>
-	`${direction}:${nodeId}:${portId}`;
+const portRefKey = (
+	direction: PortDirection,
+	nodeId: string,
+	portId: string,
+): string => `${direction}:${nodeId}:${portId}`;
 
 const GraphNodes: React.FC<GraphNodesProps> = ({
 	nodes,
@@ -65,13 +79,14 @@ const GraphNodes: React.FC<GraphNodesProps> = ({
 	const portRefs = useRef(new Map<string, HTMLButtonElement>());
 	const [dragState, setDragState] = useState<DragState | null>(null);
 	const [panState, setPanState] = useState<PanState | null>(null);
-	const [pendingConnection, setPendingConnection] = useState<PendingConnection | null>(
-		null,
-	);
+	const [pendingConnection, setPendingConnection] =
+		useState<PendingConnection | null>(null);
 	const [portVersion, setPortVersion] = useState(0);
 	const [zoom, setZoom] = useState(1);
 	const [pan, setPan] = useState({ x: 0, y: 0 });
-	const [edgePaths, setEdgePaths] = useState<Array<{ id: string; path: string }>>([]);
+	const [edgePaths, setEdgePaths] = useState<
+		Array<{ id: string; path: string }>
+	>([]);
 
 	useEffect(() => {
 		setPortVersion((value) => value + 1);
@@ -103,12 +118,20 @@ const GraphNodes: React.FC<GraphNodesProps> = ({
 	);
 
 	const getPortAnchor = useCallback(
-		(direction: PortDirection, nodeId: string, portId: string): { x: number; y: number } | null => {
+		(
+			direction: PortDirection,
+			nodeId: string,
+			portId: string,
+		): { x: number; y: number } | null => {
 			const rootElement = rootRef.current;
 			if (!rootElement) return null;
-			const portElement = portRefs.current.get(portRefKey(direction, nodeId, portId));
+			const portElement = portRefs.current.get(
+				portRefKey(direction, nodeId, portId),
+			);
 			if (!portElement) return null;
-			const anchor = portElement.querySelector<HTMLElement>(".oak-graph-nodes__dot");
+			const anchor = portElement.querySelector<HTMLElement>(
+				".oak-graph-nodes__dot",
+			);
 			if (!anchor) return null;
 
 			const rootRect = rootElement.getBoundingClientRect();
@@ -188,7 +211,11 @@ const GraphNodes: React.FC<GraphNodesProps> = ({
 		});
 	};
 
-	const zoomAtLocalPoint = (localX: number, localY: number, nextZoom: number) => {
+	const zoomAtLocalPoint = (
+		localX: number,
+		localY: number,
+		nextZoom: number,
+	) => {
 		const worldXBefore = (localX - pan.x) / zoom;
 		const worldYBefore = (localY - pan.y) / zoom;
 		setZoom(nextZoom);
@@ -207,7 +234,11 @@ const GraphNodes: React.FC<GraphNodesProps> = ({
 
 		if (event.ctrlKey || event.metaKey) {
 			event.preventDefault();
-			const nextZoom = clamp(zoom + (event.deltaY > 0 ? -0.08 : 0.08), 0.4, 1.8);
+			const nextZoom = clamp(
+				zoom + (event.deltaY > 0 ? -0.08 : 0.08),
+				0.4,
+				1.8,
+			);
 			zoomAtLocalPoint(localX, localY, nextZoom);
 			return;
 		}
@@ -236,7 +267,9 @@ const GraphNodes: React.FC<GraphNodesProps> = ({
 			{...rest}
 			ref={rootRef}
 			data-testid="GraphNodes"
-			className={["oakd", "oak-graph-nodes", className].filter(Boolean).join(" ")}
+			className={["oakd", "oak-graph-nodes", className]
+				.filter(Boolean)
+				.join(" ")}
 			style={{
 				...style,
 				backgroundSize: `${gridSize * zoom}px ${gridSize * zoom}px`,
@@ -277,75 +310,86 @@ const GraphNodes: React.FC<GraphNodesProps> = ({
 					))}
 				</svg>
 				{nodes.map((node) => {
-				const definition = nodeTypes[node.type];
-				if (!definition) return null;
-				const width = definition.width || 260;
-				const selected = selectedNodeId === node.id;
+					const definition = nodeTypes[node.type];
+					if (!definition) return null;
+					const width = definition.width || 260;
+					const selected = selectedNodeId === node.id;
 					return (
 						<Card
 							key={node.id}
-						className={[
-							"oak-graph-nodes__node",
-							selected ? "is-selected" : "",
-						].join(" ")}
-							style={{
-								width,
-								transform: `translate(${node.x}px, ${node.y}px)`,
-								borderColor: definition.color || "var(--oakd-card-default-border)",
-								"--oak-graph-node-accent":
-									definition.color || "var(--oakd-card-default-border)",
-							} as React.CSSProperties}
+							className={[
+								"oak-graph-nodes__node",
+								selected ? "is-selected" : "",
+							].join(" ")}
+							style={
+								{
+									width,
+									transform: `translate(${node.x}px, ${node.y}px)`,
+									borderColor:
+										definition.color || "var(--oakd-card-default-border)",
+									"--oak-graph-node-accent":
+										definition.color || "var(--oakd-card-default-border)",
+								} as React.CSSProperties
+							}
 							variant="default"
-								onMouseDown={(event) => {
-								if ((event.target as HTMLElement).closest(".oak-graph-nodes__port")) return;
+							onMouseDown={(event) => {
+								if (
+									(event.target as HTMLElement).closest(
+										".oak-graph-nodes__port",
+									)
+								)
+									return;
 								event.stopPropagation();
 								onSelectedNodeIdChange?.(node.id);
 								setDragState({
-								nodeId: node.id,
-								pointerStartX: event.clientX,
-								pointerStartY: event.clientY,
-								nodeStartX: node.x,
-								nodeStartY: node.y,
-							});
-						}}
-						data-testid={`GraphNode-${node.id}`}
-					>
-						<Space justify="between" wide className="oak-graph-nodes__header">
-							<Paragraph>
-								<strong>{node.title || definition.title}</strong>
-							</Paragraph>
-						</Space>
-						<Space className="oak-graph-nodes__ports" justify="between" wide>
-							<Space direction="vertical" gap>
+									nodeId: node.id,
+									pointerStartX: event.clientX,
+									pointerStartY: event.clientY,
+									nodeStartX: node.x,
+									nodeStartY: node.y,
+								});
+							}}
+							data-testid={`GraphNode-${node.id}`}
+						>
+							<Space justify="between" wide className="oak-graph-nodes__header">
+								<Paragraph>
+									<strong>{node.title || definition.title}</strong>
+								</Paragraph>
+							</Space>
+							<Space className="oak-graph-nodes__ports" justify="between" wide>
+								<Space direction="vertical" gap>
 									{definition.inputs.map((port) => (
 										<button
-										key={port.id}
-										type="button"
+											key={port.id}
+											type="button"
 											className="oakd oak-graph-nodes__port is-in"
 											ref={setPortRef("in", node.id, port.id)}
 											data-testid={`GraphPort-in-${node.id}-${port.id}`}
-										onClick={() => {
-											if (!pendingConnection) return;
-											if (pendingConnection.fromNodeId === node.id) return;
-											connect({
-												fromNodeId: pendingConnection.fromNodeId,
-												fromPortId: pendingConnection.fromPortId,
-												toNodeId: node.id,
-												toPortId: port.id,
-											});
-											setPendingConnection(null);
-										}}
-									>
-										<span className="oak-graph-nodes__dot" aria-hidden="true" />
-										<Paragraph>{port.label}</Paragraph>
-									</button>
-								))}
-							</Space>
-							<Space direction="vertical" gap>
+											onClick={() => {
+												if (!pendingConnection) return;
+												if (pendingConnection.fromNodeId === node.id) return;
+												connect({
+													fromNodeId: pendingConnection.fromNodeId,
+													fromPortId: pendingConnection.fromPortId,
+													toNodeId: node.id,
+													toPortId: port.id,
+												});
+												setPendingConnection(null);
+											}}
+										>
+											<span
+												className="oak-graph-nodes__dot"
+												aria-hidden="true"
+											/>
+											<Paragraph>{port.label}</Paragraph>
+										</button>
+									))}
+								</Space>
+								<Space direction="vertical" gap>
 									{definition.outputs.map((port) => (
 										<button
-										key={port.id}
-										type="button"
+											key={port.id}
+											type="button"
 											className={[
 												"oakd",
 												"oak-graph-nodes__port",
@@ -356,30 +400,33 @@ const GraphNodes: React.FC<GraphNodesProps> = ({
 													: "",
 											].join(" ")}
 											ref={setPortRef("out", node.id, port.id)}
-										data-testid={`GraphPort-out-${node.id}-${port.id}`}
-										onClick={() => {
-											setPendingConnection({
-												fromNodeId: node.id,
-												fromPortId: port.id,
-											});
-											onSelectedNodeIdChange?.(node.id);
-										}}
-									>
-										<Paragraph>{port.label}</Paragraph>
-										<span className="oak-graph-nodes__dot" aria-hidden="true" />
-									</button>
-								))}
+											data-testid={`GraphPort-out-${node.id}-${port.id}`}
+											onClick={() => {
+												setPendingConnection({
+													fromNodeId: node.id,
+													fromPortId: port.id,
+												});
+												onSelectedNodeIdChange?.(node.id);
+											}}
+										>
+											<Paragraph>{port.label}</Paragraph>
+											<span
+												className="oak-graph-nodes__dot"
+												aria-hidden="true"
+											/>
+										</button>
+									))}
+								</Space>
 							</Space>
-						</Space>
 							{definition.renderBody ? (
-							<div className="oak-graph-nodes__body">
-								{definition.renderBody({
-									node,
-									data: node.data,
-									selected,
-								})}
-							</div>
-						) : null}
+								<div className="oak-graph-nodes__body">
+									{definition.renderBody({
+										node,
+										data: node.data,
+										selected,
+									})}
+								</div>
+							) : null}
 						</Card>
 					);
 				})}
