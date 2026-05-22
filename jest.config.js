@@ -5,7 +5,14 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "mdx"],
   testPathIgnorePatterns: ["node_modules/"],
   transform: {
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        tsconfig: {
+          types: ["jest", "@testing-library/jest-dom", "node"]
+        }
+      }
+    ]
   },
   testMatch: ["**/*.test.(ts|tsx)"],
   moduleNameMapper: {

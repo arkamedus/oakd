@@ -1,6 +1,6 @@
 {
   "name": "oakd",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "build/index.js",
   "module": "build/index.esm.js",
   "exports": {
@@ -52,8 +52,8 @@
   "license": "MIT",
   "homepage": "https://oakframe.org",
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -75,8 +75,8 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.23.0",
     "@typescript-eslint/parser": "^8.23.0",
     "autoprefixer": "^10.4.20",
@@ -94,15 +94,15 @@
     "msw": "^2.14.5",
     "msw-storybook-addon": "^2.0.4",
     "prettier": "^3.5.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "storybook": "^8.6.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rollup": "^2.56.3",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-dynamic-import-variables": "^1.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.29.0",
+    "storybook": "^8.6.18",
     "ts-jest": "^29.4.5",
     "typescript": "^5.8.3"
   }

@@ -20,6 +20,7 @@ const Card: React.FC<CardProps> = ({
 	pad,
 	onClick,
 	variant = "default",
+	"data-testid": dataTestId,
 	...rest
 }) => {
 	const classNames = ["oakd", "card", `type-${variant}`];
@@ -41,7 +42,7 @@ const Card: React.FC<CardProps> = ({
 	return (
 		<div
 			{...rest}
-			data-testid="Card"
+			data-testid={dataTestId || "Card"}
 			className={classNames.join(" ")}
 			style={style}
 			role="region"

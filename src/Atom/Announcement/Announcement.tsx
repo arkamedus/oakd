@@ -52,13 +52,14 @@ const Announcement: React.FC<AnnouncementProps> = ({
 					)}
 				</Content>
 				{closable ? (
-					<Content
+					<Button
 						className="announcement__close"
 						aria-label="Close announcement"
 						onClick={() => onClose?.()}
+						variant="ghost"
 					>
 						<IconX size={"small"} />
-					</Content>
+					</Button>
 				) : null}
 			</Space>
 		</Content>
