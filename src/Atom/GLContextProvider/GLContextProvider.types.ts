@@ -1,6 +1,8 @@
 import { CoreContentProps } from "../../Core/Core.types";
 import { OakMMeshData } from "../../Utils/OakM";
 
+export type GLRenderMesh = OakMMeshData | readonly OakMMeshData[];
+
 export interface GLRenderRotation {
 	x: number;
 	y: number;
@@ -28,13 +30,20 @@ export interface GLRenderConfig {
 	meshQuality?: 0 | 1;
 	clearColor?: [number, number, number, number];
 	lightDirection?: [number, number, number];
+	lightPosition?: [number, number, number];
+	lightTarget?: [number, number, number];
+	lightIntensity?: number;
 	shadowsEnabled?: boolean;
 	shadowMode?: "hard" | "soft";
 	shadowBias?: number;
 	shadowNormalBias?: number;
 	shadowSoftness?: number;
+	shadowNoiseEnabled?: boolean;
 	shadowSamples?: number;
 	shadowOrthoSize?: number;
+	shadowOrthoHalfWidth?: number;
+	shadowOrthoHalfHeight?: number;
+	shadowCircularFadeEnabled?: boolean;
 	shadowNear?: number;
 	shadowFar?: number;
 	cameraNear?: number;
@@ -51,6 +60,7 @@ export interface GLRenderConfig {
 		| "normals"
 		| "shadow";
 	ssaoEnabled?: boolean;
+	postProcessScale?: number;
 	ssaoRadius?: number;
 	ssaoIntensity?: number;
 	ssaoBias?: number;
@@ -69,7 +79,7 @@ export interface GLRenderConfig {
 
 export interface GLRenderRequest {
 	targetCanvas: HTMLCanvasElement;
-	mesh: OakMMeshData;
+	mesh: GLRenderMesh;
 	width: number;
 	height: number;
 	rotation?: GLRenderRotation | GLRenderQuaternion;
@@ -77,6 +87,8 @@ export interface GLRenderRequest {
 	cameraOrbit?: number;
 	camera?: GLRenderCamera;
 	rendering?: GLRenderConfig;
+	immediate?: boolean;
+	direct?: boolean;
 }
 
 export interface GLContextValue {

@@ -70,6 +70,7 @@ const createMockWebGLContext = (): WebGLRenderingContext => {
 		FLOAT: 0x1406,
 		TRIANGLES: 0x0004,
 		UNSIGNED_SHORT: 0x1403,
+		UNSIGNED_INT: 0x1405,
 		COLOR_BUFFER_BIT: 0x4000,
 		DEPTH_BUFFER_BIT: 0x0100,
 		TEXTURE0: 0x84c0,
@@ -93,6 +94,7 @@ const createMockWebGLContext = (): WebGLRenderingContext => {
 		getProgramParameter: jest.fn(() => true),
 		getProgramInfoLog: jest.fn(() => ""),
 		deleteProgram: jest.fn(),
+		getExtension: jest.fn(() => ({})),
 		getAttribLocation: jest.fn(() => 1),
 		getUniformLocation: jest.fn(() => nextHandle()),
 		createFramebuffer: jest.fn(() => nextHandle()),
@@ -368,6 +370,44 @@ describe("GLContextProvider", () => {
 			(call) => call[2] === nearest,
 		);
 		expect(nearestCalls.length).toBeGreaterThan(0);
+		mounted.unmount();
+	});
+
+	it("draws Uint32 meshes with unsigned int element indices", () => {
+		const mounted = mountProvider();
+		const context = capturedContext as GLContextValue;
+		const canvas = document.createElement("canvas");
+		const uint32Mesh = {
+			positions: new Float32Array([
+				0, 0, 0,
+				1, 0, 0,
+				0, 1, 0,
+			]),
+			normals: new Float32Array([
+				0, 0, 1,
+				0, 0, 1,
+				0, 0, 1,
+			]),
+			colors: new Float32Array([
+				1, 1, 1, 1,
+				1, 1, 1, 1,
+				1, 1, 1, 1,
+			]),
+			materials: new Float32Array([0, 0, 0]),
+			indices: new Uint32Array([0, 1, 2]),
+		};
+
+		context.render(requestFor(canvas, { mesh: uint32Mesh }));
+		flushNextFrame(20);
+
+		expect(mockWebGL.getExtension).toHaveBeenCalledWith("OES_element_index_uint");
+		const unsignedInt = (mockWebGL as unknown as { UNSIGNED_INT: number }).UNSIGNED_INT;
+		expect(mockWebGL.drawElements).toHaveBeenCalledWith(
+			mockWebGL.TRIANGLES,
+			uint32Mesh.indices.length,
+			unsignedInt,
+			0,
+		);
 		mounted.unmount();
 	});
 

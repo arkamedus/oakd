@@ -66,15 +66,14 @@ describe("Select Component", () => {
   it("should position dropdown correctly in fixed mode", () => {
     // Render in fixed mode (default fixed: true)
     renderComponent({ fixed: true });
-    const container = screen.getByTestId("Select");
     const button = screen.getByRole("button");
     fireEvent.click(button);
     const dropdown = screen.getByRole("listbox");
 
-    // In fixed mode, the inline style is computed from the container's bounding rect
-    const { bottom, left } = container.getBoundingClientRect();
-    expect(dropdown).toHaveStyle(`top: ${bottom}px`);
-    expect(dropdown).toHaveStyle(`left: ${left}px`);
+    expect(dropdown).toHaveClass("oakd-select__dropdown--fixed");
+    expect(dropdown.parentElement).toBe(document.body);
+    expect(dropdown.style.getPropertyValue("--oakd-dropdown-fixed-top")).toBe("8px");
+    expect(dropdown.style.getPropertyValue("--oakd-dropdown-fixed-left")).toBe("0px");
   });
 
   it("should position dropdown correctly in absolute mode", () => {

@@ -1,10 +1,11 @@
 import React, {
+	KeyboardEvent,
+	useCallback,
 	useEffect,
 	useRef,
 	useState,
-	useCallback,
-	KeyboardEvent,
 } from "react";
+import { createPortal } from "react-dom";
 import { SelectOption, SelectProps } from "./Select.types";
 import "./Select.css";
 import Button from "../Button/Button";
@@ -13,6 +14,7 @@ import { IconAngle } from "../../Icon/Icons.bin";
 import Divider from "../Divider/Divider";
 import Paragraph from "../Paragraph/Paragraph";
 import { sizeMinusOne } from "../../Core/Core.utils";
+import { getAdaptiveDropdownPlacement } from "../Dropdown/dropdownPlacement";
 
 const Select: React.FC<SelectProps<any>> = ({
 	options,
@@ -24,24 +26,47 @@ const Select: React.FC<SelectProps<any>> = ({
 	size = "default",
 	categoryOrder,
 	fixed = false,
+	grow = false,
 	direction = "bottom-left",
 	disabled = false,
 	className = "",
+	onFocusCapture,
+	onKeyDownCapture,
+	onPointerDownCapture,
+	placementThreshold = 0.6,
 	style,
+	wide = false,
 	...rest
 }) => {
 	const [isActive, setIsActive] = useState(false);
+	const [adaptiveDirection, setAdaptiveDirection] = useState(direction);
+	const [placementStyle, setPlacementStyle] = useState<React.CSSProperties>({});
 	const isControlled = value !== undefined;
 	const [selectedValueState, setSelectedValueState] = useState<any | undefined>(
 		defaultValue,
 	);
 	const selectedValue = isControlled ? value : selectedValueState;
 	const dropdownRef = useRef<HTMLDivElement>(null);
+	const menuRef = useRef<HTMLDivElement>(null);
+
+	const syncPlacement = useCallback(() => {
+		if (!dropdownRef.current) {
+			return;
+		}
+		const placement = getAdaptiveDropdownPlacement(
+			dropdownRef.current,
+			direction,
+			placementThreshold,
+		);
+		setAdaptiveDirection(placement.direction);
+		setPlacementStyle(placement.style);
+	}, [direction, placementThreshold]);
 
 	const toggleMenu = useCallback(() => {
 		if (disabled) return;
+		syncPlacement();
 		setIsActive((current) => !current);
-	}, [disabled]);
+	}, [disabled, syncPlacement]);
 
 	const selectOption = useCallback(
 		(value: any) => {
@@ -60,6 +85,9 @@ const Select: React.FC<SelectProps<any>> = ({
 				event.preventDefault();
 				toggleMenu();
 			}
+			if (event.key === "Escape") {
+				setIsActive(false);
+			}
 		},
 		[toggleMenu],
 	);
@@ -70,17 +98,22 @@ const Select: React.FC<SelectProps<any>> = ({
 				event.preventDefault();
 				selectOption(value);
 			}
+			if (event.key === "Escape") {
+				setIsActive(false);
+			}
 		},
 		[selectOption],
 	);
 
 	const closeMenu = useCallback((event: MouseEvent) => {
+		const target = event.target as Node | null;
 		if (
-			dropdownRef.current &&
-			!dropdownRef.current.contains(event.target as Node)
+			target &&
+			(dropdownRef.current?.contains(target) || menuRef.current?.contains(target))
 		) {
-			setIsActive(false);
+			return;
 		}
+		setIsActive(false);
 	}, []);
 
 	useEffect(() => {
@@ -137,29 +170,86 @@ const Select: React.FC<SelectProps<any>> = ({
 		<span>Select an option</span>
 	);
 
-	// When fixed mode is active, compute the dropdown's top/left positions.
-	const fixedStyle =
-		fixed && dropdownRef.current
-			? {
-					top: dropdownRef.current.getBoundingClientRect().bottom,
-					left: dropdownRef.current.getBoundingClientRect().left,
-				}
-			: undefined;
+	const dropdownClassName = [
+		"oakd-select__dropdown",
+		`oakd-select__dropdown--${adaptiveDirection}`,
+		isActive ? "active" : "",
+		fixed ? "oakd-select__dropdown--fixed" : "oakd-select__dropdown--absolute",
+		wide ? "wide" : "",
+		grow ? "grow" : "",
+	].filter(Boolean).join(" ");
 
-	// Build className based on mode and active state.
-	const dropdownClassName = `oakd-select__dropdown oakd-select__dropdown--${direction} ${
-		isActive ? "active" : ""
-	} ${fixed ? "oakd-select__dropdown--fixed" : "oakd-select__dropdown--absolute"}`;
+	const renderOption = (option: SelectOption<any>) => (
+		<button
+			key={String(option.value)}
+			type="button"
+			className="oakd-select__item"
+			role="option"
+			aria-selected={option.value === selectedValue}
+			onClick={() => selectOption(option.value)}
+			onKeyDown={(event) => handleOptionKeyDown(event, option.value)}
+		>
+			{option.element}
+		</button>
+	);
+
+	const menu = (
+		<div
+			ref={menuRef}
+			className={dropdownClassName}
+			role="listbox"
+			aria-hidden={!isActive}
+			style={fixed ? { ...style, ...placementStyle } : undefined}
+		>
+			<Space direction="vertical" gap wide justify="stretch">
+				{shouldShowCategories
+					? sortedCategories.map((category) => (
+							<div key={category}>
+								<Space direction="vertical" gap>
+									<Space gap className="no-select" wide>
+										<Paragraph>
+											<strong className="muted-heavy">{category}</strong>
+										</Paragraph>
+										<Divider />
+									</Space>
+									{categorizedOptions[category].map(renderOption)}
+								</Space>
+							</div>
+						))
+					: uncategorizedOptions.map(renderOption)}
+			</Space>
+		</div>
+	);
 
 	return (
 		<div
 			{...rest}
 			ref={dropdownRef}
-			className={["oakd-select", className].filter(Boolean).join(" ")}
+			className={[
+				"oakd-select",
+				wide ? "wide" : "",
+				grow ? "grow" : "",
+				className,
+			].filter(Boolean).join(" ")}
 			style={style}
 			data-testid="Select"
+			onFocusCapture={(event) => {
+				syncPlacement();
+				onFocusCapture?.(event);
+			}}
+			onKeyDownCapture={(event) => {
+				if (event.key === "Enter" || event.key === " ") {
+					syncPlacement();
+				}
+				onKeyDownCapture?.(event);
+			}}
+			onPointerDownCapture={(event) => {
+				syncPlacement();
+				onPointerDownCapture?.(event);
+			}}
 		>
 			<Button
+				htmlType="button"
 				onClick={toggleMenu}
 				className="oakd-select__button"
 				variant={variant}
@@ -174,54 +264,9 @@ const Select: React.FC<SelectProps<any>> = ({
 					<IconAngle size={sizeMinusOne(size)} />
 				</Space>
 			</Button>
-			<div
-				className={dropdownClassName}
-				role="listbox"
-				aria-hidden={!isActive}
-				style={fixed ? fixedStyle : undefined}
-			>
-				<Space direction="vertical" gap wide justify="stretch">
-					{shouldShowCategories
-						? sortedCategories.map((category) => (
-								<div key={category}>
-									<Space direction="vertical" gap>
-										<Space gap className="no-select" wide>
-											<Paragraph>
-												<strong className="muted-heavy">{category}</strong>
-											</Paragraph>
-											<Divider />
-										</Space>
-										{categorizedOptions[category].map((option) => (
-											<button
-												key={String(option.value)}
-												type="button"
-												className="oakd-select__item"
-												role="option"
-												aria-selected={option.value === selectedValue}
-												onClick={() => selectOption(option.value)}
-												onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
-											>
-												{option.element}
-											</button>
-										))}
-									</Space>
-								</div>
-							))
-						: uncategorizedOptions.map((option) => (
-								<button
-									key={String(option.value)}
-									type="button"
-									className="oakd-select__item"
-									role="option"
-									aria-selected={option.value === selectedValue}
-									onClick={() => selectOption(option.value)}
-									onKeyDown={(e) => handleOptionKeyDown(e, option.value)}
-								>
-									{option.element}
-								</button>
-							))}
-				</Space>
-			</div>
+			{isActive && fixed && typeof document !== "undefined"
+				? createPortal(menu, document.body)
+				: menu}
 		</div>
 	);
 };

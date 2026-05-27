@@ -18,8 +18,10 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 	rotationSpeed = 0.6,
 	cameraDistance = 3,
 	cameraOrbitSpeed = 0,
+	continuous = false,
 	camera,
 	rendering,
+	onBeforeRender,
 	className,
 	style,
 	wide,
@@ -64,8 +66,15 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 	useEffect(() => {
 		updateSize();
 		window.addEventListener("resize", updateSize);
+		const parent = canvasRef.current?.parentElement;
+		const resizeObserver =
+			typeof ResizeObserver !== "undefined" && parent
+				? new ResizeObserver(updateSize)
+				: undefined;
+		resizeObserver?.observe(parent as Element);
 		return () => {
 			window.removeEventListener("resize", updateSize);
+			resizeObserver?.disconnect();
 		};
 	}, [updateSize]);
 
@@ -80,11 +89,16 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 			if (!canvas) return;
 
 			const maxFPS = rendering?.maxFPS ?? 60;
-			const minFrameDelta = 1 / Math.max(1, maxFPS);
-			if (timeSeconds - lastFrameTimeRef.current < minFrameDelta) {
-				return;
+			if (maxFPS > 0) {
+				const minFrameDelta = 1 / Math.max(1, maxFPS);
+				const elapsed = timeSeconds - lastFrameTimeRef.current;
+				const frameTolerance = Math.min(0.002, minFrameDelta * 0.25);
+				if (elapsed + frameTolerance < minFrameDelta) {
+					return;
+				}
 			}
 			lastFrameTimeRef.current = timeSeconds;
+			onBeforeRender?.(timeSeconds);
 
 			let rotation = Quat4.identity();
 			if (autoRotate) {
@@ -119,6 +133,8 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 				camera,
 				rotation,
 				rendering,
+				immediate: true,
+				direct: true,
 			});
 		},
 		[
@@ -127,6 +143,7 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 			cameraDistance,
 			cameraOrbitSpeed,
 			mesh,
+			onBeforeRender,
 			render,
 			rendering,
 			rotationSpeed,
@@ -143,7 +160,7 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 	}, []);
 
 	useEffect(() => {
-		const shouldAnimate = autoRotate || cameraOrbitSpeed !== 0;
+		const shouldAnimate = continuous || autoRotate || cameraOrbitSpeed !== 0;
 		lastFrameTimeRef.current = 0;
 		rotationTickRef.current = null;
 
@@ -163,7 +180,7 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 				animationFrameRef.current = null;
 			}
 		};
-	}, [autoRotate, drawFrame, cameraOrbitSpeed]);
+	}, [autoRotate, continuous, drawFrame, cameraOrbitSpeed]);
 
 	useEffect(
 		() => () => {

@@ -1,6 +1,16 @@
 .oakd-dropdown-container {
     position: relative;
     display: inline-block;
+    max-width: 100%;
+}
+
+.oakd-dropdown-container.wide,
+.oakd-dropdown-container.grow {
+    width: 100%;
+}
+
+.oakd-dropdown-container.grow {
+    flex: 1 1 auto;
 }
 
 .oakd-dropdown-trigger {
@@ -8,6 +18,11 @@
     border: none;
     padding: 0;
     cursor: pointer;
+}
+
+.oakd-dropdown-container.wide > .oakd-dropdown-trigger,
+.oakd-dropdown-container.grow > .oakd-dropdown-trigger {
+    width: 100%;
 }
 
 .oakd-dropdown-content {
@@ -21,6 +36,10 @@
     border-radius: var(--border-radius, 4px);
     display: none;
     margin-top: var(--leading, 8px);
+    max-width: calc(100vw - (var(--leading, 8px) * 2));
+    max-height: calc(100vh - (var(--leading, 8px) * 2));
+    overflow: auto;
+    overscroll-behavior: contain;
 }
 
 /* Direction positioning */
@@ -46,6 +65,44 @@
 
 .oakd-dropdown-content.fixed {
     position: fixed;
+    margin-top: 0;
+}
+
+.oakd-dropdown-content.fixed.bottom-left {
+    top: var(--oakd-dropdown-fixed-top, auto);
+    right: auto;
+    bottom: auto;
+    left: var(--oakd-dropdown-fixed-left, auto);
+    max-height: calc(100vh - var(--oakd-dropdown-fixed-top, 0px) - var(--leading, 8px));
+}
+
+.oakd-dropdown-content.fixed.bottom-right {
+    top: var(--oakd-dropdown-fixed-top, auto);
+    right: var(--oakd-dropdown-fixed-right, auto);
+    bottom: auto;
+    left: auto;
+    max-height: calc(100vh - var(--oakd-dropdown-fixed-top, 0px) - var(--leading, 8px));
+}
+
+.oakd-dropdown-content.fixed.top-left {
+    top: auto;
+    right: auto;
+    bottom: var(--oakd-dropdown-fixed-bottom, auto);
+    left: var(--oakd-dropdown-fixed-left, auto);
+    max-height: calc(100vh - var(--oakd-dropdown-fixed-bottom, 0px) - var(--leading, 8px));
+}
+
+.oakd-dropdown-content.fixed.top-right {
+    top: auto;
+    right: var(--oakd-dropdown-fixed-right, auto);
+    bottom: var(--oakd-dropdown-fixed-bottom, auto);
+    left: auto;
+    max-height: calc(100vh - var(--oakd-dropdown-fixed-bottom, 0px) - var(--leading, 8px));
+}
+
+.oakd-dropdown-content.fixed.wide,
+.oakd-dropdown-content.fixed.grow {
+    width: var(--oakd-dropdown-fixed-width, max-content);
 }
 
 .oakd-dropdown-content.active {

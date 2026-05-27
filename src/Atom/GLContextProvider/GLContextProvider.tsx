@@ -12,6 +12,7 @@ import {
 	GLRenderQuaternion,
 	GLRenderRequest,
 } from "./GLContextProvider.types";
+import type { OakMMeshData } from "../../Utils/OakM";
 import { Quat4 } from "../../Utils/Quat4";
 import "./GLContextProvider.css";
 
@@ -25,7 +26,7 @@ const DEFAULT_SHADOW_ORTHO_SIZE = 8;
 const DEFAULT_SHADOW_NEAR = 1;
 const DEFAULT_SHADOW_FAR = 120;
 const DEFAULT_CAMERA_NEAR = 0.1;
-const DEFAULT_CAMERA_FAR = 100;
+const DEFAULT_CAMERA_FAR = 250;
 
 const SHADOW_VERTEX_SHADER = `
 attribute vec3 aPosition;
@@ -41,12 +42,20 @@ void main(void) {
 const SHADOW_FRAGMENT_SHADER = `
 precision highp float;
 
+const float PackUpscale = 256.0 / 255.0;
+const float ShiftRight8 = 1.0 / 256.0;
+const vec3 PackFactors = vec3(256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0);
+
 vec4 encodeFloat(float depth) {
-	const vec4 bitShift = vec4(256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0);
-	const vec4 bitMask = vec4(0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0);
-	vec4 comp = fract(depth * bitShift);
-	comp -= comp.xxyz * bitMask;
-	return comp;
+	if (depth <= 0.0) {
+		return vec4(0.0);
+	}
+	if (depth >= 1.0) {
+		return vec4(1.0);
+	}
+	vec4 packedDepth = vec4(fract(depth * PackFactors), depth);
+	packedDepth.yzw -= packedDepth.xyz * ShiftRight8;
+	return packedDepth * PackUpscale;
 }
 
 void main(void) {
@@ -95,6 +104,7 @@ varying vec3 vViewDirection;
 
 uniform sampler2D uShadowMap;
 uniform vec3 uLightDirection;
+uniform float uLightIntensity;
 uniform vec4 uMaterialPalette[32];
 uniform vec4 uMaterialProperties[32];
 uniform float uShadowTexelSize;
@@ -103,8 +113,10 @@ uniform int uShadowMode;
 uniform float uShadowBias;
 uniform float uShadowNormalBias;
 uniform float uShadowSoftness;
+uniform float uShadowNoiseEnabled;
 uniform float uShadowOrthoSize;
 uniform int uShadowSamples;
+uniform float uShadowCircularFadeEnabled;
 uniform vec3 uAmbientColor;
 uniform float uAmbientIntensity;
 uniform vec3 uRimColor;
@@ -142,14 +154,13 @@ vec4 pickMaterialProperties(float index) {
 	return properties;
 }
 
+const float UnpackDownscale = 255.0 / 256.0;
+const vec3 PackFactors = vec3(256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0);
+const vec4 UnpackFactors4 = UnpackDownscale / vec4(PackFactors, 1.0);
+const float SHADOW_BORDER_EPS = 0.0015;
+
 float decodeFloat(vec4 color) {
-	const vec4 bitShift = vec4(
-		1.0 / (256.0 * 256.0 * 256.0),
-		1.0 / (256.0 * 256.0),
-		1.0 / 256.0,
-		1.0
-	);
-	return dot(color, bitShift);
+	return dot(color, UnpackFactors4);
 }
 
 float hash12(vec2 p) {
@@ -158,25 +169,52 @@ float hash12(vec2 p) {
 	return fract((p3.x + p3.y) * p3.z);
 }
 
+float shadowMapCircularFade(vec2 shadowUv) {
+	vec2 centered = (shadowUv - vec2(0.5, 0.5)) / vec2(0.5, 0.5);
+	return smoothstep(0.78, 1.0, length(centered));
+}
+
+float applyShadowMapCircularFade(vec2 shadowUv, float visibilityValue) {
+	if (uShadowCircularFadeEnabled < 0.5) {
+		return visibilityValue;
+	}
+	return mix(visibilityValue, 0.0, shadowMapCircularFade(shadowUv));
+}
+
+bool shadowCoordOutside(vec3 shadowCoord) {
+	return (
+		shadowCoord.x <= SHADOW_BORDER_EPS ||
+		shadowCoord.x >= (1.0 - SHADOW_BORDER_EPS) ||
+		shadowCoord.y <= SHADOW_BORDER_EPS ||
+		shadowCoord.y >= (1.0 - SHADOW_BORDER_EPS) ||
+		shadowCoord.z <= 0.0 ||
+		shadowCoord.z >= 1.0
+	);
+}
+
+float resolveShadowBias(vec3 normal, vec3 lightDir, float texelSize) {
+	float ndotl = max(dot(normalize(normal), normalize(lightDir)), 0.0);
+	float slope = 1.0 - ndotl;
+	float sourceBias = max(0.00008, (0.45 + slope) * texelSize * 1.6);
+	return sourceBias + uShadowBias + uShadowNormalBias * slope;
+}
+
 float shadowFactor(vec3 normal, vec3 lightDir) {
 	if (uShadowsEnabled < 0.5) {
 		return 1.0;
 	}
 	vec3 projected = (vShadowCoord.xyz / vShadowCoord.w) * 0.5 + 0.5;
-	if (
-		projected.x < 0.0 || projected.x > 1.0 ||
-		projected.y < 0.0 || projected.y > 1.0 ||
-		projected.z < 0.0 || projected.z > 1.0
-	) {
-		return 1.0;
+	if (shadowCoordOutside(projected)) {
+		return uShadowCircularFadeEnabled > 0.5 ? 0.0 : 1.0;
 	}
 
-	float ndotl = max(dot(normal, lightDir), 0.0);
-	float bias = uShadowBias + uShadowNormalBias * (1.0 - ndotl);
 	float texel = uShadowTexelSize;
+	float bias = resolveShadowBias(normal, lightDir, texel);
+	float biasedShadowDepth = clamp(projected.z - bias, 0.0, 1.0);
 	if (uShadowMode == 0 || uShadowSamples <= 1) {
 		float depth = decodeFloat(texture2D(uShadowMap, projected.xy));
-		return projected.z - bias <= depth ? 1.0 : 0.0;
+		float hardShadow = biasedShadowDepth <= (depth + (texel * 0.32)) ? 1.0 : 0.0;
+		return applyShadowMapCircularFade(projected.xy, hardShadow);
 	}
 
 	float lit = 0.0;
@@ -220,11 +258,15 @@ float shadowFactor(vec3 normal, vec3 lightDir) {
 	poissonDisk[23] = vec2(0.354411, -0.887570);
 	poissonDisk[24] = vec2(0.175817, 0.382366);
 
-	float angle = hash12(projected.xy * 8192.0 + projected.zy * 37.0) * 6.2831853;
-	float jitter = mix(0.85, 1.15, hash12(projected.yx * 4096.0 + projected.xz * 19.0));
-	float cs = cos(angle);
-	float sn = sin(angle);
-	mat2 rotation = mat2(cs, -sn, sn, cs);
+	float jitter = 1.0;
+	mat2 rotation = mat2(1.0, 0.0, 0.0, 1.0);
+	if (uShadowNoiseEnabled > 0.5) {
+		float angle = hash12(projected.xy * 8192.0 + projected.zy * 37.0) * 6.2831853;
+		jitter = mix(0.85, 1.15, hash12(projected.yx * 4096.0 + projected.xz * 19.0));
+		float cs = cos(angle);
+		float sn = sin(angle);
+		rotation = mat2(cs, -sn, sn, cs);
+	}
 
 	for (int i = 0; i < 25; i++) {
 		if (count >= sampleLimit) {
@@ -236,8 +278,10 @@ float shadowFactor(vec3 normal, vec3 lightDir) {
 		sampleShadowPos.xy += poissonOffset * texel * radius;
 
 		if (
-			sampleShadowPos.x < 0.0 || sampleShadowPos.x > 1.0 ||
-			sampleShadowPos.y < 0.0 || sampleShadowPos.y > 1.0
+			sampleShadowPos.x <= SHADOW_BORDER_EPS ||
+			sampleShadowPos.x >= (1.0 - SHADOW_BORDER_EPS) ||
+			sampleShadowPos.y <= SHADOW_BORDER_EPS ||
+			sampleShadowPos.y >= (1.0 - SHADOW_BORDER_EPS)
 		) {
 			lit += 1.0;
 			count += 1.0;
@@ -245,13 +289,13 @@ float shadowFactor(vec3 normal, vec3 lightDir) {
 		}
 
 		float depth = decodeFloat(texture2D(uShadowMap, sampleShadowPos.xy));
-		if (sampleShadowPos.z - bias <= depth) {
+		if (biasedShadowDepth <= (depth + (texel * 0.32))) {
 			lit += 1.0;
 		}
 		count += 1.0;
 	}
 
-	return lit / max(1.0, count);
+	return applyShadowMapCircularFade(projected.xy, lit / max(1.0, count));
 }
 
 void main(void) {
@@ -276,9 +320,9 @@ void main(void) {
 
 	float ambientTermFactor = (ambient * uAmbientIntensity);
 	vec3 ambientTerm = base.rgb * ambientTermFactor * uAmbientColor;
-	vec3 diffuseTerm = base.rgb * diffuse * materialDiffuse;
+	vec3 diffuseTerm = base.rgb * diffuse * materialDiffuse * uLightIntensity;
 	vec3 diffuseShadowed = diffuseTerm * shadow;
-	vec3 specularColored = vec3(specularTerm * materialSpecular * shadow * 0.35);
+	vec3 specularColored = vec3(specularTerm * materialSpecular * shadow * 0.35 * uLightIntensity);
 	vec3 rimTerm = uRimColor * (rim * materialReflection * uRimIntensity);
 	vec3 emissionTerm = base.rgb * (materialEmission * uEmissionStrength);
 	vec3 lit = ambientTerm + diffuseShadowed + specularColored + rimTerm + emissionTerm;
@@ -306,7 +350,7 @@ void main(void) {
 	} else if (uRenderLayer == 2) {
 		debugColor = clamp(vec3(specularTerm * materialSpecular), 0.0, 1.0);
 	} else if (uRenderLayer == 3) {
-		debugColor = clamp(vec3(ambient + diffuse * shadow), 0.0, 1.0);
+		debugColor = clamp(vec3(ambient + diffuse * shadow * uLightIntensity), 0.0, 1.0);
 	} else if (uRenderLayer == 9) {
 		debugColor = clamp(emissionTerm, 0.0, 1.0);
 	} else if (uRenderLayer == 4) {
@@ -367,17 +411,20 @@ void main(void) {
 const DEPTH_FRAGMENT_SHADER = `
 precision highp float;
 
+const float PackUpscale = 256.0 / 255.0;
+const float ShiftRight8 = 1.0 / 256.0;
+const vec3 PackFactors = vec3(256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0);
+
 vec4 encodeFloat(float depth) {
-	const vec4 bitShift = vec4(
-		256.0 * 256.0 * 256.0,
-		256.0 * 256.0,
-		256.0,
-		1.0
-	);
-	const vec4 bitMask = vec4(0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0);
-	vec4 comp = fract(depth * bitShift);
-	comp -= comp.xxyz * bitMask;
-	return comp;
+	if (depth <= 0.0) {
+		return vec4(0.0);
+	}
+	if (depth >= 1.0) {
+		return vec4(1.0);
+	}
+	vec4 packedDepth = vec4(fract(depth * PackFactors), depth);
+	packedDepth.yzw -= packedDepth.xyz * ShiftRight8;
+	return packedDepth * PackUpscale;
 }
 
 void main(void) {
@@ -415,14 +462,12 @@ float hash12(vec2 p){
 	return fract((p3.x + p3.y) * p3.z);
 }
 
+const float UnpackDownscale = 255.0 / 256.0;
+const vec3 PackFactors = vec3(256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0);
+const vec4 UnpackFactors4 = UnpackDownscale / vec4(PackFactors, 1.0);
+
 float decodeFloat(vec4 color) {
-	const vec4 bitShift = vec4(
-		1.0 / (256.0 * 256.0 * 256.0),
-		1.0 / (256.0 * 256.0),
-		1.0 / 256.0,
-		1.0
-	);
-	return dot(color, bitShift);
+	return dot(color, UnpackFactors4);
 }
 
 vec3 reconstructViewPos(vec2 uv, float depth01) {
@@ -555,14 +600,12 @@ uniform float uBloomEnabled;
 uniform float uBloomIntensity;
 uniform int uRenderLayer;
 
+const float UnpackDownscale = 255.0 / 256.0;
+const vec3 PackFactors = vec3(256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0);
+const vec4 UnpackFactors4 = UnpackDownscale / vec4(PackFactors, 1.0);
+
 float decodeFloat(vec4 color) {
-	const vec4 bitShift = vec4(
-		1.0 / (256.0 * 256.0 * 256.0),
-		1.0 / (256.0 * 256.0),
-		1.0 / 256.0,
-		1.0
-	);
-	return dot(color, bitShift);
+	return dot(color, UnpackFactors4);
 }
 
 void main(void) {
@@ -618,6 +661,18 @@ interface MeshBuffers {
 	material: WebGLBuffer;
 	indices: WebGLBuffer;
 	indexCount: number;
+	indexType: number;
+	positionCapacity: number;
+	normalCapacity: number;
+	colorCapacity: number;
+	materialCapacity: number;
+	indexCapacity: number;
+	sourceMesh?: OakMMeshData;
+}
+
+interface MeshDrawCommand {
+	buffers: MeshBuffers;
+	model: Mat4;
 }
 
 interface MainProgram {
@@ -636,6 +691,7 @@ interface MainProgram {
 		lightView: WebGLUniformLocation | null;
 		cameraPosition: WebGLUniformLocation | null;
 		lightDirection: WebGLUniformLocation | null;
+		lightIntensity: WebGLUniformLocation | null;
 		shadowMap: WebGLUniformLocation | null;
 		shadowTexelSize: WebGLUniformLocation | null;
 		shadowsEnabled: WebGLUniformLocation | null;
@@ -643,8 +699,10 @@ interface MainProgram {
 		shadowBias: WebGLUniformLocation | null;
 		shadowNormalBias: WebGLUniformLocation | null;
 		shadowSoftness: WebGLUniformLocation | null;
+		shadowNoiseEnabled: WebGLUniformLocation | null;
 		shadowOrthoSize: WebGLUniformLocation | null;
 		shadowSamples: WebGLUniformLocation | null;
+		shadowCircularFadeEnabled: WebGLUniformLocation | null;
 		ambientColor: WebGLUniformLocation | null;
 		ambientIntensity: WebGLUniformLocation | null;
 		rimColor: WebGLUniformLocation | null;
@@ -785,6 +843,7 @@ interface CanvasRuntimeState {
 	layoutKey: string;
 	pendingRequest: GLRenderRequest | null;
 	dirty: boolean;
+	dynamicMeshBuffers: Array<MeshBuffers | undefined>;
 }
 
 type Mat4 = Float32Array;
@@ -929,6 +988,33 @@ const rotationMatrixFromQuat = (quat: Quat4): Mat4 => {
 	return out;
 };
 
+const multiplyMat4 = (left: Mat4, right: Mat4): Mat4 => {
+	const out = new Float32Array(16);
+	for (let column = 0; column < 4; column += 1) {
+		for (let row = 0; row < 4; row += 1) {
+			out[column * 4 + row] =
+				left[0 * 4 + row] * right[column * 4 + 0] +
+				left[1 * 4 + row] * right[column * 4 + 1] +
+				left[2 * 4 + row] * right[column * 4 + 2] +
+				left[3 * 4 + row] * right[column * 4 + 3];
+		}
+	}
+	return out;
+};
+
+const modelMatrixFromMesh = (
+	baseModel: Mat4,
+	mesh: OakMMeshData,
+): Mat4 => {
+	const matrix = mesh.modelMatrix;
+	if (!matrix || matrix.length < 16) {
+		return baseModel;
+	}
+	return multiplyMat4(baseModel, matrix instanceof Float32Array
+		? matrix
+		: new Float32Array(matrix));
+};
+
 const invertMat4 = (matrix: Mat4): Mat4 => {
 	const out = new Float32Array(16);
 	const a00 = matrix[0];
@@ -996,6 +1082,12 @@ const normalize3 = (
 };
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
+
+const enableBackfaceCulling = (gl: WebGLRenderingContext): void => {
+	gl.enable(gl.CULL_FACE);
+	gl.cullFace(gl.BACK);
+	gl.frontFace(gl.CCW);
+};
 
 const resolveRenderLayer = (layer: GLRenderConfig["renderLayer"]): number => {
 	switch (layer) {
@@ -1209,9 +1301,102 @@ const createColorTarget = (
 	return { framebuffer, texture, renderbuffer, width, height, filter };
 };
 
+const getUint32IndexType = (gl: WebGLRenderingContext): number => {
+	const isWebGL2 =
+		typeof WebGL2RenderingContext !== "undefined" &&
+		gl instanceof WebGL2RenderingContext;
+	if (isWebGL2 || gl.getExtension("OES_element_index_uint")) {
+		return gl.UNSIGNED_INT;
+	}
+	throw new Error("Uint32 mesh indices require WebGL2 or OES_element_index_uint");
+};
+
+const growBufferCapacity = (requiredBytes: number): number => {
+	if (requiredBytes <= 0) {
+		return 1;
+	}
+	const slackBytes = Math.ceil(requiredBytes * 1.25);
+	return Math.max(requiredBytes, Math.ceil(slackBytes / 4) * 4);
+};
+
+const uploadBufferView = (
+	gl: WebGLRenderingContext,
+	target: number,
+	buffer: WebGLBuffer,
+	data: ArrayBufferView,
+	usage: number,
+	currentCapacity: number,
+): number => {
+	gl.bindBuffer(target, buffer);
+	if (data.byteLength > currentCapacity) {
+		const nextCapacity = growBufferCapacity(data.byteLength);
+		gl.bufferData(target, nextCapacity, usage);
+		currentCapacity = nextCapacity;
+	}
+	if (data.byteLength > 0) {
+		gl.bufferSubData(target, 0, data);
+	}
+	return currentCapacity;
+};
+
+const uploadMeshData = (
+	gl: WebGLRenderingContext,
+	mesh: OakMMeshData,
+	buffers: MeshBuffers,
+	usage: number,
+): MeshBuffers => {
+	buffers.positionCapacity = uploadBufferView(
+		gl,
+		gl.ARRAY_BUFFER,
+		buffers.position,
+		mesh.positions,
+		usage,
+		buffers.positionCapacity,
+	);
+	buffers.normalCapacity = uploadBufferView(
+		gl,
+		gl.ARRAY_BUFFER,
+		buffers.normal,
+		mesh.normals,
+		usage,
+		buffers.normalCapacity,
+	);
+	buffers.colorCapacity = uploadBufferView(
+		gl,
+		gl.ARRAY_BUFFER,
+		buffers.color,
+		mesh.colors,
+		usage,
+		buffers.colorCapacity,
+	);
+	buffers.materialCapacity = uploadBufferView(
+		gl,
+		gl.ARRAY_BUFFER,
+		buffers.material,
+		mesh.materials,
+		usage,
+		buffers.materialCapacity,
+	);
+	buffers.indexType = mesh.indices instanceof Uint32Array
+		? getUint32IndexType(gl)
+		: gl.UNSIGNED_SHORT;
+	buffers.indexCapacity = uploadBufferView(
+		gl,
+		gl.ELEMENT_ARRAY_BUFFER,
+		buffers.indices,
+		mesh.indices,
+		usage,
+		buffers.indexCapacity,
+	);
+	buffers.indexCount = mesh.indices.length;
+	buffers.sourceMesh = mesh;
+	return buffers;
+};
+
 const uploadMesh = (
 	gl: WebGLRenderingContext,
-	mesh: GLRenderRequest["mesh"],
+	mesh: OakMMeshData,
+	usage: number = gl.STATIC_DRAW,
 ): MeshBuffers => {
 	const position = gl.createBuffer();
 	const normal = gl.createBuffer();
@@ -1222,26 +1407,27 @@ const uploadMesh = (
 		throw new Error("Unable to create WebGL buffers");
 	}
 
-	gl.bindBuffer(gl.ARRAY_BUFFER, position);
-	gl.bufferData(gl.ARRAY_BUFFER, mesh.positions, gl.STATIC_DRAW);
-	gl.bindBuffer(gl.ARRAY_BUFFER, normal);
-	gl.bufferData(gl.ARRAY_BUFFER, mesh.normals, gl.STATIC_DRAW);
-	gl.bindBuffer(gl.ARRAY_BUFFER, color);
-	gl.bufferData(gl.ARRAY_BUFFER, mesh.colors, gl.STATIC_DRAW);
-	gl.bindBuffer(gl.ARRAY_BUFFER, material);
-	gl.bufferData(gl.ARRAY_BUFFER, mesh.materials, gl.STATIC_DRAW);
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indices);
-	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, mesh.indices, gl.STATIC_DRAW);
-
-	return {
+	return uploadMeshData(gl, mesh, {
 		position,
 		normal,
 		color,
 		material,
 		indices,
-		indexCount: mesh.indices.length,
-	};
+		indexCount: 0,
+		indexType: gl.UNSIGNED_SHORT,
+		positionCapacity: 0,
+		normalCapacity: 0,
+		colorCapacity: 0,
+		materialCapacity: 0,
+		indexCapacity: 0,
+	}, usage);
 };
+
+const getRenderMeshes = (
+	mesh: GLRenderRequest["mesh"],
+): readonly OakMMeshData[] => (Array.isArray(mesh)
+	? mesh as readonly OakMMeshData[]
+	: [mesh as OakMMeshData]);
 
 const bindAttribute = (
 	gl: WebGLRenderingContext,
@@ -1288,6 +1474,34 @@ export const GLContext = createContext<GLContextValue>({
 	release: () => undefined,
 });
 
+const createRendererContext = (
+	canvas: HTMLCanvasElement,
+): WebGLRenderingContext | null => {
+	const contextAttributes: WebGLContextAttributes = {
+		antialias: true,
+		alpha: true,
+		depth: true,
+		stencil: false,
+		premultipliedAlpha: true,
+		preserveDrawingBuffer: false,
+	};
+	try {
+		const webgl2 = canvas.getContext(
+			"webgl2",
+			contextAttributes,
+		) as WebGL2RenderingContext | null;
+		return (
+			(webgl2 as unknown as WebGLRenderingContext | null) ||
+			(canvas.getContext(
+				"webgl",
+				contextAttributes,
+			) as WebGLRenderingContext | null)
+		);
+	} catch {
+		return null;
+	}
+};
+
 const GLContextProvider: React.FC<GLContextProviderProps> = ({
 	children,
 	className,
@@ -1297,6 +1511,7 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 	const sharedCanvasRef = useRef<HTMLCanvasElement | null>(
 		typeof document === "undefined" ? null : document.createElement("canvas"),
 	);
+	const activeCanvasRef = useRef<HTMLCanvasElement | null>(null);
 	const glRef = useRef<WebGLRenderingContext | null>(null);
 	const mainProgramRef = useRef<MainProgram | null>(null);
 	const shadowProgramRef = useRef<ShadowProgram | null>(null);
@@ -1315,9 +1530,7 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 	const bloomBRef = useRef<ColorTarget | null>(null);
 	const bloomCRef = useRef<ColorTarget | null>(null);
 	const fullscreenQuadRef = useRef<WebGLBuffer | null>(null);
-	const meshCacheRef = useRef<WeakMap<GLRenderRequest["mesh"], MeshBuffers>>(
-		new WeakMap(),
-	);
+	const meshCacheRef = useRef<WeakMap<OakMMeshData, MeshBuffers>>(new WeakMap());
 	const canvasRuntimeMapRef = useRef<
 		Map<HTMLCanvasElement, CanvasRuntimeState>
 	>(new Map());
@@ -1325,32 +1538,58 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 	const flushHandleRef = useRef<number | null>(null);
 
 	if (!glRef.current && sharedCanvasRef.current) {
-		const contextAttributes: WebGLContextAttributes = {
-			antialias: true,
-			alpha: true,
-			depth: true,
-			stencil: false,
-			premultipliedAlpha: true,
-			preserveDrawingBuffer: false,
-		};
-		try {
-			const webgl2 = sharedCanvasRef.current.getContext(
-				"webgl2",
-				contextAttributes,
-			) as WebGL2RenderingContext | null;
-			glRef.current =
-				(webgl2 as unknown as WebGLRenderingContext | null) ||
-				(sharedCanvasRef.current.getContext(
-					"webgl",
-					contextAttributes,
-				) as WebGLRenderingContext | null);
-		} catch {
-			glRef.current = null;
-		}
+		glRef.current = createRendererContext(sharedCanvasRef.current);
 		if (glRef.current) {
+			activeCanvasRef.current = sharedCanvasRef.current;
 			glRef.current.enable(glRef.current.DEPTH_TEST);
+			enableBackfaceCulling(glRef.current);
 		}
 	}
+
+	const resetGLResources = useCallback(() => {
+		sceneTargetRef.current = null;
+		normalTargetRef.current = null;
+		depthTargetRef.current = null;
+		ssaoTargetRef.current = null;
+		bloomARef.current = null;
+		bloomBRef.current = null;
+		bloomCRef.current = null;
+		shadowResourcesRef.current = null;
+		fullscreenQuadRef.current = null;
+		mainProgramRef.current = null;
+		shadowProgramRef.current = null;
+		normalProgramRef.current = null;
+		depthProgramRef.current = null;
+		ssaoProgramRef.current = null;
+		bloomExtractProgramRef.current = null;
+		bloomBlurProgramRef.current = null;
+		composeProgramRef.current = null;
+		meshCacheRef.current = new WeakMap();
+		canvasRuntimeMapRef.current.forEach((runtime) => {
+			runtime.context2D = null;
+			runtime.layoutKey = "";
+			runtime.dynamicMeshBuffers = [];
+		});
+	}, []);
+
+	const activateRenderCanvas = useCallback(
+		(canvas: HTMLCanvasElement): WebGLRenderingContext | null => {
+			if (glRef.current && activeCanvasRef.current === canvas) {
+				return glRef.current;
+			}
+
+			resetGLResources();
+			sharedCanvasRef.current = canvas;
+			activeCanvasRef.current = canvas;
+			glRef.current = createRendererContext(canvas);
+			if (glRef.current) {
+				glRef.current.enable(glRef.current.DEPTH_TEST);
+				enableBackfaceCulling(glRef.current);
+			}
+			return glRef.current;
+		},
+		[resetGLResources],
+	);
 
 	const ensurePrograms = useCallback((gl: WebGLRenderingContext) => {
 		if (!shadowProgramRef.current) {
@@ -1394,6 +1633,7 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 					lightView: gl.getUniformLocation(program, "uLightView"),
 					cameraPosition: gl.getUniformLocation(program, "uCameraPosition"),
 					lightDirection: gl.getUniformLocation(program, "uLightDirection"),
+					lightIntensity: gl.getUniformLocation(program, "uLightIntensity"),
 					shadowMap: gl.getUniformLocation(program, "uShadowMap"),
 					shadowTexelSize: gl.getUniformLocation(program, "uShadowTexelSize"),
 					shadowsEnabled: gl.getUniformLocation(program, "uShadowsEnabled"),
@@ -1401,8 +1641,16 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 					shadowBias: gl.getUniformLocation(program, "uShadowBias"),
 					shadowNormalBias: gl.getUniformLocation(program, "uShadowNormalBias"),
 					shadowSoftness: gl.getUniformLocation(program, "uShadowSoftness"),
+					shadowNoiseEnabled: gl.getUniformLocation(
+						program,
+						"uShadowNoiseEnabled",
+					),
 					shadowOrthoSize: gl.getUniformLocation(program, "uShadowOrthoSize"),
 					shadowSamples: gl.getUniformLocation(program, "uShadowSamples"),
+					shadowCircularFadeEnabled: gl.getUniformLocation(
+						program,
+						"uShadowCircularFadeEnabled",
+					),
 					ambientColor: gl.getUniformLocation(program, "uAmbientColor"),
 					ambientIntensity: gl.getUniformLocation(program, "uAmbientIntensity"),
 					rimColor: gl.getUniformLocation(program, "uRimColor"),
@@ -1581,17 +1829,19 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			gl: WebGLRenderingContext,
 			program: ShadowProgram,
 			shadow: ShadowResources,
-			mesh: MeshBuffers,
+			meshes: readonly MeshDrawCommand[],
 			lightProjection: Mat4,
 			lightView: Mat4,
-			model: Mat4,
 		) => {
 			gl.useProgram(program.program);
+			gl.activeTexture(gl.TEXTURE0);
+			gl.bindTexture(gl.TEXTURE_2D, null);
 			gl.bindFramebuffer(gl.FRAMEBUFFER, shadow.framebuffer);
 			gl.viewport(0, 0, shadow.size, shadow.size);
 			gl.clearColor(0, 0, 0, 0);
 			gl.clearDepth(1);
 			gl.enable(gl.DEPTH_TEST);
+			enableBackfaceCulling(gl);
 			gl.depthMask(true);
 			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -1612,10 +1862,10 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				}
 				bindAttribute(gl, program.attributes.position, buffers.position, 3);
 				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
-				gl.drawElements(gl.TRIANGLES, buffers.indexCount, gl.UNSIGNED_SHORT, 0);
+				gl.drawElements(gl.TRIANGLES, buffers.indexCount, buffers.indexType, 0);
 			};
 
-			draw(mesh, model);
+			meshes.forEach((mesh) => draw(mesh.buffers, mesh.model));
 			gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 		},
 		[],
@@ -1669,8 +1919,17 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 
 	const drawRequest = useCallback(
 		(request: GLRenderRequest, runtime: CanvasRuntimeState) => {
-			const gl = glRef.current;
-			const sharedCanvas = sharedCanvasRef.current;
+			const directCanvas = request.direct ? request.targetCanvas : null;
+			const sharedCanvas =
+				directCanvas ||
+				sharedCanvasRef.current ||
+				(typeof document === "undefined"
+					? null
+					: document.createElement("canvas"));
+			if (sharedCanvas && !sharedCanvasRef.current) {
+				sharedCanvasRef.current = sharedCanvas;
+			}
+			const gl = sharedCanvas ? activateRenderCanvas(sharedCanvas) : null;
 			if (!gl || !sharedCanvas) return;
 
 			ensurePrograms(gl);
@@ -1708,12 +1967,46 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				sharedCanvas.width = scaledWidth;
 				sharedCanvas.height = scaledHeight;
 			}
-
-			let mesh = meshCacheRef.current.get(request.mesh);
-			if (!mesh) {
-				mesh = uploadMesh(gl, request.mesh);
-				meshCacheRef.current.set(request.mesh, mesh);
+			if (directCanvas) {
+				const directSizeKey = `${scaledWidth}x${scaledHeight}::${width}x${height}`;
+				if (runtime.layoutKey !== directSizeKey) {
+					directCanvas.style.width = `${width}px`;
+					directCanvas.style.height = `${height}px`;
+					runtime.layoutKey = directSizeKey;
+				}
 			}
+
+			const requestMeshes = getRenderMeshes(request.mesh);
+			const meshBuffers = requestMeshes.map((requestMesh, meshIndex) => {
+				if (requestMesh.usage === "dynamic") {
+					let dynamicBuffers = runtime.dynamicMeshBuffers[meshIndex];
+					if (!dynamicBuffers) {
+						dynamicBuffers = uploadMesh(gl, requestMesh, gl.DYNAMIC_DRAW);
+						runtime.dynamicMeshBuffers[meshIndex] = dynamicBuffers;
+						return dynamicBuffers;
+					}
+					if (dynamicBuffers.sourceMesh === requestMesh) {
+						return dynamicBuffers;
+					}
+					return uploadMeshData(
+						gl,
+						requestMesh,
+						dynamicBuffers,
+						gl.DYNAMIC_DRAW,
+					);
+				}
+
+				let buffers = meshCacheRef.current.get(requestMesh);
+				if (!buffers) {
+					buffers = uploadMesh(gl, requestMesh);
+					meshCacheRef.current.set(requestMesh, buffers);
+				}
+				return buffers;
+			});
+			runtime.dynamicMeshBuffers.length = Math.min(
+				runtime.dynamicMeshBuffers.length,
+				meshBuffers.length,
+			);
 
 			const rendering = request.rendering;
 			const shadowsEnabled = rendering?.shadowsEnabled ?? true;
@@ -1723,12 +2016,27 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				rendering?.shadowNormalBias ?? DEFAULT_SHADOW_NORMAL_BIAS;
 			const shadowSoftness =
 				rendering?.shadowSoftness ?? DEFAULT_SHADOW_SOFTNESS;
+			const shadowNoiseEnabled = rendering?.shadowNoiseEnabled ?? true;
 			const shadowSamples = Math.max(
 				1,
 				Math.floor(rendering?.shadowSamples ?? DEFAULT_SHADOW_SAMPLES),
 			);
 			const shadowOrthoSize =
 				rendering?.shadowOrthoSize ?? DEFAULT_SHADOW_ORTHO_SIZE;
+			const shadowOrthoHalfWidth = Math.max(
+				0.0001,
+				rendering?.shadowOrthoHalfWidth ?? shadowOrthoSize,
+			);
+			const shadowOrthoHalfHeight = Math.max(
+				0.0001,
+				rendering?.shadowOrthoHalfHeight ?? shadowOrthoSize,
+			);
+			const shadowOrthoReferenceSize = Math.max(
+				shadowOrthoHalfWidth,
+				shadowOrthoHalfHeight,
+			);
+			const shadowCircularFadeEnabled =
+				rendering?.shadowCircularFadeEnabled ?? false;
 			const shadowNear = Math.max(
 				0.01,
 				rendering?.shadowNear ?? DEFAULT_SHADOW_NEAR,
@@ -1749,6 +2057,7 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			const bloomRadius = Math.max(0, rendering?.bloomRadius ?? 3.0);
 			const ambientColor = rendering?.ambientColor ?? [0.92, 0.97, 1.0];
 			const ambientIntensity = Math.max(0, rendering?.ambientIntensity ?? 0.34);
+			const lightIntensity = Math.max(0, rendering?.lightIntensity ?? 1);
 			const rimColor = rendering?.rimColor ?? [1.0, 0.96, 0.9];
 			const rimIntensity = Math.max(0, rendering?.rimIntensity ?? 0.18);
 			const rimPower = Math.max(0.1, rendering?.rimPower ?? 2.1);
@@ -1760,19 +2069,35 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			const activeBloom = bloomEnabled && (isFinalLayer || isBloomLayer);
 			const needsGBuffer = activeSsao || renderLayer === 6 || renderLayer === 7;
 			const needsBloom = activeBloom;
-
-			const sceneTarget = ensureColorTarget(
-				gl,
-				sceneTargetRef,
-				scaledWidth,
-				scaledHeight,
+			const renderDirectFinal =
+				!!directCanvas && isFinalLayer && !activeSsao && !activeBloom;
+			const postProcessScale = Math.max(
+				0.25,
+				Math.min(1, rendering?.postProcessScale ?? 1),
 			);
+			const postProcessWidth = Math.max(
+				1,
+				Math.floor(scaledWidth * postProcessScale),
+			);
+			const postProcessHeight = Math.max(
+				1,
+				Math.floor(scaledHeight * postProcessScale),
+			);
+
+			const sceneTarget = renderDirectFinal
+				? null
+				: ensureColorTarget(
+						gl,
+						sceneTargetRef,
+						scaledWidth,
+						scaledHeight,
+					);
 			const normalTarget = needsGBuffer
 				? ensureColorTarget(
 						gl,
 						normalTargetRef,
-						scaledWidth,
-						scaledHeight,
+						postProcessWidth,
+						postProcessHeight,
 						gl.NEAREST,
 					)
 				: null;
@@ -1780,16 +2105,16 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				? ensureColorTarget(
 						gl,
 						depthTargetRef,
-						scaledWidth,
-						scaledHeight,
+						postProcessWidth,
+						postProcessHeight,
 						gl.NEAREST,
 					)
 				: null;
 			const ssaoTarget = needsGBuffer
-				? ensureColorTarget(gl, ssaoTargetRef, scaledWidth, scaledHeight)
+				? ensureColorTarget(gl, ssaoTargetRef, postProcessWidth, postProcessHeight)
 				: null;
-			const bloomWidth = Math.max(1, Math.floor(scaledWidth / 2));
-			const bloomHeight = Math.max(1, Math.floor(scaledHeight / 2));
+			const bloomWidth = Math.max(1, Math.floor(postProcessWidth / 2));
+			const bloomHeight = Math.max(1, Math.floor(postProcessHeight / 2));
 			const bloomA = needsBloom
 				? ensureColorTarget(gl, bloomARef, bloomWidth, bloomHeight)
 				: null;
@@ -1847,45 +2172,62 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			const view = lookAt(cameraPosition, cameraTarget, cameraUp);
 			const rotation = rotationQuatFromRequest(request.rotation);
 			const model = rotationMatrixFromQuat(rotation);
+			const meshDrawCommands = meshBuffers.map((buffers, index) => ({
+				buffers,
+				model: modelMatrixFromMesh(model, requestMeshes[index]),
+			}));
 
+			const configuredLightTarget = request.rendering?.lightTarget ?? cameraTarget;
+			const configuredLightPosition = request.rendering?.lightPosition;
 			const lightDirection = normalize3(
-				request.rendering?.lightDirection ?? [0.35, 0.55, 1],
+				request.rendering?.lightDirection ??
+					(configuredLightPosition
+						? [
+								configuredLightPosition[0] - configuredLightTarget[0],
+								configuredLightPosition[1] - configuredLightTarget[1],
+								configuredLightPosition[2] - configuredLightTarget[2],
+							]
+						: [0.35, 0.55, 1]),
 			);
 			const lightDistance = 28;
-			const lightPosition: [number, number, number] = [
-				lightDirection[0] * lightDistance,
-				lightDirection[1] * lightDistance,
-				lightDirection[2] * lightDistance,
-			];
+			const lightPosition: [number, number, number] =
+				configuredLightPosition ?? [
+					lightDirection[0] * lightDistance,
+					lightDirection[1] * lightDistance,
+					lightDirection[2] * lightDistance,
+				];
 			const lightProjection = ortho(
-				-shadowOrthoSize,
-				shadowOrthoSize,
-				-shadowOrthoSize,
-				shadowOrthoSize,
+				-shadowOrthoHalfWidth,
+				shadowOrthoHalfWidth,
+				-shadowOrthoHalfHeight,
+				shadowOrthoHalfHeight,
 				shadowNear,
 				shadowFar,
 			);
-			const lightView = lookAt(lightPosition, cameraTarget, [0, 0, 1]);
+			const lightView = lookAt(lightPosition, configuredLightTarget, [0, 0, 1]);
 
 			if (shadowsEnabled) {
 				drawShadowPass(
 					gl,
 					shadowProgram,
 					activeShadowResources,
-					mesh,
+					meshDrawCommands,
 					lightProjection,
 					lightView,
-					model,
 				);
 			}
 
 			gl.useProgram(mainProgram.program);
-			gl.bindFramebuffer(gl.FRAMEBUFFER, sceneTarget.framebuffer);
+			gl.bindFramebuffer(
+				gl.FRAMEBUFFER,
+				renderDirectFinal ? null : sceneTarget?.framebuffer ?? null,
+			);
 			gl.viewport(0, 0, scaledWidth, scaledHeight);
 			const clear = rendering?.clearColor || [0.05, 0.05, 0.08, 1];
 			gl.clearColor(clear[0], clear[1], clear[2], clear[3]);
 			gl.clearDepth(1);
 			gl.enable(gl.DEPTH_TEST);
+			enableBackfaceCulling(gl);
 			gl.depthMask(true);
 			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -1921,6 +2263,9 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 					lightDirection[2],
 				);
 			}
+			if (mainProgram.uniforms.lightIntensity) {
+				gl.uniform1f(mainProgram.uniforms.lightIntensity, lightIntensity);
+			}
 			if (mainProgram.uniforms.shadowsEnabled) {
 				gl.uniform1f(
 					mainProgram.uniforms.shadowsEnabled,
@@ -1942,11 +2287,26 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			if (mainProgram.uniforms.shadowSoftness) {
 				gl.uniform1f(mainProgram.uniforms.shadowSoftness, shadowSoftness);
 			}
+			if (mainProgram.uniforms.shadowNoiseEnabled) {
+				gl.uniform1f(
+					mainProgram.uniforms.shadowNoiseEnabled,
+					shadowNoiseEnabled ? 1 : 0,
+				);
+			}
 			if (mainProgram.uniforms.shadowOrthoSize) {
-				gl.uniform1f(mainProgram.uniforms.shadowOrthoSize, shadowOrthoSize);
+				gl.uniform1f(
+					mainProgram.uniforms.shadowOrthoSize,
+					shadowOrthoReferenceSize,
+				);
 			}
 			if (mainProgram.uniforms.shadowSamples) {
 				gl.uniform1i(mainProgram.uniforms.shadowSamples, shadowSamples);
+			}
+			if (mainProgram.uniforms.shadowCircularFadeEnabled) {
+				gl.uniform1f(
+					mainProgram.uniforms.shadowCircularFadeEnabled,
+					shadowCircularFadeEnabled ? 1 : 0,
+				);
 			}
 			if (mainProgram.uniforms.ambientColor) {
 				gl.uniform3f(
@@ -2049,18 +2409,28 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				bindAttribute(gl, mainProgram.attributes.color, buffers.color, 4);
 				bindAttribute(gl, mainProgram.attributes.material, buffers.material, 1);
 				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
-				gl.drawElements(gl.TRIANGLES, buffers.indexCount, gl.UNSIGNED_SHORT, 0);
+				gl.drawElements(gl.TRIANGLES, buffers.indexCount, buffers.indexType, 0);
 			};
 
-			drawMain(mesh, model);
+			meshDrawCommands.forEach((mesh) => drawMain(mesh.buffers, mesh.model));
+
+			if (renderDirectFinal) {
+				gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+				gl.enable(gl.DEPTH_TEST);
+				return;
+			}
+			if (!sceneTarget) {
+				return;
+			}
 
 			if (needsGBuffer && normalTarget && depthTarget) {
 				gl.useProgram(normalProgram.program);
 				gl.bindFramebuffer(gl.FRAMEBUFFER, normalTarget.framebuffer);
-				gl.viewport(0, 0, scaledWidth, scaledHeight);
+				gl.viewport(0, 0, postProcessWidth, postProcessHeight);
 				gl.clearColor(0, 0, 0, 1);
 				gl.clearDepth(1);
 				gl.enable(gl.DEPTH_TEST);
+				enableBackfaceCulling(gl);
 				gl.depthMask(true);
 				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 				if (normalProgram.uniforms.projection) {
@@ -2073,20 +2443,23 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				if (normalProgram.uniforms.view) {
 					gl.uniformMatrix4fv(normalProgram.uniforms.view, false, view);
 				}
-				if (normalProgram.uniforms.model) {
-					gl.uniformMatrix4fv(normalProgram.uniforms.model, false, model);
-				}
-				bindAttribute(gl, normalProgram.attributes.position, mesh.position, 3);
-				bindAttribute(gl, normalProgram.attributes.normal, mesh.normal, 3);
-				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indices);
-				gl.drawElements(gl.TRIANGLES, mesh.indexCount, gl.UNSIGNED_SHORT, 0);
+				meshDrawCommands.forEach((mesh) => {
+					if (normalProgram.uniforms.model) {
+						gl.uniformMatrix4fv(normalProgram.uniforms.model, false, mesh.model);
+					}
+					bindAttribute(gl, normalProgram.attributes.position, mesh.buffers.position, 3);
+					bindAttribute(gl, normalProgram.attributes.normal, mesh.buffers.normal, 3);
+					gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.buffers.indices);
+					gl.drawElements(gl.TRIANGLES, mesh.buffers.indexCount, mesh.buffers.indexType, 0);
+				});
 
 				gl.useProgram(depthProgram.program);
 				gl.bindFramebuffer(gl.FRAMEBUFFER, depthTarget.framebuffer);
-				gl.viewport(0, 0, scaledWidth, scaledHeight);
+				gl.viewport(0, 0, postProcessWidth, postProcessHeight);
 				gl.clearColor(1, 1, 1, 1);
 				gl.clearDepth(1);
 				gl.enable(gl.DEPTH_TEST);
+				enableBackfaceCulling(gl);
 				gl.depthMask(true);
 				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 				if (depthProgram.uniforms.projection) {
@@ -2099,13 +2472,15 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				if (depthProgram.uniforms.view) {
 					gl.uniformMatrix4fv(depthProgram.uniforms.view, false, view);
 				}
-				if (depthProgram.uniforms.model) {
-					gl.uniformMatrix4fv(depthProgram.uniforms.model, false, model);
+				meshDrawCommands.forEach((mesh) => {
+					if (depthProgram.uniforms.model) {
+						gl.uniformMatrix4fv(depthProgram.uniforms.model, false, mesh.model);
+					}
+					bindAttribute(gl, depthProgram.attributes.position, mesh.buffers.position, 3);
+					gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.buffers.indices);
+					gl.drawElements(gl.TRIANGLES, mesh.buffers.indexCount, mesh.buffers.indexType, 0);
+				});
 				}
-				bindAttribute(gl, depthProgram.attributes.position, mesh.position, 3);
-				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indices);
-				gl.drawElements(gl.TRIANGLES, mesh.indexCount, gl.UNSIGNED_SHORT, 0);
-			}
 
 			if (
 				activeSsao &&
@@ -2115,7 +2490,7 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				ssaoTarget
 			) {
 				gl.bindFramebuffer(gl.FRAMEBUFFER, ssaoTarget.framebuffer);
-				gl.viewport(0, 0, scaledWidth, scaledHeight);
+				gl.viewport(0, 0, postProcessWidth, postProcessHeight);
 				gl.disable(gl.DEPTH_TEST);
 				gl.clearColor(1, 1, 1, 1);
 				gl.clear(gl.COLOR_BUFFER_BIT);
@@ -2133,8 +2508,8 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				if (ssaoProgram.uniforms.texel) {
 					gl.uniform2f(
 						ssaoProgram.uniforms.texel,
-						1 / scaledWidth,
-						1 / scaledHeight,
+						1 / postProcessWidth,
+						1 / postProcessHeight,
 					);
 				}
 				if (ssaoProgram.uniforms.radius) {
@@ -2296,6 +2671,10 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			);
 			gl.enable(gl.DEPTH_TEST);
 
+			if (directCanvas) {
+				return;
+			}
+
 			const target = request.targetCanvas;
 			const sizeKey = `${scaledWidth}x${scaledHeight}::${width}x${height}`;
 			if (runtime.layoutKey !== sizeKey) {
@@ -2311,7 +2690,13 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			context2D.clearRect(0, 0, scaledWidth, scaledHeight);
 			context2D.drawImage(sharedCanvas, 0, 0, scaledWidth, scaledHeight);
 		},
-		[drawFullscreen, drawShadowPass, ensureColorTarget, ensurePrograms],
+		[
+			activateRenderCanvas,
+			drawFullscreen,
+			drawShadowPass,
+			ensureColorTarget,
+			ensurePrograms,
+		],
 	);
 
 	const flushQueuedRenders = useCallback(() => {
@@ -2345,6 +2730,7 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 					layoutKey: "",
 					pendingRequest: null,
 					dirty: false,
+					dynamicMeshBuffers: [],
 				};
 				canvasRuntimeMapRef.current.set(target, runtime);
 			}
@@ -2352,9 +2738,18 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			runtime.pendingRequest = request;
 			runtime.dirty = true;
 			dirtyCanvasSetRef.current.add(target);
+
+			if (request.immediate) {
+				runtime.pendingRequest = null;
+				runtime.dirty = false;
+				dirtyCanvasSetRef.current.delete(target);
+				drawRequest(request, runtime);
+				return;
+			}
+
 			scheduleQueuedRender();
 		},
-		[scheduleQueuedRender],
+		[drawRequest, scheduleQueuedRender],
 	);
 
 	const release = useCallback((targetCanvas: HTMLCanvasElement) => {

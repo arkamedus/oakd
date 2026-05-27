@@ -29,6 +29,9 @@ export interface SelectProps<T> extends Omit<
 	size?: Exclude<CoreComponentSizeType, "huge">;
 	categoryOrder?: string[];
 	fixed?: boolean;
+	grow?: boolean;
 	direction?: DropdownDirection;
 	disabled?: boolean;
+	placementThreshold?: number;
+	wide?: boolean;
 }

@@ -39,7 +39,9 @@ export interface OakMMeshData {
 	normals: Float32Array;
 	colors: Float32Array;
 	materials: Float32Array;
-	indices: Uint16Array;
+	indices: Uint16Array | Uint32Array;
+	modelMatrix?: Float32Array | number[];
+	usage?: "static" | "dynamic";
 }
 
 export interface OakMMeshBuildOptions {

@@ -11,6 +11,8 @@ export interface DropdownProps extends CoreLayoutProps<HTMLDivElement> {
 	children?: React.ReactNode;
 	direction?: DropdownDirection;
 	fixed?: boolean;
+	grow?: boolean;
 	label?: React.ReactNode;
-	className?: string;
+	placementThreshold?: number;
+	wide?: boolean;
 }

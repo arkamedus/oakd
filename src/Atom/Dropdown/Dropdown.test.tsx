@@ -51,4 +51,21 @@ describe("Dropdown Component", () => {
 
     expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
+
+  it("renders fixed menus in a portal with adaptive placement variables", () => {
+    render(
+      <Dropdown fixed label="Portal menu">
+        <div>Export</div>
+      </Dropdown>,
+    );
+
+    const trigger = screen.getByRole("button", { name: "Portal menu" });
+    fireEvent.click(trigger);
+    const menu = screen.getByText("Export").parentElement as HTMLElement;
+
+    expect(menu).toHaveClass("fixed");
+    expect(menu.parentElement).toBe(document.body);
+    expect(menu.style.getPropertyValue("--oakd-dropdown-fixed-top")).toBe("8px");
+    expect(menu.style.getPropertyValue("--oakd-dropdown-fixed-left")).toBe("0px");
+  });
 });

@@ -16,3 +16,6 @@ export type {
 	OakMPrimitive,
 	OakMPrimitiveType,
 } from "./OakM";
+
+export { parsePLY, plyToMeshData } from "./PLY";
+export type { PLYData, PLYIndexArray, PLYMeshBuildOptions, PLYParseOptions } from "./PLY";

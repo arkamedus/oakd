@@ -1,10 +1,26 @@
 .oakd-select {
 	position: relative;
 	display: inline-block;
+	max-width: 100%;
 }
 
-.oakd-select__button {
-	/* Inherits from oakd Button styles */
+.oakd-select.wide,
+.oakd-select.grow {
+	width: 100%;
+}
+
+.oakd-select.grow {
+	flex: 1 1 auto;
+}
+
+.oakd-select.wide > .oakd-select__button,
+.oakd-select.grow > .oakd-select__button {
+	width: 100%;
+}
+
+.oakd-select__button > .oakd.space {
+	max-width: 100%;
+	min-width: 0;
 }
 
 .oakd-select__dropdown {
@@ -17,6 +33,10 @@
 	border: 1px solid var(--border-color, #ccc);
 	padding: var(--leading, 8px);
 	border-radius: var(--border-radius, 4px);
+	max-width: calc(100vw - (var(--leading, 8px) * 2));
+	max-height: calc(100vh - (var(--leading, 8px) * 2));
+	overflow: auto;
+	overscroll-behavior: contain;
 }
 
 /* Direction positioning */
@@ -52,6 +72,44 @@
 /* When fixed mode is active */
 .oakd-select__dropdown--fixed {
 	position: fixed;
+	margin-top: 0;
+}
+
+.oakd-select__dropdown--fixed.oakd-select__dropdown--bottom-left {
+	top: var(--oakd-dropdown-fixed-top, auto);
+	right: auto;
+	bottom: auto;
+	left: var(--oakd-dropdown-fixed-left, auto);
+	max-height: calc(100vh - var(--oakd-dropdown-fixed-top, 0px) - var(--leading, 8px));
+}
+
+.oakd-select__dropdown--fixed.oakd-select__dropdown--bottom-right {
+	top: var(--oakd-dropdown-fixed-top, auto);
+	right: var(--oakd-dropdown-fixed-right, auto);
+	bottom: auto;
+	left: auto;
+	max-height: calc(100vh - var(--oakd-dropdown-fixed-top, 0px) - var(--leading, 8px));
+}
+
+.oakd-select__dropdown--fixed.oakd-select__dropdown--top-left {
+	top: auto;
+	right: auto;
+	bottom: var(--oakd-dropdown-fixed-bottom, auto);
+	left: var(--oakd-dropdown-fixed-left, auto);
+	max-height: calc(100vh - var(--oakd-dropdown-fixed-bottom, 0px) - var(--leading, 8px));
+}
+
+.oakd-select__dropdown--fixed.oakd-select__dropdown--top-right {
+	top: auto;
+	right: var(--oakd-dropdown-fixed-right, auto);
+	bottom: var(--oakd-dropdown-fixed-bottom, auto);
+	left: auto;
+	max-height: calc(100vh - var(--oakd-dropdown-fixed-bottom, 0px) - var(--leading, 8px));
+}
+
+.oakd-select__dropdown--fixed.wide,
+.oakd-select__dropdown--fixed.grow {
+	width: var(--oakd-dropdown-fixed-width, max-content);
 }
 
 /* When absolute mode is active */

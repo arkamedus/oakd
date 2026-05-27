@@ -85,6 +85,7 @@ export type {
 	GLContextProviderProps,
 	GLRenderConfig,
 	GLContextValue,
+	GLRenderMesh,
 	GLRenderRequest,
 	GLRenderQuaternion,
 	GLRenderRotation,
@@ -109,6 +110,8 @@ export {
 	createOakMCube,
 	oakMToMeshData,
 	parseOakM,
+	parsePLY,
+	plyToMeshData,
 } from "./Utils";
 export type {
 	OakMColor,
@@ -120,4 +123,8 @@ export type {
 	Quat4Like,
 	Vec2Like,
 	Vec3Like,
+	PLYData,
+	PLYIndexArray,
+	PLYMeshBuildOptions,
+	PLYParseOptions,
 } from "./Utils";
