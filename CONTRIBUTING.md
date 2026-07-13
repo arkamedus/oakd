@@ -1,23 +1,23 @@
 # **Contributing to `oakd`**
 
-Thank you for considering contributing to `oakd`! 🚀  
+Thank you for considering contributing to `oakd`!
 This document outlines guidelines to ensure smooth collaboration and maintain code quality.
 
 ---  
 
-## **📜 Table of Contents**
-- [📦 Setting Up Your Development Environment](#-setting-up-your-development-environment)
-- [💻 Code Contributions](#-code-contributions)
-- [📖 Documentation](#-documentation)
-- [🧪 Testing](#-testing)
-- [📦 Building & Packaging](#-building--packaging)
-- [📜 Submitting a Pull Request](#-submitting-a-pull-request)
-- [🚀 Publishing to NPM](#-publishing-to-npm)
-- [🤝 Code of Conduct](#-code-of-conduct)
+## <img src="src/Icon/asset/oakd_IconScroll.svg" width="22" height="22" alt="" /> **Table of Contents**
+- <img src="src/Icon/asset/oakd_IconDownload.svg" width="16" height="16" alt="" /> [Setting Up Your Development Environment](#setting-up-your-development-environment)
+- <img src="src/Icon/asset/oakd_IconLaptop.svg" width="16" height="16" alt="" /> [Code Contributions](#code-contributions)
+- <img src="src/Icon/asset/oakd_IconBook.svg" width="16" height="16" alt="" /> [Documentation](#documentation)
+- <img src="src/Icon/asset/oakd_IconCheck.svg" width="16" height="16" alt="" /> [Testing](#testing)
+- <img src="src/Icon/asset/oakd_IconHammer.svg" width="16" height="16" alt="" /> [Building & Packaging](#building--packaging)
+- <img src="src/Icon/asset/oakd_IconClipboard.svg" width="16" height="16" alt="" /> [Submitting a Pull Request](#submitting-a-pull-request)
+- <img src="src/Icon/asset/oakd_IconCloudSync.svg" width="16" height="16" alt="" /> [Publishing to NPM](#publishing-to-npm)
+- <img src="src/Icon/asset/oakd_IconHandPeace.svg" width="16" height="16" alt="" /> [Code of Conduct](#code-of-conduct)
 
 ---  
 
-## **📦 Setting Up Your Development Environment**
+## <img src="src/Icon/asset/oakd_IconDownload.svg" width="22" height="22" alt="" /> **Setting Up Your Development Environment**
 
 First, clone the repository:
 ```sh  
@@ -42,9 +42,9 @@ npm run storybook
 
 ---  
 
-## **💻 Code Contributions**
+## <img src="src/Icon/asset/oakd_IconLaptop.svg" width="22" height="22" alt="" /> **Code Contributions**
 
-### **🛠 Creating a New Component**
+### <img src="src/Icon/asset/oakd_IconWand.svg" width="18" height="18" alt="" /> **Creating a New Component**
 
 Use the component generator:
 ```sh  
@@ -69,7 +69,7 @@ After generating a component:
 - Style it in `YourComponentName.css` if needed.
 - Export it in `index.ts`.
 
-### **📂 Project Structure**
+### <img src="src/Icon/asset/oakd_IconFolder.svg" width="18" height="18" alt="" /> **Project Structure**
 
 ```
 oakd/  
@@ -89,7 +89,7 @@ oakd/
 
 ---  
 
-## **📖 Documentation**
+## <img src="src/Icon/asset/oakd_IconBook.svg" width="22" height="22" alt="" /> **Documentation**
 
 - **Component Docs:** Update Storybook files (`.stories.tsx`).
 - **README:** Ensure `README.md` has updated usage examples.
@@ -102,7 +102,7 @@ npm run storybook
 
 ---  
 
-## **🧪 Testing**
+## <img src="src/Icon/asset/oakd_IconCheck.svg" width="22" height="22" alt="" /> **Testing**
 
 All components **must** have unit tests. We use **Jest** and **React Testing Library**.
 
@@ -136,7 +136,7 @@ test("renders button with correct text", () => {
 
 ---  
 
-## **📦 Building & Packaging**
+## <img src="src/Icon/asset/oakd_IconHammer.svg" width="22" height="22" alt="" /> **Building & Packaging**
 
 Ensure a fresh build before publishing:
 ```sh  
@@ -151,16 +151,16 @@ Rollup is configured to:
 
 ---  
 
-## **📜 Submitting a Pull Request**
+## <img src="src/Icon/asset/oakd_IconClipboard.svg" width="22" height="22" alt="" /> **Submitting a Pull Request**
 
-### **✅ PR Checklist**
+### <img src="src/Icon/asset/oakd_IconCheck.svg" width="18" height="18" alt="" /> **PR Checklist**
 Before submitting a PR:
 - **Run tests:** `npm run test`
 - **Build project:** `npm run build`
 - **Check Storybook:** `npm run storybook`
 - **Ensure 100% linting pass:** `eslint src --fix`
 
-### **📌 PR Guidelines**
+### <img src="src/Icon/asset/oakd_IconPin.svg" width="18" height="18" alt="" /> **PR Guidelines**
 - Use clear commit messages (`feat: add new Button component`).
 - Include relevant documentation updates.
 - Keep PRs small and focused (one feature per PR).
@@ -168,9 +168,9 @@ Before submitting a PR:
 
 ---  
 
-## **🚀 Publishing to NPM**
+## <img src="src/Icon/asset/oakd_IconCloudSync.svg" width="22" height="22" alt="" /> **Publishing to NPM**
 
-### **📤 Publishing a New Version**
+### <img src="src/Icon/asset/oakd_IconShare.svg" width="18" height="18" alt="" /> **Publishing a New Version**
 
 Ensure you're logged into npm:
 ```sh  
@@ -193,7 +193,7 @@ This will:
 - Run `npm run build`.
 - Publish the package to the npm registry.
 
-### **🛠 GitHub Installations**
+### <img src="src/Icon/asset/oakd_IconOpenExternal.svg" width="18" height="18" alt="" /> **GitHub Installations**
 
 To install directly from GitHub:
 ```sh  
@@ -202,25 +202,25 @@ npm i --save git+https://github.com/arkamedus/components.git#branch-name
 
 ---  
 
-## **🤝 Code of Conduct**
+## <img src="src/Icon/asset/oakd_IconHandPeace.svg" width="22" height="22" alt="" /> **Code of Conduct**
 
-### **🚀 Be Respectful**
+### <img src="src/Icon/asset/oakd_IconHeart.svg" width="18" height="18" alt="" /> **Be Respectful**
 - Treat others with kindness and respect.
 - Use inclusive language.
 
-### **🔄 Collaboration**
+### <img src="src/Icon/asset/oakd_IconRefresh.svg" width="18" height="18" alt="" /> **Collaboration**
 - Give constructive feedback.
 - Help others when possible.
 
-### **🚨 Reporting Issues**
+### <img src="src/Icon/asset/oakd_IconAlert.svg" width="18" height="18" alt="" /> **Reporting Issues**
 If you experience issues, open a GitHub issue with a clear description and steps to reproduce.
 
 ---  
 
-## **📣 Join the Discussion**
+## <img src="src/Icon/asset/oakd_IconComment.svg" width="22" height="22" alt="" /> **Join the Discussion**
 
 Have ideas, questions, or feedback?
 - Open an issue or PR.
 - Start a discussion in GitHub Discussions.
 
-🚀 **Thank you for contributing to `oakd`!** 🚀
+**Thank you for contributing to `oakd`!**

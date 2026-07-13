@@ -17,7 +17,7 @@ weight and integration overhead low.
 
 ---  
 
-## 📦 **Installation**
+## <img src="src/Icon/asset/oakd_IconDownload.svg" width="22" height="22" alt="" /> **Installation**
 
 To start using `oakd`, install it via npm:
 ```sh  
@@ -33,7 +33,7 @@ import 'oakd/build/index.css';
 
 ---  
 
-## 📌 **Usage Example**
+## <img src="src/Icon/asset/oakd_IconPin.svg" width="22" height="22" alt="" /> **Usage Example**
 
 After installation, use components like:
 ```tsx  
@@ -53,7 +53,7 @@ export default App;
 
 ---
 
-## 🖌 **Icon Pack & Generation**
+## <img src="src/Icon/asset/oakd_IconPaintbrush.svg" width="22" height="22" alt="" /> **Icon Pack & Generation**
 
 The oakd icon pack is custom-designed for OakFrame. All SVG icons are stored in the `src/Icon/asset/` folder. Follow these steps to update or add icons:
 
@@ -77,9 +77,9 @@ The oakd icon pack is custom-designed for OakFrame. All SVG icons are stored in 
 
 ---
 
-## 🚀 **Development**
+## <img src="src/Icon/asset/oakd_IconCode.svg" width="22" height="22" alt="" /> **Development**
 
-### ✅ **Testing**
+### <img src="src/Icon/asset/oakd_IconCheck.svg" width="18" height="18" alt="" /> **Testing**
 
 Run all tests using Jest:
 ```sh  
@@ -91,7 +91,7 @@ Jest is configured to:
 - Ignore `node_modules/`.
 - Output coverage reports in the `coverage/` directory.
 
-### 📦 **Building**
+### <img src="src/Icon/asset/oakd_IconHammer.svg" width="18" height="18" alt="" /> **Building**
 
 Compile the library for production:
 ```sh  
@@ -103,7 +103,7 @@ npm run build
 - Copy `index.css` to `build/` automatically.
 - Support image imports with `@rollup/plugin-image`.
 
-### 📖 **Storybook**
+### <img src="src/Icon/asset/oakd_IconBook.svg" width="18" height="18" alt="" /> **Storybook**
 
 Start a live-reloading Storybook instance:
 ```sh  
@@ -119,7 +119,7 @@ Serve the generated `storybook-static/` folder.
 
 ---  
 
-## ✨ **Generating New Components**
+## <img src="src/Icon/asset/oakd_IconWand.svg" width="22" height="22" alt="" /> **Generating New Components**
 
 Easily scaffold a new component using:
 ```sh  
@@ -142,7 +142,7 @@ Don’t forget to export your new component in `index.ts`!
 
 ---
 
-## 🔧 **Linting & Formatting**
+## <img src="src/Icon/asset/oakd_IconWrench.svg" width="22" height="22" alt="" /> **Linting & Formatting**
 
 The project uses ESLint with a configuration that:
 - Enforces best practices for TypeScript and React.
@@ -158,7 +158,7 @@ npm run lint:fix
 
 ---  
 
-## 🔗 **Installing Locally**
+## <img src="src/Icon/asset/oakd_IconOpenExternal.svg" width="22" height="22" alt="" /> **Installing Locally**
 
 To test `oakd` in another project (`test-app`) **without publishing**, run:
 ```sh  
@@ -172,7 +172,7 @@ This adds an entry in `package.json`:
 }  
 ```  
 
-### ⚠ **Common Issue: Invalid Hook Call**
+### <img src="src/Icon/asset/oakd_IconAlert.svg" width="18" height="18" alt="" /> **Common Issue: Invalid Hook Call**
 
 If you see:
 ```sh  
@@ -187,9 +187,9 @@ Alternatively, configure Webpack as suggested [here](https://github.com/facebook
 
 ---  
 
-## 📦 **Publishing**
+## <img src="src/Icon/asset/oakd_IconCloudSync.svg" width="22" height="22" alt="" /> **Publishing**
 
-### **📤 Publishing to NPM**
+### <img src="src/Icon/asset/oakd_IconShare.svg" width="18" height="18" alt="" /> **Publishing to NPM**
 
 Ensure you're logged in:
 ```sh  
@@ -203,7 +203,7 @@ npm publish
 
 The `"prepublishOnly": "npm run build"` script ensures a fresh build before publishing.
 
-### **🛠 Hosting via GitHub**
+### <img src="src/Icon/asset/oakd_IconCloud.svg" width="18" height="18" alt="" /> **Hosting via GitHub**
 
 Alternatively, push the built package to GitHub and install it via:
 ```sh  
@@ -216,7 +216,7 @@ npm i --save github:arkamedus/oakd#branch-name
 
 ---  
 
-## 🎨 **Styling**
+## <img src="src/Icon/asset/oakd_IconPaintPalette.svg" width="22" height="22" alt="" /> **Styling**
 
 ### **Importing Styles**
 
@@ -239,9 +239,9 @@ More on [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_C
 
 ---  
 
-## 🛠 **Additional Features**
+## <img src="src/Icon/asset/oakd_IconCog.svg" width="22" height="22" alt="" /> **Additional Features**
 
-### **🌙 Dark Mode Support**
+### <img src="src/Icon/asset/oakd_IconMoon.svg" width="18" height="18" alt="" /> **Dark Mode Support**
 
 Automatically adapts to dark mode using:
 ```css  
@@ -249,7 +249,7 @@ Automatically adapts to dark mode using:
 ```  
 Customization options are in [`src/index.css`](src/index.css).
 
-### **📦 CSS Preprocessor Support**
+### <img src="src/Icon/asset/oakd_IconPaintBucket.svg" width="18" height="18" alt="" /> **CSS Preprocessor Support**
 
 Supports **Sass, Less, Stylus** via:
 ```sh  
@@ -265,11 +265,11 @@ postcss({
 })  
 ```  
 
-### **💅 Styled Components**
+### <img src="src/Icon/asset/oakd_IconPaintbrush.svg" width="18" height="18" alt="" /> **Styled Components**
 
 See [this branch](https://github.com/HarveyD/react-component-library/tree/styled-components) for implementation.
 
-### **📂 Code Splitting**
+### <img src="src/Icon/asset/oakd_IconFolder.svg" width="18" height="18" alt="" /> **Code Splitting**
 
 Load components on demand:
 ```tsx  
@@ -278,7 +278,7 @@ import TestComponent from 'oakd/build/TestComponent';
 
 For setup, refer to [this commit](https://github.com/HarveyD/react-component-library/commit/94631be5a871f3b39dbc3e9bd3e75a8ae5b3b759).
 
-### **🖼 Image Importing**
+### <img src="src/Icon/asset/oakd_IconPicture.svg" width="18" height="18" alt="" /> **Image Importing**
 
 Image imports **now work automatically** without additional configuration. You can use:
 ```tsx  
@@ -286,7 +286,7 @@ import logo from "./logo.png";
 export const ImageComponent = () => <img src={logo} />;  
 ```  
 
-### **📜 JSON Importing**
+### <img src="src/Icon/asset/oakd_IconScroll.svg" width="18" height="18" alt="" /> **JSON Importing**
 
 Install JSON plugin:
 ```sh  
@@ -306,22 +306,22 @@ export const JsonDataComponent = () => <div>{data.description}</div>;
 
 ---  
 
-## 🔗 **Resources & Links**
+## <img src="src/Icon/asset/oakd_IconOpenExternal.svg" width="22" height="22" alt="" /> **Resources & Links**
 
-- [📘 Storybook Docs](https://storybook.js.org/)
-- [⚡ Rollup Plugins](https://github.com/rollup/plugins)
-- [🎨 CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
-- [💅 Styled Components](https://styled-components.com/)
+- <img src="src/Icon/asset/oakd_IconBook.svg" width="16" height="16" alt="" /> [Storybook Docs](https://storybook.js.org/)
+- <img src="src/Icon/asset/oakd_IconLightning.svg" width="16" height="16" alt="" /> [Rollup Plugins](https://github.com/rollup/plugins)
+- <img src="src/Icon/asset/oakd_IconPaintPalette.svg" width="16" height="16" alt="" /> [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+- <img src="src/Icon/asset/oakd_IconPaintbrush.svg" width="16" height="16" alt="" /> [Styled Components](https://styled-components.com/)
 
 ---  
 
-## 🤝 **Contributing**
+## <img src="src/Icon/asset/oakd_IconHandPeace.svg" width="22" height="22" alt="" /> **Contributing**
 
 We welcome contributions! Open an issue or submit a PR to improve `oakd`.  
 For detailed contribution guidelines, refer to our **[Contributing Guide](CONTRIBUTING.md)**.
 
 ---  
 
-### **📣 Join the Discussion**
+### <img src="src/Icon/asset/oakd_IconComment.svg" width="18" height="18" alt="" /> **Join the Discussion**
 
-Have questions or ideas? Feel free to reach out on GitHub Discussions or open an issue! 🚀
+Have questions or ideas? Feel free to reach out on GitHub Discussions or open an issue!
