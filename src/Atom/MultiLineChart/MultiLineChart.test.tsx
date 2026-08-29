@@ -103,7 +103,9 @@ describe("MultiLineChart Component", () => {
 
     expect(screen.getAllByText("Visits").length).toBeGreaterThan(0);
     expect(screen.getByText(/events/i)).toBeInTheDocument();
-    expect(screen.getByTestId("MultiLineChartTooltip")).toHaveStyle({ left: "96px" });
+    expect(screen.getByTestId("MultiLineChartTooltip")).toHaveStyle({
+      left: "96px",
+    });
   });
 
   it("moves the tooltip away from points on the right side of the chart", async () => {
@@ -127,7 +129,9 @@ describe("MultiLineChart Component", () => {
       fireEvent.mouseMove(hoverRect, { clientX: 420 });
     });
 
-    expect(screen.getByTestId("MultiLineChartTooltip")).toHaveStyle({ left: "204px" });
+    expect(screen.getByTestId("MultiLineChartTooltip")).toHaveStyle({
+      left: "204px",
+    });
   });
 
   it("renders optional vertical guide lines behind the chart", async () => {
@@ -148,7 +152,9 @@ describe("MultiLineChart Component", () => {
     );
 
     await waitFor(() => {
-      const guideLines = container.querySelectorAll('line[stroke="rgba(0, 0, 0, 0.08)"]');
+      const guideLines = container.querySelectorAll(
+        'line[stroke="var(--oakd-card-default-border)"]',
+      );
       expect(guideLines).toHaveLength(3);
     });
   });
@@ -179,7 +185,11 @@ describe("MultiLineChart Component", () => {
     );
 
     await waitFor(() => {
-      expect(container.querySelectorAll('line[stroke="rgba(0, 0, 0, 0.08)"]').length).toBeGreaterThanOrEqual(3);
+      expect(
+        container.querySelectorAll(
+          'line[stroke="var(--oakd-card-default-border)"]',
+        ).length,
+      ).toBeGreaterThanOrEqual(3);
       expect(screen.getByText("Apr 1")).toBeInTheDocument();
       expect(screen.getByText("14")).toBeInTheDocument();
     });
@@ -202,10 +212,17 @@ describe("MultiLineChart Component", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "280");
+      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute(
+        "height",
+        "280",
+      );
     });
-    expect(screen.getByTestId("MultiLineChartRoot")).toHaveClass("oakd-multi-line-chart--fill");
-    expect(screen.getByTestId("MultiLineChartFrame")).toHaveClass("oakd-multi-line-chart__frame-fill");
+    expect(screen.getByTestId("MultiLineChartRoot")).toHaveClass(
+      "oakd-multi-line-chart--fill",
+    );
+    expect(screen.getByTestId("MultiLineChartFrame")).toHaveClass(
+      "oakd-multi-line-chart__frame-fill",
+    );
   });
 
   it("keeps an explicit height instead of growing to the measured frame height", async () => {
@@ -225,7 +242,10 @@ describe("MultiLineChart Component", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "200");
+      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute(
+        "height",
+        "200",
+      );
     });
   });
 
@@ -246,9 +266,15 @@ describe("MultiLineChart Component", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "280");
+      expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute(
+        "height",
+        "280",
+      );
     });
 
-    expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute("height", "280");
+    expect(screen.getByTestId("MultiLineChartSvg")).toHaveAttribute(
+      "height",
+      "280",
+    );
   });
 });

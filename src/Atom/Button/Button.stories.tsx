@@ -8,201 +8,210 @@ import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
 import Card from "../Card/Card";
 
 const meta: Meta<typeof Button> = {
-	title: "Design System/Atomic/Button",
-	component: Button,
-	tags: ["!autodocs"],
-	argTypes: {
-		variant: {
-			control: "select",
-			options: [
-				"default",
-				"active",
-				"primary",
-				"danger",
-				"warning",
-				"ghost",
-				"disabled",
-			],
-			description: "Set the button variant",
-			defaultValue: "default",
-		},
-		size: {
-			control: "select",
-			options: ["default", "small", "large"],
-			description: "Set the button size",
-			defaultValue: "default",
-		},
-		disabled: {
-			control: "boolean",
-			description: "Disables the button",
-		},
-		onClick: { action: "clicked" },
-	},
+  title: "Design System/Atomic/Button",
+  component: Button,
+  tags: ["!autodocs"],
+  argTypes: {
+    variant: {
+      control: "select",
+      options: [
+        "default",
+        "active",
+        "primary",
+        "success",
+        "danger",
+        "warning",
+        "ghost",
+      ],
+      description: "Set the button variant",
+      defaultValue: "default",
+    },
+    size: {
+      control: "select",
+      options: ["default", "small", "large"],
+      description: "Set the button size",
+      defaultValue: "default",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Disables the button",
+    },
+    onClick: { action: "clicked" },
+  },
 };
 export default meta;
 
 type Story = StoryObj<typeof Button>;
 
 const Template: StoryFn<{
-	variant: ButtonType;
-	size: Exclude<CoreComponentSizeType, "huge">;
-	disabled: boolean;
-	icon: CoreIconNameType;
-	children: React.ReactNode;
+  variant: ButtonType;
+  size: Exclude<CoreComponentSizeType, "huge">;
+  disabled: boolean;
+  icon: CoreIconNameType;
+  children: React.ReactNode;
 }> = (args) => {
-	const firstArgs = { ...args };
-	delete firstArgs.children;
+  const firstArgs = { ...args };
+  delete firstArgs.children;
 
-	const middleArgs = { ...args };
-	delete middleArgs.icon;
+  const middleArgs = { ...args };
+  delete middleArgs.icon;
 
-	return (
-		<Space gap direction="vertical">
-			<Space gap>
-				<Button {...firstArgs} />
-				<Button {...middleArgs}>
-					<Paragraph>{args.children || "Button"}</Paragraph>
-				</Button>
-				<Button icon={<IconFolder size="small" />} {...middleArgs}>
-					<Paragraph>{args.children || "Button"}</Paragraph>
-				</Button>
-				<Button icon={args.icon} {...args}>
-					<Paragraph>{args.children || "Button"}</Paragraph>
-				</Button>
-				<Button icon={args.icon} {...args}>
-					<Paragraph>
-						<span>
-							Button
-							<br />
-							Two Lines
-						</span>
-					</Paragraph>
-				</Button>
-			</Space>
+  return (
+    <Space gap direction="vertical">
+      <Space gap>
+        <Button {...firstArgs} />
+        <Button {...middleArgs}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={<IconFolder size="small" />} {...middleArgs}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={args.icon} {...args}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={args.icon} {...args}>
+          <Paragraph>
+            Button
+            <br />
+            Two Lines
+          </Paragraph>
+        </Button>
+      </Space>
 
-			<Space gap justify="stretch">
-				<Button {...firstArgs} />
-				<Button {...middleArgs}>
-					<Paragraph>{args.children || "Button"}</Paragraph>
-				</Button>
-				<Button icon={args.icon} {...args}>
-					<Paragraph>{args.children || "Button"}</Paragraph>
-				</Button>
-				<Button icon={args.icon} {...args}>
-					<Paragraph>
-						<span>
-							Two lines make
-							<br />
-							the others stretch
-						</span>
-					</Paragraph>
-				</Button>
-			</Space>
-		</Space>
-	);
+      <Space gap justify="stretch">
+        <Button {...firstArgs} />
+        <Button {...middleArgs}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={args.icon} {...args}>
+          <Paragraph>{args.children || "Button"}</Paragraph>
+        </Button>
+        <Button icon={args.icon} {...args}>
+          <Paragraph>
+            Two lines make
+            <br />
+            the others stretch
+          </Paragraph>
+        </Button>
+      </Space>
+    </Space>
+  );
 };
 
 export const Default: Story = Template.bind({});
 Default.args = {
-	variant: "default",
-	size: "default",
-	disabled: false,
-	icon: "Plus",
-	children: "Button",
+  variant: "default",
+  size: "default",
+  disabled: false,
+  icon: "Plus",
+  children: "Button",
 };
 
 export const InButtonGroup = () => (
-	<ButtonGroup>
-		<Button icon={"Star"}></Button>
-		<Button icon={"Magnify"}></Button>
-		<Button icon={"Text"}>
-			<Paragraph>Text</Paragraph>
-		</Button>
-		<Button icon={"Comment"}></Button>
-	</ButtonGroup>
+  <ButtonGroup>
+    <Button icon={"Star"}></Button>
+    <Button icon={"Magnify"}></Button>
+    <Button icon={"Text"}>
+      <Paragraph>Text</Paragraph>
+    </Button>
+    <Button icon={"Comment"}></Button>
+  </ButtonGroup>
 );
 
 export const InVerticalButtonGroup = () => (
-	<ButtonGroup direction={"vertical"}>
-		<Button icon={"Star"}></Button>
-		<Button icon={"Magnify"}></Button>
-		<Button icon={"Text"}>
-			<Paragraph>Text</Paragraph>
-		</Button>
-		<Button icon={"Comment"}></Button>
-	</ButtonGroup>
+  <ButtonGroup direction={"vertical"}>
+    <Button icon={"Star"}></Button>
+    <Button icon={"Magnify"}></Button>
+    <Button icon={"Text"}>
+      <Paragraph>Text</Paragraph>
+    </Button>
+    <Button icon={"Comment"}></Button>
+  </ButtonGroup>
 );
 
 export const Primary: Story = Template.bind({});
 Primary.args = {
-	variant: "primary",
-	icon: "Triangle",
-	children: "Primary",
+  variant: "primary",
+  icon: "Triangle",
+  children: "Primary",
 };
 
 export const Active: Story = Template.bind({});
 Active.args = {
-	variant: "active",
-	icon: "Check",
-	children: "Active",
+  variant: "active",
+  icon: "Check",
+  children: "Active",
 };
 
 export const Danger: Story = Template.bind({});
 Danger.args = {
-	variant: "danger",
-	icon: "Triangle",
-	children: "Danger",
+  variant: "danger",
+  icon: "Triangle",
+  children: "Danger",
+};
+
+export const Success: Story = Template.bind({});
+Success.args = {
+  variant: "success",
+  icon: "Check",
+  children: "Success",
 };
 
 export const Warning: Story = Template.bind({});
 Warning.args = {
-	variant: "warning",
-	icon: "Triangle",
-	children: "Warning",
+  variant: "warning",
+  icon: "Triangle",
+  children: "Warning",
 };
 
 export const Ghost: Story = Template.bind({});
 Ghost.args = {
-	variant: "ghost",
-	icon: "Triangle",
-	children: "Ghost",
+  variant: "ghost",
+  icon: "Triangle",
+  children: "Ghost",
 };
 
 export const Disabled: Story = Template.bind({});
 Disabled.args = {
-	variant: "disabled",
-	disabled: true,
-	icon: "Folder",
-	children: "Disabled",
+  variant: "default",
+  disabled: true,
+  icon: "Folder",
+  children: "Disabled",
 };
 
 export const VariantsGallery = () => (
-	<Space direction="vertical" gap wide>
-		{(
-			[
-				"default",
-				"active",
-				"primary",
-				"warning",
-				"danger",
-				"ghost",
-				"disabled",
-			] as ButtonType[]
-		).map((variant) => (
-			<Card key={variant} pad wide variant={variant}>
-				<Space justify="between" align="center" wide>
-					<Paragraph>
-						<strong>{variant}</strong>
-					</Paragraph>
-					<Button
-						variant={variant}
-						disabled={variant === "disabled"}
-						icon="Star"
-					>
-						<Paragraph>{variant}</Paragraph>
-					</Button>
-				</Space>
-			</Card>
-		))}
-	</Space>
+  <Space direction="vertical" gap wide>
+    {(
+      [
+        "default",
+        "active",
+        "primary",
+        "success",
+        "warning",
+        "danger",
+        "ghost",
+      ] as ButtonType[]
+    ).map((variant) => (
+      <Card key={variant} pad wide variant={variant}>
+        <Space justify="between" align="center" wide>
+          <Paragraph>
+            <strong>{variant}</strong>
+          </Paragraph>
+          <Button variant={variant} disabled={false} icon="Star">
+            <Paragraph>{variant}</Paragraph>
+          </Button>
+        </Space>
+      </Card>
+    ))}
+    <Card pad wide>
+      <Space justify="between" align="center" wide>
+        <Paragraph>
+          <strong>disabled</strong>
+        </Paragraph>
+        <Button disabled icon="Star">
+          <Paragraph>disabled</Paragraph>
+        </Button>
+      </Space>
+    </Card>
+  </Space>
 );

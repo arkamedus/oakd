@@ -1,0 +1,22 @@
+.oakd.card.oakd-pill {
+	display: inline-flex;
+	align-items: center;
+	width: fit-content;
+	max-width: 100%;
+	border: var(--oakd-border-width) solid transparent;
+	border-radius: var(--oakd-radius-round);
+	padding: calc(var(--oakd-leading) / 2) var(--oakd-leading);
+}
+
+.oakd.card.oakd-pill.size-small {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.oakd.card.oakd-pill.size-large {
+	padding: var(--oakd-leading) calc(var(--oakd-leading) * 2);
+}
+
+.oakd.card.oakd-pill.wide {
+	width: 100%;
+}

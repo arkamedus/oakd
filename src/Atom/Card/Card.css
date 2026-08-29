@@ -1,17 +1,17 @@
 .oakd.card {
-    border: 1px solid var(--oakd-gray);
-    border-radius: calc(var(--border-radius) * 1.66);
-    background: var(--background);
+    border: var(--oakd-border-width) solid var(--oakd-gray);
+    border-radius: calc(var(--oakd-radius) * 1.66);
+    background: var(--oakd-background);
     min-width: 0;
 }
 
 .oakd.card > .oakd.debug-layer {
-    border-radius: calc(var(--border-radius) * 1.42);
+    border-radius: calc(var(--oakd-radius) * 1.42);
     overflow: hidden;
 }
 
 .oakd.card.pad {
-    padding: var(--leading);
+    padding: var(--oakd-leading);
 }
 
 .oakd.card.grow {

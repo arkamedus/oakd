@@ -1,0 +1,59 @@
+.oakd-badge {
+	position: relative;
+	display: inline-flex;
+	align-items: stretch;
+	width: fit-content;
+	max-width: 100%;
+	vertical-align: top;
+}
+
+.oakd-badge.wide {
+	width: 100%;
+}
+
+.oakd-badge.wide > .oakd.button {
+	width: 100%;
+}
+
+.oakd-badge__dot {
+	position: absolute;
+	top: calc(var(--oakd-leading) / -3);
+	right: calc(var(--oakd-leading) / -3);
+	z-index: 1;
+	display: inline-block;
+	width: calc(var(--oakd-leading) * 0.7);
+	height: calc(var(--oakd-leading) * 0.7);
+	border-radius: 100%;
+	background: var(--oakd-card-danger-border);
+	box-shadow: 0 0 0 var(--oakd-border-width)
+		var(--oakd-card-default-color);
+	pointer-events: none;
+}
+
+.oakd-badge.type-default > .oakd-badge__dot {
+	background: var(--oakd-card-default-border);
+}
+
+.oakd-badge.type-primary > .oakd-badge__dot {
+	background: var(--oakd-card-primary-border);
+}
+
+.oakd-badge.type-active > .oakd-badge__dot {
+	background: var(--oakd-card-active-border);
+}
+
+.oakd-badge.type-success > .oakd-badge__dot {
+	background: var(--oakd-card-success-border);
+}
+
+.oakd-badge.type-warning > .oakd-badge__dot {
+	background: var(--oakd-card-warning-border);
+}
+
+.oakd-badge.type-danger > .oakd-badge__dot {
+	background: var(--oakd-card-danger-border);
+}
+
+.oakd-badge.type-ghost > .oakd-badge__dot {
+	background: var(--oakd-card-ghost-border);
+}

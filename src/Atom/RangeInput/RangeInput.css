@@ -1,0 +1,50 @@
+.oakd-range {
+	min-width: 0;
+}
+.oakd-range input {
+	flex: 1 1 auto;
+	min-width: calc(var(--oakd-line-height) * 3);
+	height: var(--oakd-leading);
+	appearance: none;
+	border: var(--oakd-border-width) solid var(--oakd-default-border);
+	border-radius: var(--oakd-radius);
+	background: var(--oakd-ghost-color);
+	cursor: pointer;
+}
+.oakd-range input::-webkit-slider-thumb {
+	width: calc(var(--oakd-leading) * 2);
+	height: calc(var(--oakd-leading) * 2);
+	appearance: none;
+	border: var(--oakd-border-width) solid var(--oakd-primary-border);
+	border-radius: var(--oakd-radius);
+	background: var(--oakd-primary-color);
+}
+.oakd-range input::-moz-range-thumb {
+	width: calc(var(--oakd-leading) * 2);
+	height: calc(var(--oakd-leading) * 2);
+	border: var(--oakd-border-width) solid var(--oakd-primary-border);
+	border-radius: var(--oakd-radius);
+	background: var(--oakd-primary-color);
+}
+.oakd-range input:focus-visible {
+	outline: none;
+	box-shadow: var(--oakd-focus-ring);
+}
+.oakd-range input:disabled {
+	border-color: var(--oakd-disabled-border);
+	background: var(--oakd-disabled-color);
+	cursor: not-allowed;
+}
+.oakd-range input:disabled::-webkit-slider-thumb {
+	border-color: var(--oakd-disabled-border);
+	background: var(--oakd-disabled-color);
+}
+.oakd-range input:disabled::-moz-range-thumb {
+	border-color: var(--oakd-disabled-border);
+	background: var(--oakd-disabled-color);
+}
+.oakd-range output {
+	min-width: 3ch;
+	text-align: end;
+	font-variant-numeric: tabular-nums;
+}

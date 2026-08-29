@@ -1,0 +1,56 @@
+.oakd-app-shell {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100dvh;
+	max-height: 100dvh;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+	background: var(--oakd-background);
+	color: var(--oakd-font-color);
+}
+.oakd-app-shell__header,
+.oakd-app-shell__footer {
+	flex: 0 0 auto;
+	min-width: 0;
+}
+.oakd-app-shell__workspace {
+	position: relative;
+	display: flex;
+	flex: 1 1 auto;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+.oakd-app-shell__sidebar {
+	flex: 0 0 var(--oakd-app-shell-sidebar-width, var(--oakd-width-sm));
+	width: var(--oakd-app-shell-sidebar-width, var(--oakd-width-sm));
+	max-width: 100%;
+	min-height: 0;
+	overflow: auto;
+}
+.oakd-app-shell__sidebar--collapsed {
+	flex-basis: var(--oakd-app-shell-sidebar-collapsed-width, auto);
+	width: var(--oakd-app-shell-sidebar-collapsed-width, auto);
+}
+.oakd-app-shell__main {
+	flex: 1 1 auto;
+	min-width: 0;
+	min-height: 0;
+	overflow: auto;
+}
+@media (max-width: 768px) {
+	.oakd-app-shell__sidebar {
+		position: absolute;
+		inset-block: 0;
+		inset-inline-start: 0;
+		z-index: 20;
+		height: 100%;
+		background: var(--oakd-background);
+		max-width: min(
+			var(--oakd-mobile-panel-max),
+			var(--oakd-app-shell-sidebar-width, var(--oakd-width-md))
+		);
+	}
+}

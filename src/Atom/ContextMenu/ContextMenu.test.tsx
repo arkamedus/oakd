@@ -24,7 +24,10 @@ describe("ContextMenu Component", () => {
 			</ContextMenu>,
 		);
 
-		fireEvent.contextMenu(screen.getByText("Target"), { clientX: 100, clientY: 80 });
+		fireEvent.contextMenu(screen.getByText("Target"), {
+			clientX: 100,
+			clientY: 80,
+		});
 		expect(await screen.findByTestId("ContextMenu")).toBeInTheDocument();
 
 		fireEvent.mouseDown(document.body);
@@ -40,7 +43,10 @@ describe("ContextMenu Component", () => {
 			</ContextMenu>,
 		);
 
-		fireEvent.contextMenu(screen.getByText("Target"), { clientX: 100, clientY: 80 });
+		fireEvent.contextMenu(screen.getByText("Target"), {
+			clientX: 100,
+			clientY: 80,
+		});
 		expect(await screen.findByTestId("ContextMenu")).toBeInTheDocument();
 
 		fireEvent.mouseDown(screen.getByText("Target"), { button: 0 });
@@ -56,7 +62,10 @@ describe("ContextMenu Component", () => {
 			</ContextMenu>,
 		);
 
-		fireEvent.contextMenu(screen.getByText("Target"), { clientX: 100, clientY: 80 });
+		fireEvent.contextMenu(screen.getByText("Target"), {
+			clientX: 100,
+			clientY: 80,
+		});
 		expect(await screen.findByTestId("ContextMenu")).toBeInTheDocument();
 
 		fireEvent.keyDown(document, { key: "Escape" });
@@ -68,8 +77,14 @@ describe("ContextMenu Component", () => {
 	it("clamps position near the viewport edge", async () => {
 		const innerWidth = window.innerWidth;
 		const innerHeight = window.innerHeight;
-		Object.defineProperty(window, "innerWidth", { configurable: true, value: 320 });
-		Object.defineProperty(window, "innerHeight", { configurable: true, value: 240 });
+		Object.defineProperty(window, "innerWidth", {
+			configurable: true,
+			value: 320,
+		});
+		Object.defineProperty(window, "innerHeight", {
+			configurable: true,
+			value: 240,
+		});
 
 		const original = HTMLElement.prototype.getBoundingClientRect;
 		HTMLElement.prototype.getBoundingClientRect = function () {
@@ -95,7 +110,10 @@ describe("ContextMenu Component", () => {
 			</ContextMenu>,
 		);
 
-		fireEvent.contextMenu(screen.getByText("Target"), { clientX: 300, clientY: 220 });
+		fireEvent.contextMenu(screen.getByText("Target"), {
+			clientX: 300,
+			clientY: 220,
+		});
 		const menu = await screen.findByTestId("ContextMenu");
 		await waitFor(() => {
 			expect(parseFloat(menu.style.left)).toBeLessThan(300);
@@ -103,7 +121,13 @@ describe("ContextMenu Component", () => {
 		});
 
 		HTMLElement.prototype.getBoundingClientRect = original;
-		Object.defineProperty(window, "innerWidth", { configurable: true, value: innerWidth });
-		Object.defineProperty(window, "innerHeight", { configurable: true, value: innerHeight });
+		Object.defineProperty(window, "innerWidth", {
+			configurable: true,
+			value: innerWidth,
+		});
+		Object.defineProperty(window, "innerHeight", {
+			configurable: true,
+			value: innerHeight,
+		});
 	});
 });

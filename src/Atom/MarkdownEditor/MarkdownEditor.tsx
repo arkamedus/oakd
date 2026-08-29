@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 import Button from "../Button/Button";
 import { ButtonGroup } from "../Button/Button";
 import CodeArea from "../CodeArea/CodeArea";
@@ -29,10 +35,13 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 	const markdown = internalValue;
 	const previewMode = preview !== undefined ? preview : internalPreview;
 
-	const updateMarkdown = (next: string) => {
-		setInternalValue(next);
-		onChange?.(next);
-	};
+	const updateMarkdown = useCallback(
+		(next: string) => {
+			setInternalValue(next);
+			onChange?.(next);
+		},
+		[onChange],
+	);
 
 	const setPreviewMode = (next: boolean) => {
 		if (preview === undefined) {
@@ -41,37 +50,36 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 		onPreviewChange?.(next);
 	};
 
-	const insertAtSelection = (
-		before: string,
-		after = "",
-		fallbackToWholeValue = false,
-	) => {
-		const element = ref.current;
-		if (!element) return;
+	const insertAtSelection = useCallback(
+		(before: string, after = "", fallbackToWholeValue = false) => {
+			const element = ref.current;
+			if (!element) return;
 
-		const selectionStart = element.selectionStart ?? 0;
-		const selectionEnd = element.selectionEnd ?? 0;
-		const hasSelection = selectionStart !== selectionEnd;
-		const start = !hasSelection && fallbackToWholeValue ? 0 : selectionStart;
-		const end =
-			!hasSelection && fallbackToWholeValue ? markdown.length : selectionEnd;
-		const selected = markdown.slice(start, end);
-		const next =
-			markdown.slice(0, start) +
-			before +
-			selected +
-			after +
-			markdown.slice(end);
+			const selectionStart = element.selectionStart ?? 0;
+			const selectionEnd = element.selectionEnd ?? 0;
+			const hasSelection = selectionStart !== selectionEnd;
+			const start = !hasSelection && fallbackToWholeValue ? 0 : selectionStart;
+			const end =
+				!hasSelection && fallbackToWholeValue ? markdown.length : selectionEnd;
+			const selected = markdown.slice(start, end);
+			const next =
+				markdown.slice(0, start) +
+				before +
+				selected +
+				after +
+				markdown.slice(end);
 
-		updateMarkdown(next);
+			updateMarkdown(next);
 
-		requestAnimationFrame(() => {
-			element.focus();
-			const cursorStart = start + before.length;
-			const cursorEnd = cursorStart + selected.length;
-			element.setSelectionRange(cursorStart, cursorEnd);
-		});
-	};
+			requestAnimationFrame(() => {
+				element.focus();
+				const cursorStart = start + before.length;
+				const cursorEnd = cursorStart + selected.length;
+				element.setSelectionRange(cursorStart, cursorEnd);
+			});
+		},
+		[markdown, updateMarkdown],
+	);
 
 	const toolbar = useMemo(
 		() => [
@@ -111,7 +119,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 				onClick: () => insertAtSelection("![alt text](image-url)"),
 			},
 		],
-		[markdown],
+		[insertAtSelection],
 	);
 
 	return (

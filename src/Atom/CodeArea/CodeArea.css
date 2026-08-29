@@ -2,79 +2,79 @@
 
 /* ONE SOURCE OF TRUTH */
 .oakd.codearea-container {
-    --code-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+  --code-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
-    --code-font-size: var(--font-size);
-    --code-line-height: var(--line-height);
-    --code-font-weight: 400;
-    --code-letter-spacing: normal;
-    --code-tab-size: 2;
-    --code-padding-x: var(--leading);
-    --code-padding-y: calc(var(--leading) / 2);
-    --gutter-width: calc(var(--leading) * 2 + 4ch);
-    padding: 0;
-    box-sizing: border-box;
+  --code-font-size: var(--font-size);
+  --code-line-height: var(--line-height);
+  --code-font-weight: 400;
+  --code-letter-spacing: normal;
+  --code-tab-size: 2;
+  --code-padding-x: var(--leading);
+  --code-padding-y: calc(var(--leading) / 2);
+  --gutter-width: calc(var(--leading) * 2 + 4ch);
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .oakd.codearea-container.size-small {
-    --code-padding-y: 0;
+  --code-padding-y: 0;
 }
 
 .oakd.codearea-container.size-large {
-    --code-padding-x: calc(var(--leading) * 2);
-    --code-padding-y: var(--leading);
-    --gutter-width: calc(var(--leading) * 3 + 4ch);
+  --code-padding-x: calc(var(--leading) * 2);
+  --code-padding-y: var(--leading);
+  --gutter-width: calc(var(--leading) * 3 + 4ch);
 }
 
 /* container */
 .oakd.codearea-container {
-    display: inline-flex;
-    flex-direction: column;
-    border: 1px solid;
-    border-radius: var(--border-radius);
-    min-width: 0;
-    min-height: 0;
+  display: inline-flex;
+  flex-direction: column;
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  min-width: 0;
+  min-height: 0;
 }
 
 .oakd.codearea-container.grow {
-    width: 100%;
+  width: 100%;
 }
 
 .oakd.codearea-container.fill {
-    width: 100%;
-    height: 100%;
-    flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 auto;
 }
 
 /* editor wrapper */
 .oakd .codearea-editor {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    min-width: 0;
-    min-height: 0;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
 }
 
 .oakd.codearea-container.fill .codearea-editor {
-    flex: 1 1 auto;
-    height: 100%;
+  flex: 1 1 auto;
+  height: 100%;
 }
 
 /* ---------- OVERLAY (no scroll) ---------- */
 .oakd .codearea-overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .oakd .codearea-overlay-inner {
-    position: relative;
-    will-change: transform;
-    transform: translate(0px, 0px);
+  position: relative;
+  will-change: transform;
+  transform: translate(0px, 0px);
 
-    box-sizing: border-box;
-    white-space: pre;
+  box-sizing: border-box;
+  white-space: pre;
 }
 
 .oakd .codearea-overlay-inner,
@@ -82,191 +82,191 @@
 .oakd .codearea-highlight,
 .oakd .codearea-code,
 .oakd .codearea-textarea {
-    font-family: var(--code-font-family);
-    font-size: var(--code-font-size);
-    font-weight: var(--code-font-weight);
-    line-height: var(--code-line-height);
-    letter-spacing: var(--code-letter-spacing);
-    tab-size: var(--code-tab-size);
-    font-kerning: none;
-    font-variant-ligatures: none;
-    font-feature-settings: "liga" 0, "calt" 0;
-    white-space: pre;
+  font-family: var(--code-font-family);
+  font-size: var(--code-font-size);
+  font-weight: var(--code-font-weight);
+  line-height: var(--code-line-height);
+  letter-spacing: var(--code-letter-spacing);
+  tab-size: var(--code-tab-size);
+  font-kerning: none;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  white-space: pre;
 }
 
 /* if gutter: reserve space */
 .oakd.codearea-container.has-gutter .codearea-overlay-inner {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 /* ---------- GUTTER ---------- */
 .oakd .codearea-gutter {
-    position: absolute;
-    left: 0;
-    top: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 
-    width: var(--gutter-width);
-    padding-left: var(--code-padding-x);
-    padding-right: calc(var(--leading) / 2);
-    padding-top: var(--code-padding-y);
-    padding-bottom: var(--code-padding-y);
-    box-sizing: border-box;
+  width: var(--gutter-width);
+  padding-left: var(--code-padding-x);
+  padding-right: calc(var(--leading) / 2);
+  padding-top: var(--code-padding-y);
+  padding-bottom: var(--code-padding-y);
+  box-sizing: border-box;
 
-    border-right: 1px solid rgba(0,0,0,0.12);
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
 
-    text-align: right;
-    pointer-events: auto; /* clickable */
+  text-align: right;
+  pointer-events: auto; /* clickable */
 }
 
 .oakd .codearea-gutter-line {
-    display: block;
-    height: var(--code-line-height);
-    line-height: var(--code-line-height);
-    border: none;
-    background: transparent;
-    padding: 0;
-    margin: 0;
-    width: 100%;
+  display: block;
+  height: var(--code-line-height);
+  line-height: var(--code-line-height);
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 
-    opacity: 0.55;
-    cursor: pointer;
-    color: inherit;
-    font: inherit;
+  opacity: 0.55;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
 }
 
 .oakd .codearea-gutter-line.is-error {
-    opacity: 1;
-    font-weight: 800;
-    color: var(--oakd-danger-color, #d00);
+  opacity: 1;
+  font-weight: 800;
+  color: var(--oakd-danger-color, #d00);
 }
 
 /* ---------- LINE BACKGROUNDS (FLOW BASED) ---------- */
 .oakd .codearea-linebg-layer {
-    position: absolute;
-    top: var(--code-padding-y);
-    right: 0;
-    bottom: var(--code-padding-y);
-    left: 0;
-    z-index: 0;
+  position: absolute;
+  top: var(--code-padding-y);
+  right: 0;
+  bottom: var(--code-padding-y);
+  left: 0;
+  z-index: 0;
 }
 
 .oakd .codearea-linebg {
-    height: var(--code-line-height);
+  height: var(--code-line-height);
 }
 
 .oakd .codearea-linebg.is-current {
-    background: rgba(0,0,0,0.06);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .oakd .codearea-linebg.is-error {
-    background: rgba(255,0,0,0.10);
+  background: rgba(255,0,0,0.10);
 }
 
 /* ---------- HIGHLIGHTED CODE ---------- */
 .oakd .codearea-highlight {
-    position: relative;
-    margin: 0;
-    z-index: 1;
+  position: relative;
+  margin: 0;
+  z-index: 1;
 }
 
 .oakd .codearea-code {
-    display: block;
+  display: block;
 }
 
 .oakd .codearea-editor {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .oakd .codearea-overlay-inner {
-    padding: 0;
+  padding: 0;
 }
 
 .oakd .codearea-highlight {
-    padding: var(--code-padding-y) var(--code-padding-x);
+  padding: var(--code-padding-y) var(--code-padding-x);
 }
 
 .oakd.codearea-container.has-gutter .codearea-highlight {
-    padding-left: calc(var(--code-padding-x) + var(--gutter-width));
+  padding-left: calc(var(--code-padding-x) + var(--gutter-width));
 }
 
 
 /* ---------- TEXTAREA (single scroller) ---------- */
 .oakd .codearea-textarea {
-    position: relative;
-    width: 100%;
-    min-height: calc(var(--code-line-height) * 6);
-    resize: vertical;
+  position: relative;
+  width: 100%;
+  min-height: calc(var(--code-line-height) * 6);
+  resize: vertical;
 
-    border: none;
-    outline: none;
-    background: transparent;
-    box-sizing: border-box;
+  border: none;
+  outline: none;
+  background: transparent;
+  box-sizing: border-box;
 
-    white-space: pre;
-    overflow: auto;
-    padding: var(--code-padding-y) var(--code-padding-x);
+  white-space: pre;
+  overflow: auto;
+  padding: var(--code-padding-y) var(--code-padding-x);
 
-    color: transparent;
-    caret-color: var(--oakd-code-caret, currentColor);
+  color: transparent;
+  caret-color: var(--oakd-code-caret, currentColor);
 }
 
 .oakd.codearea-container.fill .codearea-textarea {
-    height: 100%;
-    min-height: 0;
-    resize: none;
+  height: 100%;
+  min-height: 0;
+  resize: none;
 }
 
 .oakd.codearea-container.has-gutter .codearea-textarea {
-    padding-left: calc(var(--code-padding-x) + var(--gutter-width));
+  padding-left: calc(var(--code-padding-x) + var(--gutter-width));
 }
 
 .oakd .codearea-textarea::placeholder {
-    color: rgba(0,0,0,0.45);
+  color: rgba(0, 0, 0, 0.45);
 }
 
 /* Types */
 .oakd.codearea-container.type-default {
-    background-color: var(--background);
-    border-color: var(--oakd-default-border);
-    color: var(--font-color);
-    --oakd-code-caret: var(--font-color);
+  background-color: var(--background);
+  border-color: var(--oakd-default-border);
+  color: var(--font-color);
+  --oakd-code-caret: var(--font-color);
 }
 
 .oakd.codearea-container.type-primary {
-    background-color: var(--oakd-primary-color);
-    border-color: #0f4580;
-    color: #fff;
-    --oakd-code-caret: #fff;
+  background-color: var(--oakd-primary-color);
+  border-color: #0f4580;
+  color: #fff;
+  --oakd-code-caret: #fff;
 }
 
 .oakd.codearea-container.type-danger {
-    background-color: var(--oakd-danger-color);
-    border-color: var(--oakd-danger-border);
-    color: var(--oakd-danger-text);
-    --oakd-code-caret: var(--oakd-danger-text);
+  background-color: var(--oakd-danger-color);
+  border-color: var(--oakd-danger-border);
+  color: var(--oakd-danger-text);
+  --oakd-code-caret: var(--oakd-danger-text);
 }
 
 .oakd.codearea-container.type-warning {
-    background-color: #ffc107;
-    color: #654406;
-    --oakd-code-caret: #654406;
+  background-color: #ffc107;
+  color: #654406;
+  --oakd-code-caret: #654406;
 }
 
 .oakd.codearea-container.type-ghost {
-    background: #ccc4;
-    color: #222;
-    --oakd-code-caret: #222;
+  background: #ccc4;
+  color: #222;
+  --oakd-code-caret: #222;
 }
 
 .oakd.codearea-container.codearea-disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    color: #666;
-    --oakd-code-caret: #666;
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: #666;
+  --oakd-code-caret: #666;
 }
 
 .oakd.codearea-container.codearea-disabled .codearea-textarea {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 /* Token colors */

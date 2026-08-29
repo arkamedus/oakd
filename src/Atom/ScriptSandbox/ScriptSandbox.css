@@ -1,8 +1,8 @@
 .oakd.script-sandbox {
     display: flex;
     flex-direction: column;
-    border: 1px solid;
-    border-radius: var(--border-radius);
+    border: var(--oakd-border-width) solid;
+    border-radius: var(--oakd-radius);
     overflow: hidden;
 }
 
@@ -10,8 +10,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--leading);
-    border-bottom: 1px solid rgba(0,0,0,0.12);
+    padding: var(--oakd-leading);
+    border-bottom: var(--oakd-border-width) solid var(--oakd-card-default-border);
 }
 
 .oakd .script-sandbox__title {
@@ -20,14 +20,14 @@
 
 .oakd .script-sandbox__controls {
     display: flex;
-    gap: calc(var(--leading) / 2);
+    gap: calc(var(--oakd-leading) / 2);
 }
 
 .oakd .script-sandbox__btn {
-    border: 1px solid rgba(0,0,0,0.18);
-    background: rgba(255,255,255,0.9);
-    padding: 6px 10px;
-    border-radius: 8px;
+    border: var(--oakd-border-width) solid var(--oakd-default-border);
+    background: var(--oakd-background);
+    padding: calc(var(--oakd-leading) / 2) var(--oakd-leading);
+    border-radius: var(--oakd-radius);
     cursor: pointer;
 }
 
@@ -41,19 +41,19 @@
 }
 
 .oakd .script-sandbox__error {
-    padding: var(--leading);
-    border-bottom: 1px solid rgba(0,0,0,0.12);
-    color: var(--oakd-danger-color, #d00);
-    background: rgba(255, 0, 0, 0.06);
+    padding: var(--oakd-leading);
+    border-bottom: var(--oakd-border-width) solid var(--oakd-card-default-border);
+    color: var(--oakd-card-danger-text);
+    background: var(--oakd-card-danger-color);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-    font-size: 12px;
+    font-size: var(--oakd-font-size);
     white-space: pre-wrap;
 }
 
 .oakd .script-sandbox__frameWrap {
     position: relative;
     width: 100%;
-    height: 280px; /* adjust or make a prop */
+    height: var(--oakd-surface-height-md);
 }
 
 .oakd .script-sandbox__frame {
@@ -61,13 +61,13 @@
     height: 100%;
     border: none;
     display: block;
-    background: #fff;
+    background: var(--oakd-background);
 }
 
 .oakd .script-sandbox__footer {
-    padding: 8px var(--leading);
-    border-top: 1px solid rgba(0,0,0,0.12);
-    font-size: 12px;
+    padding: var(--oakd-leading);
+    border-top: var(--oakd-border-width) solid var(--oakd-card-default-border);
+    font-size: var(--oakd-font-size);
     opacity: 0.8;
 }
 
@@ -77,6 +77,6 @@
 
 .oakd .script-sandbox__footer .st.running { opacity: 0.9; }
 .oakd .script-sandbox__footer .st.success { opacity: 1; }
-.oakd .script-sandbox__footer .st.error { color: var(--oakd-danger-color, #d00); }
+.oakd .script-sandbox__footer .st.error { color: var(--oakd-danger-color); }
 .oakd .script-sandbox__footer .st.reset { opacity: 0.8; }
 .oakd .script-sandbox__footer .st.idle { opacity: 0.8; }

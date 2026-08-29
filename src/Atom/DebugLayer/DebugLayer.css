@@ -1,26 +1,25 @@
 .debug-layer {
-    position: relative;
-    border: 1px dashed red;
-    padding-top: var(--line-height);
-    min-width: 120px;
-    display: block;
-    //min-height: 100%;
-    border-radius: calc(var(--border-radius) );
-    overflow: hidden;
-    //flex-grow: 1;
+  position: relative;
+  border: var(--oakd-border-width) dashed var(--oakd-danger-border);
+  padding-top: var(--oakd-line-height);
+  min-width: 0;
+  max-width: 100%;
+  display: block;
+  border-radius: var(--oakd-radius);
+  overflow: hidden;
 }
 
 /* Label style within the DebugLayer component */
 .debug-layer > .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: calc(var(--line-height));
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(var(--oakd-line-height));
 }
 
 .debug-layer .header > .label {
-    background-color: #FFCBCB;
-    padding: 0 var(--leading);
-    color: #851010;
-    border-bottom-right-radius: calc(var(--border-radius) * 0.66);
+  background-color: var(--oakd-card-danger-color);
+  padding: 0 var(--oakd-leading);
+  color: var(--oakd-card-danger-text);
+  border-bottom-right-radius: calc(var(--oakd-radius) * 0.66);
 }

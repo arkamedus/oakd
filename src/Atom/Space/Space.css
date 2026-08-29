@@ -10,8 +10,8 @@
 }
 
 .space.gap {
-    column-gap: var(--leading);
-    row-gap: var(--leading);
+    column-gap: var(--oakd-leading);
+    row-gap: var(--oakd-leading);
 }
 
 .space.fill {

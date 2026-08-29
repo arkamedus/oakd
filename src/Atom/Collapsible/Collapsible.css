@@ -7,11 +7,10 @@
 }
 
 .oakd.collapsible {
-  border: 1px solid var(--oakd-gray);
-  border-radius: calc(var(--border-radius) * 1.66);
-  background: var(--background);
+  border: var(--oakd-border-width) solid var(--oakd-gray);
+  border-radius: calc(var(--oakd-radius) * 1.66);
+  background: var(--oakd-background);
 }
-
 
 .collapsible__toggle {
   display: block;

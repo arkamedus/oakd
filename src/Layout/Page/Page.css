@@ -4,7 +4,7 @@
     width: 100%;
     min-width: 0;
     min-height: 0;
-    background-color: var(--background);
+    background-color: var(--oakd-background);
 }
 
 .oakd.page.fill {
@@ -25,6 +25,6 @@
 }
 
 .oakd.page.gap {
-    column-gap: var(--gap-sizing);
-    row-gap: var(--gap-sizing);
+    column-gap: var(--oakd-gap);
+    row-gap: var(--oakd-gap);
 }

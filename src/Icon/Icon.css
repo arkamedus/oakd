@@ -23,16 +23,16 @@
 
 /* Size Variants */
 .icon-default {
-    width: calc(var(--line-height) * 1.5);
-    height: calc(var(--line-height) * 1.5);
+    width: calc(var(--oakd-line-height) * 1.5);
+    height: calc(var(--oakd-line-height) * 1.5);
 }
 .icon-small {
-    width: var(--line-height);
-    height: var(--line-height);
+    width: var(--oakd-line-height);
+    height: var(--oakd-line-height);
 }
 .icon-large {
-    width: calc(var(--line-height) * 2);
-    height: calc(var(--line-height) * 2);
+    width: calc(var(--oakd-line-height) * 2);
+    height: calc(var(--oakd-line-height) * 2);
 }
 
 .oakd-icon-stack {

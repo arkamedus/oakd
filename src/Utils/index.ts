@@ -18,4 +18,9 @@ export type {
 } from "./OakM";
 
 export { parsePLY, plyToMeshData } from "./PLY";
-export type { PLYData, PLYIndexArray, PLYMeshBuildOptions, PLYParseOptions } from "./PLY";
+export type {
+	PLYData,
+	PLYIndexArray,
+	PLYMeshBuildOptions,
+	PLYParseOptions,
+} from "./PLY";

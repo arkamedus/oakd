@@ -5,6 +5,20 @@
 .aspect {
     position: relative;
     width: 100%;
+    min-width: 0;
+    min-height: 0;
+}
+
+.aspect.fill {
+    height: 100%;
+}
+
+.aspect.grow {
+    flex: 1 1 auto;
+}
+
+.aspect.fill::before {
+    display: none;
 }
 
 .aspect::before {

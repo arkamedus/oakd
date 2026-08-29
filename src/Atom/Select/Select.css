@@ -23,55 +23,51 @@
 	min-width: 0;
 }
 
-.oakd-select__dropdown {
+.oakd-select__dropdown.oakd.card {
 	z-index: 1000;
-	background-color: var(--background, #fff);
 	display: none;
-	min-width: 200px;
+	min-width: 100%;
 	width: max-content;
-	overflow: hidden;
-	border: 1px solid var(--border-color, #ccc);
-	padding: var(--leading, 8px);
-	border-radius: var(--border-radius, 4px);
-	max-width: calc(100vw - (var(--leading, 8px) * 2));
-	max-height: calc(100vh - (var(--leading, 8px) * 2));
+	max-width: calc(100vw - (var(--oakd-leading) * 2));
+	max-height: calc(100vh - (var(--oakd-leading) * 2));
 	overflow: auto;
 	overscroll-behavior: contain;
 }
 
 /* Direction positioning */
 .oakd-select__dropdown--bottom-left {
-	top: calc(100% + var(--leading, 8px));
+	top: calc(100% + var(--oakd-leading));
 	left: 0;
 	right: auto;
 }
 
 .oakd-select__dropdown--bottom-right {
-	top: calc(100% + var(--leading, 8px));
+	top: calc(100% + var(--oakd-leading));
 	left: auto;
 	right: 0;
 }
 
 .oakd-select__dropdown--top-left {
-	bottom: calc(100% + var(--leading, 8px));
+	bottom: calc(100% + var(--oakd-leading));
 	left: 0;
 	right: auto;
 }
 
 .oakd-select__dropdown--top-right {
-	bottom: calc(100% + var(--leading, 8px));
+	bottom: calc(100% + var(--oakd-leading));
 	left: auto;
 	right: 0;
 }
 
 /* When the dropdown is active, show it */
-.oakd-select__dropdown.active {
+.oakd-select__dropdown.oakd.card.active {
 	display: block;
 }
 
 /* When fixed mode is active */
-.oakd-select__dropdown--fixed {
+.oakd-select__dropdown.oakd.card.oakd-select__dropdown--fixed {
 	position: fixed;
+	min-width: var(--oakd-dropdown-fixed-width, max-content);
 	margin-top: 0;
 }
 
@@ -80,7 +76,10 @@
 	right: auto;
 	bottom: auto;
 	left: var(--oakd-dropdown-fixed-left, auto);
-	max-height: calc(100vh - var(--oakd-dropdown-fixed-top, 0px) - var(--leading, 8px));
+	max-height: var(
+		--oakd-dropdown-available-height,
+		calc(100vh - var(--oakd-viewport-inset))
+	);
 }
 
 .oakd-select__dropdown--fixed.oakd-select__dropdown--bottom-right {
@@ -88,7 +87,10 @@
 	right: var(--oakd-dropdown-fixed-right, auto);
 	bottom: auto;
 	left: auto;
-	max-height: calc(100vh - var(--oakd-dropdown-fixed-top, 0px) - var(--leading, 8px));
+	max-height: var(
+		--oakd-dropdown-available-height,
+		calc(100vh - var(--oakd-viewport-inset))
+	);
 }
 
 .oakd-select__dropdown--fixed.oakd-select__dropdown--top-left {
@@ -96,7 +98,10 @@
 	right: auto;
 	bottom: var(--oakd-dropdown-fixed-bottom, auto);
 	left: var(--oakd-dropdown-fixed-left, auto);
-	max-height: calc(100vh - var(--oakd-dropdown-fixed-bottom, 0px) - var(--leading, 8px));
+	max-height: var(
+		--oakd-dropdown-available-height,
+		calc(100vh - var(--oakd-viewport-inset))
+	);
 }
 
 .oakd-select__dropdown--fixed.oakd-select__dropdown--top-right {
@@ -104,7 +109,10 @@
 	right: var(--oakd-dropdown-fixed-right, auto);
 	bottom: var(--oakd-dropdown-fixed-bottom, auto);
 	left: auto;
-	max-height: calc(100vh - var(--oakd-dropdown-fixed-bottom, 0px) - var(--leading, 8px));
+	max-height: var(
+		--oakd-dropdown-available-height,
+		calc(100vh - var(--oakd-viewport-inset))
+	);
 }
 
 .oakd-select__dropdown--fixed.wide,
@@ -115,29 +123,8 @@
 /* When absolute mode is active */
 .oakd-select__dropdown--absolute {
 	position: absolute;
-	//top: 100%;
-	//left: 0;
 }
 
-.oakd-select__item {
-	cursor: pointer;
-	padding: 4px 8px;
-	background: transparent;
-	border: none;
-	width: 100%;
-	text-align: left;
-	display: block;
-}
-
-.oakd-select__item:hover,
-.oakd-select__item:focus {
-	background-color: var(--hover-background, #f0f0f0);
-}
-
-.no-select {
-	user-select: none;
-}
-
-.muted-heavy {
-	color: var(--oakd-gray);
+.oakd-select__empty {
+	opacity: 0.72;
 }

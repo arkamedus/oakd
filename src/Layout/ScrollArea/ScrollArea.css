@@ -1,0 +1,27 @@
+.oakd-scroll-area {
+	min-width: 0;
+	min-height: 0;
+	overscroll-behavior: contain;
+}
+.oakd-scroll-area--vertical {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.oakd-scroll-area--horizontal {
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.oakd-scroll-area--both {
+	overflow: auto;
+}
+.oakd-scroll-area--scrollbar-hidden {
+	scrollbar-width: none;
+}
+.oakd-scroll-area--scrollbar-hidden::-webkit-scrollbar {
+	display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+	.oakd-scroll-area {
+		scroll-behavior: auto;
+	}
+}

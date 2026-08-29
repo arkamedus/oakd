@@ -1,21 +1,11 @@
 import React, { CSSProperties } from "react";
 
-export type CorePaddingValueTypes = "both" | "horizontal" | "vertical";
-
-export type CorePaddingType = number | CorePaddingValueTypes | boolean;
+export type CorePaddingType = boolean;
 
 export const decode__padding = (padding: CorePaddingType): string => {
 	const hasPadding = !!padding;
 	if (!hasPadding) {
 		return "";
-	}
-
-	if (typeof padding === "number") {
-		return "pad";
-	}
-
-	if (typeof padding === "string") {
-		return `pad-${padding}`;
 	}
 
 	return "pad";
@@ -41,11 +31,11 @@ export interface CoreComponentProps<T = HTMLElement> extends Omit<
 export type ButtonType =
 	| "default"
 	| "primary"
+	| "success"
 	| "danger"
 	| "warning"
 	| "ghost"
-	| "active"
-	| "disabled";
+	| "active";
 
 export type CoreComponentSizeType = "default" | "small" | "large" | "huge";
 export type CoreComponentLayoutSizingType =

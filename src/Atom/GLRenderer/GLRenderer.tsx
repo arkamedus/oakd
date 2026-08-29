@@ -133,8 +133,6 @@ const GLRenderer: React.FC<GLRendererProps> = ({
 				camera,
 				rotation,
 				rendering,
-				immediate: true,
-				direct: true,
 			});
 		},
 		[

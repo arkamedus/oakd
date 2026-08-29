@@ -3,9 +3,11 @@
 	width: 100%;
 }
 
-.oakd.context-menu {
+.oakd.context-menu.oakd.card {
 	position: fixed;
 	z-index: 9999;
-	min-width: 180px;
-	max-width: min(320px, calc(100vw - 16px));
+	width: max-content;
+	max-width: calc(100vw - (var(--oakd-leading) * 2));
+	max-height: calc(100vh - (var(--oakd-leading) * 2));
+	overflow: auto;
 }

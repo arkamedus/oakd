@@ -14,19 +14,34 @@ describe("Announcement Component", () => {
 			"Maintenance starts at 10pm.",
 		);
 		expect(
-			screen.getByTestId("Announcement").querySelector(".announcement__icon"),
+			screen
+				.getByTestId("Announcement")
+				.querySelector(".oakd-announcement__leading"),
+		).toBeTruthy();
+		expect(
+			screen
+				.getByTestId("Announcement")
+				.querySelector(".oakd-announcement__leading .icon-small"),
 		).toBeTruthy();
 	});
 
-	it("renders a close button only when closable", () => {
+	it("renders a close icon only when closable", () => {
 		const { rerender } = render(<Announcement>Passive notice</Announcement>);
-		expect(screen.queryByRole("button", { name: "Close announcement" })).toBeNull();
+		expect(screen.queryByLabelText("Close announcement")).toBeNull();
 
 		rerender(<Announcement closable>Dismissable notice</Announcement>);
-		expect(screen.getByRole("button", { name: "Close announcement" })).toBeInTheDocument();
+		expect(screen.getByLabelText("Close announcement")).toBeInTheDocument();
+		expect(
+			screen
+				.getByLabelText("Close announcement")
+				.querySelector(".icon-small"),
+		).toBeTruthy();
+		expect(
+			screen.queryByRole("button", { name: "Close announcement" }),
+		).toBeNull();
 	});
 
-	it("calls onClose when the close button is pressed", () => {
+	it("calls onClose when the close icon is pressed", () => {
 		const onClose = jest.fn();
 		render(
 			<Announcement closable onClose={onClose}>
@@ -34,7 +49,7 @@ describe("Announcement Component", () => {
 			</Announcement>,
 		);
 
-		fireEvent.click(screen.getByRole("button", { name: "Close announcement" }));
+		fireEvent.click(screen.getByLabelText("Close announcement"));
 		expect(onClose).toHaveBeenCalled();
 	});
 

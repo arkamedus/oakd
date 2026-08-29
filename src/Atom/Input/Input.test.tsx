@@ -67,7 +67,10 @@ describe("Input Component", () => {
 
     const input = screen.getByPlaceholderText("Search knowledge base");
     expect(screen.getByTestId("InputContainer")).toHaveClass("input-error");
-    expect(screen.getByTestId("InputError")).toBeInTheDocument();
+    expect(screen.getByTestId("InputError")).toHaveClass(
+      "icon",
+      "input-error-icon",
+    );
 
     fireEvent.change(input, { target: { value: "fixed value" } });
 

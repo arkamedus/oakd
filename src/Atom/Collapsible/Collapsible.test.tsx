@@ -2,6 +2,7 @@ import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Collapsible from "./Collapsible";
 import { CollapsibleProps } from "./Collapsible.types";
+import Paragraph from "../Paragraph/Paragraph";
 
 describe("Collapsible Component", () => {
   let props: CollapsibleProps;
@@ -9,7 +10,9 @@ describe("Collapsible Component", () => {
   beforeEach(() => {
     props = {
       title: "Release notes",
-      children: <div>Three issues were resolved in this deploy.</div>,
+      children: (
+        <Paragraph>Three issues were resolved in this deploy.</Paragraph>
+      ),
       defaultOpen: false,
       onToggle: jest.fn(),
     };
@@ -23,7 +26,9 @@ describe("Collapsible Component", () => {
     expect(
       screen.getByRole("button", { name: /release notes/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Three issues were resolved in this deploy.")).toBeInTheDocument();
+    expect(
+      screen.getByText("Three issues were resolved in this deploy."),
+    ).toBeInTheDocument();
     expect(container.querySelector(".collapsible__content")).toHaveStyle(
       "height: 0",
     );
@@ -55,7 +60,11 @@ describe("Collapsible Component", () => {
   it("allows clicking anywhere in the padded header surface to toggle", async () => {
     const { container } = renderComponent();
 
-    fireEvent.click(container.querySelector("[data-testid='CollapsibleToggle'] .oakd.content")!);
+    fireEvent.click(
+      container.querySelector(
+        "[data-testid='CollapsibleToggle'] .oakd.content",
+      )!,
+    );
 
     await waitFor(() => {
       expect(

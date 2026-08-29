@@ -67,6 +67,9 @@ describe("GLRenderer", () => {
 		expect(canvas.classList.contains("grow")).toBe(true);
 		expect(canvas.classList.contains("fill")).toBe(true);
 		expect(renderMock).toHaveBeenCalledTimes(1);
+		const request = renderMock.mock.calls[0][0];
+		expect(request.immediate).toBeUndefined();
+		expect(request.direct).toBeUndefined();
 		expect(rafSpy).toHaveBeenCalledTimes(0);
 
 		unmount();

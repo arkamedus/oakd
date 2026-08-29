@@ -18,65 +18,65 @@ import Content from "../../Layout/Content/Content";
  * and it animates the height of the content area during transitions.
  */
 const Collapsible: React.FC<CollapsibleProps> = ({
-	title,
-	children,
-	defaultOpen = false,
-	onToggle,
+  title,
+  children,
+  defaultOpen = false,
+  onToggle,
 }) => {
-	const [isOpen, setIsOpen] = useState(defaultOpen);
-	const [contentHeight, setContentHeight] = useState<string | number>("auto");
-	const contentId = React.useId();
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [contentHeight, setContentHeight] = useState<string | number>("auto");
+  const contentId = React.useId();
 
-	/**
-	 * Toggles the open state and triggers the onToggle callback if provided.
-	 */
-	const toggle = () => {
-		setIsOpen((prev) => !prev);
-	};
+  /**
+   * Toggles the open state and triggers the onToggle callback if provided.
+   */
+  const toggle = () => {
+    setIsOpen((prev) => !prev);
+  };
 
-	/**
-	 * Updates the content height when the open state changes.
-	 */
-	useEffect(() => {
-		setContentHeight(isOpen ? "auto" : "0");
-		if (onToggle) onToggle(!isOpen);
-	}, [isOpen, onToggle]);
+  /**
+   * Updates the content height when the open state changes.
+   */
+  useEffect(() => {
+    setContentHeight(isOpen ? "auto" : "0");
+    if (onToggle) onToggle(!isOpen);
+  }, [isOpen, onToggle]);
 
-	return (
-		<Space className="collapsible" data-testid="Collapsible" wide>
-			<button
-				className="collapsible__toggle"
-				aria-expanded={isOpen}
-				aria-controls={contentId}
-				onClick={toggle}
-				type="button"
-				data-testid="CollapsibleToggle"
-			>
-				<Content pad wide>
-					<Space wide justify={"between"} align={"center"} noWrap>
-						<span className="collapsible__title">{title}</span>
-						<IconAngle
-							className="collapsible__icon"
-							size={"small"}
-							rotation={isOpen ? 90 : 0}
-							role="img"
-							aria-hidden="true"
-						/>
-					</Space>
-				</Content>
-			</button>
-			<div
-				id={contentId}
-				className="collapsible__content"
-				style={{
-					transition: "height 0.3s ease-in-out",
-					height: contentHeight,
-				}}
-			>
-				<div className="collapsible__inner">{children}</div>
-			</div>
-		</Space>
-	);
+  return (
+    <Space className="collapsible" data-testid="Collapsible" wide>
+      <button
+        className="collapsible__toggle"
+        aria-expanded={isOpen}
+        aria-controls={contentId}
+        onClick={toggle}
+        type="button"
+        data-testid="CollapsibleToggle"
+      >
+        <Content pad wide>
+          <Space wide justify={"between"} align={"center"} noWrap>
+            <span className="collapsible__title">{title}</span>
+            <IconAngle
+              className="collapsible__icon"
+              size={"small"}
+              rotation={isOpen ? 90 : 0}
+              role="img"
+              aria-hidden="true"
+            />
+          </Space>
+        </Content>
+      </button>
+      <div
+        id={contentId}
+        className="collapsible__content"
+        style={{
+          transition: "height 0.3s ease-in-out",
+          height: contentHeight,
+        }}
+      >
+        <div className="collapsible__inner">{children}</div>
+      </div>
+    </Space>
+  );
 };
 
 export default Collapsible;

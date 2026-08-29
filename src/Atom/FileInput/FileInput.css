@@ -1,0 +1,13 @@
+.oakd-file-input {
+	display: inline-flex;
+	cursor: pointer;
+}
+.oakd-file-input__native {
+	position: absolute;
+	inline-size: var(--oakd-visually-hidden-size);
+	block-size: var(--oakd-visually-hidden-size);
+	opacity: 0;
+}
+.oakd-file-input:focus-within {
+	box-shadow: var(--oakd-focus-ring);
+}

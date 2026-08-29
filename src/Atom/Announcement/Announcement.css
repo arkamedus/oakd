@@ -1,6 +1,6 @@
 .oakd.announcement {
-	border: 1px solid var(--oakd-card-default-border);
-	border-radius: var(--border-radius);
+	border: var(--oakd-border-width) solid var(--oakd-card-default-border);
+	border-radius: var(--oakd-radius);
 	background: var(--oakd-card-default-color);
 	color: var(--oakd-card-default-text);
 	display: flex;
@@ -15,14 +15,14 @@
 	width: 100%;
 }
 
-.oakd.announcement__body {
+.oakd-announcement__body {
 	width: 100%;
 	min-width: 0;
-	padding: var(--leading);
+	padding: var(--oakd-leading);
 	position: relative;
 }
 
-.oakd.announcement__body::before {
+.oakd-announcement__body::before {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -30,16 +30,27 @@
 	pointer-events: none;
 }
 
-.oakd.announcement__icon {
+.oakd-announcement__leading {
 	flex: 0 0 auto;
 }
 
-.oakd.announcement__content {
+.oakd-announcement__leading--full {
+	align-self: stretch;
+	display: grid;
+	place-items: center;
+	margin: calc(var(--oakd-leading) * -1) 0 calc(var(--oakd-leading) * -1)
+		calc(var(--oakd-leading) * -1);
+	padding: var(--oakd-leading);
+	background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.oakd-announcement__content {
 	min-width: 0;
 	flex: 1 1 auto;
 }
 
-.oakd.announcement__close {
+.oakd-announcement__action,
+.oakd-announcement__close {
 	flex: 0 0 auto;
 	align-self: stretch;
 }
@@ -56,14 +67,15 @@
 	color: var(--oakd-card-primary-text);
 }
 
-.oakd.announcement.type-primary .announcement__body::before {
+.oakd.announcement.type-primary .oakd-announcement__body::before {
 	opacity: 1;
 	background-image: repeating-linear-gradient(
 		-35deg,
 		color-mix(in srgb, var(--oakd-card-primary-border) 18%, transparent) 0,
-		color-mix(in srgb, var(--oakd-card-primary-border) 18%, transparent) 24px,
-		rgba(255, 255, 255, 0) 24px,
-		rgba(255, 255, 255, 0) 48px
+		color-mix(in srgb, var(--oakd-card-primary-border) 18%, transparent)
+			var(--oakd-pattern-stripe-size),
+		transparent var(--oakd-pattern-stripe-size),
+		transparent calc(var(--oakd-pattern-stripe-size) * 2)
 	);
 }
 
@@ -89,6 +101,12 @@
 	border-color: var(--oakd-card-active-border);
 	background: var(--oakd-card-active-color);
 	color: var(--oakd-card-active-text);
+}
+
+.oakd.announcement.type-success {
+	border-color: var(--oakd-card-success-border);
+	background: var(--oakd-card-success-color);
+	color: var(--oakd-card-success-text);
 }
 
 .oakd.announcement.type-disabled {

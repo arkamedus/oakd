@@ -15,7 +15,13 @@ describe("CodeArea Component", () => {
       <CodeArea defaultValue={"a\nb\nc"} lineNumbers />,
     );
     expect(container.querySelector(".codearea-gutter")).toBeInTheDocument();
-    expect(container.querySelectorAll(".codearea-gutter-line")).toHaveLength(3);
+    const lineControls = container.querySelectorAll(".codearea-gutter-line");
+    expect(lineControls).toHaveLength(3);
+    expect(Array.from(lineControls).map((line) => line.textContent)).toEqual([
+      "1",
+      "2",
+      "3",
+    ]);
   });
 
   it("notifies callers when the source changes", () => {
@@ -51,7 +57,9 @@ describe("CodeArea Component", () => {
       });
     });
 
-    expect(container.querySelector(".codearea-linebg.is-current")).toBeInTheDocument();
+    expect(
+      container.querySelector(".codearea-linebg.is-current"),
+    ).toBeInTheDocument();
 
     act(() => {
       fireEvent.blur(textarea);
@@ -63,10 +71,7 @@ describe("CodeArea Component", () => {
   it("supports fill so the editor can occupy a bounded parent host", () => {
     const { container } = render(
       <div style={{ width: 720, height: 360, display: "flex" }}>
-        <CodeArea
-          fill
-          defaultValue={"select *\nfrom workspace_sessions;"}
-        />
+        <CodeArea fill defaultValue={"select *\nfrom workspace_sessions;"} />
       </div>,
     );
 

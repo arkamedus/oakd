@@ -5,5 +5,5 @@
 .graph-nodes-editor__toolbar {
 	margin-bottom: 0;
 	flex-wrap: wrap;
-	row-gap: 0.4rem;
+	row-gap: calc(var(--oakd-leading) / 2);
 }

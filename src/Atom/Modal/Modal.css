@@ -1,32 +1,75 @@
-
-.modal-container, .drawer-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--background-modal);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    z-index: 1000;
+.oakd-modal-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--background-modal);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: calc(var(--oakd-leading) * 2);
+	box-sizing: border-box;
+	z-index: 1000;
 }
 
-.modal {
-    position: relative;
-    width: 100%;
-    max-width: 640pt;
-    background-color: var(--background);
-    border: 1px solid var(--oakd-default-border);
-    box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.1);
-    border-radius: var(--border-radius);
-    overflow: auto;
+.oakd-modal {
+	position: relative;
+	width: 100%;
+	max-height: calc(100dvh - calc(var(--oakd-leading) * 4));
+	background-color: var(--oakd-background);
+	border: var(--oakd-border-width) solid var(--oakd-default-border);
+	box-shadow: var(--oakd-shadow-lg);
+	border-radius: var(--oakd-radius);
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	overflow: hidden;
 }
 
-.actions {
-    position: absolute;
-    right: var(--leading);
-    top: var(--leading);
+.oakd-modal--sm {
+	max-width: var(--oakd-modal-width-sm);
+}
+.oakd-modal--md {
+	max-width: var(--oakd-modal-width-md);
+}
+.oakd-modal--lg {
+	max-width: var(--oakd-modal-width-lg);
+}
+.oakd-modal--viewport {
+	width: calc(100vw - var(--oakd-viewport-inset));
+	height: calc(100dvh - var(--oakd-viewport-inset));
+}
+
+.oakd-modal__header,
+.oakd-modal__footer {
+	flex: 0 0 auto;
+}
+
+.oakd-modal__header {
+	justify-content: space-between;
+	border-bottom: var(--oakd-border-width) solid var(--oakd-default-border);
+}
+
+.oakd-modal__footer {
+	justify-content: flex-end;
+	border-top: var(--oakd-border-width) solid var(--oakd-default-border);
+}
+
+.oakd-modal__heading {
+	min-width: 0;
+	flex: 1 1 auto;
+}
+.oakd-modal__body {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+.oakd-modal__body--scroll {
+	overflow: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.oakd-modal {
+		scroll-behavior: auto;
+	}
 }

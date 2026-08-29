@@ -5,9 +5,10 @@ import { InputProps } from "./Input.types";
 import Space from "../Space/Space";
 import { IconMagnify } from "../../Icon/Icons.bin";
 import Button from "../Button/Button";
+import Paragraph from "../Paragraph/Paragraph";
 
 const meta: Meta<typeof Input> = {
-	title: "Design System/Atomic/Input",
+	title: "Design System/Atomic/Inputs/Input",
 	component: Input,
 	tags: ["!autodocs"],
 	argTypes: {
@@ -125,7 +126,7 @@ export const RefFocusTest: StoryFn<InputProps> = (args) => {
 				placeholder="Click the button to focus me..."
 			/>
 			<Button variant={"default"} onClick={handleFocusClick}>
-				Focus Input
+				<Paragraph>Focus Input</Paragraph>
 			</Button>
 		</Space>
 	);

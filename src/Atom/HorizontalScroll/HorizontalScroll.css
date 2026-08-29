@@ -8,15 +8,15 @@
 }
 
 .oakd.horizontal-scroll.pad {
-	padding: var(--leading);
+	padding: var(--oakd-leading);
 }
 
 .oakd.horizontal-scroll.pad-horizontal {
-	padding: 0 var(--leading);
+	padding: 0 var(--oakd-leading);
 }
 
 .oakd.horizontal-scroll.pad-vertical {
-	padding: var(--leading) 0;
+	padding: var(--oakd-leading) 0;
 }
 
 .oakd.horizontal-scroll__track {
@@ -30,7 +30,7 @@
 }
 
 .oakd.horizontal-scroll__track.gap {
-	gap: var(--leading);
+	gap: var(--oakd-leading);
 }
 
 .oakd.horizontal-scroll__track.align-start {

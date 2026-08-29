@@ -1,0 +1,35 @@
+.oakd-checkbox {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--oakd-leading);
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+.oakd-checkbox__input {
+	position: absolute;
+	inline-size: var(--oakd-visually-hidden-size);
+	block-size: var(--oakd-visually-hidden-size);
+	opacity: 0;
+}
+.oakd-checkbox__indicator {
+	flex: 0 0 auto;
+}
+.oakd-checkbox.size-small {
+	gap: calc(var(--oakd-leading) / 2);
+}
+.oakd-checkbox.size-small .oakd-checkbox__check {
+	transform: scale(0.72);
+}
+.oakd-checkbox__input:not(:checked)
+	+ .oakd-checkbox__indicator
+	.oakd-checkbox__check {
+	visibility: hidden;
+}
+.oakd-checkbox__input:focus-visible + .oakd-checkbox__indicator {
+	box-shadow: var(--oakd-focus-ring);
+}
+.oakd-checkbox:has(input:disabled) {
+	cursor: not-allowed;
+	color: var(--oakd-disabled-text);
+}

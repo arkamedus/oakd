@@ -1,8 +1,16 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from "react";
 import ReactDOM from "react-dom";
 import { ContextMenuProps } from "./ContextMenu.types";
 import "./ContextMenu.css";
 import Content from "../../Layout/Content/Content";
+import { clampFloatingPosition } from "../Dropdown/dropdownPlacement";
+import Card from "../Card/Card";
 
 const ContextMenu: React.FC<ContextMenuProps> = ({
 	children,
@@ -20,10 +28,24 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 	const triggerRef = useRef<HTMLDivElement>(null);
 	const menuRef = useRef<HTMLDivElement>(null);
 
-	const close = () => {
-		setIsOpen(false);
-		onOpenChange?.(false);
-	};
+	const close = useCallback(
+		(returnFocus = false) => {
+			setIsOpen(false);
+			onOpenChange?.(false);
+			if (returnFocus) triggerRef.current?.focus();
+		},
+		[onOpenChange],
+	);
+	const openAt = useCallback(
+		(x: number, y: number) => {
+			const next = { x, y };
+			setAnchor(next);
+			setPosition(next);
+			setIsOpen(true);
+			onOpenChange?.(true);
+		},
+		[onOpenChange],
+	);
 
 	useEffect(() => {
 		if (!isOpen) return;
@@ -42,7 +64,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 
 		const onKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
-				close();
+				close(true);
 			}
 		};
 
@@ -52,17 +74,25 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 			document.removeEventListener("mousedown", onMouseDown);
 			document.removeEventListener("keydown", onKeyDown);
 		};
-	}, [isOpen]);
+	}, [close, isOpen]);
 
 	useLayoutEffect(() => {
 		if (!isOpen || !menuRef.current) return;
 		const rect = menuRef.current.getBoundingClientRect();
-		const maxX = Math.max(offset, window.innerWidth - rect.width - offset);
-		const maxY = Math.max(offset, window.innerHeight - rect.height - offset);
-		setPosition({
-			x: Math.min(anchor.x, maxX),
-			y: Math.min(anchor.y, maxY),
-		});
+		setPosition(
+			clampFloatingPosition(
+				anchor.x,
+				anchor.y,
+				rect.width,
+				rect.height,
+				offset,
+			),
+		);
+		menuRef.current
+			.querySelector<HTMLElement>(
+				'[role="menuitem"], button:not([disabled]), [href]',
+			)
+			?.focus();
 	}, [isOpen, anchor, offset]);
 
 	return (
@@ -74,34 +104,44 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 					.filter(Boolean)
 					.join(" ")}
 				style={style}
+				tabIndex={disabled ? undefined : 0}
+				aria-haspopup="menu"
 				onMouseDownCapture={(event) => {
 					if (isOpen && event.button === 0) {
 						close();
 					}
 				}}
+				onKeyDown={(event) => {
+					if (disabled) return;
+					if (
+						event.key === "ContextMenu" ||
+						(event.shiftKey && event.key === "F10")
+					) {
+						event.preventDefault();
+						const rect = triggerRef.current?.getBoundingClientRect();
+						openAt((rect?.left || 0) + offset, (rect?.bottom || 0) + offset);
+					}
+				}}
 				onContextMenu={(event) => {
 					if (disabled) return;
 					event.preventDefault();
-					const next = { x: event.clientX + offset, y: event.clientY + offset };
-					setAnchor(next);
-					setPosition(next);
-					setIsOpen(true);
-					onOpenChange?.(true);
+					openAt(event.clientX + offset, event.clientY + offset);
 				}}
 			>
 				{children}
 			</Content>
 			{isOpen
 				? ReactDOM.createPortal(
-						<Content
+						<Card
 							ref={menuRef}
 							data-testid="ContextMenu"
+							role="menu"
 							className="oakd context-menu"
 							style={{ left: position.x, top: position.y }}
 							onClick={() => close()}
 						>
 							{content}
-						</Content>,
+						</Card>,
 						document.body,
 					)
 				: null}

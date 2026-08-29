@@ -1,4 +1,4 @@
-import { CoreLayoutProps } from "../../Core/Core.types";
+import { CoreContentProps } from "../../Core/Core.types";
 
 export type AspectRatio =
 	| "1x1"
@@ -13,6 +13,6 @@ export type AspectRatio =
 	| "32x9"
 	| "1x2";
 
-export interface AspectProps extends CoreLayoutProps<HTMLDivElement> {
+export interface AspectProps extends CoreContentProps<HTMLDivElement> {
 	ratio?: AspectRatio; // Aspect ratio selection
 }

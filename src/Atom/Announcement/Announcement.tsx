@@ -2,7 +2,6 @@ import React from "react";
 import { AnnouncementProps } from "./Announcement.types";
 import "./Announcement.css";
 import Icon from "../../Icon/Icon";
-import Button from "../Button/Button";
 import Paragraph from "../Paragraph/Paragraph";
 import Content from "../../Layout/Content/Content";
 import Space from "../Space/Space";
@@ -14,6 +13,9 @@ const Announcement: React.FC<AnnouncementProps> = ({
 	closable = false,
 	onClose,
 	icon,
+	leading,
+	action,
+	fullHeightLeading = false,
 	wide,
 	className = "",
 	style,
@@ -22,6 +24,7 @@ const Announcement: React.FC<AnnouncementProps> = ({
 	const classes = [
 		"oakd",
 		"announcement",
+		"oakd-announcement",
 		`type-${variant}`,
 		wide ? "wide" : "",
 		className,
@@ -38,28 +41,42 @@ const Announcement: React.FC<AnnouncementProps> = ({
 			role="region"
 			wide={wide}
 		>
-			<Space className="announcement__body" align="center" gap wide noWrap>
-				{icon ? (
-					<Content className="announcement__icon">
-						{typeof icon === "string" ? <Icon name={icon as any} /> : icon}
+			<Space className="oakd-announcement__body" align="center" gap wide noWrap>
+				{leading || icon ? (
+					<Content
+						className={[
+							"oakd-announcement__leading",
+							fullHeightLeading && "oakd-announcement__leading--full",
+						]
+							.filter(Boolean)
+							.join(" ")}
+					>
+						{leading ??
+							(typeof icon === "string" ? (
+								<Icon name={icon as any} size="small" />
+							) : (
+								icon
+							))}
 					</Content>
 				) : null}
-				<Content className="announcement__content" grow>
+				<Content className="oakd-announcement__content" grow>
 					{typeof children === "string" ? (
 						<Paragraph>{children}</Paragraph>
 					) : (
 						children
 					)}
 				</Content>
+				{action ? (
+					<Content className="oakd-announcement__action">{action}</Content>
+				) : null}
 				{closable ? (
-					<Button
-						className="announcement__close"
+					<Content
+						className="oakd-announcement__close"
 						aria-label="Close announcement"
 						onClick={() => onClose?.()}
-						variant="ghost"
 					>
 						<IconX size={"small"} />
-					</Button>
+					</Content>
 				) : null}
 			</Space>
 		</Content>

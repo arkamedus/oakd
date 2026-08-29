@@ -30,7 +30,7 @@ export const Default: Story = {
 	},
 };
 
-export const WithCloseButton: Story = {
+export const WithCloseIcon: Story = {
 	render: () => {
 		const [open, setOpen] = useState(true);
 		return open ? (
@@ -57,7 +57,15 @@ export const VariantGallery: Story = {
 	render: () => (
 		<Space direction="vertical" gap wide>
 			{(
-				["default", "primary", "active", "warning", "danger", "ghost"] as const
+				[
+					"default",
+					"primary",
+					"active",
+					"success",
+					"warning",
+					"danger",
+					"ghost",
+				] as const
 			).map((variant) => (
 				<Announcement key={variant} variant={variant} wide>
 					<Paragraph>
@@ -73,12 +81,10 @@ export const ResultSuccess: Story = {
 	render: () => (
 		<Card pad wide>
 			<Space direction="vertical" gap align="center" wide>
-				<Title>
-					<Space gap align="center" justify="center" wide>
-						<Icon name="Check" />
-						<span>Successfully Purchased</span>
-					</Space>
-				</Title>
+				<Space gap align="center" justify="center" wide>
+					<Icon name="Check" size="large" />
+					<Title>Successfully Purchased</Title>
+				</Space>
 				<Paragraph>Order number: 123456789</Paragraph>
 				<Announcement variant="active" wide icon="Check">
 					<Paragraph>
@@ -97,12 +103,10 @@ export const ResultError: Story = {
 	render: () => (
 		<Card pad wide>
 			<Space direction="vertical" gap align="center" wide>
-				<Title>
-					<Space gap align="center" justify="center" wide>
-						<Icon name="X" />
-						<span>Failure in Action...</span>
-					</Space>
-				</Title>
+				<Space gap align="center" justify="center" wide>
+					<Icon name="X" size="large" />
+					<Title>Failure in Action...</Title>
+				</Space>
 				<Paragraph>Order number: 123456789</Paragraph>
 				<Announcement variant="warning" wide icon="X">
 					<Paragraph>

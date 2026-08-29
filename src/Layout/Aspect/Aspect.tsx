@@ -6,12 +6,23 @@ const Aspect: React.FC<AspectProps> = ({
 	id,
 	key,
 	ratio = "16x9",
+	fill,
+	grow,
 	children,
 	className = "",
 	style,
 	...rest
 }) => {
-	const classNames = `oakd aspect aspect-${ratio} ${className}`.trim();
+	const classNames = [
+		"oakd",
+		"aspect",
+		`aspect-${ratio}`,
+		fill && "fill",
+		grow && "grow",
+		className,
+	]
+		.filter(Boolean)
+		.join(" ");
 
 	return (
 		<div

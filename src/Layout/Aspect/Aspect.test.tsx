@@ -35,4 +35,9 @@ describe("Aspect Component", () => {
 
     expect(component).toHaveClass("custom-class");
   });
+
+  it("supports a full-height host without the ratio spacer", () => {
+    const { getByTestId } = render(<Aspect fill grow />);
+    expect(getByTestId("Aspect")).toHaveClass("fill", "grow");
+  });
 });

@@ -18,10 +18,24 @@ const baseItems = (): TreeItem[] => [
 		expanded: false,
 		children: [{ id: "leaf-1", label: "leaf-1" }],
 	},
-	{ id: "leaf-2", label: "leaf-2", leaf: <span data-testid="LeafBadge">badge</span> },
+	{
+		id: "leaf-2",
+		label: "leaf-2",
+		leaf: <span data-testid="LeafBadge">badge</span>,
+	},
 ];
 
 describe("Tree Component", () => {
+	it("optionally displays child guide lines", () => {
+		const { rerender } = render(
+			<Tree items={baseItems()} onChange={() => undefined} />,
+		);
+		expect(screen.getByTestId("Tree")).not.toHaveClass("tree--guides");
+
+		rerender(<Tree items={baseItems()} onChange={() => undefined} guides />);
+		expect(screen.getByTestId("Tree")).toHaveClass("tree--guides");
+	});
+
 	it("renders folders and leaves", () => {
 		render(<Tree items={baseItems()} onChange={() => undefined} />);
 		expect(screen.getByText("folder-1")).toBeInTheDocument();
@@ -43,6 +57,19 @@ describe("Tree Component", () => {
 	it("renders custom leaf elements", () => {
 		render(<Tree items={baseItems()} onChange={() => undefined} />);
 		expect(screen.getByTestId("LeafBadge")).toBeInTheDocument();
+	});
+
+	it("stretches wide rows so custom leaves occupy the trailing slot", () => {
+		render(<Tree items={baseItems()} onChange={() => undefined} wide />);
+		const tree = screen.getByTestId("Tree");
+		const row = screen.getByTestId("TreeRow-leaf-2");
+		expect(tree).toHaveClass("wide");
+		expect(tree.querySelector(".tree__list")).toHaveClass("align-stretch");
+		expect(row).toHaveClass("wide");
+		expect(row.querySelector(".tree__label")).toHaveClass("grow");
+		expect(screen.getByTestId("LeafBadge").parentElement).toHaveClass(
+			"tree__leaf",
+		);
 	});
 
 	it("supports drag and drop reorder through onChange", () => {
@@ -421,9 +448,12 @@ describe("Tree Component", () => {
 		});
 
 		fireEvent.dragStart(screen.getByTestId("TreeRow-leaf"), { dataTransfer });
-		const gapEvent = createEvent.dragOver(screen.getByTestId("TreeChildren-folder"), {
-			dataTransfer,
-		});
+		const gapEvent = createEvent.dragOver(
+			screen.getByTestId("TreeChildren-folder"),
+			{
+				dataTransfer,
+			},
+		);
 		Object.defineProperty(gapEvent, "clientY", { value: 64 });
 		fireEvent(screen.getByTestId("TreeChildren-folder"), gapEvent);
 
@@ -526,7 +556,9 @@ describe("Tree Component", () => {
 		});
 
 		expect(screen.queryByText("No items in this folder.")).toBeNull();
-		const folderRow = screen.getByTestId("TreeRow-folder").closest(".tree__node");
+		const folderRow = screen
+			.getByTestId("TreeRow-folder")
+			.closest(".tree__node");
 		expect(folderRow).toHaveTextContent("leaf");
 	});
 
@@ -576,7 +608,9 @@ describe("Tree Component", () => {
 		fireEvent.drop(folderRow, { dataTransfer });
 
 		await waitFor(() => {
-			const folderNode = screen.getByTestId("TreeRow-folder").closest(".tree__node");
+			const folderNode = screen
+				.getByTestId("TreeRow-folder")
+				.closest(".tree__node");
 			expect(folderNode).toHaveTextContent("child");
 			expect(folderNode).toHaveTextContent("leaf");
 		});
@@ -627,7 +661,9 @@ describe("Tree Component", () => {
 								variant="ghost"
 								onClick={() =>
 									setItems((current) =>
-										current.flatMap((item) => (item.id === node.id ? [] : [item])),
+										current.flatMap((item) =>
+											item.id === node.id ? [] : [item],
+										),
 									)
 								}
 							>
@@ -646,7 +682,7 @@ describe("Tree Component", () => {
 															{ id: "child", label: "child" },
 														],
 														expanded: true,
-												  }
+													}
 												: item,
 										),
 									)
@@ -696,7 +732,11 @@ describe("Tree Component", () => {
 				},
 			]);
 
-			const removeNode = (nodes: TreeItem[], id: string, depth = 0): TreeItem[] =>
+			const removeNode = (
+				nodes: TreeItem[],
+				id: string,
+				depth = 0,
+			): TreeItem[] =>
 				nodes
 					.map((node) => {
 						if (node.id === id) {
@@ -719,7 +759,9 @@ describe("Tree Component", () => {
 						node.id === "child" ? (
 							<Button
 								variant="ghost"
-								onClick={() => setItems((current) => removeNode(current, "child"))}
+								onClick={() =>
+									setItems((current) => removeNode(current, "child"))
+								}
 							>
 								<Paragraph>Delete</Paragraph>
 							</Button>
@@ -743,7 +785,9 @@ describe("Tree Component", () => {
 			expect(screen.getByText("group")).toBeInTheDocument();
 			const groupRow = screen.getByTestId("TreeRow-group");
 			expect(groupRow).toBeInTheDocument();
-			expect(groupRow.querySelector("[aria-label='Collapse folder']")).not.toBeNull();
+			expect(
+				groupRow.querySelector("[aria-label='Collapse folder']"),
+			).not.toBeNull();
 		});
 	});
 
@@ -759,9 +803,12 @@ describe("Tree Component", () => {
 					},
 				]}
 				onChange={() => undefined}
-			/>
+			/>,
 		);
 
-		expect(screen.getByTestId("TreeRow-root")).toHaveAttribute("draggable", "false");
+		expect(screen.getByTestId("TreeRow-root")).toHaveAttribute(
+			"draggable",
+			"false",
+		);
 	});
 });

@@ -15,14 +15,14 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: calc(var(--leading) / 2);
+  gap: calc(var(--oakd-leading) / 2);
   min-height: 0;
 }
 
 .oakd-multi-line-chart__frame {
   position: relative;
   width: 100%;
-  min-height: 180px;
+  min-height: var(--oakd-surface-height-sm);
   min-width: 0;
 }
 
@@ -35,12 +35,12 @@
 
 .oakd-multi-line-chart__tooltip {
   position: absolute;
-  background: var(--background);
-  border: 1px solid var(--oakd-default-border);
-  border-radius: calc(var(--border-radius) + 3pt);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-  padding: var(--leading);
-  min-width: 180px;
+  background: var(--oakd-background);
+  border: var(--oakd-border-width) solid var(--oakd-default-border);
+  border-radius: var(--oakd-radius-raised);
+  box-shadow: var(--oakd-shadow-lg);
+  padding: var(--oakd-leading);
+  min-width: var(--oakd-tooltip-width);
   z-index: 20;
   pointer-events: none;
 }

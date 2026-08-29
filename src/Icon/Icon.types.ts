@@ -10,3 +10,9 @@ export interface IconProps extends ImgHTMLAttributes<HTMLImageElement> {
 	rotation?: number;
 	preserveColor?: boolean;
 }
+
+export interface IconStackProps {
+	children?: React.ReactNode;
+	className?: string;
+	style?: React.CSSProperties;
+}

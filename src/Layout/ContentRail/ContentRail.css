@@ -1,0 +1,29 @@
+.oakd-content-rail {
+	width: 100%;
+	max-width: var(--oakd-content-rail-width);
+	margin-inline: auto;
+	box-sizing: border-box;
+}
+.oakd-content-rail--sm {
+	--oakd-content-rail-width: var(--oakd-width-lg);
+}
+.oakd-content-rail--md {
+	--oakd-content-rail-width: var(--oakd-width-xl);
+}
+.oakd-content-rail--lg {
+	--oakd-content-rail-width: var(--oakd-width-2xl);
+}
+.oakd-content-rail--xl {
+	--oakd-content-rail-width: var(--oakd-width-3xl);
+}
+.oakd-content-rail--full {
+	--oakd-content-rail-width: none;
+	max-width: none;
+}
+.oakd-content-rail--gutter {
+	padding-inline: clamp(
+		var(--oakd-leading),
+		var(--oakd-fluid-gutter),
+		calc(var(--oakd-leading) * 3)
+	);
+}

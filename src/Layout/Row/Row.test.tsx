@@ -26,7 +26,7 @@ describe("Row Component", () => {
   it("applies fill and grow layout modifiers", () => {
     render(
       <Row gap fill grow wide>
-        <div>Panel</div>
+		<div>Content</div>
       </Row>,
     );
 
@@ -43,11 +43,11 @@ describe("Row Component", () => {
       <Row
         onMouseEnter={handleMouseEnter}
         role="group"
-        aria-label="Toolbar row"
+		aria-label="Action row"
       />,
     );
 
-    const row = screen.getByRole("group", { name: "Toolbar row" });
+	const row = screen.getByRole("group", { name: "Action row" });
     fireEvent.mouseEnter(row);
 
     expect(handleMouseEnter).toHaveBeenCalled();

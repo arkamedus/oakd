@@ -1,0 +1,20 @@
+.oakd-empty-state {
+	min-height: var(--oakd-surface-height-sm);
+	padding: calc(var(--oakd-leading) * 2);
+	text-align: center;
+}
+.oakd-empty-state__icon {
+	opacity: 0.72;
+}
+.oakd-empty-state__title {
+	font-family: var(--oakd-font-family-display);
+	font-size: var(--oakd-font-size);
+	font-weight: 700;
+}
+.oakd-empty-state__description {
+	max-width: var(--oakd-width-xl);
+	opacity: 0.72;
+}
+.oakd-empty-state__actions {
+	flex-wrap: wrap;
+}

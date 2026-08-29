@@ -1,0 +1,117 @@
+.oakd-vector-field,
+.oakd-vector-field__toolbar,
+.oakd-vector-field__toolbar > .oakd.space,
+.oakd-vector-field__toolbar-group {
+	min-width: 0;
+}
+
+.oakd-vector-field__toolbar > .oakd.paragraph {
+	flex: 0 0 auto;
+}
+
+.oakd-vector-field__toolbar-group.oakd.button_group.horizontal {
+	display: grid;
+	width: 100%;
+}
+
+.oakd-vector-field__toolbar-group--2.oakd.button_group.horizontal {
+	grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+}
+
+.oakd-vector-field__toolbar-group--3.oakd.button_group.horizontal {
+	grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+}
+
+.oakd-vector-field__toolbar-group--2.oakd-vector-field__toolbar-group--no-options.oakd.button_group.horizontal {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.oakd-vector-field__toolbar-group--3.oakd-vector-field__toolbar-group--no-options.oakd.button_group.horizontal {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.oakd-vector-field__toolbar-group.oakd.button_group.horizontal
+	> .oakd.input-container,
+.oakd-vector-field__toolbar-group.oakd.button_group.horizontal
+	> .oakd-dropdown-container {
+	min-width: 0;
+}
+
+.oakd-vector-field__toolbar-group.oakd.button_group.horizontal
+	> .oakd.input-container {
+	width: 100%;
+}
+
+.oakd-vector-field__toolbar-group.oakd.button_group.horizontal
+	> .oakd-dropdown-container {
+	display: flex;
+}
+
+.oakd-vector-field__toolbar-group.oakd.button_group.horizontal
+	> .oakd-dropdown-container
+	> .oakd-dropdown-trigger {
+	width: 100%;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.oakd-vector-field__toolbar-input.oakd.input-container > .oakd.space {
+	flex-wrap: nowrap;
+}
+
+.oakd-vector-field__toolbar-input.oakd.input-container input.oakd.input {
+	width: 100%;
+	min-width: 0;
+}
+
+.oakd-vector-field__menu.oakd.content {
+	width: min(var(--oakd-width-md), calc(100vw - (var(--oakd-leading) * 4)));
+	max-width: calc(100vw - (var(--oakd-leading) * 4));
+}
+
+.oakd-vector-field__menu-row.oakd.space {
+	display: grid;
+	grid-template-columns: minmax(2ch, auto) minmax(0, 1fr);
+	align-items: center;
+	width: 100%;
+}
+
+.oakd-vector-field__menu-actions.oakd.button_group.horizontal {
+	display: grid;
+	grid-template-columns: auto minmax(6ch, 1fr) auto auto auto;
+	width: 100%;
+}
+
+.oakd-vector-field__menu-actions.oakd.button_group.horizontal > .oakd.button {
+	justify-content: center;
+	width: auto;
+	min-width: calc(var(--oakd-leading) * 4);
+	padding-right: var(--oakd-leading);
+	padding-left: var(--oakd-leading);
+}
+
+.oakd-vector-field__menu-actions.oakd.button_group.horizontal
+	> .oakd-vector-field__menu-value.oakd.input-container {
+	width: 100%;
+	min-width: 0;
+}
+
+.oakd-vector-field__menu-value.oakd.input-container input.oakd.input {
+	width: 100%;
+	min-width: 0;
+	text-align: center;
+}
+
+.oakd-vector-field__menu-actions.oakd.button_group.horizontal
+	> .oakd.button
+	> .oakd.space {
+	justify-content: center;
+	width: 100%;
+}
+
+@media (max-width: 576px) {
+	.oakd-vector-field__toolbar.oakd.space {
+		align-items: stretch;
+		flex-direction: column;
+	}
+}

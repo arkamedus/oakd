@@ -4,16 +4,17 @@ import ScriptSandbox from "./ScriptSandbox";
 import { ScriptSandboxError, ScriptSandboxProps } from "./ScriptSandbox.types";
 import CodeArea from "../CodeArea/CodeArea";
 import { IconBug } from "../../Icon/Icons.bin";
+import Space from "../Space/Space";
 
 const meta: Meta<typeof ScriptSandbox> = {
-	title: "Design System/Atomic/ScriptSandbox",
-	component: ScriptSandbox,
-	args: {
-		controls: true,
-		autoRun: false,
-		title: "Sandbox",
-		initialBackground: "#ffffff",
-	},
+  title: "Design System/Atomic/ScriptSandbox",
+  component: ScriptSandbox,
+  args: {
+    controls: true,
+    autoRun: false,
+    title: "Sandbox",
+    initialBackground: "var(--oakd-background)",
+  },
 };
 export default meta;
 
@@ -25,7 +26,7 @@ type Story = StoryObj<typeof ScriptSandbox>;
 
 const okScript = `
 // try oakframe built-ins
-background("#edb");
+background("var(--oakd-warning-color)");
 print("Hello from sandbox!");
 console.log("console.log also prints");
 `;
@@ -85,24 +86,24 @@ console.log(Object.keys(window));
 /* ------------------------------------------------------------------ */
 
 function SandboxWithEditor(args: ScriptSandboxProps & { src: string }) {
-	const [src, setSrc] = useState(args.src);
-	const [lastErr, setLastErr] = useState<ScriptSandboxError | null>(null);
+  const [src, setSrc] = useState(args.src);
+  const [lastErr, setLastErr] = useState<ScriptSandboxError | null>(null);
 
-	return (
-		<div style={{ display: "grid", gap: 12 }}>
-			<ScriptSandbox {...args} src={src} onError={(e) => setLastErr(e)} />
+  return (
+    <Space direction="vertical" gap wide align="stretch">
+      <ScriptSandbox {...args} src={src} onError={(e) => setLastErr(e)} />
 
-			<CodeArea
-				defaultValue={src}
-				lineNumbers
-				errorLines={[lastErr?.line ?? -1]}
-				onChange={(e: any) => {
-					setSrc(e.target.value);
-					setLastErr(null);
-				}}
-			/>
-		</div>
-	);
+      <CodeArea
+        defaultValue={src}
+        lineNumbers
+        errorLines={[lastErr?.line ?? -1]}
+        onChange={(e: any) => {
+          setSrc(e.target.value);
+          setLastErr(null);
+        }}
+      />
+    </Space>
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -110,33 +111,33 @@ function SandboxWithEditor(args: ScriptSandboxProps & { src: string }) {
 /* ------------------------------------------------------------------ */
 
 export const OK_Basic: Story = {
-	render: (args) => <SandboxWithEditor {...args} src={okScript} />,
+  render: (args) => <SandboxWithEditor {...args} src={okScript} />,
 };
 
 export const OK_Logic: Story = {
-	render: (args) => <SandboxWithEditor {...args} src={logicScript} />,
+  render: (args) => <SandboxWithEditor {...args} src={logicScript} />,
 };
 
 export const OK_Promise: Story = {
-	render: (args) => <SandboxWithEditor {...args} src={promiseScript} />,
+  render: (args) => <SandboxWithEditor {...args} src={promiseScript} />,
 };
 
 export const Error_Reference: Story = {
-	render: (args) => <SandboxWithEditor {...args} src={errorScript} />,
+  render: (args) => <SandboxWithEditor {...args} src={errorScript} />,
 };
 
 export const Error_FetchBlocked: Story = {
-	render: (args) => <SandboxWithEditor {...args} src={fetchScript} />,
+  render: (args) => <SandboxWithEditor {...args} src={fetchScript} />,
 };
 
 export const Security_DocumentAccess: Story = {
-	render: (args) => <SandboxWithEditor {...args} src={documentScript} />,
+  render: (args) => <SandboxWithEditor {...args} src={documentScript} />,
 };
 
 export const NoControls: Story = {
-	args: {
-		controls: false,
-		autoRun: false,
-		src: okScript,
-	},
+  args: {
+    controls: false,
+    autoRun: false,
+    src: okScript,
+  },
 };

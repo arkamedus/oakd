@@ -39,7 +39,8 @@ const COLOR_PROPERTIES = new Set(["red", "green", "blue", "alpha"]);
 
 const normalizeLine = (line: string): string => line.trim();
 
-const splitLine = (line: string): string[] => normalizeLine(line).split(/\s+/).filter(Boolean);
+const splitLine = (line: string): string[] =>
+	normalizeLine(line).split(/\s+/).filter(Boolean);
 
 const readNumericValue = (
 	values: string[],
@@ -72,7 +73,9 @@ const createIndexArray = (indices: number[]): PLYIndexArray => {
 		: new Uint16Array(indices);
 };
 
-const parseHeader = (lines: string[]): {
+const parseHeader = (
+	lines: string[],
+): {
 	elements: ElementInfo[];
 	format: string;
 	headerEndLine: number;
@@ -176,10 +179,22 @@ export const parsePLY = (
 					readNumericValue(values, propertyIndex, "blue", defaultColor[2]),
 					readNumericValue(values, propertyIndex, "alpha", defaultColor[3]),
 				);
-				const material = readNumericValue(values, propertyIndex, "material", Number.NaN);
-				materials.push(Number.isFinite(material)
-					? material
-					: readNumericValue(values, propertyIndex, "material_index", defaultMaterial));
+				const material = readNumericValue(
+					values,
+					propertyIndex,
+					"material",
+					Number.NaN,
+				);
+				materials.push(
+					Number.isFinite(material)
+						? material
+						: readNumericValue(
+								values,
+								propertyIndex,
+								"material_index",
+								defaultMaterial,
+							),
+				);
 			}
 			continue;
 		}
@@ -197,7 +212,11 @@ export const parsePLY = (
 					continue;
 				}
 				for (let index = 1; index < faceIndices.length - 1; index += 1) {
-					indices.push(faceIndices[0], faceIndices[index], faceIndices[index + 1]);
+					indices.push(
+						faceIndices[0],
+						faceIndices[index],
+						faceIndices[index + 1],
+					);
 				}
 			}
 			continue;
@@ -226,7 +245,12 @@ export const plyToMeshData = (
 		materials.set(plyData.materials.slice(0, vertexCount));
 	} else {
 		materials.fill(options.material ?? 0);
-		materials.set(plyData.materials.slice(0, Math.min(plyData.materials.length, vertexCount)));
+		materials.set(
+			plyData.materials.slice(
+				0,
+				Math.min(plyData.materials.length, vertexCount),
+			),
+		);
 	}
 
 	const colors = new Float32Array(vertexCount * 4);
@@ -239,14 +263,21 @@ export const plyToMeshData = (
 			colors[index + 2] = 1;
 			colors[index + 3] = 1;
 		}
-		colors.set(plyData.colors.slice(0, Math.min(plyData.colors.length, colors.length)));
+		colors.set(
+			plyData.colors.slice(0, Math.min(plyData.colors.length, colors.length)),
+		);
 	}
 
 	const normals = new Float32Array(vertexCount * 3);
 	if (plyData.normals.length >= normals.length) {
 		normals.set(plyData.normals.slice(0, normals.length));
 	} else {
-		normals.set(plyData.normals.slice(0, Math.min(plyData.normals.length, normals.length)));
+		normals.set(
+			plyData.normals.slice(
+				0,
+				Math.min(plyData.normals.length, normals.length),
+			),
+		);
 	}
 
 	return {
@@ -254,8 +285,9 @@ export const plyToMeshData = (
 		normals,
 		colors,
 		materials,
-		indices: plyData.indices instanceof Uint32Array
-			? new Uint32Array(plyData.indices)
-			: new Uint16Array(plyData.indices),
+		indices:
+			plyData.indices instanceof Uint32Array
+				? new Uint32Array(plyData.indices)
+				: new Uint16Array(plyData.indices),
 	};
 };

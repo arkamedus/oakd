@@ -1,0 +1,42 @@
+.oakd-dock {
+	position: absolute;
+	z-index: 10;
+	max-width: calc(100% - (var(--oakd-dock-offset) * 2));
+	max-height: calc(100% - (var(--oakd-dock-offset) * 2));
+}
+.oakd-dock--top {
+	top: var(--oakd-dock-offset);
+	left: 50%;
+	transform: translateX(-50%);
+}
+.oakd-dock--bottom {
+	bottom: var(--oakd-dock-offset);
+	left: 50%;
+	transform: translateX(-50%);
+}
+.oakd-dock--left {
+	left: var(--oakd-dock-offset);
+	top: 50%;
+	transform: translateY(-50%);
+}
+.oakd-dock--right {
+	right: var(--oakd-dock-offset);
+	top: 50%;
+	transform: translateY(-50%);
+}
+.oakd-dock--top-left {
+	top: var(--oakd-dock-offset);
+	left: var(--oakd-dock-offset);
+}
+.oakd-dock--top-right {
+	top: var(--oakd-dock-offset);
+	right: var(--oakd-dock-offset);
+}
+.oakd-dock--bottom-left {
+	bottom: var(--oakd-dock-offset);
+	left: var(--oakd-dock-offset);
+}
+.oakd-dock--bottom-right {
+	right: var(--oakd-dock-offset);
+	bottom: var(--oakd-dock-offset);
+}

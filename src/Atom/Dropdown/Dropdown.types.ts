@@ -15,4 +15,9 @@ export interface DropdownProps extends CoreLayoutProps<HTMLDivElement> {
 	label?: React.ReactNode;
 	placementThreshold?: number;
 	wide?: boolean;
+	open?: boolean;
+	defaultOpen?: boolean;
+	onOpenChange?: (open: boolean) => void;
+	disabled?: boolean;
+	closeOnSelect?: boolean;
 }

@@ -1,0 +1,31 @@
+.oakd-textarea {
+	box-sizing: border-box;
+	min-height: calc(var(--oakd-line-height) * 5);
+	padding: var(--oakd-leading);
+	resize: vertical;
+	font: inherit;
+	color: var(--oakd-font-color);
+	background: var(--oakd-background);
+	border: var(--oakd-border-width) solid var(--oakd-default-border);
+	border-radius: var(--oakd-radius);
+}
+.oakd-textarea.wide {
+	width: 100%;
+}
+.oakd-textarea.grow {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+.oakd-textarea--error {
+	border-color: var(--oakd-danger-border);
+}
+.oakd-textarea:disabled {
+	color: var(--oakd-disabled-text);
+	background: var(--oakd-disabled-color);
+	border-color: var(--oakd-disabled-border);
+	cursor: not-allowed;
+}
+.oakd-textarea:focus-visible {
+	outline: none;
+	box-shadow: var(--oakd-focus-ring);
+}

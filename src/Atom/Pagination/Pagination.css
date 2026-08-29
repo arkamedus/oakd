@@ -4,7 +4,7 @@
 }
 
 .pagination-button {
-  margin: 0 4px;
+  margin: 0 calc(var(--oakd-leading) / 2);
 }
 
 .pagination-button.current {
@@ -12,12 +12,12 @@
 }
 
 .arrow {
-  margin: 0 8px;
+  margin: 0 var(--oakd-leading);
 }
 
 .pagination-arrow {
-  padding-left: calc(var(--leading) / 2);
-  padding-right: calc(var(--leading) / 2);
+  padding-left: calc(var(--oakd-leading) / 2);
+  padding-right: calc(var(--oakd-leading) / 2);
 }
 
 .disabled {
@@ -26,5 +26,5 @@
 }
 
 .dot {
-  margin: 0 4px;
+  margin: 0 calc(var(--oakd-leading) / 2);
 }

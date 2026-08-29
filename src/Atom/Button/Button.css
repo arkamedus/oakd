@@ -1,103 +1,102 @@
 .oakd.button {
-    display: inline-flex;
-    margin: 0;
-    outline: none;
-    border-radius: var(--border-radius);
-    border: 1px solid;
-    padding-top: calc(var(--leading) / 2);
-    padding-bottom: calc(var(--leading) / 2);
-    padding-right: var(--leading);
-    padding-left: var(--leading);
-    height: auto;
-    transition: background-color 0.2s ease-in-out, filter 0.1s ease-in-out;
+  display: inline-flex;
+  margin: 0;
+  outline: none;
+  border-radius: var(--oakd-radius);
+  border: var(--oakd-border-width) solid;
+  padding-top: calc(var(--oakd-leading) / 2);
+  padding-bottom: calc(var(--oakd-leading) / 2);
+  padding-right: var(--oakd-leading);
+  padding-left: var(--oakd-leading);
+  height: auto;
+  transition:
+    background-color 0.2s ease-in-out,
+    filter 0.1s ease-in-out;
 }
 
 /* Button Sizes */
 .oakd.button.size-small {
-    padding-top: 0;
-    padding-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .oakd.button.size-large {
-    padding-top: var(--leading);
-    padding-bottom: var(--leading);
-    padding-right: calc(var(--leading) * 2);
-    padding-left: calc(var(--leading) * 2);
+  padding-top: var(--oakd-leading);
+  padding-bottom: var(--oakd-leading);
+  padding-right: calc(var(--oakd-leading) * 2);
+  padding-left: calc(var(--oakd-leading) * 2);
 }
 
 /* Interactive States */
 
 .oakd.button.active:not(.disabled) {
-    filter: brightness(1.05);
+  filter: brightness(1.05);
 }
 
 .oakd.button:not(.disabled):hover {
-    filter: brightness(1.15);
-    cursor: pointer;
+  filter: brightness(1.15);
+  cursor: pointer;
 }
 
 .oakd.button:not(.disabled):active {
-    filter: brightness(0.85);
+  filter: brightness(0.85);
 }
 
-.oakd.button:not(.disabled):focus {
-    filter: brightness(1.1);
-    outline: 2px solid rgba(0, 0, 0, 0.2);
+.oakd.button:not(.disabled):focus-visible {
+  filter: brightness(1.1);
+  outline: none;
+  box-shadow: var(--oakd-focus-ring);
 }
-
-
-
-
 
 .oakd.button_group > * {
-    border-radius: 0; /* Remove border-radius for all buttons in the group */
+  border-radius: 0; /* Remove border-radius for all buttons in the group */
 }
 
 /* Horizontal Button Group */
 .oakd.button_group.horizontal {
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .oakd.button_group.horizontal > * {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .oakd.button_group.horizontal > *:first-child {
-    border-top-left-radius: var(--border-radius);
-    border-bottom-left-radius: var(--border-radius);
+  border-top-left-radius: var(--oakd-radius);
+  border-bottom-left-radius: var(--oakd-radius);
 }
 
 .oakd.button_group.horizontal > *:last-child {
-    border-top-right-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+  border-top-right-radius: var(--oakd-radius);
+  border-bottom-right-radius: var(--oakd-radius);
 }
 
 .oakd.button_group.horizontal > *:not(:last-child) {
-    border-right: none;
+  border-right: none;
 }
 
 /* Vertical Button Group */
 .oakd.button_group.vertical {
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .oakd.button_group.vertical > * {
-    border-radius: 0;
-    width: 100%;
+  border-radius: 0;
+  width: 100%;
 }
 
 .oakd.button_group.vertical > *:first-child {
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--oakd-radius);
+  border-top-right-radius: var(--oakd-radius);
 }
 
 .oakd.button_group.vertical > *:last-child {
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--oakd-radius);
+  border-bottom-right-radius: var(--oakd-radius);
 }
 
 .oakd.button_group.vertical > *:not(:last-child) {
-    border-bottom: none;
+  border-bottom: none;
 }

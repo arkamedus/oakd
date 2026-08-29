@@ -1,89 +1,100 @@
 .oakd.input-container {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid;
-    padding: 0;
-    height: auto;
-    border-radius: var(--border-radius);
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-    padding-right: var(--leading);
-    padding-left: var(--leading);
+  display: inline-flex;
+  align-items: center;
+  border: var(--oakd-border-width) solid;
+  padding: 0;
+  height: auto;
+  border-radius: var(--oakd-radius);
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
+  padding-right: var(--oakd-leading);
+  padding-left: var(--oakd-leading);
 }
 
 input.oakd.input {
-    border: none;
-    outline: none;
-    background: transparent;
-    padding-top: calc(var(--leading) / 2);
-    padding-bottom: calc(var(--leading) / 2);
-    flex-grow: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding-top: calc(var(--oakd-leading) / 2);
+  padding-bottom: calc(var(--oakd-leading) / 2);
+  flex-grow: 1;
 }
 
 input.oakd.input.size-default {
-    padding-top: calc(var(--leading) / 2);
-    padding-bottom: calc(var(--leading) / 2);
+  padding-top: calc(var(--oakd-leading) / 2);
+  padding-bottom: calc(var(--oakd-leading) / 2);
 }
 
 input.oakd.input.size-small {
-    padding-top: 0;
-    padding-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 input.oakd.input.size-large {
-    padding-top: var(--leading);
-    padding-bottom: var(--leading);
-    padding-right: calc(var(--leading) * 2);
-    padding-left: calc(var(--leading) * 2);
+  padding-top: var(--oakd-leading);
+  padding-bottom: var(--oakd-leading);
+  padding-right: calc(var(--oakd-leading) * 2);
+  padding-left: calc(var(--oakd-leading) * 2);
 }
 
 /* Input Types (Matching Button Types) */
 .input-container.type-default {
-    background-color: var(--background);
-    border-color: var(--oakd-default-border);
-    color: var(--oakd-default-text);
+  background-color: var(--oakd-background);
+  border-color: var(--oakd-default-border);
+  color: var(--oakd-default-text);
 }
 
 .input-container.type-primary {
-    background-color: var(--oakd-primary-color);
-    border-color: #0f4580;
-    color: #fff;
+  background-color: var(--oakd-primary-color);
+  border-color: var(--oakd-primary-border);
+  color: var(--oakd-primary-text);
+}
+
+.input-container.type-success {
+  background-color: var(--oakd-success-color);
+  border-color: var(--oakd-success-border);
+  color: var(--oakd-success-text);
 }
 
 .input-container.type-danger {
-    background-color: var(--oakd-danger-color);
-    border-color: var(--oakd-danger-border);
-    color: var(--oakd-danger-text);
+  background-color: var(--oakd-danger-color);
+  border-color: var(--oakd-danger-border);
+  color: var(--oakd-danger-text);
 }
 
 .input-container.type-warning {
-    background-color: #ffc107;
-    color: #654406;
+  background-color: var(--oakd-warning-color);
+  border-color: var(--oakd-warning-border);
+  color: var(--oakd-warning-text);
 }
 
 .input-container.type-ghost {
-    background: #CCC4;
-    color: #888;
+  background: var(--oakd-ghost-color);
+  border-color: var(--oakd-ghost-border);
+  color: var(--oakd-ghost-text);
 }
 
 /* Error State */
 .oakd.input-container.input-error {
-    border-color: var(--oakd-danger-color, red);
+  border-color: var(--oakd-danger-color);
 }
 
-.oakd .input-error-message, .oakd .input-error-icon {
-    color: var(--oakd-danger-color, red);
+.oakd.input-container.input-error .oakd.standardized-text.input-error-icon {
+  color: var(--oakd-danger-color);
 }
 
 /* Disabled State */
 .input-container.input-disabled,
 .input-container.type-disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    color: #666;
+  background-color: var(--oakd-disabled-color);
+  border-color: var(--oakd-disabled-border);
+  cursor: not-allowed;
+  color: var(--oakd-disabled-text);
 }
 
 input.oakd.input.input-disabled,
 input.oakd.input.type-disabled {
-    color: #666;
-    cursor: not-allowed;
+  color: var(--oakd-disabled-text);
+  cursor: not-allowed;
 }

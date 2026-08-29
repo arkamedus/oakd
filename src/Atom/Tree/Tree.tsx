@@ -3,7 +3,6 @@ import { TreeItem, TreeProps } from "./Tree.types";
 import "./Tree.css";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
-import Button from "../Button/Button";
 import Icon from "../../Icon/Icon";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import { decode__padding } from "../../Core/Core.types";
@@ -369,7 +368,7 @@ const TreeNode: React.FC<{
 			{folder && item.expanded ? (
 				item.children.length ? (
 					<Content
-						className="tree__children"
+						className="tree__children tree__children--populated"
 						data-testid={`TreeChildren-${item.id}`}
 						onDragOver={(event) => {
 							event.preventDefault();
@@ -540,6 +539,7 @@ const Tree: React.FC<TreeProps> = ({
 	style,
 	wide,
 	pad,
+	guides = false,
 	...rest
 }) => {
 	const [draggedId, setDraggedId] = React.useState<string | null>(null);
@@ -554,6 +554,7 @@ const Tree: React.FC<TreeProps> = ({
 			className={[
 				"oakd",
 				"tree",
+				guides ? "tree--guides" : "",
 				wide ? "wide" : "",
 				pad ? decode__padding(pad) : "",
 				className,
@@ -563,7 +564,13 @@ const Tree: React.FC<TreeProps> = ({
 			style={style}
 			wide={wide}
 		>
-			<Space direction="vertical" gap wide className="tree__list">
+			<Space
+				direction="vertical"
+				gap
+				wide
+				align="stretch"
+				className="tree__list"
+			>
 				{items.map((item, index) => (
 					<TreeNode
 						key={item.id}

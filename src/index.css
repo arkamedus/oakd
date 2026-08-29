@@ -15,6 +15,50 @@
 
   --font-scale-title: 3.5;
 
+  /* Stable v4 aliases. Legacy variables remain the global theme inputs. */
+  --oakd-font-size: var(--font-size);
+  --oakd-line-height: var(--line-height);
+  --oakd-leading: var(--leading);
+  --oakd-radius: var(--border-radius);
+  --oakd-gap: var(--gap-sizing);
+  --oakd-background: var(--background);
+  --oakd-font-color: var(--font-color);
+  --oakd-font-family: var(--font-family);
+  --oakd-font-family-display: var(--font-family);
+  --oakd-focus-ring: 0 0 0 2px
+    color-mix(in srgb, var(--oakd-primary-border) 55%, transparent);
+  --oakd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.12);
+  --oakd-shadow-lg: 4px 6px 0 rgba(0, 0, 0, 0.14);
+  --oakd-border-width: 1px;
+  --oakd-border-width-strong: 2px;
+  --oakd-radius-round: 999px;
+  --oakd-visually-hidden-size: 1px;
+  --oakd-width-sm: 16rem;
+  --oakd-width-md: 24rem;
+  --oakd-width-lg: 36rem;
+  --oakd-width-xl: 52rem;
+  --oakd-width-2xl: 72rem;
+  --oakd-width-3xl: 96rem;
+  --oakd-surface-height-sm: 180px;
+  --oakd-surface-height-md: 280px;
+  --oakd-surface-height-lg: 360px;
+  --oakd-surface-height-xl: 540px;
+  --oakd-scroll-item-size: 140px;
+  --oakd-scroll-item-size-wide: 180px;
+  --oakd-modal-width-sm: 28rem;
+  --oakd-modal-width-md: 40rem;
+  --oakd-modal-width-lg: 64rem;
+  --oakd-viewport-inset: 2rem;
+  --oakd-tooltip-offset: 10px;
+  --oakd-tooltip-width: 180px;
+  --oakd-tooltip-width-max: 240px;
+  --oakd-thumbnail-preview-size: 3rem;
+  --oakd-pattern-stripe-size: 24px;
+  --oakd-radius-raised: calc(var(--oakd-radius) + 3pt);
+  --oakd-fluid-gutter: 3vw;
+  --oakd-mobile-panel-max: 85vw;
+  --oakd-title-fluid-size: 7vw;
+
   --oakd-black: #11111f;
   --oakd-gray: #b6b5b3;
   --oakd-white: #efefef;
@@ -36,9 +80,9 @@
   /* Add the rest of your color sets with explicit hex values */
 
   /* Default (neutral) */
-  --oakd-default-color: #5c6370;   /* Approx. neutral/dark grayish-blue */
-  --oakd-default-border: #2e3138;  /* Darker border */
-  --oakd-default-text: #c6cad1;    /* Lighter text */
+  --oakd-default-color: #5c6370; /* Approx. neutral/dark grayish-blue */
+  --oakd-default-border: #2e3138; /* Darker border */
+  --oakd-default-text: #c6cad1; /* Lighter text */
 
   /* Primary */
   --oakd-primary-color: #3f8bef;
@@ -83,6 +127,10 @@
   --oakd-card-active-border: #4f80c0;
   --oakd-card-active-text: #21598f;
 
+  --oakd-card-success-color: #f4ffe9;
+  --oakd-card-success-border: #8dc04f;
+  --oakd-card-success-text: #17791d;
+
   --oakd-card-warning-color: #fff1cc;
   --oakd-card-warning-border: #d8aa43;
   --oakd-card-warning-text: #6b4200;
@@ -99,8 +147,54 @@
   --oakd-card-disabled-border: #d4d4d4;
   --oakd-card-disabled-text: #8c8c8c;
 
+  /* Data visualization */
+  --oakd-chart-1: #a0c4ff;
+  --oakd-chart-2: #bdb2ff;
+  --oakd-chart-3: #ffc6ff;
+  --oakd-chart-4: #ff8fa3;
+  --oakd-chart-5: #9bf6ff;
+  --oakd-chart-6: #7fd8be;
+  --oakd-chart-7: #ffadad;
+  --oakd-chart-8: #cdb4db;
+  --oakd-chart-9: #f15bb5;
+  --oakd-chart-10: #00bbf9;
+  --oakd-chart-11: #00d4b8;
+  --oakd-chart-12: #5ec2b7;
+  --oakd-chart-13: #8edfcc;
+  --oakd-chart-14: #f9bec7;
+  --oakd-chart-15: #e0bbe4;
+  --oakd-chart-16: #d0cfff;
+
+  /* Code syntax */
+  --oakd-code-comment: #6a737d;
+  --oakd-code-string: #22863a;
+  --oakd-code-number: #005cc5;
+  --oakd-code-keyword: #d73a49;
+  --oakd-code-type: #6f42c1;
+  --oakd-code-builtin: #b31d28;
+  --oakd-code-boolean: var(--oakd-code-keyword);
+
+  /* Pastel utility sequence */
+  --oakd-pastel-1: #ffddc1;
+  --oakd-pastel-2: #ffabab;
+  --oakd-pastel-3: #ffc3a0;
+  --oakd-pastel-4: #d5aaff;
+  --oakd-pastel-5: #85e3ff;
+  --oakd-pastel-6: #b9fbc0;
+  --oakd-pastel-7: #a0e7e5;
+  --oakd-pastel-8: #c6cfff;
+  --oakd-pastel-9: #f3ffe3;
+  --oakd-pastel-10: #ffcbcb;
+  --oakd-pastel-11: #d4a5a5;
+  --oakd-pastel-12: #e4c1f9;
+  --oakd-pastel-13: #b5ead7;
+  --oakd-pastel-14: #ffd6a5;
+  --oakd-pastel-15: #ff9aa2;
+  --oakd-pastel-16: #c7ceea;
+
   /* Heading / Typography */
-  --font-family: "Source Code Pro","Courier",  "Avenir Next", Helvetica, Arial, sans-serif;
+  --font-family:
+    "Source Code Pro", "Courier", "Avenir Next", Helvetica, Arial, sans-serif;
 }
 
 /* --------------------------------------------------
@@ -156,6 +250,10 @@
     --oakd-card-active-color: #1f3b44;
     --oakd-card-active-border: #5d9ab5;
     --oakd-card-active-text: #ddf7ff;
+
+    --oakd-card-success-color: #203d24;
+    --oakd-card-success-border: #5c9c64;
+    --oakd-card-success-text: #d8ffdc;
 
     --oakd-card-warning-color: #4c3b12;
     --oakd-card-warning-border: #b58900;
@@ -302,30 +400,62 @@
   }
 }
 
-
-
-.pastel-container > *:nth-child(16n+1) { background-color: #FFDDC1; } /* Light Peach */
-.pastel-container > *:nth-child(16n+2) { background-color: #FFABAB; } /* Soft Red */
-.pastel-container > *:nth-child(16n+3) { background-color: #FFC3A0; } /* Pale Orange */
-.pastel-container > *:nth-child(16n+4) { background-color: #D5AAFF; } /* Soft Purple */
-.pastel-container > *:nth-child(16n+5) { background-color: #85E3FF; } /* Light Blue */
-.pastel-container > *:nth-child(16n+6) { background-color: #B9FBC0; } /* Mint Green */
-.pastel-container > *:nth-child(16n+7) { background-color: #A0E7E5; } /* Teal */
-.pastel-container > *:nth-child(16n+8) { background-color: #C6CFFF; } /* Lavender */
-.pastel-container > *:nth-child(16n+9) { background-color: #F3FFE3; } /* Soft Yellow */
-.pastel-container > *:nth-child(16n+10) { background-color: #FFCBCB; } /* Blush Pink */
-.pastel-container > *:nth-child(16n+11) { background-color: #D4A5A5; } /* Muted Rose */
-.pastel-container > *:nth-child(16n+12) { background-color: #E4C1F9; } /* Light Purple */
-.pastel-container > *:nth-child(16n+13) { background-color: #B5EAD7; } /* Soft Green */
-.pastel-container > *:nth-child(16n+14) { background-color: #FFD6A5; } /* Warm Orange */
-.pastel-container > *:nth-child(16n+15) { background-color: #FF9AA2; } /* Coral Pink */
-.pastel-container > *:nth-child(16n+16) { background-color: #C7CEEA; } /* Cool Lavender */
+.pastel-container > *:nth-child(16n + 1) {
+  background-color: var(--oakd-pastel-1);
+} /* Light Peach */
+.pastel-container > *:nth-child(16n + 2) {
+  background-color: var(--oakd-pastel-2);
+} /* Soft Red */
+.pastel-container > *:nth-child(16n + 3) {
+  background-color: var(--oakd-pastel-3);
+} /* Pale Orange */
+.pastel-container > *:nth-child(16n + 4) {
+  background-color: var(--oakd-pastel-4);
+} /* Soft Purple */
+.pastel-container > *:nth-child(16n + 5) {
+  background-color: var(--oakd-pastel-5);
+} /* Light Blue */
+.pastel-container > *:nth-child(16n + 6) {
+  background-color: var(--oakd-pastel-6);
+} /* Mint Green */
+.pastel-container > *:nth-child(16n + 7) {
+  background-color: var(--oakd-pastel-7);
+} /* Teal */
+.pastel-container > *:nth-child(16n + 8) {
+  background-color: var(--oakd-pastel-8);
+} /* Lavender */
+.pastel-container > *:nth-child(16n + 9) {
+  background-color: var(--oakd-pastel-9);
+} /* Soft Yellow */
+.pastel-container > *:nth-child(16n + 10) {
+  background-color: var(--oakd-pastel-10);
+} /* Blush Pink */
+.pastel-container > *:nth-child(16n + 11) {
+  background-color: var(--oakd-pastel-11);
+} /* Muted Rose */
+.pastel-container > *:nth-child(16n + 12) {
+  background-color: var(--oakd-pastel-12);
+} /* Light Purple */
+.pastel-container > *:nth-child(16n + 13) {
+  background-color: var(--oakd-pastel-13);
+} /* Soft Green */
+.pastel-container > *:nth-child(16n + 14) {
+  background-color: var(--oakd-pastel-14);
+} /* Warm Orange */
+.pastel-container > *:nth-child(16n + 15) {
+  background-color: var(--oakd-pastel-15);
+} /* Coral Pink */
+.pastel-container > *:nth-child(16n + 16) {
+  background-color: var(--oakd-pastel-16);
+} /* Cool Lavender */
 
 html {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -341,11 +471,11 @@ html {
 }
 
 .oakd.standardized-text {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  line-height: var(--line-height);
-  min-height: var(--line-height);
-  color: var(--font-color);
+  font-family: var(--oakd-font-family);
+  font-size: var(--oakd-font-size);
+  line-height: var(--oakd-line-height);
+  min-height: var(--oakd-line-height);
+  color: var(--oakd-font-color);
 }
 
 .oakd.wide {
@@ -360,13 +490,13 @@ html {
   flex-wrap: nowrap;
 }
 
-
 /* Button Types */
 .oakd.button.type-default {
-  background-color: var(--background);
+  background-color: var(--oakd-background);
+  color: var(--oakd-font-color);
 }
 .oakd.button.type-default .oakd.standardized-text {
-  color: var(--font-color);
+  color: var(--oakd-font-color);
 }
 .oakd.card.type-default {
   background-color: var(--oakd-card-default-color);
@@ -387,7 +517,6 @@ html {
   color: var(--oakd-card-default-text);
 }
 
-
 .oakd.card.type-active {
   border-color: var(--oakd-card-active-border);
   background-color: var(--oakd-card-active-color);
@@ -395,6 +524,7 @@ html {
 .oakd.button.type-active {
   border-color: var(--oakd-active-border);
   background-color: var(--oakd-active-color);
+  color: var(--oakd-active-text);
 }
 .oakd.button.type-active .oakd.standardized-text {
   color: var(--oakd-active-text);
@@ -414,13 +544,30 @@ html {
   color: var(--oakd-card-active-text);
 }
 
-
 .oakd.button.type-primary {
   background-color: var(--oakd-primary-color);
   border-color: var(--oakd-primary-border);
+  color: var(--oakd-primary-text);
 }
 .oakd.button.type-primary .oakd.standardized-text {
-  color: #fff;
+  color: var(--oakd-primary-text);
+}
+
+.oakd.button.type-success {
+  background-color: var(--oakd-success-color);
+  border-color: var(--oakd-success-border);
+  color: var(--oakd-success-text);
+}
+.oakd.button.type-success .oakd.standardized-text {
+  color: var(--oakd-success-text);
+}
+.oakd.card.type-success {
+  background-color: var(--oakd-card-success-color);
+  border-color: var(--oakd-card-success-border);
+  color: var(--oakd-card-success-text);
+}
+.oakd.announcement.type-success {
+  color: var(--oakd-card-success-text);
 }
 .oakd.card.type-primary {
   background-color: var(--oakd-card-primary-color);
@@ -444,6 +591,7 @@ html {
 .oakd.button.type-danger {
   background-color: var(--oakd-danger-color);
   border-color: var(--oakd-danger-border);
+  color: var(--oakd-danger-text);
 }
 .oakd.button.type-danger .oakd.standardized-text {
   color: var(--oakd-danger-text);
@@ -470,6 +618,7 @@ html {
 .oakd.button.type-warning {
   background-color: var(--oakd-warning-color);
   border-color: var(--oakd-warning-border);
+  color: var(--oakd-warning-text);
 }
 .oakd.button.type-warning .oakd.standardized-text {
   color: var(--oakd-warning-text);
@@ -494,10 +643,12 @@ html {
 }
 
 .oakd.button.type-ghost {
-  background: #CCC4;
+  background: var(--oakd-ghost-color);
+  border-color: var(--oakd-ghost-border);
+  color: var(--oakd-ghost-text);
 }
 .oakd.button.type-ghost .oakd.standardized-text {
-  color: #666;
+  color: var(--oakd-ghost-text);
 }
 .oakd.card.type-ghost {
   background: var(--oakd-card-ghost-color);
@@ -519,21 +670,27 @@ html {
 }
 
 /* Disabled Button */
-.oakd.button.disabled, .oakd.button.type-disabled {
-  background-color: #ccc;
+.oakd.button.disabled,
+.oakd.button.type-disabled {
+  background-color: var(--oakd-disabled-color);
+  border-color: var(--oakd-disabled-border);
+  color: var(--oakd-disabled-text);
   cursor: not-allowed;
 }
-.oakd.button.disabled .oakd.standardized-text, .oakd.button.type-disabled .oakd.standardized-text {
-  color: #666;
+.oakd.button.disabled .oakd.standardized-text,
+.oakd.button.type-disabled .oakd.standardized-text {
+  color: var(--oakd-disabled-text);
 }
 
-.oakd.card.disabled, .oakd.card.type-disabled {
+.oakd.card.disabled,
+.oakd.card.type-disabled {
   background-color: var(--oakd-card-disabled-color);
   border-color: var(--oakd-card-disabled-border);
   cursor: not-allowed;
 }
 
-.oakd.card.disabled, .oakd.card.type-disabled {
+.oakd.card.disabled,
+.oakd.card.type-disabled {
   color: var(--oakd-card-disabled-text);
 }
 .oakd.card.disabled > .oakd.standardized-text,
@@ -550,39 +707,71 @@ html {
   color: var(--oakd-card-disabled-text);
 }
 
-/* Nested buttons must keep button text colors even inside semantic cards. */
+/* Nested buttons own their text colors even inside semantic surfaces. */
+.oakd.card .oakd.button.type-default.standardized-text,
 .oakd.card .oakd.button.type-default .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-default.standardized-text,
 .oakd.announcement .oakd.button.type-default .oakd.standardized-text {
-  color: var(--font-color);
+  color: var(--oakd-font-color);
 }
 
+.oakd.card .oakd.button.type-active.standardized-text,
 .oakd.card .oakd.button.type-active .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-active.standardized-text,
 .oakd.announcement .oakd.button.type-active .oakd.standardized-text {
   color: var(--oakd-active-text);
 }
 
+.oakd.card .oakd.button.type-primary.standardized-text,
 .oakd.card .oakd.button.type-primary .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-primary.standardized-text,
 .oakd.announcement .oakd.button.type-primary .oakd.standardized-text {
-  color: #fff;
+  color: var(--oakd-primary-text);
 }
 
+.oakd.card .oakd.button.type-success.standardized-text,
+.oakd.card .oakd.button.type-success .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-success.standardized-text,
+.oakd.announcement .oakd.button.type-success .oakd.standardized-text {
+  color: var(--oakd-success-text);
+}
+
+.oakd.card .oakd.button.type-danger.standardized-text,
 .oakd.card .oakd.button.type-danger .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-danger.standardized-text,
 .oakd.announcement .oakd.button.type-danger .oakd.standardized-text {
   color: var(--oakd-danger-text);
 }
 
+.oakd.card .oakd.button.type-warning.standardized-text,
 .oakd.card .oakd.button.type-warning .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-warning.standardized-text,
 .oakd.announcement .oakd.button.type-warning .oakd.standardized-text {
   color: var(--oakd-warning-text);
 }
 
+.oakd.card .oakd.button.type-ghost.standardized-text,
 .oakd.card .oakd.button.type-ghost .oakd.standardized-text,
+.oakd.announcement .oakd.button.type-ghost.standardized-text,
 .oakd.announcement .oakd.button.type-ghost .oakd.standardized-text,
+.oakd.card .oakd.button.disabled.standardized-text,
 .oakd.card .oakd.button.disabled .oakd.standardized-text,
+.oakd.announcement .oakd.button.disabled.standardized-text,
 .oakd.announcement .oakd.button.disabled .oakd.standardized-text,
+.oakd.card .oakd.button.type-disabled.standardized-text,
 .oakd.card .oakd.button.type-disabled .oakd.standardized-text {
-  color: #666;
+  color: var(--oakd-disabled-text);
 }
+.oakd.announcement .oakd.button.type-disabled.standardized-text,
 .oakd.announcement .oakd.button.type-disabled .oakd.standardized-text {
-  color: #666;
+  color: var(--oakd-disabled-text);
+}
+
+.oakd-visually-hidden {
+  position: absolute;
+  width: var(--oakd-visually-hidden-size);
+  height: var(--oakd-visually-hidden-size);
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }

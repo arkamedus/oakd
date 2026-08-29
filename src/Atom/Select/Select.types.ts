@@ -12,8 +12,10 @@ export type DropdownDirection =
 
 export interface SelectOption<T> {
 	element: React.ReactNode;
+	label?: React.ReactNode;
 	value: T;
 	category?: string;
+	disabled?: boolean;
 }
 
 export interface SelectProps<T> extends Omit<
@@ -34,4 +36,8 @@ export interface SelectProps<T> extends Omit<
 	disabled?: boolean;
 	placementThreshold?: number;
 	wide?: boolean;
+	open?: boolean;
+	defaultOpen?: boolean;
+	onOpenChange?: (open: boolean) => void;
+	emptyContent?: React.ReactNode;
 }

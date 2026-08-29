@@ -6,7 +6,10 @@ import { createOakMCube, oakMToMeshData } from "../../Utils/OakM";
 
 interface Mock2DContext {
 	clearRect: jest.Mock<void, [number, number, number, number]>;
-	drawImage: jest.Mock<void, [CanvasImageSource, number, number, number, number]>;
+	drawImage: jest.Mock<
+		void,
+		[CanvasImageSource, number, number, number, number]
+	>;
 }
 
 interface MountedTree {
@@ -44,6 +47,9 @@ const createMockWebGLContext = (): WebGLRenderingContext => {
 
 	const gl = {
 		DEPTH_TEST: 0x0b71,
+		CULL_FACE: 0x0b44,
+		BACK: 0x0405,
+		CCW: 0x0901,
 		VERTEX_SHADER: 0x8b31,
 		FRAGMENT_SHADER: 0x8b30,
 		COMPILE_STATUS: 0x8b81,
@@ -112,11 +118,14 @@ const createMockWebGLContext = (): WebGLRenderingContext => {
 		createBuffer: jest.fn(() => nextHandle()),
 		bindBuffer: jest.fn(),
 		bufferData: jest.fn(),
+		bufferSubData: jest.fn(),
 		useProgram: jest.fn(),
 		viewport: jest.fn(),
 		clearColor: jest.fn(),
 		clearDepth: jest.fn(),
 		enable: jest.fn(),
+		cullFace: jest.fn(),
+		frontFace: jest.fn(),
 		disable: jest.fn(),
 		depthMask: jest.fn(),
 		clear: jest.fn(),
@@ -150,8 +159,9 @@ describe("GLContextProvider", () => {
 	const twoDContextMap = new WeakMap<HTMLCanvasElement, Mock2DContext>();
 
 	beforeAll(() => {
-		(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean })
-			.IS_REACT_ACT_ENVIRONMENT = true;
+		(
+			globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
+		).IS_REACT_ACT_ENVIRONMENT = true;
 	});
 
 	const get2DContext = (canvas: HTMLCanvasElement): Mock2DContext => {
@@ -199,14 +209,22 @@ describe("GLContextProvider", () => {
 		mockWebGL = createMockWebGLContext();
 		rafCallbacks = [];
 
-		jest.spyOn(window, "requestAnimationFrame").mockImplementation((callback: FrameRequestCallback) => {
-			rafCallbacks.push(callback);
-			return rafCallbacks.length;
-		});
-		jest.spyOn(window, "cancelAnimationFrame").mockImplementation(() => undefined);
+		jest
+			.spyOn(window, "requestAnimationFrame")
+			.mockImplementation((callback: FrameRequestCallback) => {
+				rafCallbacks.push(callback);
+				return rafCallbacks.length;
+			});
+		jest
+			.spyOn(window, "cancelAnimationFrame")
+			.mockImplementation(() => undefined);
 
-		jest.spyOn(HTMLCanvasElement.prototype, "getContext").mockImplementation(
-			function (this: HTMLCanvasElement, contextId: string) {
+		jest
+			.spyOn(HTMLCanvasElement.prototype, "getContext")
+			.mockImplementation(function (
+				this: HTMLCanvasElement,
+				contextId: string,
+			) {
 				if (contextId === "webgl") {
 					return mockWebGL as unknown as WebGLRenderingContext;
 				}
@@ -214,8 +232,7 @@ describe("GLContextProvider", () => {
 					return get2DContext(this) as unknown as CanvasRenderingContext2D;
 				}
 				return null;
-			} as typeof HTMLCanvasElement.prototype.getContext,
-		);
+			} as typeof HTMLCanvasElement.prototype.getContext);
 	});
 
 	afterEach(() => {
@@ -223,8 +240,9 @@ describe("GLContextProvider", () => {
 	});
 
 	afterAll(() => {
-		(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean })
-			.IS_REACT_ACT_ENVIRONMENT = false;
+		(
+			globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
+		).IS_REACT_ACT_ENVIRONMENT = false;
 	});
 
 	it("batches multiple render requests for the same canvas into one draw per frame", () => {
@@ -268,7 +286,9 @@ describe("GLContextProvider", () => {
 		const canvas = document.createElement("canvas");
 		const context2D = get2DContext(canvas);
 
-		context.render(requestFor(canvas, { width: 200, height: 100, mesh: meshA }));
+		context.render(
+			requestFor(canvas, { width: 200, height: 100, mesh: meshA }),
+		);
 		flushNextFrame(20);
 		expect(context2D.drawImage).toHaveBeenCalledTimes(1);
 
@@ -378,21 +398,9 @@ describe("GLContextProvider", () => {
 		const context = capturedContext as GLContextValue;
 		const canvas = document.createElement("canvas");
 		const uint32Mesh = {
-			positions: new Float32Array([
-				0, 0, 0,
-				1, 0, 0,
-				0, 1, 0,
-			]),
-			normals: new Float32Array([
-				0, 0, 1,
-				0, 0, 1,
-				0, 0, 1,
-			]),
-			colors: new Float32Array([
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-			]),
+			positions: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
+			normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1]),
+			colors: new Float32Array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]),
 			materials: new Float32Array([0, 0, 0]),
 			indices: new Uint32Array([0, 1, 2]),
 		};
@@ -400,8 +408,11 @@ describe("GLContextProvider", () => {
 		context.render(requestFor(canvas, { mesh: uint32Mesh }));
 		flushNextFrame(20);
 
-		expect(mockWebGL.getExtension).toHaveBeenCalledWith("OES_element_index_uint");
-		const unsignedInt = (mockWebGL as unknown as { UNSIGNED_INT: number }).UNSIGNED_INT;
+		expect(mockWebGL.getExtension).toHaveBeenCalledWith(
+			"OES_element_index_uint",
+		);
+		const unsignedInt = (mockWebGL as unknown as { UNSIGNED_INT: number })
+			.UNSIGNED_INT;
 		expect(mockWebGL.drawElements).toHaveBeenCalledWith(
 			mockWebGL.TRIANGLES,
 			uint32Mesh.indices.length,

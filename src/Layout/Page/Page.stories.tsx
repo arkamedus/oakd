@@ -1,1446 +1,1410 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import Page from "./Page";
-import Content from "../Content/Content";
-import Row from "../Row/Row";
-import { Col } from "../Column/Column";
-import Paragraph from "../../Atom/Paragraph/Paragraph";
-import Space from "../../Atom/Space/Space";
-import Title from "../../Atom/Title/Title";
-import Select from "../../Atom/Select/Select";
-import Input from "../../Atom/Input/Input";
+import ActionList, { ActionListItem } from "../../Atom/ActionList/ActionList";
+import Button, { ButtonGroup } from "../../Atom/Button/Button";
 import Card from "../../Atom/Card/Card";
-import Button from "../../Atom/Button/Button";
-import Tabs, { Tab } from "../../Atom/Tabs/Tabs";
-import Pagination from "../../Atom/Pagination/Pagination";
-import MultiLineChart from "../../Atom/MultiLineChart/MultiLineChart";
-import StackedBreakdownChart from "../../Atom/StackedBreakdownChart/StackedBreakdownChart";
-import EmbeddingHeatmap from "../../Atom/EmbeddingHeatmap/EmbeddingHeatmap";
-import LabelBars from "../../Atom/LabelBars/LabelBars";
+import Checkbox from "../../Atom/Checkbox/Checkbox";
 import CodeArea from "../../Atom/CodeArea/CodeArea";
+import ColorField from "../../Atom/ColorField/ColorField";
+import DataTable from "../../Atom/DataTable/DataTable";
+import { DataTableColumn } from "../../Atom/DataTable/DataTable.types";
+import Divider from "../../Atom/Divider/Divider";
+import EmbeddingHeatmap from "../../Atom/EmbeddingHeatmap/EmbeddingHeatmap";
+import Input from "../../Atom/Input/Input";
+import LabelBars from "../../Atom/LabelBars/LabelBars";
+import MultiLineChart from "../../Atom/MultiLineChart/MultiLineChart";
+import Paragraph from "../../Atom/Paragraph/Paragraph";
+import Pill from "../../Atom/Pill/Pill";
+import SearchSelect from "../../Atom/SearchSelect/SearchSelect";
+import Space from "../../Atom/Space/Space";
+import StackedBreakdownChart from "../../Atom/StackedBreakdownChart/StackedBreakdownChart";
+import Tabs, { Tab } from "../../Atom/Tabs/Tabs";
+import ThumbnailGrid from "../../Atom/ThumbnailGrid/ThumbnailGrid";
+import Title from "../../Atom/Title/Title";
+import VectorField from "../../Atom/VectorField/VectorField";
+import Icon from "../../Icon/Icon";
+import Aspect from "../Aspect/Aspect";
+import Col from "../Column/Column";
+import Content from "../Content/Content";
+import ContentRail from "../ContentRail/ContentRail";
+import Dock from "../Dock/Dock";
+import Row from "../Row/Row";
+import ScrollArea from "../ScrollArea/ScrollArea";
+import Page from "./Page";
 
 const meta: Meta<typeof Page> = {
-	title: "Design System/Layout/Page",
-	component: Page,
-	argTypes: {
-		fixed: {
-			control: { type: "boolean" },
-			description: "Whether the page is fixed to viewport",
-		},
-		gap: {
-			control: { type: "boolean" },
-			description: "Whether page sections should have spacing between them",
-		},
-		className: {
-			control: { type: "text" },
-			description: "Additional class name",
-		},
-	},
-	parameters: { layout: "fullscreen" },
+  title: "Design System/Layout/Page",
+  component: Page,
+  argTypes: {
+    fixed: {
+      control: { type: "boolean" },
+      description: "Fix the page to the viewport",
+    },
+    fill: {
+      control: { type: "boolean" },
+      description: "Fill the available parent height",
+    },
+    gap: {
+      control: { type: "boolean" },
+      description: "Space page sections with oakd tokens",
+    },
+  },
+  parameters: { layout: "fullscreen" },
 };
-
 export default meta;
-
 type Story = StoryObj<typeof Page>;
 
-const queueItems = [
-	{
-		title: "Invoice mismatch",
-		body: "The customer attached two invoices showing different tax handling between March and April.",
-	},
-	{
-		title: "Provisioning retry",
-		body: "Support needs confirmation that yesterday’s workspace sync completed before closing the ticket.",
-	},
-	{
-		title: "Renewal approval",
-		body: "Finance wants one last review of the export permissions before the amendment is countersigned.",
-	},
-	{
-		title: "Sandbox handoff",
-		body: "The solutions team asked for an updated workspace with the new webhook scopes enabled by noon.",
-	},
-	{
-		title: "Usage spike review",
-		body: "Analytics flagged an unexpected export increase in one enterprise workspace after the backfill completed.",
-	},
-	{
-		title: "Customer follow-up",
-		body: "The billing owner is waiting on confirmation that the corrected invoice was received and approved.",
-	},
+type WorkItem = {
+  id: number;
+  name: string;
+  owner: string;
+  status: "Ready" | "Review" | "Blocked";
+  updated: string;
+};
+
+const workItems: WorkItem[] = [
+  {
+    id: 1,
+    name: "Billing reconciliation",
+    owner: "Maya",
+    status: "Ready",
+    updated: "4m",
+  },
+  {
+    id: 2,
+    name: "Provisioning retry",
+    owner: "Sergio",
+    status: "Review",
+    updated: "12m",
+  },
+  {
+    id: 3,
+    name: "Export permission audit",
+    owner: "Jordan",
+    status: "Blocked",
+    updated: "28m",
+  },
+  {
+    id: 4,
+    name: "Launch checklist",
+    owner: "Priya",
+    status: "Ready",
+    updated: "43m",
+  },
+  {
+    id: 5,
+    name: "Support handoff",
+    owner: "Maya",
+    status: "Review",
+    updated: "1h",
+  },
+  {
+    id: 6,
+    name: "Renewal approval",
+    owner: "Sergio",
+    status: "Ready",
+    updated: "2h",
+  },
 ];
 
-const guideItems = [
-	{
-		title: "Authentication setup",
-		body: "Explains token creation, callback validation, and safe secret rotation.",
-	},
-	{
-		title: "Webhook troubleshooting",
-		body: "Summarizes retry timing, signature mismatches, and failed delivery checks.",
-	},
-	{
-		title: "SSO provisioning notes",
-		body: "Covers attribute mapping, stale identity links, and first-login recovery steps.",
-	},
-	{
-		title: "Bulk export behavior",
-		body: "Documents pagination, retries, and how to resume interrupted exports safely.",
-	},
-	{
-		title: "Sandbox verification",
-		body: "Lists the checks the support team should complete before promoting a workspace configuration.",
-	},
-	{
-		title: "Launch-day playbook",
-		body: "Defines the release sequence, owner handoff, and rollback verification checkpoints.",
-	},
+const workColumns: DataTableColumn<WorkItem>[] = [
+  {
+    id: "name",
+    header: <Paragraph>Work item</Paragraph>,
+    render: (row) => <Paragraph>{row.name}</Paragraph>,
+    getSortValue: (row) => row.name,
+    sortable: true,
+    xs: 24,
+    md: 9,
+  },
+  {
+    id: "owner",
+    header: <Paragraph>Owner</Paragraph>,
+    render: (row) => <Paragraph>{row.owner}</Paragraph>,
+    xs: 8,
+    md: 5,
+  },
+  {
+    id: "status",
+    header: <Paragraph>Status</Paragraph>,
+    render: (row) => (
+      <Pill
+        size="sm"
+        variant={
+          row.status === "Blocked"
+            ? "danger"
+            : row.status === "Review"
+              ? "warning"
+              : "success"
+        }
+      >
+        {row.status}
+      </Pill>
+    ),
+    xs: 8,
+    md: 6,
+  },
+  {
+    id: "updated",
+    header: <Paragraph>Updated</Paragraph>,
+    render: (row) => <Paragraph>{row.updated}</Paragraph>,
+    xs: 8,
+    md: 4,
+    align: "end",
+  },
 ];
 
-const updateItems = [
-	{
-		title: "April changes",
-		body: "Added a retained-events export example and clarified refresh token behavior.",
-	},
-	{
-		title: "March changes",
-		body: "Updated the bulk export pagination examples and the sandbox screenshots.",
-	},
-	{
-		title: "February changes",
-		body: "Expanded the rollback notes and added a support-ready launch checklist.",
-	},
-	{
-		title: "January changes",
-		body: "Documented the new invoice reconciliation flow for enterprise workspaces.",
-	},
-];
-
-const noteCard = (title: string, body: string) => (
-	<Card pad wide>
-		<Space direction="vertical" gap>
-			<Paragraph>
-				<strong>{title}</strong>
-			</Paragraph>
-			<Paragraph>{body}</Paragraph>
-		</Space>
-	</Card>
+const Header = ({
+  title,
+  description,
+  actions,
+}: {
+  title: string;
+  description: string;
+  actions?: React.ReactNode;
+}) => (
+  <Content pad wide>
+    <Space align="center" justify="between" gap wide noWrap>
+      <Space direction="vertical" gap grow>
+        <Title>{title}</Title>
+        <Paragraph>{description}</Paragraph>
+      </Space>
+      {actions ? (
+        <Space align="center" gap noWrap>
+          {actions}
+        </Space>
+      ) : null}
+    </Space>
+  </Content>
 );
 
-const chatContactCard = (
-	name: string,
-	status: string,
-	preview: string,
-	active = false,
-) => (
-	<Card pad wide variant={active ? "active" : "default"}>
-		<Space direction="vertical" gap wide>
-			<Space justify="between" align="center" wide>
-				<Paragraph>
-					<strong>{name}</strong>
-				</Paragraph>
-				<Paragraph>{status}</Paragraph>
-			</Space>
-			<Paragraph>{preview}</Paragraph>
-		</Space>
-	</Card>
+const SummaryCard = ({
+  title,
+  value,
+  detail,
+  variant = "default",
+}: {
+  title: string;
+  value: string;
+  detail: string;
+  variant?: "default" | "success" | "warning" | "danger";
+}) => (
+  <Card pad wide variant={variant}>
+    <Space direction="vertical" gap wide>
+      <Paragraph>{title}</Paragraph>
+      <Title size="small">{value}</Title>
+      <Paragraph>{detail}</Paragraph>
+    </Space>
+  </Card>
 );
 
-const chatBubble = (
-	message: string,
-	time: string,
-	side: "left" | "right" = "left",
-) => (
-	<Space justify={side === "right" ? "end" : "start"} wide>
-		<Card
-			pad
-			style={{
-				maxWidth: "76%",
-			}}
-			variant={side === "right" ? "active" : "default"}
-		>
-			<Space direction="vertical" gap>
-				<Paragraph>{message}</Paragraph>
-				<Paragraph>{time}</Paragraph>
-			</Space>
-		</Card>
-	</Space>
+const QueueItem = ({
+  title,
+  description,
+  status,
+  selected = false,
+}: {
+  title: string;
+  description: string;
+  status: string;
+  selected?: boolean;
+}) => (
+  <ActionListItem
+    aria-selected={selected}
+    title={<Paragraph>{title}</Paragraph>}
+    description={<Paragraph>{description}</Paragraph>}
+    trailing={<Pill size="sm">{status}</Pill>}
+    onClick={() => undefined}
+  />
 );
-
-const viewportStyle = { minHeight: "440pt" } as const;
-const scrollPanelStyle = { minHeight: 0, overflowY: "auto" as const } as const;
-const bodyHostStyle = { minHeight: 0, overflow: "auto" as const } as const;
-const boundedColumnStyle = { minHeight: 0 } as const;
 
 const sqlRules = [
-	{
-		className: "tok-keyword",
-		regex:
-			/\b(select|from|where|group by|order by|limit|join|left join|inner join|as|and|or|desc|asc|count|sum|avg|date_trunc)\b/gi,
-	},
-	{
-		className: "tok-string",
-		regex: /'([^'\\]|\\.)*'/g,
-	},
-	{
-		className: "tok-number",
-		regex: /\b\d+(\.\d+)?\b/g,
-	},
-	{
-		className: "tok-comment",
-		regex: /--.*$/gm,
-	},
+  {
+    className: "tok-keyword",
+    regex:
+      /\b(select|from|where|group by|order by|limit|as|and|desc|count|avg)\b/gi,
+  },
+  { className: "tok-string", regex: /'([^'\\]|\\.)*'/g },
+  { className: "tok-number", regex: /\b\d+(\.\d+)?\b/g },
+  { className: "tok-comment", regex: /--.*$/gm },
 ];
 
-const dataRowCard = (
-	cells: [string, string, string, string],
-	active = false,
-) => (
-	<Card pad wide variant={active ? "active" : "default"}>
-		<Row gap>
-			<Col xs={24} md={7}>
-				<Paragraph>{cells[0]}</Paragraph>
-			</Col>
-			<Col xs={24} md={7}>
-				<Paragraph>{cells[1]}</Paragraph>
-			</Col>
-			<Col xs={24} md={5}>
-				<Paragraph>{cells[2]}</Paragraph>
-			</Col>
-			<Col xs={24} md={5}>
-				<Paragraph>{cells[3]}</Paragraph>
-			</Col>
-		</Row>
-	</Card>
+const chatMessage = (message: string, time: string, side: "left" | "right") => (
+  <Row gap>
+    {side === "right" ? <Col xs={4} md={8} /> : null}
+    <Col xs={20} md={16}>
+      <Card pad wide variant={side === "right" ? "active" : "default"}>
+        <Space direction="vertical" gap wide>
+          <Paragraph>{message}</Paragraph>
+          <Paragraph>{time}</Paragraph>
+        </Space>
+      </Card>
+    </Col>
+  </Row>
 );
 
 export const Default: Story = {
-	args: {
-		gap: false,
-	},
-	render: (args) => (
-		<Content fill pad style={viewportStyle}>
-			<Page {...args} fill>
-				<Content>
-					<Space direction="vertical" gap>
-						<Title>Simple page</Title>
-						<Paragraph>
-							Use `Page` as the outer shell, then place sections inside with
-							`Content`.
-						</Paragraph>
-					</Space>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Project overview"
+        description="A full-height page with bounded content and one owned scroll region."
+        actions={
+          <Button variant="primary" icon="Plus">
+            <Paragraph>New project</Paragraph>
+          </Button>
+        }
+      />
+      <ScrollArea orientation="vertical" grow fill wide>
+        <ContentRail size="xl">
+          <Content pad wide>
+            <Space direction="vertical" gap wide>
+              <Row gap>
+                <Col xs={24} md={8}>
+                  <SummaryCard
+                    title="Open work"
+                    value="18"
+                    detail="Six items need review today."
+                  />
+                </Col>
+                <Col xs={24} md={8}>
+                  <SummaryCard
+                    title="On track"
+                    value="92%"
+                    detail="Delivery confidence this week."
+                    variant="success"
+                  />
+                </Col>
+                <Col xs={24} md={8}>
+                  <SummaryCard
+                    title="At risk"
+                    value="3"
+                    detail="Owners have been notified."
+                    variant="warning"
+                  />
+                </Col>
+              </Row>
+              <Card pad wide>
+                <DataTable
+                  title="Recent work"
+                  columns={workColumns}
+                  rows={workItems}
+                  getRowId={(row) => row.id}
+                  defaultPageSize={4}
+                  pageSizeOptions={[4, 6]}
+                />
+              </Card>
+            </Space>
+          </Content>
+        </ContentRail>
+      </ScrollArea>
+    </Page>
+  ),
 };
 
 export const WithGap: Story = {
-	args: {
-		gap: true,
-	},
-	render: (args) => (
-		<Content fill pad style={viewportStyle}>
-			<Page {...args} fill>
-				<Content>
-					<Title>Header</Title>
-				</Content>
-				<Content>
-					<Paragraph>
-						`gap` separates stacked page sections without extra wrapper spacing.
-					</Paragraph>
-				</Content>
-				<Content>
-					<Card pad wide>
-						<Paragraph>Body section</Paragraph>
-					</Card>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Release planning"
+        description="Page gap separates the header, summary, and delivery plan."
+        actions={
+          <Pill variant="success" icon="Check">
+            On schedule
+          </Pill>
+        }
+      />
+      <Content pad wide>
+        <Row gap>
+          <Col xs={24} md={12}>
+            <SummaryCard
+              title="Target"
+              value="August 29"
+              detail="Production rollout at 10:00 AM."
+            />
+          </Col>
+          <Col xs={24} md={12}>
+            <SummaryCard
+              title="Readiness"
+              value="16 / 18"
+              detail="Two validation checks remain."
+              variant="warning"
+            />
+          </Col>
+        </Row>
+      </Content>
+      <Content pad grow fill>
+        <Card pad grow fill wide>
+          <Space direction="vertical" gap wide fill>
+            <Title size="small">Delivery plan</Title>
+            <ScrollArea orientation="vertical" grow fill wide>
+              <ActionList>
+                <QueueItem
+                  title="Package verification"
+                  description="Validate exports and source maps."
+                  status="Complete"
+                />
+                <QueueItem
+                  title="Accessibility review"
+                  description="Confirm keyboard and focus behavior."
+                  status="In review"
+                  selected
+                />
+                <QueueItem
+                  title="Documentation publish"
+                  description="Release the migration and API notes."
+                  status="Ready"
+                />
+                <QueueItem
+                  title="Production rollout"
+                  description="Promote, observe, and confirm rollback readiness."
+                  status="Scheduled"
+                />
+              </ActionList>
+            </ScrollArea>
+          </Space>
+        </Card>
+      </Content>
+    </Page>
+  ),
 };
 
 export const WorkspaceSlice: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Customer workspace</Title>
-							<Paragraph>
-								Review active work and move the next account forward.
-							</Paragraph>
-						</Space>
-						<Button variant="primary">
-							<Paragraph>Create task</Paragraph>
-						</Button>
-					</Space>
-				</Content>
-				<Content>
-					<Row gap>
-						<Col xs={24} md={16}>
-							{noteCard(
-								"Today’s focus",
-								"Two enterprise accounts are waiting on rollout confirmation before billing can close.",
-							)}
-						</Col>
-						<Col xs={24} md={8}>
-							{noteCard(
-								"Owner",
-								"Sergio is handling approvals while Maya validates the invoice changes.",
-							)}
-						</Col>
-					</Row>
-				</Content>
-				<Content>
-					<Row gap>
-						<Col xs={24} md={12}>
-							{noteCard(
-								"Billing",
-								"One corrected invoice is ready to send once the tax note is approved.",
-							)}
-						</Col>
-						<Col xs={24} md={12}>
-							{noteCard(
-								"Support",
-								"Two workspaces still need confirmation that the provisioning retry completed.",
-							)}
-						</Col>
-					</Row>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Customer operations"
+        description="Account health, assigned work, and the next customer action."
+        actions={
+          <>
+            <SearchSelect
+              options={[
+                { value: "northwind", label: "Northwind" },
+                { value: "atlas", label: "Atlas Labs" },
+                { value: "signal", label: "Signal Ops" },
+              ]}
+              defaultValue="northwind"
+            />
+            <Button variant="primary">
+              <Paragraph>Create task</Paragraph>
+            </Button>
+          </>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={7}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide fill>
+                <Space align="center" justify="between" wide>
+                  <Title size="small">Northwind</Title>
+                  <Pill variant="success">Healthy</Pill>
+                </Space>
+                <ActionList divided={false}>
+                  <ActionListItem
+                    title={<Paragraph>Plan</Paragraph>}
+                    trailing={<Paragraph>Enterprise</Paragraph>}
+                  />
+                  <ActionListItem
+                    title={<Paragraph>Renewal</Paragraph>}
+                    trailing={<Paragraph>Oct 14</Paragraph>}
+                  />
+                  <ActionListItem
+                    title={<Paragraph>Owner</Paragraph>}
+                    trailing={<Paragraph>Maya Chen</Paragraph>}
+                  />
+                </ActionList>
+                <LabelBars
+                  labels={[
+                    { label: "Adoption", prob: 0.82 },
+                    { label: "Coverage", prob: 0.68 },
+                  ]}
+                />
+              </Space>
+            </Card>
+          </Col>
+          <Col xs={24} md={17}>
+            <Card pad grow fill wide>
+              <DataTable
+                title="Assigned work"
+                columns={workColumns}
+                rows={workItems.slice(0, 4)}
+                getRowId={(row) => row.id}
+                defaultPageSize={4}
+                pageSizeOptions={[4]}
+              />
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  ),
 };
 
 export const FixedHeaderWithGrowBody: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Review queue</Title>
-							<Paragraph>
-								Fixed header, growing body, and footer controls.
-							</Paragraph>
-						</Space>
-						<Select
-							options={[
-								{
-									value: "priority",
-									element: <Paragraph>Priority first</Paragraph>,
-								},
-								{
-									value: "recent",
-									element: <Paragraph>Most recent</Paragraph>,
-								},
-							]}
-							onChange={() => undefined}
-							placeholder="Sort queue"
-						/>
-					</Space>
-				</Content>
-				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill style={boundedColumnStyle}>
-						<Col xs={24} md={15}>
-							<Content grow fill style={boundedColumnStyle}>
-								<Content grow fill wide style={scrollPanelStyle}>
-									<Space direction="vertical" gap wide align="stretch">
-										{queueItems.slice(0, 4).map((item) => (
-											<React.Fragment key={item.title}>
-												{noteCard(item.title, item.body)}
-											</React.Fragment>
-										))}
-									</Space>
-								</Content>
-							</Content>
-						</Col>
-						<Col xs={24} md={9}>
-							<Content grow fill style={boundedColumnStyle}>
-								<Content grow fill wide style={scrollPanelStyle}>
-									<Space direction="vertical" gap wide align="stretch">
-										{noteCard(
-											"Context",
-											"The export permissions fix was deployed last night and should cover both affected accounts.",
-										)}
-										{noteCard(
-											"Next action",
-											"Validate the billing diff, then reply with the corrected line items.",
-										)}
-									</Space>
-								</Content>
-							</Content>
-						</Col>
-					</Row>
-				</Content>
-				<Content>
-					<Space justify="between" align="center" wide>
-						<Paragraph>Showing 4 queued reviews.</Paragraph>
-						<Pagination
-							currentPage={1}
-							maxPage={5}
-							onPageChange={() => undefined}
-						/>
-					</Space>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Review queue"
+        description="The header and footer stay fixed while the queue owns scrolling."
+        actions={
+          <Button variant="primary">
+            <Paragraph>Assign reviewer</Paragraph>
+          </Button>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={16}>
+            <Card grow fill wide>
+              <ScrollArea orientation="vertical" grow fill>
+                <ActionList>
+                  {workItems.map((item, index) => (
+                    <QueueItem
+                      key={item.id}
+                      title={item.name}
+                      description={`${item.owner} owns the next review step.`}
+                      status={item.status}
+                      selected={index === 1}
+                    />
+                  ))}
+                </ActionList>
+              </ScrollArea>
+            </Card>
+          </Col>
+          <Col xs={24} md={8}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide>
+                <Title size="small">Provisioning retry</Title>
+                <Pill variant="warning">Needs review</Pill>
+                <Paragraph>
+                  Confirm yesterday’s workspace sync before closing the support
+                  ticket.
+                </Paragraph>
+                <Button variant="primary" wide>
+                  <Paragraph>Open review</Paragraph>
+                </Button>
+              </Space>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+      <Content pad wide>
+        <Space align="center" justify="between" wide>
+          <Paragraph>6 reviews · 1 blocked</Paragraph>
+          <Paragraph>Updated moments ago</Paragraph>
+        </Space>
+      </Content>
+    </Page>
+  ),
 };
 
 export const ScrollableOperationsPage: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Scrollable operations page</Title>
-							<Paragraph>
-								Fixed header and footer with a long scrollable body between
-								them.
-							</Paragraph>
-						</Space>
-						<Button variant="primary">
-							<Paragraph>Assign owner</Paragraph>
-						</Button>
-					</Space>
-				</Content>
-				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill style={boundedColumnStyle}>
-						<Col xs={24} md={16}>
-							<Content grow fill style={boundedColumnStyle}>
-								<Content grow fill wide style={scrollPanelStyle}>
-									<Space direction="vertical" gap wide align="stretch">
-										{queueItems.map((item) => (
-											<React.Fragment key={item.title}>
-												{noteCard(item.title, item.body)}
-											</React.Fragment>
-										))}
-										{guideItems.slice(0, 4).map((item) => (
-											<React.Fragment key={item.title}>
-												{noteCard(item.title, item.body)}
-											</React.Fragment>
-										))}
-									</Space>
-								</Content>
-							</Content>
-						</Col>
-						<Col xs={24} md={8}>
-							<Content grow fill style={boundedColumnStyle}>
-								<Content grow fill wide style={scrollPanelStyle}>
-									<Space direction="vertical" gap wide align="stretch">
-										{noteCard(
-											"Escalation path",
-											"Analytics owns usage spikes, support owns provisioning retries, and finance owns invoice confirmation.",
-										)}
-										{noteCard(
-											"Shift handoff",
-											"The evening team should monitor export retries between 6 PM and 8 PM while the backlog clears.",
-										)}
-										{noteCard(
-											"Tomorrow",
-											"Plan to roll the webhook scope update after the morning invoice validation completes.",
-										)}
-										{noteCard(
-											"Release note",
-											"One enterprise workspace still needs a manual sync after the permission scope change.",
-										)}
-									</Space>
-								</Content>
-							</Content>
-						</Col>
-					</Row>
-				</Content>
-				<Content>
-					<Space justify="between" align="center" wide>
-						<Paragraph>
-							Showing 10 queue items in the current review window.
-						</Paragraph>
-						<Pagination
-							currentPage={2}
-							maxPage={8}
-							onPageChange={() => undefined}
-						/>
-					</Space>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Operations queue"
+        description="Two bounded rails with deliberate, independent scroll ownership."
+        actions={
+          <Button variant="primary">
+            <Paragraph>New escalation</Paragraph>
+          </Button>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={16}>
+            <Card grow fill wide>
+              <Content pad wide>
+                <Title size="small">Active work</Title>
+              </Content>
+              <ScrollArea orientation="vertical" grow fill>
+                <ActionList>
+                  {[...workItems, ...workItems].map((item, index) => (
+                    <QueueItem
+                      key={`${item.id}-${index}`}
+                      title={item.name}
+                      description={`${item.owner} · updated ${item.updated} ago`}
+                      status={item.status}
+                      selected={index === 2}
+                    />
+                  ))}
+                </ActionList>
+              </ScrollArea>
+            </Card>
+          </Col>
+          <Col xs={24} md={8}>
+            <Card grow fill wide>
+              <Content pad wide>
+                <Title size="small">Shift brief</Title>
+              </Content>
+              <ScrollArea orientation="vertical" grow fill>
+                <ActionList>
+                  <QueueItem
+                    title="Escalation path"
+                    description="Analytics owns usage spikes; support owns retries."
+                    status="Reference"
+                  />
+                  <QueueItem
+                    title="Evening coverage"
+                    description="Monitor export retries between 6 PM and 8 PM."
+                    status="Assigned"
+                  />
+                  <QueueItem
+                    title="Tomorrow"
+                    description="Roll the webhook scope update after validation."
+                    status="Planned"
+                  />
+                  <QueueItem
+                    title="Release note"
+                    description="One workspace still requires a manual sync."
+                    status="Draft"
+                  />
+                </ActionList>
+              </ScrollArea>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  ),
 };
 
 export const AnalyticsWorkspace: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Analytics workspace</Title>
-							<Paragraph>
-								Fixed controls, growing primary panel, and a supporting rail.
-							</Paragraph>
-						</Space>
-						<Space gap align="center" noWrap>
-							<Select
-								options={[
-									{ value: "week", element: <Paragraph>This week</Paragraph> },
-									{
-										value: "month",
-										element: <Paragraph>This month</Paragraph>,
-									},
-								]}
-								onChange={() => undefined}
-								placeholder="Time range"
-							/>
-							<Button variant="primary">
-								<Paragraph>Share report</Paragraph>
-							</Button>
-						</Space>
-					</Space>
-				</Content>
-				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill style={{ minHeight: 0 }}>
-						<Col xs={24} md={14}>
-							<Content grow fill style={{ minHeight: 0 }}>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Paragraph>
-										<strong>Primary panel</strong>
-									</Paragraph>
-									<Paragraph>
-										The summary stays fixed while the main chart region consumes
-										the remaining page height.
-									</Paragraph>
-									<Content grow fill wide>
-										<Card wide fill>
-											<MultiLineChart
-												lines={[
-													{
-														label: "Signups",
-														values: [
-															{ x: "2026-04-01", y: 18 },
-															{ x: "2026-04-02", y: 24 },
-															{ x: "2026-04-03", y: 28 },
-															{ x: "2026-04-04", y: 31 },
-														],
-													},
-													{
-														label: "Activations",
-														values: [
-															{ x: "2026-04-01", y: 12 },
-															{ x: "2026-04-02", y: 16 },
-															{ x: "2026-04-03", y: 22 },
-															{ x: "2026-04-04", y: 20 },
-														],
-													},
-												]}
-												hoverLabel="events"
-												fill
-												showVerticalTicks
-												smooth
-											/>
-										</Card>
-									</Content>
-								</Space>
-							</Content>
-						</Col>
-						<Col xs={24} md={10}>
-							<Content grow fill style={{ minHeight: 0 }}>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Paragraph>
-										<strong>Supporting panels</strong>
-									</Paragraph>
-									<Paragraph>
-										These stack beside the primary chart while still
-										participating in the same page layout.
-									</Paragraph>
-									<StackedBreakdownChart
-										labels={["Helpful", "Neutral", "Risky"]}
-										xLabels={[
-											<Paragraph key="w1">Week 1</Paragraph>,
-											<Paragraph key="w2">Week 2</Paragraph>,
-											<Paragraph key="w3">Week 3</Paragraph>,
-										]}
-										rows={[
-											{
-												key: "week-1",
-												labelWeights: {
-													Helpful: 0.52,
-													Neutral: 0.28,
-													Risky: 0.2,
-												},
-											},
-											{
-												key: "week-2",
-												labelWeights: {
-													Helpful: 0.57,
-													Neutral: 0.24,
-													Risky: 0.19,
-												},
-											},
-											{
-												key: "week-3",
-												labelWeights: {
-													Helpful: 0.61,
-													Neutral: 0.21,
-													Risky: 0.18,
-												},
-											},
-										]}
-									/>
-									<EmbeddingHeatmap
-										embedding={[
-											[0.24, 0.32, 0.41, 0.58],
-											[0.62, 0.73, 0.28, 0.11],
-											[0.84, 0.67, 0.36, 0.29],
-										]}
-										height={72}
-									/>
-									<LabelBars
-										labels={[
-											{ label: "Helpful", prob: 0.68 },
-											{ label: "Neutral", prob: 0.22 },
-											{ label: "Risky", prob: 0.1 },
-										]}
-									/>
-								</Space>
-							</Content>
-						</Col>
-					</Row>
-				</Content>
-				<Content>
-					<Space justify="between" align="center" wide>
-						<Paragraph>
-							Showing 3 supporting panels beside the current trend view.
-						</Paragraph>
-						<Pagination
-							currentPage={1}
-							maxPage={4}
-							onPageChange={() => undefined}
-						/>
-					</Space>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Analytics workspace"
+        description="A growing primary chart with a compact supporting rail."
+        actions={
+          <>
+            <SearchSelect
+              options={[
+                { value: "week", label: "This week" },
+                { value: "month", label: "This month" },
+              ]}
+              defaultValue="week"
+            />
+            <Button variant="primary">
+              <Paragraph>Share report</Paragraph>
+            </Button>
+          </>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={14}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide fill>
+                <Space align="center" justify="between" wide>
+                  <Title size="small">Activation trend</Title>
+                  <Pill variant="success">+12.4%</Pill>
+                </Space>
+                <Content grow fill wide>
+                  <MultiLineChart
+                    lines={[
+                      {
+                        label: "Signups",
+                        values: [
+                          { x: "2026-08-20", y: 18 },
+                          { x: "2026-08-21", y: 24 },
+                          { x: "2026-08-22", y: 28 },
+                          { x: "2026-08-23", y: 31 },
+                        ],
+                      },
+                      {
+                        label: "Activations",
+                        values: [
+                          { x: "2026-08-20", y: 12 },
+                          { x: "2026-08-21", y: 16 },
+                          { x: "2026-08-22", y: 22 },
+                          { x: "2026-08-23", y: 20 },
+                        ],
+                      },
+                    ]}
+                    hoverLabel="events"
+                    fill
+                    showVerticalTicks
+                    smooth
+                  />
+                </Content>
+              </Space>
+            </Card>
+          </Col>
+          <Col xs={24} md={10}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide fill>
+                <Title size="small">Cohort health</Title>
+                <StackedBreakdownChart
+                  labels={["Helpful", "Neutral", "Risky"]}
+                  xLabels={[
+                    <Paragraph key="w1">Week 1</Paragraph>,
+                    <Paragraph key="w2">Week 2</Paragraph>,
+                    <Paragraph key="w3">Week 3</Paragraph>,
+                  ]}
+                  rows={[
+                    {
+                      key: "w1",
+                      labelWeights: {
+                        Helpful: 0.52,
+                        Neutral: 0.28,
+                        Risky: 0.2,
+                      },
+                    },
+                    {
+                      key: "w2",
+                      labelWeights: {
+                        Helpful: 0.57,
+                        Neutral: 0.24,
+                        Risky: 0.19,
+                      },
+                    },
+                    {
+                      key: "w3",
+                      labelWeights: {
+                        Helpful: 0.61,
+                        Neutral: 0.21,
+                        Risky: 0.18,
+                      },
+                    },
+                  ]}
+                />
+                <EmbeddingHeatmap
+                  embedding={[
+                    [0.24, 0.32, 0.41, 0.58],
+                    [0.62, 0.73, 0.28, 0.11],
+                    [0.84, 0.67, 0.36, 0.29],
+                  ]}
+                  height={72}
+                />
+                <LabelBars
+                  labels={[
+                    { label: "Helpful", prob: 0.68 },
+                    { label: "Neutral", prob: 0.22 },
+                    { label: "Risky", prob: 0.1 },
+                  ]}
+                />
+              </Space>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  ),
 };
 
 export const KnowledgeBaseWorkspace: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Knowledge base workspace</Title>
-							<Paragraph>
-								Sections, tabs, and a scrollable article area inside one page
-								shell.
-							</Paragraph>
-						</Space>
-						<Space gap align="center">
-							<Select
-								options={[
-									{ value: "guides", element: <Paragraph>Guides</Paragraph> },
-									{
-										value: "playbooks",
-										element: <Paragraph>Playbooks</Paragraph>,
-									},
-								]}
-								onChange={() => undefined}
-								placeholder="Section"
-							/>
-							<Button variant="primary">
-								<Paragraph>New article</Paragraph>
-							</Button>
-						</Space>
-					</Space>
-				</Content>
-				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill style={boundedColumnStyle}>
-						<Col xs={24} md={6}>
-							<Card pad wide fill>
-								<Space direction="vertical" gap>
-									<Paragraph>
-										<strong>Sections</strong>
-									</Paragraph>
-									<Button variant="default">
-										<Paragraph>Integration guides</Paragraph>
-									</Button>
-									<Button variant="ghost">
-										<Paragraph>Release playbooks</Paragraph>
-									</Button>
-									<Button variant="ghost">
-										<Paragraph>Support macros</Paragraph>
-									</Button>
-									<Button variant="ghost">
-										<Paragraph>Change log</Paragraph>
-									</Button>
-								</Space>
-							</Card>
-						</Col>
-						<Col xs={24} md={18}>
-							<Content grow fill style={boundedColumnStyle}>
-								<Tabs defaultActiveKey="guides">
-									<Tab key="guides" label="Guides">
-										<Content grow fill wide style={scrollPanelStyle}>
-											<Space direction="vertical" gap wide align="stretch">
-												<Row gap>
-													{guideItems.slice(0, 4).map((item) => (
-														<Col key={item.title} xs={24} md={12}>
-															{noteCard(item.title, item.body)}
-														</Col>
-													))}
-												</Row>
-												<Row gap>
-													{guideItems.slice(4).map((item) => (
-														<Col key={item.title} xs={24} md={12}>
-															{noteCard(item.title, item.body)}
-														</Col>
-													))}
-												</Row>
-											</Space>
-										</Content>
-									</Tab>
-									<Tab key="updates" label="Updates">
-										<Content grow fill wide style={scrollPanelStyle}>
-											<Space direction="vertical" gap wide align="stretch">
-												{updateItems.map((item) => (
-													<React.Fragment key={item.title}>
-														{noteCard(item.title, item.body)}
-													</React.Fragment>
-												))}
-											</Space>
-										</Content>
-									</Tab>
-								</Tabs>
-							</Content>
-						</Col>
-					</Row>
-				</Content>
-				<Content>
-					<Space justify="between" align="center" wide>
-						<Paragraph>Showing 10 articles across 4 sections.</Paragraph>
-						<Pagination
-							currentPage={2}
-							maxPage={6}
-							onPageChange={() => undefined}
-						/>
-					</Space>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Knowledge base"
+        description="Navigation stays static while the selected article collection scrolls."
+        actions={
+          <Button variant="primary">
+            <Paragraph>New article</Paragraph>
+          </Button>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={6}>
+            <Card grow fill wide>
+              <Content pad wide>
+                <Title size="small">Sections</Title>
+              </Content>
+              <ActionList role="listbox" divided={false}>
+                <ActionListItem
+                  role="option"
+                  aria-selected
+                  title={<Paragraph>Integration guides</Paragraph>}
+                  leading={<Icon name="Note" />}
+                  onClick={() => undefined}
+                />
+                <ActionListItem
+                  role="option"
+                  aria-selected={false}
+                  title={<Paragraph>Release playbooks</Paragraph>}
+                  leading={<Icon name="Calendar" />}
+                  onClick={() => undefined}
+                />
+                <ActionListItem
+                  role="option"
+                  aria-selected={false}
+                  title={<Paragraph>Support macros</Paragraph>}
+                  leading={<Icon name="Message" />}
+                  onClick={() => undefined}
+                />
+              </ActionList>
+            </Card>
+          </Col>
+          <Col xs={24} md={18}>
+            <Card pad grow fill wide>
+              <Tabs defaultActiveKey="published">
+                <Tab key="published" label="Published">
+                  <ScrollArea orientation="vertical" grow fill>
+                    <ActionList>
+                      <QueueItem
+                        title="Authentication setup"
+                        description="Token creation, callbacks, and secret rotation."
+                        status="Updated"
+                      />
+                      <QueueItem
+                        title="Webhook troubleshooting"
+                        description="Retry timing, signatures, and delivery checks."
+                        status="Popular"
+                      />
+                      <QueueItem
+                        title="SSO provisioning"
+                        description="Attribute mapping and first-login recovery."
+                        status="Updated"
+                      />
+                      <QueueItem
+                        title="Bulk exports"
+                        description="Pagination, retries, and safe resume behavior."
+                        status="Stable"
+                      />
+                      <QueueItem
+                        title="Sandbox verification"
+                        description="Checks to complete before promotion."
+                        status="Draft"
+                      />
+                    </ActionList>
+                  </ScrollArea>
+                </Tab>
+                <Tab key="drafts" label="Drafts">
+                  <Space direction="vertical" gap wide>
+                    <Title size="small">Two drafts need review</Title>
+                    <Paragraph>
+                      Complete owner and rollout details before publishing.
+                    </Paragraph>
+                  </Space>
+                </Tab>
+              </Tabs>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  ),
 };
 
 export const ChatWorkspace: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Chat workspace</Title>
-							<Paragraph>
-								A contacts rail on the left and a live conversation on the
-								right.
-							</Paragraph>
-						</Space>
-						<Space gap align="center">
-							<Button variant="ghost">
-								<Paragraph>New chat</Paragraph>
-							</Button>
-							<Button variant="primary">
-								<Paragraph>Invite</Paragraph>
-							</Button>
-						</Space>
-					</Space>
-				</Content>
-				<Content grow fill style={bodyHostStyle}>
-					<Row gap style={{ minHeight: 0 }}>
-						<Col xs={24} md={6}>
-							<Card pad wide fill>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Space justify="between" align="center" wide>
-										<Paragraph>
-											<strong>Contacts</strong>
-										</Paragraph>
-										<Paragraph>12 online</Paragraph>
-									</Space>
-									<Space gap wide>
-										<Button variant="active">
-											<Paragraph>All</Paragraph>
-										</Button>
-										<Button variant="ghost">
-											<Paragraph>Unread</Paragraph>
-										</Button>
-										<Button variant="ghost">
-											<Paragraph>Pinned</Paragraph>
-										</Button>
-									</Space>
-									<Content grow fill wide style={scrollPanelStyle}>
-										<Space direction="vertical" gap wide align="stretch">
-											{chatContactCard(
-												"Jordan Lee",
-												"Today",
-												"Can you review the updated launch checklist before we post the note?",
-												true,
-											)}
-											{chatContactCard(
-												"Maya Chen",
-												"8m",
-												"The invoice correction is ready after the billing diff review.",
-											)}
-											{chatContactCard(
-												"Sergio Patel",
-												"21m",
-												"We can close the rollback note once the export retry passes.",
-											)}
-											{chatContactCard(
-												"Billing Ops",
-												"1h",
-												"Confirmed the renewal adjustment and sent the revised totals.",
-											)}
-											{chatContactCard(
-												"Support lead",
-												"2h",
-												"The customer summary is ready once the final approval lands.",
-											)}
-											{chatContactCard(
-												"Launch ops",
-												"Yesterday",
-												"Queue the banner review right after the billing correction closes.",
-											)}
-										</Space>
-									</Content>
-								</Space>
-							</Card>
-						</Col>
-						<Col xs={24} md={18}>
-							<Card pad wide fill>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Space justify="between" align="center" wide>
-										<Space direction="vertical" gap>
-											<Paragraph>
-												<strong>Jordan Lee</strong>
-											</Paragraph>
-											<Paragraph>Design review · online now</Paragraph>
-										</Space>
-										<Space gap align="center">
-											<Button variant="ghost">
-												<Paragraph>Files</Paragraph>
-											</Button>
-											<Button variant="ghost">
-												<Paragraph>Details</Paragraph>
-											</Button>
-										</Space>
-									</Space>
-									<Content grow fill wide style={{ minHeight: 0 }}>
-										<Content fill style={scrollPanelStyle}>
-											<Space direction="vertical" gap wide align="stretch">
-												{chatBubble(
-													"I pulled the latest workspace notes into the review queue. The launch checklist still needs one last pass.",
-													"9:14 AM",
-													"left",
-												)}
-												{chatBubble(
-													"Looks good. Keep the invoice correction and the support handoff in the same thread so the customer team can follow it.",
-													"9:16 AM",
-													"right",
-												)}
-												{chatBubble(
-													"I’ll attach the billing diff and pin the approvals so the final summary stays easy to scan.",
-													"9:18 AM",
-													"left",
-												)}
-												{chatBubble(
-													"Perfect. I’m sending the final review request once the export note is updated.",
-													"9:19 AM",
-													"right",
-												)}
-												{chatBubble(
-													"The support team confirmed the retry window and the correction is ready to close.",
-													"9:24 AM",
-													"left",
-												)}
-												{chatBubble(
-													"I added the revised totals to the thread and marked the invoice for one last approval.",
-													"9:27 AM",
-													"right",
-												)}
-												{chatBubble(
-													"Great. I’m keeping this open until the launch note is published and the owner is notified.",
-													"9:31 AM",
-													"left",
-												)}
-											</Space>
-										</Content>
-									</Content>
-									<Space gap wide align="center">
-										<Input grow placeholder="Write a reply..." />
-										<Button variant="primary">
-											<Paragraph>Send</Paragraph>
-										</Button>
-									</Space>
-								</Space>
-							</Card>
-						</Col>
-					</Row>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Team inbox"
+        description="Contacts and messages scroll independently; the composer remains fixed."
+        actions={
+          <Button variant="primary">
+            <Paragraph>New conversation</Paragraph>
+          </Button>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={7}>
+            <Card grow fill wide>
+              <Content pad wide>
+                <Space align="center" justify="between" wide>
+                  <Title size="small">Contacts</Title>
+                  <Pill variant="success">12 online</Pill>
+                </Space>
+              </Content>
+              <ScrollArea orientation="vertical" grow fill>
+                <ActionList>
+                  <QueueItem
+                    title="Jordan Lee"
+                    description="Can you review the launch checklist?"
+                    status="Now"
+                    selected
+                  />
+                  <QueueItem
+                    title="Maya Chen"
+                    description="The invoice correction is ready."
+                    status="8m"
+                  />
+                  <QueueItem
+                    title="Sergio Patel"
+                    description="The rollback note can close."
+                    status="21m"
+                  />
+                  <QueueItem
+                    title="Billing Ops"
+                    description="Renewal totals are confirmed."
+                    status="1h"
+                  />
+                  <QueueItem
+                    title="Support lead"
+                    description="Customer summary is ready."
+                    status="2h"
+                  />
+                </ActionList>
+              </ScrollArea>
+            </Card>
+          </Col>
+          <Col xs={24} md={17}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide fill>
+                <Space align="center" justify="between" wide>
+                  <Space direction="vertical" gap>
+                    <Title size="small">Jordan Lee</Title>
+                    <Paragraph>Design review · online now</Paragraph>
+                  </Space>
+                  <Button variant="ghost">
+                    <Paragraph>Details</Paragraph>
+                  </Button>
+                </Space>
+                <ScrollArea orientation="vertical" grow fill stickToEnd>
+                  <Space direction="vertical" gap wide>
+                    {chatMessage(
+                      "I pulled the latest workspace notes into the review queue.",
+                      "9:14 AM",
+                      "left",
+                    )}
+                    {chatMessage(
+                      "Keep the invoice correction and support handoff in the same thread.",
+                      "9:16 AM",
+                      "right",
+                    )}
+                    {chatMessage(
+                      "I attached the billing diff and pinned the approvals.",
+                      "9:18 AM",
+                      "left",
+                    )}
+                    {chatMessage(
+                      "Perfect. I’ll send the final review request now.",
+                      "9:19 AM",
+                      "right",
+                    )}
+                  </Space>
+                </ScrollArea>
+                <Space align="center" gap wide noWrap>
+                  <Input grow placeholder="Write a reply…" />
+                  <Button variant="primary">
+                    <Paragraph>Send</Paragraph>
+                  </Button>
+                </Space>
+              </Space>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  ),
 };
 
+const assets = [
+  {
+    id: "banner",
+    value: "banner",
+    title: <Paragraph>Launch banner</Paragraph>,
+    preview: <Icon name="Image" size="large" />,
+  },
+  {
+    id: "hero",
+    value: "hero",
+    title: <Paragraph>Homepage hero</Paragraph>,
+    preview: <Icon name="Scene" size="large" />,
+  },
+  {
+    id: "billing",
+    value: "billing",
+    title: <Paragraph>Billing capture</Paragraph>,
+    preview: <Icon name="Table" size="large" />,
+  },
+];
+
 export const AssetReviewWorkspace: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Asset review workspace</Title>
-							<Paragraph>
-								A centered review surface with controls above and actions below.
-							</Paragraph>
-						</Space>
-						<Space gap align="center">
-							<Select
-								options={[
-									{ value: "review", element: <Paragraph>Review</Paragraph> },
-									{
-										value: "approved",
-										element: <Paragraph>Approved</Paragraph>,
-									},
-									{
-										value: "needs-work",
-										element: <Paragraph>Needs work</Paragraph>,
-									},
-								]}
-								onChange={() => undefined}
-								placeholder="Status"
-							/>
-							<Button variant="primary">
-								<Paragraph>Publish</Paragraph>
-							</Button>
-						</Space>
-					</Space>
-				</Content>
-				<Content grow fill style={bodyHostStyle}>
-					<Row gap style={{ minHeight: 0 }}>
-						<Col xs={24} md={5}>
-							<Card pad wide>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Paragraph>
-										<strong>Queue</strong>
-									</Paragraph>
-									{chatContactCard(
-										"Launch banner",
-										"1m",
-										"Needs a final contrast check before publishing.",
-										true,
-									)}
-									{chatContactCard(
-										"Homepage hero",
-										"8m",
-										"The approved crop is ready for signoff.",
-									)}
-									{chatContactCard(
-										"Billing screenshot",
-										"14m",
-										"Waiting on the updated caption and metadata.",
-									)}
-								</Space>
-							</Card>
-						</Col>
-						<Col xs={24} md={14}>
-							<Card pad wide grow>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Space justify="between" align="center" wide gap>
-										<Space direction="vertical" gap grow>
-											<Paragraph>
-												<strong>Preview</strong>
-											</Paragraph>
-											<Paragraph>
-												The review surface stays centered while the surrounding
-												controls remain compact.
-											</Paragraph>
-										</Space>
-										<Space gap align="center" noWrap>
-											<Button variant="ghost">
-												<Paragraph>Crop</Paragraph>
-											</Button>
-											<Button variant="ghost">
-												<Paragraph>Annotate</Paragraph>
-											</Button>
-										</Space>
-									</Space>
-									<Content grow fill wide style={{ minHeight: 0 }}>
-										<Card pad wide fill>
-											<Space
-												direction="vertical"
-												gap
-												wide
-												fill
-												align="center"
-												justify="center"
-											>
-												<Title>Approved banner</Title>
-												<Paragraph>Centered preview pane</Paragraph>
-												<Paragraph>
-													Use this view for crop validation, copy checks, and
-													final approval.
-												</Paragraph>
-											</Space>
-										</Card>
-									</Content>
-									<Space justify="between" align="center" wide gap>
-										<Paragraph>Reviewed by Maya · 2 approvals</Paragraph>
-										<Space gap align="center" noWrap>
-											<Button variant="ghost">
-												<Paragraph>Reject</Paragraph>
-											</Button>
-											<Button variant="active">
-												<Paragraph>Approve</Paragraph>
-											</Button>
-										</Space>
-									</Space>
-								</Space>
-							</Card>
-						</Col>
-						<Col xs={24} md={5}>
-							<Card pad wide>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Paragraph>
-										<strong>Details</strong>
-									</Paragraph>
-									{noteCard(
-										"Owner",
-										"Design ops owns the final publish checklist for this asset.",
-									)}
-									{noteCard(
-										"Target",
-										"This banner will ship on the launch page and the support portal.",
-									)}
-									{noteCard(
-										"Notes",
-										"The approved crop should keep the logo clear of the top edge.",
-									)}
-								</Space>
-							</Card>
-						</Col>
-					</Row>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Asset review"
+        description="A queue, growing preview, and metadata rail form one review slice."
+        actions={
+          <Button variant="primary">
+            <Paragraph>Publish</Paragraph>
+          </Button>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={6}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide>
+                <Title size="small">Queue</Title>
+                <ThumbnailGrid items={assets} value="banner" columns={1} />
+              </Space>
+            </Card>
+          </Col>
+          <Col xs={24} md={12}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide fill>
+                <Space align="center" justify="between" wide>
+                  <Title size="small">Preview</Title>
+                  <Pill variant="warning">Needs review</Pill>
+                </Space>
+                <Card grow fill wide variant="ghost">
+                  <Space
+                    direction="vertical"
+                    align="center"
+                    justify="center"
+                    gap
+                    wide
+                    fill
+                  >
+                    <Icon name="Image" size="large" />
+                    <Title>Launch banner</Title>
+                    <Paragraph>
+                      Validate crop, contrast, and final copy.
+                    </Paragraph>
+                  </Space>
+                </Card>
+                <Space align="center" justify="between" wide>
+                  <Paragraph>2 approvals</Paragraph>
+                  <Space gap>
+                    <Button variant="ghost">
+                      <Paragraph>Reject</Paragraph>
+                    </Button>
+                    <Button variant="active">
+                      <Paragraph>Approve</Paragraph>
+                    </Button>
+                  </Space>
+                </Space>
+              </Space>
+            </Card>
+          </Col>
+          <Col xs={24} md={6}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide>
+                <Title size="small">Details</Title>
+                <ActionList divided={false}>
+                  <ActionListItem
+                    title={<Paragraph>Owner</Paragraph>}
+                    description={<Paragraph>Design operations</Paragraph>}
+                  />
+                  <ActionListItem
+                    title={<Paragraph>Placement</Paragraph>}
+                    description={
+                      <Paragraph>Launch page and support portal</Paragraph>
+                    }
+                  />
+                  <ActionListItem
+                    title={<Paragraph>Dimensions</Paragraph>}
+                    description={<Paragraph>2400 × 1200</Paragraph>}
+                  />
+                </ActionList>
+              </Space>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  ),
 };
 
 export const QueryWorkbench: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Query workbench</Title>
-							<Paragraph>
-								Edit a query, inspect visual summaries, and review result rows
-								in one bounded workspace.
-							</Paragraph>
-						</Space>
-						<Space gap align="center" noWrap>
-							<Select
-								options={[
-									{ value: "prod", element: <Paragraph>Production</Paragraph> },
-									{ value: "staging", element: <Paragraph>Staging</Paragraph> },
-								]}
-								onChange={() => undefined}
-								placeholder="Dataset"
-							/>
-							<Button variant="ghost">
-								<Paragraph>Format SQL</Paragraph>
-							</Button>
-							<Button variant="primary">
-								<Paragraph>Run query</Paragraph>
-							</Button>
-						</Space>
-					</Space>
-				</Content>
-				<Content grow fill style={bodyHostStyle}>
-					<Row gap fill style={{ minHeight: 0 }}>
-						<Col xs={24} md={10}>
-							<Card pad wide fill>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Space justify="between" align="center" wide>
-										<Paragraph>
-											<strong>Editor</strong>
-										</Paragraph>
-										<Button variant="active">
-											<Paragraph>Saved query</Paragraph>
-										</Button>
-									</Space>
-									<Content grow fill wide style={{ minHeight: 0 }}>
-										<CodeArea
-											fill
-											lineNumbers
-											highlightCurrentLine
-											rules={sqlRules}
-											defaultValue={`-- Daily workspace rollup
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Query workbench"
+        description="The editor and result table share a bounded, full-height workspace."
+        actions={
+          <>
+            <Button variant="ghost">
+              <Paragraph>Format SQL</Paragraph>
+            </Button>
+            <Button variant="primary">
+              <Paragraph>Run query</Paragraph>
+            </Button>
+          </>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={9}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide fill>
+                <Space align="center" justify="between" wide>
+                  <Title size="small">Editor</Title>
+                  <Pill variant="success">Saved</Pill>
+                </Space>
+                <Content grow fill wide>
+                  <CodeArea
+                    fill
+                    lineNumbers
+                    highlightCurrentLine
+                    rules={sqlRules}
+                    defaultValue={`-- Daily workspace rollup
 select
-  date_trunc('day', created_at) as day,
+  owner,
   count(*) as sessions,
-  avg(duration_ms) as avg_duration,
-  sum(case when status = 'error' then 1 else 0 end) as errors
+  avg(duration_ms) as avg_duration
 from workspace_sessions
-where created_at >= '2026-04-01'
+where created_at >= '2026-08-01'
 group by 1
-order by 1 desc
-limit 14;`}
-										/>
-									</Content>
-									<Space gap wide>
-										{noteCard(
-											"Result shape",
-											"14 daily rows, 4 aggregate columns, and one grouped time dimension.",
-										)}
-									</Space>
-								</Space>
-							</Card>
-						</Col>
-						<Col xs={24} md={14}>
-							<Card pad wide fill>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Tabs defaultActiveKey="results">
-										<Tab key="results" label="Results">
-											<Space direction="vertical" gap wide fill align="stretch">
-												<Row gap>
-													<Col xs={24} md={14}>
-														<Card pad wide>
-															<MultiLineChart
-																lines={[
-																	{
-																		label: "Sessions",
-																		values: [
-																			{ x: "2026-04-01", y: 1220 },
-																			{ x: "2026-04-02", y: 1384 },
-																			{ x: "2026-04-03", y: 1495 },
-																			{ x: "2026-04-04", y: 1610 },
-																			{ x: "2026-04-05", y: 1552 },
-																		],
-																	},
-																	{
-																		label: "Errors",
-																		values: [
-																			{ x: "2026-04-01", y: 42 },
-																			{ x: "2026-04-02", y: 39 },
-																			{ x: "2026-04-03", y: 61 },
-																			{ x: "2026-04-04", y: 55 },
-																			{ x: "2026-04-05", y: 37 },
-																		],
-																	},
-																]}
-																hoverLabel="rows"
-																showVerticalTicks
-																smooth
-															/>
-														</Card>
-													</Col>
-													<Col xs={24} md={10}>
-														<Card pad wide>
-															<LabelBars
-																labels={[
-																	{ label: "Healthy", prob: 0.73 },
-																	{ label: "Watch", prob: 0.19 },
-																	{ label: "Critical", prob: 0.08 },
-																]}
-															/>
-														</Card>
-													</Col>
-												</Row>
-												<Card pad wide fill>
-													<Space
-														direction="vertical"
-														gap
-														wide
-														fill
-														align="stretch"
-													>
-														<Row gap>
-															<Col xs={24} md={7}>
-																<Paragraph>
-																	<strong>Workspace</strong>
-																</Paragraph>
-															</Col>
-															<Col xs={24} md={7}>
-																<Paragraph>
-																	<strong>Owner</strong>
-																</Paragraph>
-															</Col>
-															<Col xs={24} md={5}>
-																<Paragraph>
-																	<strong>Sessions</strong>
-																</Paragraph>
-															</Col>
-															<Col xs={24} md={5}>
-																<Paragraph>
-																	<strong>Status</strong>
-																</Paragraph>
-															</Col>
-														</Row>
-														<Content grow fill wide style={scrollPanelStyle}>
-															<Space direction="vertical" gap wide>
-																{dataRowCard(
-																	[
-																		"Northwind",
-																		"Maya Chen",
-																		"18,440",
-																		"Healthy",
-																	],
-																	true,
-																)}
-																{dataRowCard([
-																	"Atlas Labs",
-																	"Jordan Lee",
-																	"14,992",
-																	"Healthy",
-																])}
-																{dataRowCard([
-																	"Signal Ops",
-																	"Sergio Patel",
-																	"11,804",
-																	"Watch",
-																])}
-																{dataRowCard([
-																	"Vector Retail",
-																	"Priya Shah",
-																	"9,318",
-																	"Healthy",
-																])}
-																{dataRowCard([
-																	"Harbor Health",
-																	"Alex King",
-																	"8,102",
-																	"Critical",
-																])}
-																{dataRowCard([
-																	"Delta Freight",
-																	"Imani Cole",
-																	"7,885",
-																	"Watch",
-																])}
-															</Space>
-														</Content>
-													</Space>
-												</Card>
-											</Space>
-										</Tab>
-										<Tab key="schema" label="Schema">
-											<Row gap>
-												<Col xs={24} md={12}>
-													{noteCard(
-														"workspace_sessions",
-														"Fields include created_at, workspace_id, owner_id, duration_ms, and status.",
-													)}
-												</Col>
-												<Col xs={24} md={12}>
-													{noteCard(
-														"Indexes",
-														"created_at desc, workspace_id + created_at, and status for error window checks.",
-													)}
-												</Col>
-											</Row>
-										</Tab>
-									</Tabs>
-								</Space>
-							</Card>
-						</Col>
-					</Row>
-				</Content>
-				<Content>
-					<Space justify="between" align="center" wide>
-						<Paragraph>
-							Showing 6 workspace rows from the current result set.
-						</Paragraph>
-						<Pagination
-							currentPage={1}
-							maxPage={9}
-							onPageChange={() => undefined}
-						/>
-					</Space>
-				</Content>
-			</Page>
-		</Content>
-	),
+order by 2 desc
+limit 20;`}
+                  />
+                </Content>
+              </Space>
+            </Card>
+          </Col>
+          <Col xs={24} md={15}>
+            <Card pad grow fill wide>
+              <ScrollArea orientation="vertical" grow fill>
+                <Space direction="vertical" gap wide>
+                  <Row gap>
+                    <Col xs={24} md={15}>
+                      <Card pad wide>
+                        <MultiLineChart
+                          lines={[
+                            {
+                              label: "Sessions",
+                              values: [
+                                { x: "Mon", y: 1220 },
+                                { x: "Tue", y: 1384 },
+                                { x: "Wed", y: 1495 },
+                                { x: "Thu", y: 1610 },
+                              ],
+                            },
+                          ]}
+                          hoverLabel="rows"
+                          showVerticalTicks
+                          smooth
+                        />
+                      </Card>
+                    </Col>
+                    <Col xs={24} md={9}>
+                      <Card pad fill wide>
+                        <LabelBars
+                          labels={[
+                            { label: "Healthy", prob: 0.73 },
+                            { label: "Watch", prob: 0.19 },
+                            { label: "Critical", prob: 0.08 },
+                          ]}
+                        />
+                      </Card>
+                    </Col>
+                  </Row>
+                  <DataTable
+                    title="Results"
+                    columns={workColumns}
+                    rows={workItems}
+                    getRowId={(row) => row.id}
+                    defaultPageSize={3}
+                    pageSizeOptions={[3, 6]}
+                  />
+                </Space>
+              </ScrollArea>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  ),
 };
 
 export const MissionControlWorkspace: Story = {
-	render: () => (
-		<Content fill pad style={viewportStyle}>
-			<Page gap fill>
-				<Content>
-					<Space justify="between" align="center" wide gap>
-						<Space direction="vertical" gap grow>
-							<Title>Mission control workspace</Title>
-							<Paragraph>
-								A multi-surface control room with a live board, action queue,
-								and state summary.
-							</Paragraph>
-						</Space>
-						<Space gap align="center">
-							<Button variant="ghost">
-								<Paragraph>Standby</Paragraph>
-							</Button>
-							<Button variant="active">
-								<Paragraph>Live</Paragraph>
-							</Button>
-							<Button variant="primary">
-								<Paragraph>Broadcast update</Paragraph>
-							</Button>
-						</Space>
-					</Space>
-				</Content>
-				<Content grow fill style={bodyHostStyle}>
-					<Row gap style={{ minHeight: 0 }}>
-						<Col xs={24} md={5}>
-							<Card pad wide>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Paragraph>
-										<strong>Action queue</strong>
-									</Paragraph>
-									{noteCard(
-										"Red zone",
-										"Confirm rollback readiness before the next traffic shift.",
-									)}
-									{noteCard(
-										"Launch gate",
-										"Validate the support macro update and publish the revised note.",
-									)}
-									{noteCard(
-										"Ops owner",
-										"Keep the customer queue open until analytics signs off on the retry window.",
-									)}
-								</Space>
-							</Card>
-						</Col>
-						<Col xs={24} md={12}>
-							<Card pad wide>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Paragraph>
-										<strong>Control board</strong>
-									</Paragraph>
-									<Content grow fill wide>
-										<Card pad wide fill>
-											<Space direction="vertical" gap wide fill align="stretch">
-												<Row gap>
-													<Col xs={24} md={8}>
-														{noteCard(
-															"Traffic",
-															"Requests are stable and within the approved target band.",
-														)}
-													</Col>
-													<Col xs={24} md={8}>
-														{noteCard(
-															"Incidents",
-															"One workspace remains in watch mode pending the export verification pass.",
-														)}
-													</Col>
-													<Col xs={24} md={8}>
-														{noteCard(
-															"Staffing",
-															"Support and billing both have named owners covering the current shift.",
-														)}
-													</Col>
-												</Row>
-												<StackedBreakdownChart
-													labels={["Stable", "Watch", "Blocked"]}
-													xLabels={[
-														<Paragraph key="q1">08:00</Paragraph>,
-														<Paragraph key="q2">10:00</Paragraph>,
-														<Paragraph key="q3">12:00</Paragraph>,
-														<Paragraph key="q4">14:00</Paragraph>,
-													]}
-													rows={[
-														{
-															key: "08",
-															labelWeights: {
-																Stable: 0.64,
-																Watch: 0.23,
-																Blocked: 0.13,
-															},
-														},
-														{
-															key: "10",
-															labelWeights: {
-																Stable: 0.58,
-																Watch: 0.27,
-																Blocked: 0.15,
-															},
-														},
-														{
-															key: "12",
-															labelWeights: {
-																Stable: 0.69,
-																Watch: 0.19,
-																Blocked: 0.12,
-															},
-														},
-														{
-															key: "14",
-															labelWeights: {
-																Stable: 0.72,
-																Watch: 0.17,
-																Blocked: 0.11,
-															},
-														},
-													]}
-												/>
-											</Space>
-										</Card>
-									</Content>
-								</Space>
-							</Card>
-						</Col>
-						<Col xs={24} md={7}>
-							<Card pad wide>
-								<Space direction="vertical" gap wide fill align="stretch">
-									<Paragraph>
-										<strong>Live state</strong>
-									</Paragraph>
-									<Card pad wide>
-										<EmbeddingHeatmap
-											embedding={[
-												[0.12, 0.18, 0.31, 0.42, 0.5, 0.61],
-												[0.22, 0.36, 0.49, 0.38, 0.24, 0.15],
-												[0.41, 0.58, 0.72, 0.63, 0.31, 0.18],
-												[0.69, 0.74, 0.62, 0.44, 0.27, 0.14],
-											]}
-											height={140}
-										/>
-									</Card>
-									<LabelBars
-										labels={[
-											{ label: "Stable", prob: 0.71 },
-											{ label: "Watch", prob: 0.19 },
-											{ label: "Blocked", prob: 0.1 },
-										]}
-									/>
-									<Space gap wide>
-										<Button variant="ghost">
-											<Paragraph>Freeze queue</Paragraph>
-										</Button>
-										<Button variant="primary">
-											<Paragraph>Escalate</Paragraph>
-										</Button>
-									</Space>
-								</Space>
-							</Card>
-						</Col>
-					</Row>
-				</Content>
-			</Page>
-		</Content>
-	),
+  render: () => (
+    <Page fixed gap>
+      <Header
+        title="Mission control"
+        description="A live board with equal-height action, telemetry, and state rails."
+        actions={
+          <>
+            <Pill variant="success" icon="Check">
+              Live
+            </Pill>
+            <Button variant="primary">
+              <Paragraph>Broadcast update</Paragraph>
+            </Button>
+          </>
+        }
+      />
+      <Content pad grow fill>
+        <Row gap grow fill>
+          <Col xs={24} md={6}>
+            <Card grow fill wide>
+              <Content pad wide>
+                <Title size="small">Action queue</Title>
+              </Content>
+              <ScrollArea orientation="vertical" grow fill>
+                <ActionList>
+                  <QueueItem
+                    title="Traffic shift"
+                    description="Confirm rollback readiness."
+                    status="Now"
+                    selected
+                  />
+                  <QueueItem
+                    title="Launch gate"
+                    description="Publish the revised support note."
+                    status="Next"
+                  />
+                  <QueueItem
+                    title="Customer queue"
+                    description="Wait for analytics signoff."
+                    status="Watching"
+                  />
+                </ActionList>
+              </ScrollArea>
+            </Card>
+          </Col>
+          <Col xs={24} md={11}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide fill>
+                <Title size="small">Control board</Title>
+                <Space align="center" justify="between" gap wide noWrap>
+                  <Pill variant="success" icon="Check">
+                    Traffic stable
+                  </Pill>
+                  <Pill variant="warning">1 incident</Pill>
+                  <Pill icon="User">4 owners on shift</Pill>
+                </Space>
+                <Content grow fill wide>
+                  <StackedBreakdownChart
+                    fill
+                    labels={["Stable", "Watch", "Blocked"]}
+                    xLabels={[
+                      <Paragraph key="8">08:00</Paragraph>,
+                      <Paragraph key="10">10:00</Paragraph>,
+                      <Paragraph key="12">12:00</Paragraph>,
+                      <Paragraph key="14">14:00</Paragraph>,
+                    ]}
+                    rows={[
+                      {
+                        key: "8",
+                        labelWeights: {
+                          Stable: 0.64,
+                          Watch: 0.23,
+                          Blocked: 0.13,
+                        },
+                      },
+                      {
+                        key: "10",
+                        labelWeights: {
+                          Stable: 0.58,
+                          Watch: 0.27,
+                          Blocked: 0.15,
+                        },
+                      },
+                      {
+                        key: "12",
+                        labelWeights: {
+                          Stable: 0.69,
+                          Watch: 0.19,
+                          Blocked: 0.12,
+                        },
+                      },
+                      {
+                        key: "14",
+                        labelWeights: {
+                          Stable: 0.72,
+                          Watch: 0.17,
+                          Blocked: 0.11,
+                        },
+                      },
+                    ]}
+                  />
+                </Content>
+              </Space>
+            </Card>
+          </Col>
+          <Col xs={24} md={7}>
+            <Card pad grow fill wide>
+              <Space direction="vertical" gap wide>
+                <Title size="small">Live state</Title>
+                <EmbeddingHeatmap
+                  embedding={[
+                    [0.12, 0.18, 0.31, 0.42, 0.5, 0.61],
+                    [0.22, 0.36, 0.49, 0.38, 0.24, 0.15],
+                    [0.41, 0.58, 0.72, 0.63, 0.31, 0.18],
+                  ]}
+                  height={120}
+                />
+                <LabelBars
+                  labels={[
+                    { label: "Stable", prob: 0.71 },
+                    { label: "Watch", prob: 0.19 },
+                    { label: "Blocked", prob: 0.1 },
+                  ]}
+                />
+                <Button variant="primary" wide>
+                  <Paragraph>Escalate</Paragraph>
+                </Button>
+              </Space>
+            </Card>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  ),
+};
+
+const objectEditorPrefabs = [
+  {
+    id: "cube",
+    value: "cube",
+    title: <Paragraph>Cube</Paragraph>,
+    preview: <Icon name="Cube" size="large" />,
+  },
+  {
+    id: "sphere",
+    value: "sphere",
+    title: <Paragraph>Sphere</Paragraph>,
+    preview: <Icon name="Sphere" size="large" />,
+  },
+];
+
+const ObjectEditorPage = () => {
+  const [enabled, setEnabled] = React.useState(true);
+  const [position, setPosition] = React.useState({ x: 0, y: 1, z: 0 });
+  const [color, setColor] = React.useState({
+    r: 79 / 255,
+    g: 128 / 255,
+    b: 192 / 255,
+  });
+  const [prefab, setPrefab] = React.useState("cube");
+
+  return (
+    <Page fixed gap>
+      <Content pad wide>
+        <Space align="center" justify="between" gap wide noWrap>
+          <Space direction="vertical" gap grow>
+            <Space align="center" gap>
+              <Title>Scene editor</Title>
+              <Pill variant="success">Saved</Pill>
+            </Space>
+            <Paragraph>
+              Edit the selected object while the canvas consumes the remaining
+              workspace.
+            </Paragraph>
+          </Space>
+          <Button variant="primary" icon="Check">
+            <Paragraph>Save scene</Paragraph>
+          </Button>
+        </Space>
+      </Content>
+      <Content pad grow fill wide>
+        <Row gap grow fill>
+          <Col xs={24} md={8}>
+            <Card grow fill wide>
+              <Content pad wide>
+                <Space align="center" justify="between" gap wide>
+                  <Space direction="vertical" gap grow>
+                    <Title size="small">Object inspector</Title>
+                    <Paragraph>Oak tree · selected</Paragraph>
+                  </Space>
+                  <Space align="center" gap noWrap>
+                    <Checkbox
+                      aria-label="Object enabled"
+                      checked={enabled}
+                      onChange={(event) =>
+                        setEnabled(event.currentTarget.checked)
+                      }
+                    />
+                    <Button
+                      variant="ghost"
+                      icon="Broom"
+                      aria-label="Reset object"
+                    />
+                  </Space>
+                </Space>
+              </Content>
+              <Divider />
+              <ScrollArea orientation="vertical" grow fill>
+                <Content pad wide>
+                  <Space direction="vertical" gap wide>
+                    <Space direction="vertical" gap wide>
+                      <Title size="small">Transform</Title>
+                      <Paragraph>Name</Paragraph>
+                      <Input defaultValue="Oak tree" wide disabled={!enabled} />
+                      <VectorField
+                        label="Position"
+                        value={position}
+                        onChange={setPosition}
+                        disabled={!enabled}
+                        layout="toolbar"
+                        showActions={false}
+                      />
+                    </Space>
+                    <Divider />
+                    <Space direction="vertical" gap wide>
+                      <Title size="small">Appearance</Title>
+                      <ColorField
+                        value={color}
+                        onChange={setColor}
+                        disabled={!enabled}
+                        wide
+                      />
+                    </Space>
+                    <Divider />
+                    <Space direction="vertical" gap wide>
+                      <Title size="small">Prefab</Title>
+                      <ThumbnailGrid
+                        items={objectEditorPrefabs}
+                        value={prefab}
+                        onChange={setPrefab}
+                        columns={2}
+                      />
+                    </Space>
+                    <Divider />
+                    <Space direction="vertical" gap wide>
+                      <Space align="center" justify="between" wide>
+                        <Title size="small">Scene budget</Title>
+                        <Pill variant="warning">72 / 100</Pill>
+                      </Space>
+                      <LabelBars labels={[{ label: "Objects", prob: 0.72 }]} />
+                    </Space>
+                  </Space>
+                </Content>
+              </ScrollArea>
+            </Card>
+          </Col>
+          <Col xs={24} md={16}>
+            <Aspect fill grow>
+              <Card fill wide variant="ghost">
+                <Space
+                  direction="vertical"
+                  align="center"
+                  justify="center"
+                  gap
+                  wide
+                  fill
+                >
+                  <Icon name="Scene" size="large" />
+                  <Title>Canvas</Title>
+                  <Paragraph>
+                    The consuming application supplies the renderer surface.
+                  </Paragraph>
+                </Space>
+                <Dock position="top-left">
+                  <ButtonGroup>
+                    <Button variant="active" icon="Move">
+                      <Paragraph>Move</Paragraph>
+                    </Button>
+                    <Button icon="Rotate">
+                      <Paragraph>Rotate</Paragraph>
+                    </Button>
+                    <Button icon="Resize">
+                      <Paragraph>Scale</Paragraph>
+                    </Button>
+                  </ButtonGroup>
+                </Dock>
+                <Dock position="bottom-right">
+                  <Button variant="primary" icon="Check">
+                    <Paragraph>Apply changes</Paragraph>
+                  </Button>
+                </Dock>
+              </Card>
+            </Aspect>
+          </Col>
+        </Row>
+      </Content>
+    </Page>
+  );
+};
+
+export const FullPageObjectEditor: Story = {
+  render: () => <ObjectEditorPage />,
 };

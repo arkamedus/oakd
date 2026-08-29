@@ -1,0 +1,112 @@
+.oakd.tooltip {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.oakd.tooltip.wide {
+  width: 100%;
+}
+
+.oakd.tooltip > .oakd.tooltip__trigger {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.oakd.tooltip.wide > .oakd.tooltip__trigger {
+  width: 100%;
+}
+
+.oakd.tooltip__content.oakd.card {
+  position: absolute;
+  z-index: 1000;
+  width: max-content;
+  max-width: calc(100vw - (var(--oakd-leading) * 2));
+  max-height: calc(100vh - (var(--oakd-leading) * 2));
+  overflow: auto;
+  box-shadow: var(--oakd-shadow-sm);
+}
+
+.oakd.tooltip__content.bottom-left {
+  top: calc(100% + var(--oakd-leading));
+  left: 0;
+}
+
+.oakd.tooltip__content.bottom-right {
+  top: calc(100% + var(--oakd-leading));
+  right: 0;
+}
+
+.oakd.tooltip__content.top-left {
+  bottom: calc(100% + var(--oakd-leading));
+  left: 0;
+}
+
+.oakd.tooltip__content.top-right {
+  right: 0;
+  bottom: calc(100% + var(--oakd-leading));
+}
+
+.oakd.tooltip__content.top,
+.oakd.tooltip__content.bottom {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.oakd.tooltip__content.top {
+  bottom: calc(100% + var(--oakd-leading));
+}
+
+.oakd.tooltip__content.bottom {
+  top: calc(100% + var(--oakd-leading));
+}
+
+.oakd.tooltip__content.left,
+.oakd.tooltip__content.right {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.oakd.tooltip__content.left {
+  right: calc(100% + var(--oakd-leading));
+}
+
+.oakd.tooltip__content.right {
+  left: calc(100% + var(--oakd-leading));
+}
+
+.oakd.tooltip__bridge {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: var(--oakd-leading);
+}
+
+.oakd.tooltip__bridge.top-left,
+.oakd.tooltip__bridge.top-right,
+.oakd.tooltip__bridge.top {
+  bottom: 100%;
+}
+
+.oakd.tooltip__bridge.bottom-left,
+.oakd.tooltip__bridge.bottom-right,
+.oakd.tooltip__bridge.bottom {
+  top: 100%;
+}
+
+.oakd.tooltip__bridge.left,
+.oakd.tooltip__bridge.right {
+  top: 0;
+  width: var(--oakd-leading);
+  height: 100%;
+}
+
+.oakd.tooltip__bridge.left {
+  right: 100%;
+  left: auto;
+}
+
+.oakd.tooltip__bridge.right {
+  right: auto;
+  left: 100%;
+}

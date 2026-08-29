@@ -16,7 +16,6 @@ export const Col: React.FC<ColumnProps> = ({
 	xl,
 	xls,
 	className,
-	key,
 	...rest
 }) => {
 	let classNames = ["oakd", "column"];
@@ -32,7 +31,6 @@ export const Col: React.FC<ColumnProps> = ({
 		<div
 			{...rest}
 			id={id}
-			key={key}
 			data-testid="Column"
 			className={classNames.join(" ")}
 			style={style}

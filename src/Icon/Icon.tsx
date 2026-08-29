@@ -2,6 +2,7 @@ import React from "react";
 import { IconProps } from "./Icon.types";
 import "./Icon.css";
 import { _IconMap } from "./Icons.bin";
+import IconBase from "./IconBase";
 
 const Icon: React.FC<IconProps> = ({
 	name,
@@ -34,68 +35,24 @@ const Icon: React.FC<IconProps> = ({
 		return null;
 	}
 
-	// Decide whether we will recolor via CSS mask.
-	// - For normal mapped icons: always recolor (existing behavior).
-	// - For explicit `src`: recolor unless `preserveColor` is true.
-	const shouldRecolor = src ? !preserveColor : true;
-
-	// Base classes (keep existing sizing/inline/spin behavior)
-	const baseClass =
-		`oakd standardized-reset standardized-text icon icon-${size} ${className} ${spin ? "spin" : ""}`.trim();
-
-	// Style when recoloring (mask + backgroundColor)
-	const recolorStyle: React.CSSProperties = {
-		...style,
-		// The color is taken from style.color or falls back to currentColor
-		backgroundColor: style?.color || "currentColor",
-		mask: `url(${resolvedUrl}) no-repeat center/contain`,
-		WebkitMask: `url(${resolvedUrl}) no-repeat center/contain`,
-	};
-
-	// Style when preserving original image colors (no mask, no recolor)
-	const preserveColorStyle: React.CSSProperties = {
-		...style,
-		backgroundColor: "transparent",
-		backgroundImage: `url(${resolvedUrl})`,
-		backgroundRepeat: "no-repeat",
-		backgroundPosition: "center",
-		backgroundSize: "contain",
-		// Ensure no stale mask values linger if user passed them in
-		mask: undefined,
-		WebkitMask: undefined,
-	};
-
-	const iconElement = (
-		<span
-			data-testid="Icon"
-			className={baseClass}
-			style={shouldRecolor ? recolorStyle : preserveColorStyle}
+	return (
+		<IconBase
 			{...props}
+			name={name}
+			src={resolvedUrl}
+			style={style}
+			size={size}
+			className={className}
+			spin={spin}
+			rotation={rotation}
+			preserveColor={src ? preserveColor : false}
 		/>
-	);
-
-	return rotation !== 0 ? (
-		<span
-			style={{
-				display: "inline-block",
-				transform: `rotate(${rotation}deg)`,
-				transformOrigin: "center",
-			}}
-		>
-			{iconElement}
-		</span>
-	) : (
-		iconElement
 	);
 };
 
 export default Icon;
 
-interface IconStackProps {
-	children?: React.ReactNode;
-	className?: string;
-	style?: React.CSSProperties;
-}
+import type { IconStackProps } from "./Icon.types";
 
 export const IconStack: React.FC<IconStackProps> = ({
 	children,

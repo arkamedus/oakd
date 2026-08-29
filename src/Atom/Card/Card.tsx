@@ -10,47 +10,55 @@ import "./Card.css";
  * @param {CardProps} props - The props for the Card component.
  * @returns {JSX.Element} The rendered Card component.
  */
-const Card: React.FC<CardProps> = ({
-	children,
-	style,
-	wide,
-	grow,
-	fill,
-	className,
-	pad,
-	onClick,
-	variant = "default",
-	"data-testid": dataTestId,
-	...rest
-}) => {
-	const classNames = ["oakd", "card", `type-${variant}`];
-	if (pad) {
-		classNames.push("pad");
-	}
-	if (wide) {
-		classNames.push("wide");
-	}
-	if (grow) {
-		classNames.push("grow");
-	}
-	if (fill) {
-		classNames.push("fill");
-	}
-	if (className) {
-		classNames.push(className);
-	}
-	return (
-		<div
-			{...rest}
-			data-testid={dataTestId || "Card"}
-			className={classNames.join(" ")}
-			style={style}
-			role="region"
-			onClick={onClick}
-		>
-			{children}
-		</div>
-	);
-};
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+	(
+		{
+			children,
+			style,
+			wide,
+			grow,
+			fill,
+			className,
+			pad,
+			onClick,
+			variant = "default",
+			"data-testid": dataTestId,
+			...rest
+		},
+		ref,
+	) => {
+		const classNames = ["oakd", "card", `type-${variant}`];
+		if (pad) {
+			classNames.push("pad");
+		}
+		if (wide) {
+			classNames.push("wide");
+		}
+		if (grow) {
+			classNames.push("grow");
+		}
+		if (fill) {
+			classNames.push("fill");
+		}
+		if (className) {
+			classNames.push(className);
+		}
+		return (
+			<div
+				{...rest}
+				ref={ref}
+				data-testid={dataTestId || "Card"}
+				className={classNames.join(" ")}
+				style={style}
+				role={rest.role || "region"}
+				onClick={onClick}
+			>
+				{children}
+			</div>
+		);
+	},
+);
+
+Card.displayName = "Card";
 
 export default Card;

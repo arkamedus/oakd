@@ -1,18 +1,15 @@
 import React, {
-	forwardRef,
-	useEffect,
-	useImperativeHandle,
-	useMemo,
-	useRef,
-	useState,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
 } from "react";
 import { ScriptSandboxProps, ScriptSandboxStatus } from "./ScriptSandbox.types";
 import "./ScriptSandbox.css";
-import Title from "../Title/Title";
 import Paragraph from "../Paragraph/Paragraph";
 import Button from "../Button/Button";
-import { Modal } from "../Modal/Modal";
-import Content from "../../Layout/Content/Content";
 import { IconBug } from "../../Icon/Icons.bin";
 
 /**
@@ -23,72 +20,87 @@ import { IconBug } from "../../Icon/Icons.bin";
  * - Communicates via postMessage back to parent for print/status/error.
  */
 const ScriptSandbox = forwardRef<HTMLDivElement, ScriptSandboxProps>(
-	(
-		{
-			src,
-			autoRun = false,
-			controls = true,
-			title = "Sandbox",
-			initialBackground = "#ffffff",
-			onPrint,
-			onSuccess,
-			onError,
-			onStatus,
-			className = "",
-			style,
-			...rest
-		},
-		ref,
-	) => {
-		const rootRef = useRef<HTMLDivElement>(null);
-		const iframeRef = useRef<HTMLIFrameElement>(null);
+  (
+    {
+      src,
+      autoRun = false,
+      controls = true,
+      title = "Sandbox",
+      initialBackground = "var(--oakd-background)",
+      onPrint,
+      onSuccess,
+      onError,
+      onStatus,
+      className = "",
+      style,
+      ...rest
+    },
+    ref,
+  ) => {
+    const rootRef = useRef<HTMLDivElement>(null);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
 
-		useImperativeHandle(ref, () => rootRef.current as HTMLDivElement);
+    useImperativeHandle(ref, () => rootRef.current as HTMLDivElement);
 
-		const [runId, setRunId] = useState(0);
-		const [fsModal, setFsModal] = useState<boolean>(false);
-		const [status, setStatus] = useState<ScriptSandboxStatus>("idle");
-		const [lastError, setLastError] = useState<string | null>(null);
+    const [runId, setRunId] = useState(0);
+    const [status, setStatus] = useState<ScriptSandboxStatus>("idle");
+    const [lastError, setLastError] = useState<string | null>(null);
+    const themeConstants = useMemo(() => {
+      if (typeof document === "undefined") return "";
+      const computed = getComputedStyle(document.documentElement);
+      return [
+        "--oakd-background",
+        "--oakd-font-color",
+        "--oakd-font-family",
+        "--oakd-font-size",
+        "--oakd-line-height",
+        "--oakd-leading",
+        "--oakd-warning-color",
+      ]
+        .map((name) => `${name}: ${computed.getPropertyValue(name).trim()};`)
+        .join("\n");
+    }, []);
 
-		const setStatusSafe = (s: ScriptSandboxStatus) => {
-			setStatus(s);
-			onStatus?.(s);
-		};
+    const setStatusSafe = (s: ScriptSandboxStatus) => {
+      setStatus(s);
+      onStatus?.(s);
+    };
 
-		const srcDoc = useMemo(() => {
-			const csp = [
-				"default-src 'none'",
-				"base-uri 'none'",
-				"form-action 'none'",
-				"frame-ancestors 'none'",
-				"connect-src 'none'",
-				"img-src data:",
-				"style-src 'unsafe-inline'",
-				"script-src 'unsafe-inline'",
-			].join("; ");
+    const srcDoc = useMemo(() => {
+      const csp = [
+        "default-src 'none'",
+        "base-uri 'none'",
+        "form-action 'none'",
+        "frame-ancestors 'none'",
+        "connect-src 'none'",
+        "img-src data:",
+        "style-src 'unsafe-inline'",
+        "script-src 'unsafe-inline'",
+      ].join("; ");
 
-			// IMPORTANT: stable name so stack lines are parseable
-			const SRC_NAME = "oakd-sandbox.js";
+      // IMPORTANT: stable name so stack lines are parseable
+      const SRC_NAME = "oakd-sandbox.js";
 
-			const USER_MARKER = "<!--__OAKD_USER_SCRIPT_START__-->";
+      const USER_MARKER = "<!--__OAKD_USER_SCRIPT_START__-->";
 
-			let html = `<!doctype html>
+      let html = `<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Security-Policy" content="${csp}">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
+	  :root { ${themeConstants} }
       html, body { height: 100%; margin: 0; }
       body {
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+		font-family: var(--oakd-font-family);
         background: ${initialBackground};
-        color: #111;
+		color: var(--oakd-font-color);
       }
-      #wrap { height: 100%; box-sizing: border-box; padding: 12px; }
-      #out { white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; font-size: 13px; line-height: 18px; }
-      .line { padding: 2px 0; }
-      .hint { opacity: 0.6; font-size: 12px; margin-bottom: 8px; }
+	  #wrap { height: 100%; box-sizing: border-box; padding: var(--oakd-leading); }
+	  #out { white-space: pre-wrap; word-break: break-word; font-family: var(--oakd-font-family); font-size: var(--oakd-font-size); line-height: var(--oakd-line-height); }
+	  .line { padding-block: calc(var(--oakd-leading) / 4); }
+	  .hint { opacity: 0.6; font-size: var(--oakd-font-size); margin-bottom: var(--oakd-leading); }
     </style>
   </head>
   <body>
@@ -101,7 +113,7 @@ const ScriptSandbox = forwardRef<HTMLDivElement, ScriptSandboxProps>(
   </body>
 </html>`;
 
-			const wrappedUserCode = `
+      const wrappedUserCode = `
 (function(){
   "use strict";
 
@@ -235,174 +247,174 @@ const ScriptSandbox = forwardRef<HTMLDivElement, ScriptSandboxProps>(
 })();
 `;
 
-			const userScriptStartLine =
-				1 +
-				(html.split(USER_MARKER)[0].match(/\n/g)?.length ?? 0) +
-				wrappedUserCode.split("\n").length;
-			//console.log("START", userScriptStartLine, wrappedUserCode.split("\n").length);
-			const wrappedUserCodeWithLine = wrappedUserCode.replace(
-				"__OAKD_USER_SCRIPT_START_LINE__",
-				String(userScriptStartLine),
-			);
+      const userScriptStartLine =
+        1 +
+        (html.split(USER_MARKER)[0].match(/\n/g)?.length ?? 0) +
+        wrappedUserCode.split("\n").length;
+      //console.log("START", userScriptStartLine, wrappedUserCode.split("\n").length);
+      const wrappedUserCodeWithLine = wrappedUserCode.replace(
+        "__OAKD_USER_SCRIPT_START_LINE__",
+        String(userScriptStartLine),
+      );
 
-			html = html.replace("__OAKD_BOOTSTRAP__", wrappedUserCodeWithLine);
+      html = html.replace("__OAKD_BOOTSTRAP__", wrappedUserCodeWithLine);
 
-			return html;
-		}, [/*src,*/ runId, initialBackground]);
+      return html;
+    }, [src, initialBackground, themeConstants]);
 
-		// Listen for iframe messages
-		useEffect(() => {
-			const onMsg = (ev: MessageEvent) => {
-				const iframeWin = iframeRef.current?.contentWindow;
-				if (!iframeWin || ev.source !== iframeWin) return;
+    // Listen for iframe messages
+    useEffect(() => {
+      const onMsg = (ev: MessageEvent) => {
+        const iframeWin = iframeRef.current?.contentWindow;
+        if (!iframeWin || ev.source !== iframeWin) return;
 
-				const data = ev.data;
-				if (!data || data.__oakd !== true) return;
+        const data = ev.data;
+        if (!data || data.__oakd !== true) return;
 
-				if (data.type === "print") {
-					const line = String(data.line ?? "");
-					onPrint?.(line);
-				}
+        if (data.type === "print") {
+          const line = String(data.line ?? "");
+          onPrint?.(line);
+        }
 
-				if (data.type === "status") {
-					const s = String(data.status);
-					if (s === "running") {
-						setLastError(null);
-						setStatusSafe("running");
-					} else if (s === "success") {
-						setStatusSafe("success");
-						onSuccess?.();
-					} else if (s === "error") {
-						setStatusSafe("error");
-					}
-				}
+        if (data.type === "status") {
+          const s = String(data.status);
+          if (s === "running") {
+            setLastError(null);
+            setStatusSafe("running");
+          } else if (s === "success") {
+            setStatusSafe("success");
+            onSuccess?.();
+          } else if (s === "error") {
+            setStatusSafe("error");
+          }
+        }
 
-				if (data.type === "error") {
-					const err = data.error || {};
-					const name = err.name ? String(err.name) : "Error";
-					const message = String(err.message ?? "Unknown error");
-					const stack = err.stack ? String(err.stack) : "";
-					const line = typeof err.line === "number" ? err.line : 0;
-					const column = typeof err.column === "number" ? err.column : 0;
+        if (data.type === "error") {
+          const err = data.error || {};
+          const name = err.name ? String(err.name) : "Error";
+          const message = String(err.message ?? "Unknown error");
+          const stack = err.stack ? String(err.stack) : "";
+          const line = typeof err.line === "number" ? err.line : 0;
+          const column = typeof err.column === "number" ? err.column : 0;
 
-					// Build a full parent-visible message
-					const full =
-						`${name}: ${message}` +
-						(line ? ` (line ${line}${column ? `:${column}` : ""})` : ""); // +
-					// (stack ? `\n\n${stack}` : "");
+          // Build a full parent-visible message
+          const full =
+            `${name}: ${message}` +
+            (line ? ` (line ${line}${column ? `:${column}` : ""})` : ""); // +
+          // (stack ? `\n\n${stack}` : "");
 
-					setLastError(full);
-					setStatusSafe("error");
+          setLastError(full);
+          setStatusSafe("error");
 
-					onError?.({
-						message: full, // full message with line + stack
-						name,
-						stack: stack || undefined,
-						line: line || undefined,
-						column: column || undefined,
-					});
-				}
-			};
+          onError?.({
+            message: full, // full message with line + stack
+            name,
+            stack: stack || undefined,
+            line: line || undefined,
+            column: column || undefined,
+          });
+        }
+      };
 
-			window.addEventListener("message", onMsg);
-			return () => window.removeEventListener("message", onMsg);
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [onPrint, onError, onSuccess]);
+      window.addEventListener("message", onMsg);
+      return () => window.removeEventListener("message", onMsg);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [onPrint, onError, onSuccess]);
 
-		// Auto-run when src changes
-		useEffect(() => {
-			if (!autoRun) return;
-			setStatusSafe("running");
-			setRunId((n) => n + 1);
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [src, autoRun]);
+    // Auto-run when src changes
+    useEffect(() => {
+      if (!autoRun) return;
+      setStatusSafe("running");
+      setRunId((n) => n + 1);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [src, autoRun]);
 
-		const run = () => {
-			setStatusSafe("running");
-			setRunId((n) => n + 1);
-		};
+    const run = () => {
+      setStatusSafe("running");
+      setRunId((n) => n + 1);
+    };
 
-		const reset = () => {
-			setLastError(null);
-			setStatusSafe("reset");
-			setRunId((n) => n + 1);
-		};
+    const reset = () => {
+      setLastError(null);
+      setStatusSafe("reset");
+      setRunId((n) => n + 1);
+    };
 
-		const disabled = false;
-		const readOnly = false;
+    const disabled = false;
+    const readOnly = false;
 
-		const rootClasses = ["oakd", "script-sandbox", className]
-			.filter(Boolean)
-			.join(" ");
+    const rootClasses = ["oakd", "script-sandbox", className]
+      .filter(Boolean)
+      .join(" ");
 
-		return (
-			<div ref={rootRef} className={rootClasses} style={style} {...rest}>
-				{controls && (
-					<div className="script-sandbox__header">
-						<Paragraph className="script-sandbox__title">{title}</Paragraph>
-						<div className="script-sandbox__controls">
-							<Button
-								className="script-sandbox__btn"
-								onClick={run}
-								disabled={disabled || readOnly}
-								icon={"Play"}
-							>
-								Run
-							</Button>
-							<Button
-								className="script-sandbox__btn secondary"
-								onClick={reset}
-								disabled={disabled}
-								icon={"Refresh"}
-							>
-								Reset
-							</Button>
-							<Button
-								className="script-sandbox__btn secondary"
-								onClick={() => {
-									const win = window.open(
-										"",
-										"_blank",
-										"popup=yes,width=900,height=650",
-									);
-									if (!win) return;
+    return (
+      <div ref={rootRef} className={rootClasses} style={style} {...rest}>
+        {controls && (
+          <div className="script-sandbox__header">
+            <Paragraph className="script-sandbox__title">{title}</Paragraph>
+            <div className="script-sandbox__controls">
+              <Button
+                className="script-sandbox__btn"
+                onClick={run}
+                disabled={disabled || readOnly}
+                icon={"Play"}
+              >
+                Run
+              </Button>
+              <Button
+                className="script-sandbox__btn secondary"
+                onClick={reset}
+                disabled={disabled}
+                icon={"Refresh"}
+              >
+                Reset
+              </Button>
+              <Button
+                className="script-sandbox__btn secondary"
+                onClick={() => {
+                  const win = window.open(
+                    "",
+                    "_blank",
+                    "popup=yes,width=900,height=650",
+                  );
+                  if (!win) return;
 
-									win.document.open();
-									win.document.write(srcDoc);
-									win.document.close();
-								}}
-								disabled={disabled}
-								icon={"Resize"}
-							>
-								Launch
-							</Button>
-						</div>
-					</div>
-				)}
+                  win.document.open();
+                  win.document.write(srcDoc);
+                  win.document.close();
+                }}
+                disabled={disabled}
+                icon={"Resize"}
+              >
+                Launch
+              </Button>
+            </div>
+          </div>
+        )}
 
-				{lastError && (
-					<Paragraph className="script-sandbox__error" role="alert">
-						<IconBug size={"small"} /> {lastError}
-					</Paragraph>
-				)}
+        {lastError && (
+          <Paragraph className="script-sandbox__error" role="alert">
+            <IconBug size={"small"} /> {lastError}
+          </Paragraph>
+        )}
 
-				<div className="script-sandbox__frameWrap">
-					<iframe
-						ref={iframeRef}
-						key={runId}
-						title="ScriptSandbox"
-						className="script-sandbox__frame"
-						sandbox="allow-scripts"
-						srcDoc={srcDoc}
-					/>
-				</div>
+        <div className="script-sandbox__frameWrap">
+          <iframe
+            ref={iframeRef}
+            key={runId}
+            title="ScriptSandbox"
+            className="script-sandbox__frame"
+            sandbox="allow-scripts"
+            srcDoc={srcDoc}
+          />
+        </div>
 
-				<Paragraph className="script-sandbox__footer">
-					Status: <span className={`st ${status}`}>{status}</span>
-				</Paragraph>
-			</div>
-		);
-	},
+        <Paragraph className="script-sandbox__footer">
+          Status: <span className={`st ${status}`}>{status}</span>
+        </Paragraph>
+      </div>
+    );
+  },
 );
 
 export default ScriptSandbox;

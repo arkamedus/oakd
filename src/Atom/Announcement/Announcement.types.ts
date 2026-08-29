@@ -7,4 +7,7 @@ export interface AnnouncementProps extends CoreContentProps<HTMLDivElement> {
 	closable?: boolean;
 	onClose?: () => void;
 	icon?: CoreIconNameType | React.ReactNode;
+	leading?: React.ReactNode;
+	action?: React.ReactNode;
+	fullHeightLeading?: boolean;
 }
