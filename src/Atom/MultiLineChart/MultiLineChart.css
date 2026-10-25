@@ -37,7 +37,7 @@
   position: absolute;
   background: var(--oakd-background);
   border: var(--oakd-border-width) solid var(--oakd-default-border);
-  border-radius: var(--oakd-radius-raised);
+  border-radius: var(--oakd-radius);
   box-shadow: var(--oakd-shadow-lg);
   padding: var(--oakd-leading);
   min-width: var(--oakd-tooltip-width);

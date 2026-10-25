@@ -106,7 +106,7 @@ const EmbeddingHeatmap: React.FC<EmbeddingHeatmapProps> = ({
 						minHeight: shouldFill ? 0 : isMatrix ? undefined : rowHeight,
 						height: resolvedHeight,
 						overflow: "hidden",
-						borderRadius: 6,
+						borderRadius: "var(--oakd-radius)",
 					}}
 				>
 					{rows.map((row, rowIndex) =>

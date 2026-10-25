@@ -286,13 +286,11 @@ const Select = <T,>({
             <Content key={category} wide>
               <Space direction="vertical" wide>
                 <Content pad wide>
-                  <Space gap wide>
-                    <Paragraph>
-                      <strong>{category}</strong>
-                    </Paragraph>
-                    <Divider />
-                  </Space>
+                  <Paragraph>
+                    <strong>{category}</strong>
+                  </Paragraph>
                 </Content>
+                <Divider />
                 <ActionList role="presentation" divided={false}>
                   {categorizedOptions[category].map(renderOption)}
                 </ActionList>

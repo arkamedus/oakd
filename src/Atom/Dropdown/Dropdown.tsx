@@ -116,7 +116,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 			]
 				.filter(Boolean)
 				.join(" ")}
-			style={fixed ? { ...style, ...placementStyle } : style}
+			style={fixed ? { ...placementStyle, ...style } : style}
 			onClick={() => {
 				if (closeOnSelect) closeDropdown(true);
 			}}

@@ -97,7 +97,7 @@ export const ChartLegend: React.FC<{
           style={{
             width: 10,
             height: 10,
-            borderRadius: 999,
+            borderRadius: "var(--oakd-radius-round)",
             background: item.color,
             flexShrink: 0,
           }}

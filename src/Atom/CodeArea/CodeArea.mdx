@@ -4,7 +4,16 @@ import meta from './CodeArea.stories';
 <Meta of={meta} />
 
 <Title />
-The `CodeArea` component etc...
+CodeArea shares OakD’s radius, spacing, typography, border, and neutral surface tokens.
+Syntax highlighting uses `--oakd-code-comment`, `--oakd-code-string`,
+`--oakd-code-number`, `--oakd-code-keyword`, `--oakd-code-type`,
+`--oakd-code-builtin`, and `--oakd-code-boolean`.
+
+Editor-local controls use `--oakd-code-font-family`, `--oakd-code-font-size`,
+`--oakd-code-line-height`, `--oakd-code-font-weight`, `--oakd-code-letter-spacing`,
+`--oakd-code-tab-size`, `--oakd-code-padding-x`, `--oakd-code-padding-y`, and
+`--oakd-code-gutter-width`. Set overrides on the CodeArea host with `style` or
+CSS so the textarea, syntax overlay, and gutter share the same geometry.
 
 <Primary />
 

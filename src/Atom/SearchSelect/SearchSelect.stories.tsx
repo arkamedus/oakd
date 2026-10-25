@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import Paragraph from "../Paragraph/Paragraph";
 import Space from "../Space/Space";
+import Card from "../Card/Card";
 import SearchSelect from "./SearchSelect";
 const options = [
   {
@@ -94,5 +95,16 @@ export const Sizes: Story = {
         size="large"
       />
     </Space>
+  ),
+};
+
+export const SharedRadius: Story = {
+  render: () => (
+    <Card pad wide style={{ "--oakd-radius": "12px" } as React.CSSProperties}>
+      <Space direction="vertical" gap wide>
+        <Paragraph>The card, trigger, menu, and search input share a locally scoped radius.</Paragraph>
+        <SearchSelect options={options} open wide />
+      </Space>
+    </Card>
   ),
 };

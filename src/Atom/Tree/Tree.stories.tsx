@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import ActionList, { ActionListItem } from "../ActionList/ActionList";
-import Card from "../Card/Card";
 import Paragraph from "../Paragraph/Paragraph";
 import Pill from "../Pill/Pill";
 import { IconPlus, IconTrash } from "../../Icon/Icons.bin";
@@ -208,34 +207,32 @@ export const WithAddDeleteAndContextMenu: Story = {
       nodes.map((node) => ({
         ...node,
         menuContent: (
-          <Card wide>
-            <ActionList role="presentation" divided={false}>
+          <ActionList role="presentation" divided={false}>
+            <ActionListItem
+              role="menuitem"
+              leading={<IconPlus size="small" />}
+              title={<Paragraph>Add child</Paragraph>}
+              onClick={() =>
+                setItems((current) =>
+                  appendChild(current, node.id, {
+                    id: `${node.id}-new-${Date.now()}`,
+                    label: "New asset",
+                    icon: "Cube",
+                  }),
+                )
+              }
+            />
+            {depth > 0 ? (
               <ActionListItem
                 role="menuitem"
-                leading={<IconPlus size="small" />}
-                title={<Paragraph>Add child</Paragraph>}
+                leading={<IconTrash size="small" />}
+                title={<Paragraph>Delete</Paragraph>}
                 onClick={() =>
-                  setItems((current) =>
-                    appendChild(current, node.id, {
-                      id: `${node.id}-new-${Date.now()}`,
-                      label: "New asset",
-                      icon: "Cube",
-                    }),
-                  )
+                  setItems((current) => removeNode(current, node.id))
                 }
               />
-              {depth > 0 ? (
-                <ActionListItem
-                  role="menuitem"
-                  leading={<IconTrash size="small" />}
-                  title={<Paragraph>Delete</Paragraph>}
-                  onClick={() =>
-                    setItems((current) => removeNode(current, node.id))
-                  }
-                />
-              ) : null}
-            </ActionList>
-          </Card>
+            ) : null}
+          </ActionList>
         ),
         children: node.children
           ? bindMenus(node.children, depth + 1)

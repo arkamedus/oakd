@@ -1,12 +1,12 @@
 .oakd.card {
     border: var(--oakd-border-width) solid var(--oakd-gray);
-    border-radius: calc(var(--oakd-radius) * 1.66);
+    border-radius: var(--oakd-radius);
     background: var(--oakd-background);
     min-width: 0;
 }
 
 .oakd.card > .oakd.debug-layer {
-    border-radius: calc(var(--oakd-radius) * 1.42);
+    border-radius: var(--oakd-radius);
     overflow: hidden;
 }
 

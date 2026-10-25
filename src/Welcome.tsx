@@ -20,6 +20,8 @@ import Select from "./Atom/Select/Select";
 import Collapsible from "./Atom/Collapsible/Collapsible";
 import CodeArea from "./Atom/CodeArea/CodeArea";
 import Dropdown from "./Atom/Dropdown/Dropdown";
+import ActionList, { ActionListItem } from "./Atom/ActionList/ActionList";
+import Divider from "./Atom/Divider/Divider";
 import Breadcrumb from "./Atom/Breadcrumb/Breadcrumb";
 import { ButtonType } from "./Core/Core.types";
 import Pagination from "./Atom/Pagination/Pagination";
@@ -132,6 +134,7 @@ const appendWelcomeChild = (
   });
 
 export const Welcome = () => {
+  const [projectStatus, setProjectStatus] = useState("draft");
   const [treeItems, setTreeItems] = useState<TreeItem[]>(createWelcomeTree);
   const [accentColor, setAccentColor] = useState<ColorValue>({
     r: 79 / 255,
@@ -152,15 +155,13 @@ export const Welcome = () => {
         return {
           ...node,
           menuContent: (
-            <Card pad wide>
-              <Space direction="vertical" gap wide>
-                <Paragraph className={"muted"}>
-                  <strong>Tree actions</strong>
-                </Paragraph>
+            <Content style={{ minWidth: 200, textAlign: "left" }}>
+              <ActionList role="presentation" divided={false}>
                 {isFolder && (
-                  <Button
-                    variant="ghost"
-                    size="small"
+                  <ActionListItem
+                    role="menuitem"
+                    leading={<Icon name="Folder" size="small" />}
+                    title={<Paragraph>Add folder</Paragraph>}
                     onClick={() =>
                       setTreeItems((current) =>
                         appendWelcomeChild(current, node.id, {
@@ -171,14 +172,13 @@ export const Welcome = () => {
                         }),
                       )
                     }
-                  >
-                    <Paragraph>Add folder</Paragraph>
-                  </Button>
+                  />
                 )}
                 {isFolder && (
-                  <Button
-                    variant="ghost"
-                    size="small"
+                  <ActionListItem
+                    role="menuitem"
+                    leading={<Icon name="File" size="small" />}
+                    title={<Paragraph>Add leaf</Paragraph>}
                     onClick={() =>
                       setTreeItems((current) =>
                         appendWelcomeChild(current, node.id, {
@@ -187,25 +187,22 @@ export const Welcome = () => {
                         }),
                       )
                     }
-                  >
-                    <Paragraph>Add leaf</Paragraph>
-                  </Button>
+                  />
                 )}
                 {canDelete && (
-                  <Button
-                    variant="danger"
-                    size="small"
+                  <ActionListItem
+                    role="menuitem"
+                    leading={<Icon name="Trash" size="small" />}
+                    title={<Paragraph>Delete</Paragraph>}
                     onClick={() =>
                       setTreeItems((current) =>
                         removeWelcomeNode(current, node.id),
                       )
                     }
-                  >
-                    <Paragraph>Delete</Paragraph>
-                  </Button>
+                  />
                 )}
-              </Space>
-            </Card>
+              </ActionList>
+            </Content>
           ),
           children: node.children
             ? bindMenus(node.children, depth + 1)
@@ -340,33 +337,76 @@ export const Welcome = () => {
                     <Paragraph>extended inputs</Paragraph>
                     <Space wide gap justify={"between"}>
                       <Select
+                        value={projectStatus}
                         options={[
                           {
-                            value: "a",
-                            element: <Paragraph>Apple</Paragraph>,
-                            category: "Fruits",
+                            value: "draft",
+                            label: <Paragraph>Draft</Paragraph>,
+                            element: (
+                              <ActionListItem
+                                leading={<Icon name="Note" size="small" />}
+                                title={<Paragraph>Draft</Paragraph>}
+                              />
+                            ),
                           },
                           {
-                            value: "b",
-                            element: <Paragraph>Banana</Paragraph>,
-                            category: "Fruits",
+                            value: "in_review",
+                            label: <Paragraph>In review</Paragraph>,
+                            element: (
+                              <ActionListItem
+                                leading={<Icon name="Eye" size="small" />}
+                                title={<Paragraph>In review</Paragraph>}
+                              />
+                            ),
                           },
                           {
-                            value: "c",
-                            element: <Paragraph>Carrot</Paragraph>,
-                            category: "Vegetables",
+                            value: "published",
+                            label: <Paragraph>Published</Paragraph>,
+                            element: (
+                              <ActionListItem
+                                leading={<Icon name="Check" size="small" />}
+                                title={<Paragraph>Published</Paragraph>}
+                              />
+                            ),
                           },
                         ]}
-                        onChange={(val) => console.log(val)}
-                        categoryOrder={["Fruits", "Vegetables"]}
-                        placeholder={<Paragraph>Choose an option</Paragraph>}
+                        onChange={setProjectStatus}
+                        placeholder="Choose a status"
                       />
                       <Dropdown
-                        label={<IconDots size={"small"} />}
+                        label={
+                          <Space gap>
+                            <IconDots size="small" />
+                            <Paragraph>Project actions</Paragraph>
+                          </Space>
+                        }
                         direction={"bottom-right"}
+                        closeOnSelect
                       >
-                        <Content pad>
-                          <Paragraph>This is the content.</Paragraph>
+                        <Content style={{ minWidth: 240, textAlign: "left" }}>
+                          <ActionList role="menu" divided={false}>
+                            <ActionListItem
+                              role="menuitem"
+                              leading={<Icon name="Eye" size="small" />}
+                              title={<Paragraph>Request review</Paragraph>}
+                              onClick={() => undefined}
+                            />
+                            <ActionListItem
+                              role="menuitem"
+                              leading={<Icon name="Check" size="small" />}
+                              title={<Paragraph>Publish project</Paragraph>}
+                              onClick={() => undefined}
+                            />
+                          </ActionList>
+                          <Divider />
+                          <ActionList role="menu" divided={false}>
+                            <ActionListItem
+                              role="menuitem"
+                              leading={<Icon name="Note" size="small" />}
+                              title={<Paragraph>Return to draft</Paragraph>}
+                              onClick={() => undefined}
+                            />
+                          </ActionList>
                         </Content>
                       </Dropdown>
                     </Space>

@@ -3,23 +3,22 @@
 }
 
 .oakd.title-default {
-	font-size: calc(var(--oakd-font-size) * var(--font-scale-title));
+	font-size: calc(var(--oakd-font-size) * var(--oakd-font-scale-title));
 	line-height: calc(var(--oakd-line-height) * 2);
 	min-height: calc(var(--oakd-line-height) * 2);
 }
 
 .oakd.title-large {
-	font-size: calc(var(--oakd-font-size) * var(--font-scale-title) * 1.2);
+	font-size: calc(var(--oakd-font-size) * var(--oakd-font-scale-title) * 1.2);
 	line-height: calc(var(--oakd-line-height) * 2);
 	min-height: calc(var(--oakd-line-height) * 2);
 }
 
 .oakd.title-huge {
-	/* font-size: calc(var(--oakd-font-size) * var(--font-scale-title) * 2);*/
 	font-size: clamp(
-		calc(var(--oakd-font-size) * var(--font-scale-title) * 1.6),
+		calc(var(--oakd-font-size) * var(--oakd-font-scale-title) * 1.6),
 		var(--oakd-title-fluid-size),
-		calc(var(--oakd-font-size) * var(--font-scale-title) * 2)
+		calc(var(--oakd-font-size) * var(--oakd-font-scale-title) * 2)
 	);
 
 	line-height: 1;

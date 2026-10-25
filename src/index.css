@@ -3,28 +3,21 @@
 -------------------------------------------------- */
 :root {
   /* Base variables */
-  --font-size: 10pt;
-  --line-height: 14pt;
-  --leading: 7pt;
-  --border-radius: 0;
-  --gap-sizing: 14pt;
+  --oakd-font-size: 10pt;
+  --oakd-line-height: 14pt;
+  --oakd-leading: 7pt;
+  --oakd-radius: 0;
+  --oakd-gap: 14pt;
 
-  --background: #fff;
-  --background-modal: rgba(255, 255, 255, 0.8);
-  --font-color: #494949;
+  --oakd-background: #fff;
+  --oakd-background-modal: rgba(255, 255, 255, 0.8);
+  --oakd-font-color: #494949;
 
-  --font-scale-title: 3.5;
+  --oakd-font-scale-title: 3.5;
 
-  /* Stable v4 aliases. Legacy variables remain the global theme inputs. */
-  --oakd-font-size: var(--font-size);
-  --oakd-line-height: var(--line-height);
-  --oakd-leading: var(--leading);
-  --oakd-radius: var(--border-radius);
-  --oakd-gap: var(--gap-sizing);
-  --oakd-background: var(--background);
-  --oakd-font-color: var(--font-color);
-  --oakd-font-family: var(--font-family);
-  --oakd-font-family-display: var(--font-family);
+  /* Namespaced design-system tokens. */
+  --oakd-font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --oakd-font-family-display: var(--oakd-font-family);
   --oakd-focus-ring: 0 0 0 2px
     color-mix(in srgb, var(--oakd-primary-border) 55%, transparent);
   --oakd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.12);
@@ -54,7 +47,6 @@
   --oakd-tooltip-width-max: 240px;
   --oakd-thumbnail-preview-size: 3rem;
   --oakd-pattern-stripe-size: 24px;
-  --oakd-radius-raised: calc(var(--oakd-radius) + 3pt);
   --oakd-fluid-gutter: 3vw;
   --oakd-mobile-panel-max: 85vw;
   --oakd-title-fluid-size: 7vw;
@@ -66,11 +58,6 @@
   --oakd-green: #006f20;
   --oakd-blue: #090bcf;
 
-  --viewport-size-sm: 576px;
-  --viewport-size-md: 768px;
-  --viewport-size-lg: 992px;
-  --viewport-size-xl: 1200px;
-  --viewport-size-xls: 1600px;
 
   /* Danger set (example from your snippet) */
   --oakd-danger-color: #f03333;
@@ -193,7 +180,7 @@
   --oakd-pastel-16: #c7ceea;
 
   /* Heading / Typography */
-  --font-family:
+  --oakd-font-family:
     "Source Code Pro", "Courier", "Avenir Next", Helvetica, Arial, sans-serif;
 }
 
@@ -203,9 +190,9 @@
 -------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #2a2a2a;
-    --background-modal: rgba(42, 42, 42, 0.8);
-    --font-color: #f5f5f5;
+    --oakd-background: #2a2a2a;
+    --oakd-background-modal: rgba(42, 42, 42, 0.8);
+    --oakd-font-color: #f5f5f5;
 
     --oakd-black: #f5f5f5;
     --oakd-gray: #999999;
@@ -277,10 +264,10 @@
    3) THEME-SOFT (LIGHT MODE)
 -------------------------------------------------- */
 .theme-soft {
-  --border-radius: 3pt;
-  --background: rgb(255, 253, 253);
-  --font-color: #555555;
-  --gap-sizing: 16pt;
+  --oakd-radius: 3pt;
+  --oakd-background: rgb(255, 253, 253);
+  --oakd-font-color: #555555;
+  --oakd-gap: 16pt;
   /* If you want to override other color vars specifically for .theme-soft, do it here */
 }
 
@@ -290,8 +277,8 @@
 -------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   .theme-soft {
-    --background: #3a3a3a;
-    --font-color: #ebebeb;
+    --oakd-background: #3a3a3a;
+    --oakd-font-color: #ebebeb;
     /* Override other colors if desired for .theme-soft in dark mode */
   }
 }
@@ -300,11 +287,11 @@
    5) THEME-TIGHT (LIGHT MODE)
 -------------------------------------------------- */
 .theme-tight {
-  --font-size: 9pt;
-  --line-height: 12pt;
-  --leading: 4pt;
-  --gap-sizing: 7pt;
-  --border-radius: 1.62pt;
+  --oakd-font-size: 9pt;
+  --oakd-line-height: 12pt;
+  --oakd-leading: 4pt;
+  --oakd-gap: 7pt;
+  --oakd-radius: 1.62pt;
   /* Additional overrides if needed */
 }
 
@@ -314,8 +301,8 @@
 -------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   .theme-tight {
-    --background: #2a2a2a;
-    --font-color: #f5f5f5;
+    --oakd-background: #2a2a2a;
+    --oakd-font-color: #f5f5f5;
     /* Additional overrides if needed */
   }
 }
@@ -324,8 +311,8 @@
    7) THEME-HIGH-CONTRAST (LIGHT MODE)
 -------------------------------------------------- */
 .theme-high-contrast {
-  --background: #000000;
-  --font-color: #ffffff;
+  --oakd-background: #000000;
+  --oakd-font-color: #ffffff;
 
   --oakd-black: #ffffff;
   --oakd-gray: #cccccc;
@@ -338,8 +325,8 @@
   --oakd-danger-border: #ff0000;
   --oakd-danger-text: #ffcccc;
 
-  --border-radius: 0;
-  --gap-sizing: 10pt;
+  --oakd-radius: 0;
+  --oakd-gap: 10pt;
 
   /* Override other sets if you'd like */
   --oakd-default-color: #000;
@@ -371,8 +358,8 @@
   .theme-high-contrast {
     /* Typically remains the same for black/white,
        but override if you need a special "dark" scheme. */
-    --background: #000000;
-    --font-color: #ffffff;
+    --oakd-background: #000000;
+    --oakd-font-color: #ffffff;
 
     --oakd-danger-color: #ff0000;
     --oakd-danger-border: #ff0000;

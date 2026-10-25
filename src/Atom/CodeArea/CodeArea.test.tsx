@@ -1,6 +1,7 @@
 import React from "react";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import CodeArea from "./CodeArea";
+import Content from "../../Layout/Content/Content";
 
 describe("CodeArea Component", () => {
   it("renders the provided source in the textarea", () => {
@@ -70,13 +71,19 @@ describe("CodeArea Component", () => {
 
   it("supports fill so the editor can occupy a bounded parent host", () => {
     const { container } = render(
-      <div style={{ width: 720, height: 360, display: "flex" }}>
+      <Content style={{ height: "var(--oakd-surface-height-lg)" }}>
         <CodeArea fill defaultValue={"select *\nfrom workspace_sessions;"} />
-      </div>,
+      </Content>,
     );
 
     expect(screen.getByTestId("CodeArea")).toHaveClass("fill");
     expect(container.querySelector(".codearea-editor")).toBeInTheDocument();
     expect(screen.getByTestId("CodeAreaTextarea")).not.toHaveAttribute("style");
   });
+});
+
+ it("forwards namespaced editor overrides to the shared overlay host", () => {
+  render(<CodeArea style={{ "--oakd-code-padding-x": "20px", "--oakd-code-line-height": "24px" } as React.CSSProperties} />);
+  expect(screen.getByTestId("CodeArea").style.getPropertyValue("--oakd-code-padding-x")).toBe("20px");
+  expect(screen.getByTestId("CodeArea").style.getPropertyValue("--oakd-code-line-height")).toBe("24px");
 });

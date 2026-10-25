@@ -8,7 +8,7 @@
 
 .oakd.collapsible {
   border: var(--oakd-border-width) solid var(--oakd-gray);
-  border-radius: calc(var(--oakd-radius) * 1.66);
+  border-radius: var(--oakd-radius);
   background: var(--oakd-background);
 }
 

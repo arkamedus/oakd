@@ -67,3 +67,25 @@ it("applies the Select size contract to the trigger without resizing the menu", 
   expect(screen.getByRole("textbox")).toHaveClass("size-default");
   expect(screen.getByRole("listbox")).not.toHaveClass("size-large");
 });
+
+it("carries scoped design tokens to the portaled menu", () => {
+  const original = window.getComputedStyle;
+  const spy = jest.spyOn(window, "getComputedStyle").mockImplementation(element => {
+    if (element.classList.contains("oakd-search-select")) {
+      const style = document.createElement("div").style;
+      style.setProperty("--oakd-radius", "12px");
+      style.setProperty("--oakd-card-default-color", "pink");
+      return style;
+    }
+    return original(element);
+  });
+  try {
+    render(<SearchSelect options={[{ value: 1, label: "One" }]} open />);
+    const menu = screen.getByRole("listbox");
+    expect(menu.parentElement).toBe(document.body);
+    expect(menu.style.getPropertyValue("--oakd-radius")).toBe("12px");
+    expect(menu.style.getPropertyValue("--oakd-card-default-color")).toBe("pink");
+  } finally {
+    spy.mockRestore();
+  }
+});

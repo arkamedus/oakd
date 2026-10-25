@@ -24,9 +24,6 @@ export interface CodeAreaProps extends Omit<
 
 	readOnly?: boolean;
 
-	/** Visual style type (matches your button/input types) */
-	codeType?: "default" | "primary" | "danger" | "warning" | "ghost";
-
 	/** Size variants */
 	size?: "small" | "default" | "large";
 

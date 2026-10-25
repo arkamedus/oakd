@@ -290,6 +290,10 @@ OakD retains global system light/dark theming. Its stable customization tokens
 use the `--oakd-*` prefix, including `--oakd-background`, `--oakd-font-color`,
 `--oakd-font-family`, `--oakd-font-family-display`, `--oakd-leading`,
 `--oakd-gap`, `--oakd-radius`, and semantic color/border/text token sets.
+Surfaces and controls use `--oakd-radius` directly, without component-specific
+multipliers. Pills and circular indicators use `--oakd-radius-round`; joined
+edges remain square. Fixed dropdown menus carry scoped OakD tokens into their
+body portals. Code displays share `--oakd-font-family-mono`.
 
 Use the original composition model for normal document layout:
 
@@ -309,7 +313,11 @@ import "oakd/build/index.css";
 
 ### **Using CSS Variables**
 
-Utilize predefined CSS variables from `variables.css`:
+Use the canonical tokens defined in `src/index.css`. Legacy token names are no
+longer supported; see [the migration table](MIGRATION_V4.md#themes).
+Component-local variables also use `--oakd-*`, including CodeArea’s
+`--oakd-code-padding-x`, `--oakd-code-padding-y`, and `--oakd-code-gutter-width`.
+Override these on the CodeArea host through its `style` prop or a CSS selector.
 
 ```css
 .example-container {

@@ -7,14 +7,14 @@
 }
 
 .oakd-markdown-renderer code {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-family: var(--oakd-font-family-mono);
 }
 
 .oakd-markdown-renderer img {
   max-width: 100%;
   height: auto;
   display: block;
-  border-radius: var(--button-radius);
+  border-radius: var(--oakd-radius);
 }
 
 .oakd-markdown-renderer blockquote,

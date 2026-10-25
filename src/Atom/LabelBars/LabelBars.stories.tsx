@@ -47,9 +47,3 @@ export const MultipleLabels: Story = {
 		],
 	},
 };
-
-export const Empty: Story = {
-	args: {
-		labels: [],
-	},
-};

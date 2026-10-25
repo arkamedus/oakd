@@ -59,7 +59,7 @@
   height: var(--oakd-surface-height-sm);
   width: 100%;
   min-width: var(--oakd-tooltip-offset);
-  border-radius: calc(var(--oakd-radius) * 0.75);
+  border-radius: var(--oakd-radius);
   overflow: hidden;
   background: var(--oakd-ghost-color);
   display: flex;
@@ -92,7 +92,7 @@
   );
   padding: var(--oakd-leading);
   border: var(--oakd-border-width) solid var(--oakd-default-border);
-  border-radius: var(--oakd-radius-raised);
+  border-radius: var(--oakd-radius);
   background: var(--oakd-background);
   box-shadow: var(--oakd-shadow-lg);
   pointer-events: none;

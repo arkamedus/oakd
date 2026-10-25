@@ -22,7 +22,7 @@
 .oakd.tree__end-slot::after {
 	content: "";
 	position: absolute;
-	left: calc(var(--tree-depth, 0) * var(--oakd-tree-indent));
+	left: calc(var(--oakd-tree-depth, 0) * var(--oakd-tree-indent));
 	right: 0;
 	height: var(--oakd-border-width);
 	background: var(--oakd-active-border);
@@ -56,7 +56,7 @@
 	gap: calc(var(--oakd-leading) / 2);
 	width: 100%;
 	min-width: 0;
-	padding-left: calc(var(--tree-depth, 0) * var(--oakd-tree-indent));
+	padding-left: calc(var(--oakd-tree-depth, 0) * var(--oakd-tree-indent));
 	position: relative;
 }
 
@@ -95,7 +95,7 @@
 	top: 0;
 	bottom: 0;
 	left: calc(
-		var(--tree-depth, 0) * var(--oakd-tree-indent) +
+		var(--oakd-tree-depth, 0) * var(--oakd-tree-indent) +
 			var(--oakd-line-height) / 2 +
 			var(--oakd-leading) / 2
 	);
@@ -112,7 +112,7 @@
 
 .oakd.tree__empty {
 	position: relative;
-	padding-left: calc(var(--tree-depth, 0) * var(--oakd-tree-indent));
+	padding-left: calc(var(--oakd-tree-depth, 0) * var(--oakd-tree-indent));
 	min-height: var(--oakd-line-height);
 }
 

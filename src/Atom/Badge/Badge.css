@@ -23,7 +23,7 @@
 	display: inline-block;
 	width: calc(var(--oakd-leading) * 0.7);
 	height: calc(var(--oakd-leading) * 0.7);
-	border-radius: 100%;
+	border-radius: var(--oakd-radius-round);
 	background: var(--oakd-card-danger-border);
 	box-shadow: 0 0 0 var(--oakd-border-width)
 		var(--oakd-card-default-color);

@@ -216,7 +216,6 @@ export const WithFeaturesAndErrorLines = () => (
     lineNumbers
     highlightCurrentLine
     errorLines={[2, 5]}
-    codeType="default"
     size="default"
     grow
   />

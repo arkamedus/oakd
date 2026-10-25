@@ -243,7 +243,7 @@ const TreeNode: React.FC<{
 			]
 				.filter(Boolean)
 				.join(" ")}
-			style={{ ["--tree-depth" as any]: depth }}
+			style={{ ["--oakd-tree-depth" as any]: depth }}
 			data-testid={`TreeRow-${item.id}`}
 			draggable={!isRootNode}
 			align="center"
@@ -358,7 +358,7 @@ const TreeNode: React.FC<{
 	return (
 		<Content
 			className={["tree__node"].filter(Boolean).join(" ")}
-			style={{ ["--tree-depth" as any]: depth }}
+			style={{ ["--oakd-tree-depth" as any]: depth }}
 		>
 			{item.menuContent ? (
 				<ContextMenu content={item.menuContent}>{row}</ContextMenu>
@@ -437,7 +437,7 @@ const TreeNode: React.FC<{
 							]
 								.filter(Boolean)
 								.join(" ")}
-							style={{ ["--tree-depth" as any]: depth + 1 }}
+							style={{ ["--oakd-tree-depth" as any]: depth + 1 }}
 							data-testid={`TreeEndSlot-${item.id}`}
 							onDragOver={(event) => {
 								event.preventDefault();
@@ -479,7 +479,7 @@ const TreeNode: React.FC<{
 							]
 								.filter(Boolean)
 								.join(" ")}
-							style={{ ["--tree-depth" as any]: depth + 1 }}
+							style={{ ["--oakd-tree-depth" as any]: depth + 1 }}
 							onDragOver={(event) => {
 								event.preventDefault();
 								event.stopPropagation();

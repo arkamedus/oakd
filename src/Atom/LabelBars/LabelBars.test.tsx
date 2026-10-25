@@ -5,17 +5,18 @@ import { getChartColor } from "../Chart/Chart.shared";
 
 describe("LabelBars Component", () => {
   it("renders labels and probabilities", () => {
-    render(
-      <LabelBars labels={[{ label: "Support", prob: 0.84 }]} />,
-    );
+    render(<LabelBars labels={[{ label: "Support", prob: 0.84 }]} />);
 
     expect(screen.getByText("Support")).toBeInTheDocument();
     expect(screen.getByText("84.0%")).toBeInTheDocument();
   });
 
-  it("renders an empty state when there are no labels", () => {
-    render(<LabelBars labels={[]} />);
-    expect(screen.getByText("No label guesses.")).toBeInTheDocument();
+  it("renders no content when there are no labels", () => {
+    const { container } = render(<LabelBars labels={[]} />);
+    expect(container).toHaveTextContent("");
+    expect(
+      container.querySelector(".oakd-label-bars > .space"),
+    ).toBeEmptyDOMElement();
   });
 
   it("uses the shared chart palette by default", () => {
@@ -38,7 +39,10 @@ describe("LabelBars Component", () => {
 
   it("can use scalar probability coloring explicitly", () => {
     render(
-      <LabelBars labels={[{ label: "Support", prob: 0.84 }]} colorMode="scale" />,
+      <LabelBars
+        labels={[{ label: "Support", prob: 0.84 }]}
+        colorMode="scale"
+      />,
     );
 
     expect(screen.getByTestId("LabelBarFill-Support")).toHaveStyle({

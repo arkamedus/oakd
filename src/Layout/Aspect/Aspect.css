@@ -24,7 +24,7 @@
 .aspect::before {
     content: "";
     display: block;
-    padding-top: var(--aspect-ratio, 42.86%); /* Default to 21:9 */
+    padding-top: var(--oakd-aspect-ratio, 42.86%); /* Default to 21:9 */
 }
 
 /* Inner content fills the aspect ratio */
@@ -37,17 +37,17 @@
 }
 
 /* Aspect ratio classes */
-.aspect-1x1 { --aspect-ratio: 100%; }   /* Square */
-.aspect-16x9 { --aspect-ratio: 56.25%; } /* Widescreen */
-.aspect-4x3 { --aspect-ratio: 75%; }     /* Old TV */
-.aspect-3x2 { --aspect-ratio: 66.66%; }
-.aspect-21x9 { --aspect-ratio: 42.86%; } /* Ultrawide */
-.aspect-9x16 { --aspect-ratio: 177.78%; } /* Vertical video */
-.aspect-2x1 { --aspect-ratio: 50%; }     /* Banner */
-.aspect-3x4 { --aspect-ratio: 133.33%; }
-.aspect-5x4 { --aspect-ratio: 80%; }
-.aspect-32x9 { --aspect-ratio: 28.12%; } /* Super Ultrawide */
-.aspect-1x2 { --aspect-ratio: 200%; }    /* Tall */
+.aspect-1x1 { --oakd-aspect-ratio: 100%; }   /* Square */
+.aspect-16x9 { --oakd-aspect-ratio: 56.25%; } /* Widescreen */
+.aspect-4x3 { --oakd-aspect-ratio: 75%; }     /* Old TV */
+.aspect-3x2 { --oakd-aspect-ratio: 66.66%; }
+.aspect-21x9 { --oakd-aspect-ratio: 42.86%; } /* Ultrawide */
+.aspect-9x16 { --oakd-aspect-ratio: 177.78%; } /* Vertical video */
+.aspect-2x1 { --oakd-aspect-ratio: 50%; }     /* Banner */
+.aspect-3x4 { --oakd-aspect-ratio: 133.33%; }
+.aspect-5x4 { --oakd-aspect-ratio: 80%; }
+.aspect-32x9 { --oakd-aspect-ratio: 28.12%; } /* Super Ultrawide */
+.aspect-1x2 { --oakd-aspect-ratio: 200%; }    /* Tall */
 
 /* Ensure it does not exceed the container */
 .aspect-max {

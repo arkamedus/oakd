@@ -56,10 +56,25 @@ export const getAdaptiveDropdownPlacement = (
 		return { direction, style: {} };
 	}
 
+	const theme = window.getComputedStyle(element);
+	const themeTokens: Record<string, string> = {};
+	for (let index = 0; index < theme.length; index++) {
+		const name = theme.item(index);
+		if (name.startsWith("--oakd-")) themeTokens[name] = theme.getPropertyValue(name);
+	}
 	const rect = element.getBoundingClientRect();
-	const rootStyle = window.getComputedStyle(document.documentElement);
-	const leading =
-		Number.parseFloat(rootStyle.getPropertyValue("--leading")) || 8;
+	// Resolve lengths through layout so pt, rem, calc(), and scoped themes work.
+	// A DOM probe is necessary here because custom-property values retain units.
+	const probe = document.createElement("span");
+	probe.style.cssText = "position:absolute;visibility:hidden;pointer-events:none;padding:0;border:0;min-width:0;max-width:none;height:0;";
+	probe.style.width = "var(--oakd-leading, 8px)";
+	element.appendChild(probe);
+	const resolved = window.getComputedStyle(probe).width;
+	const measured = Number.parseFloat(resolved);
+	const leading = resolved.endsWith("px") && Number.isFinite(measured)
+		? Math.max(0, measured)
+		: 8;
+	probe.remove();
 	const vertical = direction.startsWith("top") ? "top" : "bottom";
 	const horizontal = direction.endsWith("right") ? "right" : "left";
 	const clampedLeft = Math.min(
@@ -80,6 +95,7 @@ export const getAdaptiveDropdownPlacement = (
 	return {
 		direction,
 		style: {
+			...themeTokens,
 			"--oakd-dropdown-fixed-top":
 				vertical === "bottom" ? `${rect.bottom + leading}px` : "auto",
 			"--oakd-dropdown-fixed-right":

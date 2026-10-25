@@ -21,6 +21,25 @@ describe("Select Component", () => {
 
   const renderComponent = (p?) => render(<Select {...props} {...p} />);
 
+  it("keeps category dividers outside padded headings", () => {
+    renderComponent({
+      defaultOpen: true,
+      categoryOrder: ["Open"],
+      options: [
+        {
+          value: "draft",
+          category: "Open",
+          element: <Paragraph>Draft</Paragraph>,
+        },
+      ],
+    });
+    const menu = screen.getByRole("listbox");
+    const divider = screen.getByTestId("Divider");
+    expect(menu).toContainElement(divider);
+    expect(divider.closest(".pad")).toBeNull();
+    expect(screen.getByText("Open").closest(".pad")).not.toBeNull();
+  });
+
   it("uses the neutral trigger by default and preserves the disabled state", () => {
     const { rerender } = renderComponent();
     const button = screen.getByRole("button");

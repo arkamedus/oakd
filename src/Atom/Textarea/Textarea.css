@@ -1,31 +1,37 @@
-.oakd-textarea {
+textarea.oakd.oakd-textarea {
 	box-sizing: border-box;
 	min-height: calc(var(--oakd-line-height) * 5);
-	padding: var(--oakd-leading);
+	padding: calc(var(--oakd-leading) / 2) var(--oakd-leading);
 	resize: vertical;
-	font: inherit;
+	font-family: var(--oakd-font-family);
+	font-size: var(--oakd-font-size);
+	line-height: var(--oakd-line-height);
+	outline: none;
 	color: var(--oakd-font-color);
 	background: var(--oakd-background);
 	border: var(--oakd-border-width) solid var(--oakd-default-border);
 	border-radius: var(--oakd-radius);
+	transition:
+		background-color 0.2s ease-in-out,
+		border-color 0.2s ease-in-out;
 }
-.oakd-textarea.wide {
+textarea.oakd.oakd-textarea.wide {
 	width: 100%;
 }
-.oakd-textarea.grow {
+textarea.oakd.oakd-textarea.grow {
 	flex: 1 1 auto;
 	min-height: 0;
 }
-.oakd-textarea--error {
-	border-color: var(--oakd-danger-border);
+textarea.oakd.oakd-textarea--error {
+	border-color: var(--oakd-danger-color);
 }
-.oakd-textarea:disabled {
+textarea.oakd.oakd-textarea:disabled {
 	color: var(--oakd-disabled-text);
 	background: var(--oakd-disabled-color);
 	border-color: var(--oakd-disabled-border);
 	cursor: not-allowed;
 }
-.oakd-textarea:focus-visible {
+textarea.oakd.oakd-textarea:focus-visible {
 	outline: none;
-	box-shadow: var(--oakd-focus-ring);
+	box-shadow: none;
 }

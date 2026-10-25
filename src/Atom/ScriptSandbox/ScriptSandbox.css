@@ -45,7 +45,7 @@
     border-bottom: var(--oakd-border-width) solid var(--oakd-card-default-border);
     color: var(--oakd-card-danger-text);
     background: var(--oakd-card-danger-color);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    font-family: var(--oakd-font-family-mono);
     font-size: var(--oakd-font-size);
     white-space: pre-wrap;
 }
