@@ -42,7 +42,7 @@ input.oakd.input.size-large {
 .input-container.type-default {
   background-color: var(--oakd-background);
   border-color: var(--oakd-default-border);
-  color: var(--oakd-default-text);
+  color: var(--oakd-font-color);
 }
 
 .input-container.type-primary {
@@ -106,7 +106,7 @@ input.oakd.input.type-disabled {
 }
 
 .oakd.input-container.type-default input.oakd.standardized-text.input {
-  color: var(--oakd-default-text);
+  color: var(--oakd-font-color);
 }
 
 .oakd.input-container.type-primary input.oakd.standardized-text.input {
@@ -135,4 +135,9 @@ input.oakd.input.type-disabled {
 
 .oakd.input-container.type-disabled input.oakd.standardized-text.input {
   color: var(--oakd-disabled-text);
+}
+
+input.oakd.input::placeholder {
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  opacity: 1;
 }

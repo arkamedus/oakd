@@ -59,3 +59,20 @@ it("reports axis-specific numeric changes and actions", () => {
   ).not.toBeNull();
   expect(reset).toHaveBeenCalledWith("x");
 });
+
+it.each(["grid", "toolbar"] as const)("allows clearing zero and entering a replacement in %s", (layout) => {
+  const change = jest.fn();
+  const { rerender } = render(<VectorField value={{ x: 0, y: 2 }} onChange={change} layout={layout} />);
+  const input = screen.getByLabelText("X") as HTMLInputElement;
+  fireEvent.focus(input);
+  fireEvent.change(input, { target: { value: "" } });
+  expect(input.value).toBe("");
+  expect(change).not.toHaveBeenCalled();
+  fireEvent.change(input, { target: { value: "42" } });
+  expect(change).toHaveBeenCalledWith({ x: 42, y: 2 }, "x");
+  rerender(<VectorField value={{ x: 42, y: 2 }} onChange={change} layout={layout} />);
+  expect(input.value).toBe("42");
+  fireEvent.change(input, { target: { value: "" } });
+  fireEvent.blur(input);
+  expect(input.value).toBe("42");
+});

@@ -54,7 +54,8 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
     const setAxis = (axis: VectorAxis, nextValue: number) => {
       if (readOnly) return;
       const options = axisOptions?.[axis];
-      const finite = Number.isFinite(nextValue) ? nextValue : 0;
+      if (!Number.isFinite(nextValue)) return;
+      const finite = nextValue;
       const bounded = Math.min(
         options?.max ?? Number.POSITIVE_INFINITY,
         Math.max(options?.min ?? Number.NEGATIVE_INFINITY, finite),

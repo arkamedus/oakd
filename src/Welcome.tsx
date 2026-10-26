@@ -326,7 +326,6 @@ export const Welcome = () => {
                     />
                     <Input
                       icon={"List"}
-                      placeholder={"errored"}
                       type={"number"}
                       variant={"default"}
                       error

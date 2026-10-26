@@ -328,6 +328,7 @@ const ColorField = forwardRef<HTMLDivElement, ColorFieldProps>(
 											value={channel.value}
 											disabled={disabled}
 											onChange={(event) =>
+												Number.isFinite(event.currentTarget.valueAsNumber) &&
 												channel.update(event.currentTarget.valueAsNumber)
 											}
 										/>
@@ -360,6 +361,7 @@ const ColorField = forwardRef<HTMLDivElement, ColorFieldProps>(
 											value={normalized.a ?? 1}
 											disabled={disabled}
 											onChange={(event) =>
+												Number.isFinite(event.currentTarget.valueAsNumber) &&
 												emit({
 													...normalized,
 													a: event.currentTarget.valueAsNumber,

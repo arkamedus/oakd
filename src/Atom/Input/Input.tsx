@@ -36,6 +36,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       className = "",
       style,
       onChange,
+      onBlur,
       grow,
       ...rest
     },
@@ -47,6 +48,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const [internalValue, setInternalValue] = useState<InputValue>(
       defaultValue ?? "",
     );
+    const [numberEmpty, setNumberEmpty] = useState(false);
     const [hasError, setHasError] = useState(error);
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -63,6 +65,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       if (!isControlled) {
         setInternalValue(event.target.value);
       }
+      setNumberEmpty(type === "number" && event.target.value === "");
       setHasError(false);
       onChange?.(event);
     };
@@ -79,7 +82,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       }
     }, [isControlled, value]);
 
-    const renderedValue = isControlled ? value : internalValue;
+    // Numeric consumers keep their last valid value while an empty draft is edited.
+    useEffect(() => {
+      setNumberEmpty(false);
+    }, [value, type]);
+
+    const renderedValue = isControlled
+      ? numberEmpty
+        ? ""
+        : value
+      : internalValue;
 
     const containerClasses = [
       "oakd",
@@ -133,6 +145,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             placeholder={placeholder}
             disabled={disabled}
             onChange={handleChange}
+            onBlur={(event) => {
+              setNumberEmpty(false);
+              onBlur?.(event);
+            }}
           />
           {hasError && (
             <IconAlert
