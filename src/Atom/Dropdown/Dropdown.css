@@ -112,3 +112,7 @@
 .oakd-dropdown-content.oakd.card.active {
 	display: block;
 }
+
+.oakd-dropdown-content.oakd.card.type-default {
+	border-color: var(--oakd-default-border);
+}

@@ -36,3 +36,7 @@
 .oakd-search-select__empty {
 	opacity: 0.72;
 }
+
+.oakd-search-select__menu.oakd.card.type-default {
+	border-color: var(--oakd-default-border);
+}

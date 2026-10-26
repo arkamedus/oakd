@@ -128,3 +128,7 @@
 .oakd-select__empty {
 	opacity: 0.72;
 }
+
+.oakd-select__dropdown.oakd.card.type-default {
+	border-color: var(--oakd-default-border);
+}
