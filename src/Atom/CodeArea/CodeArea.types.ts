@@ -1,4 +1,5 @@
 import React from "react";
+import { CoreComponentSizeType } from "../../Core/Core.types";
 
 export type CodeAreaTokenRule = {
 	/** CSS class applied to matched segments */
@@ -25,7 +26,7 @@ export interface CodeAreaProps extends Omit<
 	readOnly?: boolean;
 
 	/** Size variants */
-	size?: "small" | "default" | "large";
+	size?: Exclude<CoreComponentSizeType, "huge">;
 
 	/** Expand to fill available width */
 	grow?: boolean;
@@ -45,10 +46,10 @@ export interface CodeAreaProps extends Omit<
 	 */
 	errorLines?: number[];
 
-	/**
-	 * Custom token rules for highlighting.
-	 * If omitted, a simple JS default set is used.
-	 */
+	/** Syntax language; defaults to javascript. Empty or unknown names render plain text. */
+	language?: string;
+
+	/** Custom token rules override the language. An empty array disables coloring. */
 	rules?: CodeAreaTokenRule[];
 
 	/**

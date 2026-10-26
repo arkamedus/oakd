@@ -43,7 +43,7 @@ export const HoverAndFocus: Story = {
               <Paragraph>
                 <strong>Release channel</strong>
               </Paragraph>
-              <Pill size="sm" variant="success">
+              <Pill size="small" variant="success">
                 <Paragraph>Stable</Paragraph>
               </Pill>
             </Space>

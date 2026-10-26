@@ -4,7 +4,7 @@ import "./ContentRail.css";
 import { ContentRailProps } from "./ContentRail.types";
 
 const ContentRail = forwardRef<HTMLDivElement, ContentRailProps>(
-	({ size = "lg", gutter = true, className, ...rest }, ref) => (
+	({ size = "large", gutter = true, className, ...rest }, ref) => (
 		<Content
 			{...rest}
 			ref={ref}

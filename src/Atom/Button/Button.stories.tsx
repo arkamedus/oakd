@@ -22,6 +22,7 @@ const meta: Meta<typeof Button> = {
         "danger",
         "warning",
         "ghost",
+        "disabled",
       ],
       description: "Set the button variant",
       defaultValue: "default",
@@ -190,6 +191,7 @@ export const VariantsGallery = () => (
         "warning",
         "danger",
         "ghost",
+        "disabled",
       ] as ButtonType[]
     ).map((variant) => (
       <Card key={variant} pad wide variant={variant}>

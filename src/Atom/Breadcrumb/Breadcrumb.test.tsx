@@ -3,6 +3,13 @@ import { render, screen } from "@testing-library/react";
 import Breadcrumb from "./Breadcrumb";
 import { BreadcrumbProps } from "./Breadcrumb.types";
 
+jest.mock("../../Icon/Icon", () => ({
+  __esModule: true,
+  default: ({ name, ...props }: { name: string }) => (
+    <span {...props} data-icon-name={name} />
+  ),
+}));
+
 describe("Breadcrumb Component", () => {
   let props: BreadcrumbProps;
 
@@ -13,7 +20,7 @@ describe("Breadcrumb Component", () => {
         { text: "Billing", href: "/billing" },
         { text: "Invoices", href: "/billing/invoices" },
       ],
-      separator: "slash",
+      separator: "Play",
     };
   });
 
@@ -56,3 +63,23 @@ describe("Breadcrumb Component", () => {
     expect(screen.getByText("Projects")).toBeInTheDocument();
   });
 });
+
+it.each([undefined, "Circle", "Play", "Diamond", "Arrow", "Magnify"] as const)(
+  "uses the requested icon name %s, defaulting to Angle",
+  (separator) => {
+    render(
+      <Breadcrumb
+        items={[{ text: "Home" }, { text: "Page" }]}
+        separator={separator}
+      />,
+    );
+    expect(screen.getByTestId("breadcrumb-separator")).toHaveAttribute(
+      "data-icon-name",
+      separator ?? "Angle",
+    );
+    expect(screen.getByTestId("breadcrumb-separator")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+  },
+);

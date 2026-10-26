@@ -23,7 +23,7 @@ textarea.oakd.oakd-textarea.grow {
 	min-height: 0;
 }
 textarea.oakd.oakd-textarea--error {
-	border-color: var(--oakd-danger-color);
+	border-color: var(--oakd-danger-border);
 }
 textarea.oakd.oakd-textarea:disabled {
 	color: var(--oakd-disabled-text);

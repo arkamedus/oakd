@@ -129,7 +129,7 @@ const workColumns: DataTableColumn<WorkItem>[] = [
     header: <Paragraph>Status</Paragraph>,
     render: (row) => (
       <Pill
-        size="sm"
+        size="small"
         variant={
           row.status === "Blocked"
             ? "danger"
@@ -213,7 +213,7 @@ const QueueItem = ({
     aria-selected={selected}
     title={<Paragraph>{title}</Paragraph>}
     description={<Paragraph>{description}</Paragraph>}
-    trailing={<Pill size="sm">{status}</Pill>}
+    trailing={<Pill size="small">{status}</Pill>}
     onClick={() => undefined}
   />
 );
@@ -256,7 +256,7 @@ export const Default: Story = {
         }
       />
       <ScrollArea orientation="vertical" grow fill wide>
-        <ContentRail size="xl">
+        <ContentRail size="huge">
           <Content pad wide>
             <Space direction="vertical" gap wide>
               <Row gap>

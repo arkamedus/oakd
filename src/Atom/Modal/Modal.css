@@ -27,13 +27,13 @@
 	overflow: hidden;
 }
 
-.oakd-modal--sm {
+.oakd-modal--small {
 	max-width: var(--oakd-modal-width-sm);
 }
-.oakd-modal--md {
+.oakd-modal--default {
 	max-width: var(--oakd-modal-width-md);
 }
-.oakd-modal--lg {
+.oakd-modal--large {
 	max-width: var(--oakd-modal-width-lg);
 }
 .oakd-modal--viewport {
@@ -41,6 +41,7 @@
 	height: calc(100dvh - var(--oakd-viewport-inset));
 }
 
+.oakd-modal > .oakd.divider,
 .oakd-modal__header,
 .oakd-modal__footer {
 	flex: 0 0 auto;
@@ -48,12 +49,10 @@
 
 .oakd-modal__header {
 	justify-content: space-between;
-	border-bottom: var(--oakd-border-width) solid var(--oakd-default-border);
 }
 
 .oakd-modal__footer {
 	justify-content: flex-end;
-	border-top: var(--oakd-border-width) solid var(--oakd-default-border);
 }
 
 .oakd-modal__heading {

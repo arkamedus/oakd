@@ -35,7 +35,8 @@ export type ButtonType =
 	| "danger"
 	| "warning"
 	| "ghost"
-	| "active";
+	| "active"
+	| "disabled";
 
 export type CoreComponentSizeType = "default" | "small" | "large" | "huge";
 export type CoreComponentLayoutSizingType =

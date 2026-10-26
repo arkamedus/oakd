@@ -37,7 +37,7 @@ const header = (
       <Space align="center" gap noWrap>
         <Icon name="Cloud" size="small" />
         <Title size="small">Atlas</Title>
-        <Pill size="sm">Production</Pill>
+        <Pill size="small">Production</Pill>
       </Space>
       <Space align="center" gap noWrap>
         <Button icon="Bell" aria-label="Notifications" />
@@ -106,7 +106,7 @@ const MetricCard = ({
     <Space direction="vertical" gap wide>
       <Space align="center" justify="between" gap wide noWrap>
         <Paragraph>{label}</Paragraph>
-        <Pill size="sm" variant={status}>
+        <Pill size="small" variant={status}>
           {detail}
         </Pill>
       </Space>
@@ -189,7 +189,7 @@ const body = (
                       leading={<Icon name="Folder" size="small" />}
                       title={<Paragraph>{title}</Paragraph>}
                       description={<Paragraph>{description}</Paragraph>}
-                      trailing={<Pill size="sm">{status}</Pill>}
+                      trailing={<Pill size="small">{status}</Pill>}
                       onClick={() => undefined}
                     />
                   ))}
@@ -251,7 +251,7 @@ const body = (
 const footer = (
   <Content pad wide>
     <Space align="center" justify="between" gap wide noWrap>
-      <Pill variant="success" size="sm" icon="Check">
+      <Pill variant="success" size="small" icon="Check">
         All systems operational
       </Pill>
       <Paragraph>Last synchronized 2 minutes ago</Paragraph>

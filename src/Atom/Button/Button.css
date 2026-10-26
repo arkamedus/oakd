@@ -11,7 +11,7 @@
   height: auto;
   transition:
     background-color 0.2s ease-in-out,
-    filter 0.1s ease-in-out;
+    filter var(--oakd-control-feedback-duration) ease-in-out;
 }
 
 /* Button Sizes */
@@ -30,22 +30,16 @@
 /* Interactive States */
 
 .oakd.button.active:not(.disabled) {
-  filter: brightness(1.05);
+  filter: brightness(var(--oakd-control-active-brightness));
 }
 
 .oakd.button:not(.disabled):hover {
-  filter: brightness(1.15);
   cursor: pointer;
 }
 
-.oakd.button:not(.disabled):active {
-  filter: brightness(0.85);
-}
-
 .oakd.button:not(.disabled):focus-visible {
-  filter: brightness(1.1);
   outline: none;
-  box-shadow: var(--oakd-focus-ring);
+  box-shadow: none;
 }
 
 .oakd.button_group > * {

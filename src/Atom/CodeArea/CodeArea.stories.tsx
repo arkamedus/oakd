@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Meta } from "@storybook/react";
 import CodeArea from "./CodeArea";
+import { getCodeAreaRules } from "./CodeArea.rules";
 import { CodeAreaTokenRule } from "./CodeArea.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
@@ -35,21 +36,7 @@ export function formatWorkspace(workspace: WorkspaceSummary): string {
     ? \`\${workspace.owner} manages \${workspace.id}\`
     : "Workspace archived";
 }`,
-    rules: [
-      { className: "tok-comment", regex: /\/\*[\s\S]*?\*\//g },
-      { className: "tok-comment", regex: /\/\/.*$/gm },
-      { className: "tok-string", regex: /(["'`])(?:\\.|(?!\1)[^\\])*\1/g },
-      { className: "tok-number", regex: /\b\d+(\.\d+)?\b/g },
-      {
-        className: "tok-keyword",
-        regex: /\b(type|export|function|return|const|let|if|else)\b/g,
-      },
-      {
-        className: "tok-type",
-        regex: /\b(string|boolean|WorkspaceSummary)\b/g,
-      },
-      { className: "tok-boolean", regex: /\b(true|false)\b/g },
-    ],
+    rules: getCodeAreaRules("typescript"),
   },
   bash: {
     label: "Bash",
@@ -62,18 +49,7 @@ echo "Deploying \${workspace}"
 if [[ -d "build" ]]; then
   tar -czf build.tar.gz build
 fi`,
-    rules: [
-      { className: "tok-comment", regex: /#.*$/gm },
-      { className: "tok-string", regex: /(["'])(?:\\.|(?!\1)[^\\])*\1/g },
-      {
-        className: "tok-keyword",
-        regex: /\b(if|then|fi|set)\b/g,
-      },
-      {
-        className: "tok-builtin",
-        regex: /\b(echo|tar)\b/g,
-      },
-    ],
+    rules: getCodeAreaRules("bash"),
   },
   go: {
     label: "Go",
@@ -90,22 +66,7 @@ func main() {
 	current := release{Name: "oakd", Ready: true}
 	fmt.Println(current.Name, current.Ready)
 }`,
-    rules: [
-      { className: "tok-string", regex: /(["'])(?:\\.|(?!\1)[^\\])*\1/g },
-      {
-        className: "tok-keyword",
-        regex: /\b(package|import|type|struct|func|return)\b/g,
-      },
-      {
-        className: "tok-type",
-        regex: /\b(string|bool)\b/g,
-      },
-      {
-        className: "tok-builtin",
-        regex: /\b(fmt|Println)\b/g,
-      },
-      { className: "tok-boolean", regex: /\b(true|false)\b/g },
-    ],
+    rules: getCodeAreaRules("go"),
   },
   fortran: {
     label: "FORTRAN",
@@ -121,14 +82,7 @@ func main() {
 
   print *, "TOTAL =", total
 end program oakd_metrics`,
-    rules: [
-      { className: "tok-string", regex: /(["'])(?:\\.|(?!\1)[^\\])*\1/g },
-      {
-        className: "tok-keyword",
-        regex: /\b(program|implicit|none|integer|real|do|end|print)\b/gi,
-      },
-      { className: "tok-number", regex: /\b\d+(\.\d+)?\b/g },
-    ],
+    rules: getCodeAreaRules("fortran"),
   },
   css: {
     label: "CSS",
@@ -142,31 +96,7 @@ end program oakd_metrics`,
   color: var(--oakd-font-color);
   font-size: calc(var(--oakd-font-size) * 1.2);
 }`,
-    rules: [
-      { className: "tok-comment", regex: /\/\*[\s\S]*?\*\//g },
-      { className: "tok-string", regex: /(["'])(?:\\.|(?!\1)[^\\])*\1/g },
-      {
-        className: "tok-builtin",
-        regex: /(^|\s)(\.[A-Za-z_-][\w-]*)\b/gm,
-      },
-      {
-        className: "tok-keyword",
-        regex: /\b(display|gap|background|color|font-size)\b(?=\s*:)/g,
-      },
-      {
-        className: "tok-type",
-        regex: /\b(grid)\b/g,
-      },
-      {
-        className: "tok-builtin",
-        regex: /\b(var|calc)\b(?=\()/g,
-      },
-      {
-        className: "tok-type",
-        regex: /--[A-Za-z_-][\w-]*/g,
-      },
-      { className: "tok-number", regex: /\b\d+(\.\d+)?\b/g },
-    ],
+    rules: getCodeAreaRules("css"),
   },
 };
 
@@ -226,7 +156,7 @@ export const WithLanguageSelect = () => {
   const currentConfig = useMemo(() => languageConfig[language], [language]);
 
   return (
-    <ContentRail size="lg" gutter={false}>
+    <ContentRail size="large" gutter={false}>
       <Card pad wide>
         <Space direction="vertical" gap>
           <Space justify="between" align="center" wide>

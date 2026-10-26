@@ -24,7 +24,7 @@ export const Default: Story = {
     disabled: false,
   },
   render: (args) => (
-    <ContentRail size="sm" gutter={false}>
+    <ContentRail size="small" gutter={false}>
       <Card pad wide>
         <Space direction="vertical" gap>
           <Title>Attach a voice note</Title>
@@ -44,7 +44,7 @@ export const Disabled: Story = {
     disabled: true,
   },
   render: (args) => (
-    <ContentRail size="sm" gutter={false}>
+    <ContentRail size="small" gutter={false}>
       <Card pad wide>
         <Space direction="vertical" gap>
           <Title>Voice notes unavailable</Title>

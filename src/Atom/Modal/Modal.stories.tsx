@@ -116,7 +116,7 @@ export const StructuredSlotsAndInitialFocus: Story = {
 							</Button>
 						</>
 					}
-					size="lg"
+					size="large"
 					bodyScroll={false}
 					dismissible={false}
 					initialFocusRef={primaryAction}
@@ -139,7 +139,7 @@ export const SmallDismissible: Story = {
 		open: true,
 		onClose: () => undefined,
 		title: <Title size="small">Small confirmation</Title>,
-		size: "sm",
+		size: "small",
 		dismissible: true,
 		closeButtonLabel: "Dismiss confirmation",
 		children: <Paragraph>Compact modal content.</Paragraph>,

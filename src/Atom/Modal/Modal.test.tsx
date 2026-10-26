@@ -56,3 +56,15 @@ describe("Modal Component", () => {
 		expect(props.onClose).toHaveBeenCalledTimes(2);
 	});
 });
+
+ it("uses full-width standard dividers only beside present header and footer slots", () => {
+   const { rerender } = render(<Modal open title="Title" footer="Footer" onClose={() => undefined}>Body</Modal>);
+   const dialog = screen.getByRole("dialog");
+   expect(screen.getAllByRole("separator")).toHaveLength(2);
+   for (const divider of screen.getAllByRole("separator")) {
+     expect(divider).toHaveClass("oakd", "divider", "horizontal");
+     expect(divider.parentElement).toBe(dialog);
+   }
+   rerender(<Modal open dismissible={false} onClose={() => undefined}>Body</Modal>);
+   expect(screen.queryByRole("separator")).not.toBeInTheDocument();
+ });

@@ -46,8 +46,10 @@ const Select = <T,>({
   emptyContent = "No options",
   ...rest
 }: SelectProps<T>) => {
+  disabled = disabled || variant === "disabled";
+  variant = disabled ? "disabled" : variant;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
-  const isActive = open ?? internalOpen;
+  const isActive = !disabled && (open ?? internalOpen);
   const setOpen = useCallback(
     (next: boolean) => {
       if (open === undefined) setInternalOpen(next);
@@ -87,7 +89,7 @@ const Select = <T,>({
 
   const selectOption = useCallback(
     (option: SelectOption<T>) => {
-      if (option.disabled) return;
+      if (disabled || option.disabled) return;
       if (!isControlled) {
         setSelectedValueState(option.value);
       }
@@ -95,11 +97,12 @@ const Select = <T,>({
       setOpen(false);
       triggerRef.current?.focus();
     },
-    [isControlled, onChange, setOpen],
+    [disabled, isControlled, onChange, setOpen],
   );
 
   const handleButtonKeyDown = useCallback(
     (event: KeyboardEvent<HTMLButtonElement>) => {
+      if (disabled) return;
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         toggleMenu();
@@ -121,7 +124,7 @@ const Select = <T,>({
         );
       }
     },
-    [isActive, setOpen, toggleMenu],
+    [disabled, isActive, setOpen, toggleMenu],
   );
 
   const handleOptionKeyDown = useCallback(

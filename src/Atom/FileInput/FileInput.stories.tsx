@@ -23,7 +23,7 @@ export const Default: Story = {
         buttonLabel={<Paragraph>Choose JSON files</Paragraph>}
       />
       <FileInput
-        disabled
+        variant="disabled"
         buttonLabel={<Paragraph>Upload unavailable</Paragraph>}
       />
     </Space>

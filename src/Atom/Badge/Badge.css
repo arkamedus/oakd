@@ -57,3 +57,7 @@
 .oakd-badge.type-ghost > .oakd-badge__dot {
 	background: var(--oakd-card-ghost-border);
 }
+
+.oakd-badge.type-disabled > .oakd-badge__dot {
+	background: var(--oakd-card-disabled-border);
+}

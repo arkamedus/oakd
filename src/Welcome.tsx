@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
+import "./Welcome.css";
 import Space from "./Atom/Space/Space";
 import Title from "./Atom/Title/Title";
 import Paragraph from "./Atom/Paragraph/Paragraph";
@@ -53,7 +54,7 @@ const createWelcomeTree = (): TreeItem[] => [
             label: <Paragraph>launch-banner.png</Paragraph>,
             icon: "Picture",
             leaf: (
-              <Pill size="sm" variant="success">
+              <Pill size="small" variant="success">
                 <Paragraph>ready</Paragraph>
               </Pill>
             ),
@@ -63,7 +64,7 @@ const createWelcomeTree = (): TreeItem[] => [
             label: <Paragraph>homepage-copy.md</Paragraph>,
             icon: "Bookmark",
             leaf: (
-              <Pill size="sm" variant="warning">
+              <Pill size="small" variant="warning">
                 <Paragraph>draft</Paragraph>
               </Pill>
             ),
@@ -80,7 +81,7 @@ const createWelcomeTree = (): TreeItem[] => [
             label: <Paragraph>review-checklist.txt</Paragraph>,
             icon: "File",
             leaf: (
-              <Pill size="sm" variant="primary">
+              <Pill size="small" variant="primary">
                 <Paragraph>review</Paragraph>
               </Pill>
             ),
@@ -227,8 +228,7 @@ export const Welcome = () => {
         alignItems: "center",
         justifyContent: "flex-start",
         overflowY: "auto",
-        background: "linear-gradient(rgb(236 249 245), rgb(244 247 236))",
-        color: "#fff",
+        color: "var(--oakd-font-color)",
         textAlign: "center",
         padding: "40px 0",
       }}
@@ -264,508 +264,510 @@ export const Welcome = () => {
             </Paragraph>
           </Space>
 
-          <Card wide>
-            <DebugLayer label={"oakd | oakframe.org"}>
-              <Content pad>
-                <Space gap direction={"vertical"} wide>
-                  <Space direction={"vertical"} gap wide>
-                    <Paragraph>buttons</Paragraph>
-                    <Space gap wide>
-                      {["default", "primary", "warning", "danger"]
-                        .slice(0, 16)
-                        .map((type: ButtonType, idx) => {
-                          return (
-                            <Button
-                              key={`button-${idx}`}
-                              icon={"Star"}
-                              size={"small"}
-                              variant={type}
-                            >
-                              <Paragraph>{type}</Paragraph>
-                            </Button>
-                          );
-                        })}
-                      <ButtonGroup>
-                        <Button
-                          variant={"default"}
-                          size={"small"}
-                          icon={"Layers"}
-                        />
-                        <Button
-                          variant={"ghost"}
-                          size={"small"}
-                          icon={"Triangle"}
-                        >
-                          <Paragraph>groups</Paragraph>
-                        </Button>
-                        <Button
-                          variant={"warning"}
-                          size={"small"}
-                          icon={"Trash"}
-                        />
-                      </ButtonGroup>
-                    </Space>
-                  </Space>
-
-                  <Space direction={"vertical"} gap wide>
-                    <Paragraph>inputs</Paragraph>
-                    <Space gap wide>
-                      <Input
-                        icon={"User"}
-                        placeholder={"text"}
-                        type={"text"}
+          <DebugLayer
+            label={"oakd | oakframe.org"}
+            style={{ backgroundColor: "var(--oakd-background)" }}
+          >
+            <Content pad>
+              <Space gap direction={"vertical"} wide>
+                <Space direction={"vertical"} gap wide>
+                  <Paragraph>buttons</Paragraph>
+                  <Space gap wide>
+                    {["default", "primary", "warning", "danger"]
+                      .slice(0, 16)
+                      .map((type: ButtonType, idx) => {
+                        return (
+                          <Button
+                            key={`button-${idx}`}
+                            icon={"Star"}
+                            size={"small"}
+                            variant={type}
+                          >
+                            <Paragraph>{type}</Paragraph>
+                          </Button>
+                        );
+                      })}
+                    <ButtonGroup>
+                      <Button
                         variant={"default"}
+                        size={"small"}
+                        icon={"Layers"}
                       />
-                      <Input
-                        icon={"Star"}
-                        placeholder={"password"}
-                        type={"password"}
-                        variant={"default"}
-                      />
-                      <Input
-                        icon={"List"}
-                        placeholder={"errored"}
-                        type={"number"}
-                        variant={"default"}
-                        error
-                        defaultValue={-1}
-                      />
-                    </Space>
-                  </Space>
-
-                  <Space direction={"vertical"} gap wide>
-                    <Paragraph>extended inputs</Paragraph>
-                    <Space wide gap justify={"between"}>
-                      <Select
-                        value={projectStatus}
-                        options={[
-                          {
-                            value: "draft",
-                            label: <Paragraph>Draft</Paragraph>,
-                            element: (
-                              <ActionListItem
-                                leading={<Icon name="Note" size="small" />}
-                                title={<Paragraph>Draft</Paragraph>}
-                              />
-                            ),
-                          },
-                          {
-                            value: "in_review",
-                            label: <Paragraph>In review</Paragraph>,
-                            element: (
-                              <ActionListItem
-                                leading={<Icon name="Eye" size="small" />}
-                                title={<Paragraph>In review</Paragraph>}
-                              />
-                            ),
-                          },
-                          {
-                            value: "published",
-                            label: <Paragraph>Published</Paragraph>,
-                            element: (
-                              <ActionListItem
-                                leading={<Icon name="Check" size="small" />}
-                                title={<Paragraph>Published</Paragraph>}
-                              />
-                            ),
-                          },
-                        ]}
-                        onChange={setProjectStatus}
-                        placeholder="Choose a status"
-                      />
-                      <Dropdown
-                        label={
-                          <Space gap>
-                            <IconDots size="small" />
-                            <Paragraph>Project actions</Paragraph>
-                          </Space>
-                        }
-                        direction={"bottom-right"}
-                        closeOnSelect
+                      <Button
+                        variant={"ghost"}
+                        size={"small"}
+                        icon={"Triangle"}
                       >
-                        <Content style={{ minWidth: 240, textAlign: "left" }}>
-                          <ActionList role="menu" divided={false}>
-                            <ActionListItem
-                              role="menuitem"
-                              leading={<Icon name="Eye" size="small" />}
-                              title={<Paragraph>Request review</Paragraph>}
-                              onClick={() => undefined}
-                            />
-                            <ActionListItem
-                              role="menuitem"
-                              leading={<Icon name="Check" size="small" />}
-                              title={<Paragraph>Publish project</Paragraph>}
-                              onClick={() => undefined}
-                            />
-                          </ActionList>
-                          <Divider />
-                          <ActionList role="menu" divided={false}>
-                            <ActionListItem
-                              role="menuitem"
-                              leading={<Icon name="Note" size="small" />}
-                              title={<Paragraph>Return to draft</Paragraph>}
-                              onClick={() => undefined}
-                            />
-                          </ActionList>
-                        </Content>
-                      </Dropdown>
-                    </Space>
-                    <CodeArea
-                      grow
-                      lineNumbers
-                      errorLines={[3]}
-                      highlightCurrentLine
-                      style={{ textAlign: "left" }}
-                      defaultValue={
-                        "// javascript syntax highlighting\nconst name = `oakd`;\n// with configurable line support!"
-                      }
+                        <Paragraph>groups</Paragraph>
+                      </Button>
+                      <Button
+                        variant={"warning"}
+                        size={"small"}
+                        icon={"Trash"}
+                      />
+                    </ButtonGroup>
+                  </Space>
+                </Space>
+
+                <Space direction={"vertical"} gap wide>
+                  <Paragraph>inputs</Paragraph>
+                  <Space gap wide>
+                    <Input
+                      icon={"User"}
+                      placeholder={"text"}
+                      type={"text"}
+                      variant={"default"}
+                    />
+                    <Input
+                      icon={"Star"}
+                      placeholder={"password"}
+                      type={"password"}
+                      variant={"default"}
+                    />
+                    <Input
+                      icon={"List"}
+                      placeholder={"errored"}
+                      type={"number"}
+                      variant={"default"}
+                      error
+                      defaultValue={-1}
                     />
                   </Space>
+                </Space>
 
-                  <Collapsible
-                    title={
-                      <Paragraph>
-                        <strong>Collapsible</strong> Click to open
-                      </Paragraph>
-                    }
-                  >
-                    <Content pad>
-                      <Paragraph>This was hidden</Paragraph>
-                    </Content>
-                  </Collapsible>
-
-                  <Space direction={"vertical"} gap>
-                    <Paragraph>small utils</Paragraph>
-                    <Breadcrumb
-                      items={[
+                <Space direction={"vertical"} gap wide>
+                  <Paragraph>extended inputs</Paragraph>
+                  <Space wide gap justify={"between"}>
+                    <Select
+                      value={projectStatus}
+                      options={[
                         {
-                          text: (
-                            <Paragraph>
-                              <IconHome size={"small"} /> Root
-                            </Paragraph>
+                          value: "draft",
+                          label: <Paragraph>Draft</Paragraph>,
+                          element: (
+                            <ActionListItem
+                              leading={<Icon name="Note" size="small" />}
+                              title={<Paragraph>Draft</Paragraph>}
+                            />
                           ),
                         },
-                        { text: <Paragraph>Category</Paragraph> },
                         {
-                          text: (
-                            <Paragraph>
-                              <strong>Section</strong>
-                            </Paragraph>
+                          value: "in_review",
+                          label: <Paragraph>In review</Paragraph>,
+                          element: (
+                            <ActionListItem
+                              leading={<Icon name="Eye" size="small" />}
+                              title={<Paragraph>In review</Paragraph>}
+                            />
+                          ),
+                        },
+                        {
+                          value: "published",
+                          label: <Paragraph>Published</Paragraph>,
+                          element: (
+                            <ActionListItem
+                              leading={<Icon name="Check" size="small" />}
+                              title={<Paragraph>Published</Paragraph>}
+                            />
                           ),
                         },
                       ]}
+                      onChange={setProjectStatus}
+                      placeholder="Choose a status"
                     />
-                    <Space direction={"vertical"} gap wide>
-                      <Pagination
-                        maxPage={21}
-                        currentPage={5}
-                        showPreviousNext
-                        showNumbers
-                        showEllipsis
-                        size={"small"}
-                      />
-                    </Space>
-                    <Announcement variant={"primary"} closable>
-                      <Paragraph>
-                        This is a dismissible primary Announcement!
-                      </Paragraph>
-                    </Announcement>
-                    <Row
-                      gap
-                      wide
-                      //justify={"stretch"}
-                      //align={"stretch"}
+                    <Dropdown
+                      label={
+                        <Space gap>
+                          <IconDots size="small" />
+                          <Paragraph>Project actions</Paragraph>
+                        </Space>
+                      }
+                      direction={"bottom-right"}
+                      closeOnSelect
                     >
-                      <Col xs={24} md={12}>
-                        <Card pad>
-                          <Space align={"center"} justify={"center"} gap>
-                            <Icon name="Layers" size="large" />
-                            <Paragraph>
-                              this is a card!
-                              <br />
-                              it has multiple lines or text centered
-                            </Paragraph>
-                          </Space>
-                        </Card>
-                      </Col>
-                      <Col xs={12} md={6}>
-                        <Card pad fill variant={"ghost"}>
-                          <Space align={"end"} justify={"center"} fill>
-                            <Title>42</Title>
-                            <Paragraph>tk/s</Paragraph>
-                          </Space>
-                        </Card>
-                      </Col>
-                      <Col xs={12} md={6}>
-                        <Card pad fill>
-                          <Space align={"center"} justify={"center"} fill>
-                            <Card pad variant={"ghost"}>
-                              <Paragraph>centered card</Paragraph>
-                            </Card>
-                          </Space>
-                        </Card>
-                      </Col>
-                    </Row>
-                    <Paragraph>svg icons</Paragraph>
-                    <Space wide gap justify={"between"}>
-                      {IconTypes.slice(0, 152).map(
-                        (icon: CoreIconNameType, idx: number) => {
-                          return (
-                            <Paragraph>
-                              <Icon
-                                key={`icon-${idx}`}
-                                name={icon}
-                                size="small"
-                              />
-                            </Paragraph>
-                          );
-                        },
-                      )}
-                      <Paragraph>
-                        <em>and more!</em>
-                      </Paragraph>
-                    </Space>
+                      <Content style={{ minWidth: 240, textAlign: "left" }}>
+                        <ActionList role="menu" divided={false}>
+                          <ActionListItem
+                            role="menuitem"
+                            leading={<Icon name="Eye" size="small" />}
+                            title={<Paragraph>Request review</Paragraph>}
+                            onClick={() => undefined}
+                          />
+                          <ActionListItem
+                            role="menuitem"
+                            leading={<Icon name="Check" size="small" />}
+                            title={<Paragraph>Publish project</Paragraph>}
+                            onClick={() => undefined}
+                          />
+                        </ActionList>
+                        <Divider />
+                        <ActionList role="menu" divided={false}>
+                          <ActionListItem
+                            role="menuitem"
+                            leading={<Icon name="Note" size="small" />}
+                            title={<Paragraph>Return to draft</Paragraph>}
+                            onClick={() => undefined}
+                          />
+                        </ActionList>
+                      </Content>
+                    </Dropdown>
                   </Space>
+                  <CodeArea
+                    grow
+                    lineNumbers
+                    errorLines={[3]}
+                    highlightCurrentLine
+                    style={{ textAlign: "left" }}
+                    defaultValue={
+                      "// javascript syntax highlighting\nconst name = `oakd`;\n// with configurable line support!"
+                    }
+                  />
+                </Space>
 
+                <Collapsible
+                  title={
+                    <Paragraph>
+                      <strong>Collapsible</strong> Click to open
+                    </Paragraph>
+                  }
+                >
+                  <Divider />
+                  <Content pad>
+                    <Paragraph>This was hidden</Paragraph>
+                  </Content>
+                </Collapsible>
+
+                <Space direction={"vertical"} gap>
+                  <Paragraph>small utils</Paragraph>
+                  <Breadcrumb
+                    items={[
+                      {
+                        text: (
+                          <Paragraph>
+                            <IconHome size={"small"} /> Root
+                          </Paragraph>
+                        ),
+                      },
+                      { text: <Paragraph>Category</Paragraph> },
+                      {
+                        text: (
+                          <Paragraph>
+                            <strong>Section</strong>
+                          </Paragraph>
+                        ),
+                      },
+                    ]}
+                  />
                   <Space direction={"vertical"} gap wide>
-                    <Paragraph>data displays</Paragraph>
-                    <Row gap>
-                      <Column xs={24} md={12}>
-                        <Card pad wide fill>
-                          <Space
-                            direction={"vertical"}
-                            gap
-                            wide
-                            fill
-                            align={"stretch"}
-                          >
-                            <Paragraph>
-                              <strong>multi line graphs</strong>
-                            </Paragraph>
-                            <Content grow fill wide>
-                              <MultiLineChart
-                                lines={[
-                                  {
-                                    label: "Signups",
-                                    values: [
-                                      { x: "2026-04-01", y: 18 },
-                                      { x: "2026-04-02", y: 24 },
-                                      { x: "2026-04-03", y: 28 },
-                                      { x: "2026-04-04", y: 31 },
-                                      { x: "2026-04-05", y: 35 },
-                                    ],
-                                  },
-                                  {
-                                    label: "Activations",
-                                    values: [
-                                      { x: "2026-04-01", y: 12 },
-                                      { x: "2026-04-02", y: 16 },
-                                      { x: "2026-04-03", y: 22 },
-                                      { x: "2026-04-04", y: 20 },
-                                      { x: "2026-04-05", y: 26 },
-                                    ],
-                                  },
-                                  {
-                                    label: "Retention",
-                                    values: [
-                                      { x: "2026-04-01", y: 8 },
-                                      { x: "2026-04-02", y: 11 },
-                                      { x: "2026-04-03", y: 13 },
-                                      { x: "2026-04-04", y: 14 },
-                                      { x: "2026-04-05", y: 18 },
-                                    ],
-                                  },
-                                ]}
-                                hoverLabel={"events"}
-                                fill
-                                showVerticalTicks
-                                smooth
-                              />
-                            </Content>
-                          </Space>
-                        </Card>
-                      </Column>
-
-                      <Column xs={24} md={12}>
-                        <Card pad wide fill>
-                          <Space
-                            direction={"vertical"}
-                            gap
-                            wide
-                            fill
-                            align={"stretch"}
-                          >
-                            <Paragraph>
-                              <strong>stacked bar graphs</strong>
-                            </Paragraph>
-                            <Content grow fill wide>
-                              <StackedBreakdownChart
-                                labels={[
-                                  "Helpful",
-                                  "Neutral",
-                                  "Risky",
-                                  "Escalated",
-                                ]}
-                                xLabels={[
-                                  <Paragraph key={"wk1"}>Week 1</Paragraph>,
-                                  <Paragraph key={"wk2"}>Week 2</Paragraph>,
-                                  <Paragraph key={"wk3"}>Week 3</Paragraph>,
-                                  <Paragraph key={"wk4"}>Week 4</Paragraph>,
-                                  <Paragraph key={"wk5"}>Week 5</Paragraph>,
-                                ]}
-                                rows={[
-                                  {
-                                    key: "week-1",
-                                    labelWeights: {
-                                      Helpful: 0.48,
-                                      Neutral: 0.27,
-                                      Risky: 0.17,
-                                      Escalated: 0.08,
-                                    },
-                                  },
-                                  {
-                                    key: "week-2",
-                                    labelWeights: {
-                                      Helpful: 0.55,
-                                      Neutral: 0.2,
-                                      Risky: 0.16,
-                                      Escalated: 0.09,
-                                    },
-                                  },
-                                  {
-                                    key: "week-3",
-                                    labelWeights: {
-                                      Helpful: 0.58,
-                                      Neutral: 0.18,
-                                      Risky: 0.14,
-                                      Escalated: 0.1,
-                                    },
-                                  },
-                                  {
-                                    key: "week-4",
-                                    labelWeights: {
-                                      Helpful: 0.51,
-                                      Neutral: 0.24,
-                                      Risky: 0.15,
-                                      Escalated: 0.1,
-                                    },
-                                  },
-                                  {
-                                    key: "week-5",
-                                    labelWeights: {
-                                      Helpful: 0.63,
-                                      Neutral: 0.16,
-                                      Risky: 0.11,
-                                      Escalated: 0.1,
-                                    },
-                                  },
-                                ]}
-                              />
-                            </Content>
-                          </Space>
-                        </Card>
-                      </Column>
-
-                      <Col xs={24} md={12}>
-                        <Card pad wide fill>
-                          <Space
-                            direction={"vertical"}
-                            gap
-                            wide
-                            align={"stretch"}
-                          >
-                            <Paragraph>
-                              <strong>tree with drag and drop</strong>
-                            </Paragraph>
-                            <Tree
-                              items={boundTreeItems}
-                              onChange={setTreeItems}
-                              wide
+                    <Pagination
+                      maxPage={21}
+                      currentPage={5}
+                      showPreviousNext
+                      showNumbers
+                      showEllipsis
+                      size={"small"}
+                    />
+                  </Space>
+                  <Announcement variant={"primary"} closable>
+                    <Paragraph>
+                      This is a dismissible primary Announcement!
+                    </Paragraph>
+                  </Announcement>
+                  <Row
+                    gap
+                    wide
+                    //justify={"stretch"}
+                    //align={"stretch"}
+                  >
+                    <Col xs={24} md={12}>
+                      <Card pad>
+                        <Space align={"center"} justify={"center"} gap>
+                          <Icon name="Layers" size="large" />
+                          <Paragraph>
+                            this is a card!
+                            <br />
+                            it has multiple lines or text centered
+                          </Paragraph>
+                        </Space>
+                      </Card>
+                    </Col>
+                    <Col xs={12} md={6}>
+                      <Card pad fill variant={"ghost"}>
+                        <Space align={"end"} justify={"center"} fill>
+                          <Title>42</Title>
+                          <Paragraph>tk/s</Paragraph>
+                        </Space>
+                      </Card>
+                    </Col>
+                    <Col xs={12} md={6}>
+                      <Card pad fill>
+                        <Space align={"center"} justify={"center"} fill>
+                          <Card pad variant={"ghost"}>
+                            <Paragraph>centered card</Paragraph>
+                          </Card>
+                        </Space>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <Paragraph>svg icons</Paragraph>
+                  <Space wide gap justify={"between"}>
+                    {IconTypes.slice(0, 152).map(
+                      (icon: CoreIconNameType, idx: number) => {
+                        return (
+                          <Paragraph>
+                            <Icon
+                              key={`icon-${idx}`}
+                              name={icon}
+                              size="small"
                             />
-                          </Space>
-                        </Card>
-                      </Col>
-                      <Col xs={24} md={12}>
-                        <Card pad wide fill>
-                          <Space direction="vertical" gap wide align="stretch">
-                            <Paragraph>
-                              <strong>thumbnail select</strong>
-                            </Paragraph>
-                            <ThumbnailSelect
-                              defaultValue="cube"
-                              wide
-                              options={[
+                          </Paragraph>
+                        );
+                      },
+                    )}
+                    <Paragraph>
+                      <em>and more!</em>
+                    </Paragraph>
+                  </Space>
+                </Space>
+
+                <Space direction={"vertical"} gap wide>
+                  <Paragraph>data displays</Paragraph>
+                  <Row gap>
+                    <Column xs={24} md={12}>
+                      <Card pad wide fill>
+                        <Space
+                          direction={"vertical"}
+                          gap
+                          wide
+                          fill
+                          align={"stretch"}
+                        >
+                          <Paragraph>
+                            <strong>multi line graphs</strong>
+                          </Paragraph>
+                          <Content grow fill wide>
+                            <MultiLineChart
+                              lines={[
                                 {
-                                  value: "cube",
-                                  title: <Paragraph>Cube</Paragraph>,
-                                  note: <Paragraph>Scene primitive</Paragraph>,
-                                  preview: <Icon name="Cube" />,
+                                  label: "Signups",
+                                  values: [
+                                    { x: "2026-04-01", y: 18 },
+                                    { x: "2026-04-02", y: 24 },
+                                    { x: "2026-04-03", y: 28 },
+                                    { x: "2026-04-04", y: 31 },
+                                    { x: "2026-04-05", y: 35 },
+                                  ],
                                 },
                                 {
-                                  value: "sphere",
-                                  title: <Paragraph>Sphere</Paragraph>,
-                                  note: <Paragraph>Scene primitive</Paragraph>,
-                                  preview: <Icon name="Sphere" />,
+                                  label: "Activations",
+                                  values: [
+                                    { x: "2026-04-01", y: 12 },
+                                    { x: "2026-04-02", y: 16 },
+                                    { x: "2026-04-03", y: 22 },
+                                    { x: "2026-04-04", y: 20 },
+                                    { x: "2026-04-05", y: 26 },
+                                  ],
+                                },
+                                {
+                                  label: "Retention",
+                                  values: [
+                                    { x: "2026-04-01", y: 8 },
+                                    { x: "2026-04-02", y: 11 },
+                                    { x: "2026-04-03", y: 13 },
+                                    { x: "2026-04-04", y: 14 },
+                                    { x: "2026-04-05", y: 18 },
+                                  ],
+                                },
+                              ]}
+                              hoverLabel={"events"}
+                              fill
+                              showVerticalTicks
+                              smooth
+                            />
+                          </Content>
+                        </Space>
+                      </Card>
+                    </Column>
+
+                    <Column xs={24} md={12}>
+                      <Card pad wide fill>
+                        <Space
+                          direction={"vertical"}
+                          gap
+                          wide
+                          fill
+                          align={"stretch"}
+                        >
+                          <Paragraph>
+                            <strong>stacked bar graphs</strong>
+                          </Paragraph>
+                          <Content grow fill wide>
+                            <StackedBreakdownChart
+                              labels={[
+                                "Helpful",
+                                "Neutral",
+                                "Risky",
+                                "Escalated",
+                              ]}
+                              xLabels={[
+                                <Paragraph key={"wk1"}>Week 1</Paragraph>,
+                                <Paragraph key={"wk2"}>Week 2</Paragraph>,
+                                <Paragraph key={"wk3"}>Week 3</Paragraph>,
+                                <Paragraph key={"wk4"}>Week 4</Paragraph>,
+                                <Paragraph key={"wk5"}>Week 5</Paragraph>,
+                              ]}
+                              rows={[
+                                {
+                                  key: "week-1",
+                                  labelWeights: {
+                                    Helpful: 0.48,
+                                    Neutral: 0.27,
+                                    Risky: 0.17,
+                                    Escalated: 0.08,
+                                  },
+                                },
+                                {
+                                  key: "week-2",
+                                  labelWeights: {
+                                    Helpful: 0.55,
+                                    Neutral: 0.2,
+                                    Risky: 0.16,
+                                    Escalated: 0.09,
+                                  },
+                                },
+                                {
+                                  key: "week-3",
+                                  labelWeights: {
+                                    Helpful: 0.58,
+                                    Neutral: 0.18,
+                                    Risky: 0.14,
+                                    Escalated: 0.1,
+                                  },
+                                },
+                                {
+                                  key: "week-4",
+                                  labelWeights: {
+                                    Helpful: 0.51,
+                                    Neutral: 0.24,
+                                    Risky: 0.15,
+                                    Escalated: 0.1,
+                                  },
+                                },
+                                {
+                                  key: "week-5",
+                                  labelWeights: {
+                                    Helpful: 0.63,
+                                    Neutral: 0.16,
+                                    Risky: 0.11,
+                                    Escalated: 0.1,
+                                  },
                                 },
                               ]}
                             />
-                            <Paragraph>
-                              <strong>color select</strong>
-                            </Paragraph>
-                            <ColorField
-                              value={accentColor}
-                              onChange={setAccentColor}
-                              wide
-                            />
-                            <Paragraph>
-                              <strong>vector editor</strong>
-                            </Paragraph>
-                            <VectorField
-                              value={position}
-                              onChange={setPosition}
-                              dimensions={3}
-                              layout="toolbar"
-                              wide
-                            />
-                          </Space>
-                        </Card>
-                      </Col>
-                    </Row>
-                  </Space>
-                  <Paragraph>row w/ gap & columns</Paragraph>
-                  <Row gap>
-                    <Column xs={24}>
-                      <DebugLayer label={"Col 24"} />
-                    </Column>
-                    <Column xs={12}>
-                      <DebugLayer label={"Col 12"} />
-                    </Column>
-                    <Column xs={6}>
-                      <DebugLayer label={"Col 6"} />
+                          </Content>
+                        </Space>
+                      </Card>
                     </Column>
 
-                    <Column xs={4}>
-                      <DebugLayer />
-                    </Column>
-                    <Column xs={2}>
-                      <DebugLayer />
-                    </Column>
-
-                    {[
-                      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                      1, 1, 1, 1, 1,
-                    ].map((col, idx) => {
-                      return (
-                        <Column xs={1} key={`col-${idx}`}>
-                          <DebugLayer />
-                        </Column>
-                      );
-                    })}
+                    <Col xs={24} md={12}>
+                      <Card pad wide fill>
+                        <Space
+                          direction={"vertical"}
+                          gap
+                          wide
+                          align={"stretch"}
+                        >
+                          <Paragraph>
+                            <strong>tree with drag and drop</strong>
+                          </Paragraph>
+                          <Tree
+                            items={boundTreeItems}
+                            onChange={setTreeItems}
+                            wide
+                          />
+                        </Space>
+                      </Card>
+                    </Col>
+                    <Col xs={24} md={12}>
+                      <Card pad wide fill>
+                        <Space direction="vertical" gap wide align="stretch">
+                          <Paragraph>
+                            <strong>thumbnail select</strong>
+                          </Paragraph>
+                          <ThumbnailSelect
+                            defaultValue="cube"
+                            wide
+                            options={[
+                              {
+                                value: "cube",
+                                title: <Paragraph>Cube</Paragraph>,
+                                note: <Paragraph>Scene primitive</Paragraph>,
+                                preview: <Icon name="Cube" />,
+                              },
+                              {
+                                value: "sphere",
+                                title: <Paragraph>Sphere</Paragraph>,
+                                note: <Paragraph>Scene primitive</Paragraph>,
+                                preview: <Icon name="Sphere" />,
+                              },
+                            ]}
+                          />
+                          <Paragraph>
+                            <strong>color select</strong>
+                          </Paragraph>
+                          <ColorField
+                            value={accentColor}
+                            onChange={setAccentColor}
+                            wide
+                          />
+                          <Paragraph>
+                            <strong>vector editor</strong>
+                          </Paragraph>
+                          <VectorField
+                            value={position}
+                            onChange={setPosition}
+                            dimensions={3}
+                            layout="toolbar"
+                            wide
+                          />
+                        </Space>
+                      </Card>
+                    </Col>
                   </Row>
                 </Space>
-              </Content>
-            </DebugLayer>
-          </Card>
+                <Paragraph>row w/ gap & columns</Paragraph>
+                <Row gap>
+                  <Column xs={24}>
+                    <DebugLayer label={"Col 24"} />
+                  </Column>
+                  <Column xs={12}>
+                    <DebugLayer label={"Col 12"} />
+                  </Column>
+                  <Column xs={6}>
+                    <DebugLayer label={"Col 6"} />
+                  </Column>
+
+                  <Column xs={4}>
+                    <DebugLayer />
+                  </Column>
+                  <Column xs={2}>
+                    <DebugLayer />
+                  </Column>
+
+                  {[
+                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1,
+                  ].map((col, idx) => {
+                    return (
+                      <Column xs={1} key={`col-${idx}`}>
+                        <DebugLayer />
+                      </Column>
+                    );
+                  })}
+                </Row>
+              </Space>
+            </Content>
+          </DebugLayer>
         </Space>
       </Content>
     </div>

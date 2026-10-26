@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { CodeAreaProps, CodeAreaTokenRule } from "./CodeArea.types";
 import "./CodeArea.css";
+import { getCodeAreaRules } from "./CodeArea.rules";
 
 function escapeHtml(input: string): string {
   return input
@@ -19,23 +20,6 @@ function escapeHtml(input: string): string {
     .replace(/'/g, "&#039;");
 }
 
-function getDefaultJsRules(): CodeAreaTokenRule[] {
-  const keywords =
-    "break|case|catch|class|const|continue|debugger|default|delete|do|else|export|extends|finally|for|function|if|import|in|instanceof|let|new|return|super|switch|this|throw|try|typeof|var|void|while|with|yield|async|await";
-  const types = "string|number|boolean|any|unknown|never|void|null|undefined";
-  const builtins = "console|window|document|JSON|Math|Date|Promise|Set|Map";
-
-  return [
-    { className: "tok-comment", regex: /\/\*[\s\S]*?\*\//g },
-    { className: "tok-comment", regex: /\/\/.*$/gm },
-    { className: "tok-string", regex: /(["'`])(?:\\.|(?!\1)[^\\])*\1/g },
-    { className: "tok-number", regex: /\b\d+(\.\d+)?\b/g },
-    { className: "tok-keyword", regex: new RegExp(`\\b(${keywords})\\b`, "g") },
-    { className: "tok-type", regex: new RegExp(`\\b(${types})\\b`, "g") },
-    { className: "tok-builtin", regex: new RegExp(`\\b(${builtins})\\b`, "g") },
-    { className: "tok-boolean", regex: /\b(true|false)\b/g },
-  ];
-}
 
 function normalizeRegex(rx: RegExp): RegExp {
   return rx.global ? rx : new RegExp(rx.source, rx.flags + "g");
@@ -136,6 +120,7 @@ const CodeArea = forwardRef<HTMLTextAreaElement, CodeAreaProps>(
       highlightCurrentLine = false,
       errorLines = [],
       rules,
+      language = "javascript",
       className = "",
       style,
       onChange,
@@ -167,8 +152,8 @@ const CodeArea = forwardRef<HTMLTextAreaElement, CodeAreaProps>(
     const effectiveValue = isControlled ? (value ?? "") : internalValue;
 
     const effectiveRules = useMemo(
-      () => (rules?.length ? rules : getDefaultJsRules()),
-      [rules],
+      () => rules ?? getCodeAreaRules(language),
+      [rules, language],
     );
 
     const highlightedHtml = useMemo(() => {

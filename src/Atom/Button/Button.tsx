@@ -29,6 +29,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
+    disabled = disabled || variant === "disabled";
+    variant = disabled ? "disabled" : variant;
     const classNames = [
       "oakd",
       "standardized-reset",

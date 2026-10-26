@@ -25,6 +25,7 @@ export const Variants: Story = {
           "warning",
           "danger",
           "ghost",
+          "disabled",
         ] as const
       ).map((variant) => (
         <Badge

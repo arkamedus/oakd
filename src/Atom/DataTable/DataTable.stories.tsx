@@ -134,7 +134,7 @@ const columns: DataTableColumn<ReleaseRow>[] = [
     ),
     render: (row) => (
       <Pill
-        size="sm"
+        size="small"
         variant={
           row.status === "Blocked"
             ? "danger"

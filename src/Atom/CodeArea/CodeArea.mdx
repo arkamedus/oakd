@@ -9,6 +9,12 @@ Syntax highlighting uses `--oakd-code-comment`, `--oakd-code-string`,
 `--oakd-code-number`, `--oakd-code-keyword`, `--oakd-code-type`,
 `--oakd-code-builtin`, and `--oakd-code-boolean`.
 
+The `language` prop supports JavaScript, TypeScript, JSON, Bash, Go, FORTRAN, and CSS.
+Standalone CodeArea defaults to JavaScript. Empty or unknown language names render
+without syntax coloring; custom `rules` override the language, and `rules={[]}`
+disables coloring. MarkdownRenderer passes the fence language, so unlabelled fences
+render without coloring.
+
 Editor-local controls use `--oakd-code-font-family`, `--oakd-code-font-size`,
 `--oakd-code-line-height`, `--oakd-code-font-weight`, `--oakd-code-letter-spacing`,
 `--oakd-code-tab-size`, `--oakd-code-padding-x`, `--oakd-code-padding-y`, and

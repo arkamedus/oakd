@@ -27,7 +27,9 @@ test("built-in themes override the canonical foundation tokens directly", () => 
   expect(values[":root"]["--oakd-radius"]).toBe("0");
   expect(values[".theme-soft"]["--oakd-radius"]).toBe("3pt");
   expect(values[".theme-tight"]["--oakd-leading"]).toBe("4pt");
-  expect(values[".theme-high-contrast"]["--oakd-font-color"]).toBe("#ffffff");
+  expect(values[".theme-high-contrast"]["--oakd-font-color"]).toBe("#000000");
+  expect(values[".theme-high-contrast"]["--oakd-background"]).toBe("#ffffff");
+  expect(values[".theme-high-contrast"]["--oakd-default-text"]).toBe("#000");
 });
 
 test("component radii use shared tokens without local multipliers or offsets", () => {

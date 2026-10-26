@@ -77,11 +77,11 @@ input.oakd.input.size-large {
 
 /* Error State */
 .oakd.input-container.input-error {
-  border-color: var(--oakd-danger-color);
+  border-color: var(--oakd-danger-border);
 }
 
 .oakd.input-container.input-error .oakd.standardized-text.input-error-icon {
-  color: var(--oakd-danger-color);
+  color: var(--oakd-danger-border);
 }
 
 /* Disabled State */
@@ -97,4 +97,42 @@ input.oakd.input.input-disabled,
 input.oakd.input.type-disabled {
   color: var(--oakd-disabled-text);
   cursor: not-allowed;
+}
+
+.input-container.type-active {
+  background-color: var(--oakd-active-color);
+  border-color: var(--oakd-active-border);
+  color: var(--oakd-active-text);
+}
+
+.oakd.input-container.type-default input.oakd.standardized-text.input {
+  color: var(--oakd-default-text);
+}
+
+.oakd.input-container.type-primary input.oakd.standardized-text.input {
+  color: var(--oakd-primary-text);
+}
+
+.oakd.input-container.type-active input.oakd.standardized-text.input {
+  color: var(--oakd-active-text);
+}
+
+.oakd.input-container.type-success input.oakd.standardized-text.input {
+  color: var(--oakd-success-text);
+}
+
+.oakd.input-container.type-danger input.oakd.standardized-text.input {
+  color: var(--oakd-danger-text);
+}
+
+.oakd.input-container.type-warning input.oakd.standardized-text.input {
+  color: var(--oakd-warning-text);
+}
+
+.oakd.input-container.type-ghost input.oakd.standardized-text.input {
+  color: var(--oakd-ghost-text);
+}
+
+.oakd.input-container.type-disabled input.oakd.standardized-text.input {
+  color: var(--oakd-disabled-text);
 }

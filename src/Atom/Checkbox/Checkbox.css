@@ -27,7 +27,7 @@
 	visibility: hidden;
 }
 .oakd-checkbox__input:focus-visible + .oakd-checkbox__indicator {
-	box-shadow: var(--oakd-focus-ring);
+	box-shadow: none;
 }
 .oakd-checkbox:has(input:disabled) {
 	cursor: not-allowed;

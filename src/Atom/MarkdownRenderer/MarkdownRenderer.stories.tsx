@@ -3,8 +3,8 @@ import { Meta, StoryObj } from "@storybook/react";
 import MarkdownRenderer from "./MarkdownRenderer";
 
 const meta: Meta<typeof MarkdownRenderer> = {
-	title: "Design System/Atomic/MarkdownRenderer",
-	component: MarkdownRenderer,
+  title: "Design System/Atomic/MarkdownRenderer",
+  component: MarkdownRenderer,
 };
 
 export default meta;
@@ -12,8 +12,8 @@ export default meta;
 type Story = StoryObj<typeof MarkdownRenderer>;
 
 export const Default: Story = {
-	args: {
-		markdown: `# Release Notes
+  args: {
+    markdown: `# Release Notes
 
 This includes **bold text**, _emphasis_, and a [link](https://example.com).
 
@@ -22,24 +22,81 @@ This includes **bold text**, _emphasis_, and a [link](https://example.com).
 
 > Keep the preview aligned with oakd typography.
 `,
-	},
+  },
 };
 
 export const WithCodeBlock: Story = {
-	args: {
-		markdown: `## Example
+  args: {
+    markdown: `## Plain code
 
 \`\`\`
 const status = "ready";
 console.log(status);
 \`\`\`
-`,
-	},
+
+## javascript
+
+\`\`\`javascript
+const status = "ready";
+console.log(status);
+\`\`\`
+
+## json
+
+\`\`\`json
+{
+  "status": "ready",
+  "count": 3,
+  "active": true
+}
+\`\`\`
+
+## typescript
+
+\`\`\`typescript
+type Status = string;
+const status: Status = "ready";
+\`\`\`
+
+## bash
+
+\`\`\`bash
+#!/usr/bin/env bash
+echo "ready"
+\`\`\`
+
+## go
+
+\`\`\`go
+package main
+import "fmt"
+func main() {
+  fmt.Println("ready")
+}
+\`\`\`
+
+## fortran
+
+\`\`\`fortran
+program status
+  print *, "ready"
+end program status
+\`\`\`
+
+## css
+
+\`\`\`css
+.status {
+  display: grid;
+  color: var(--oakd-font-color);
+}
+\`\`\``,
+  },
 };
 
 export const WithThinkAndIcons: Story = {
-	args: {
-		content: `<|THINK|># Working Notes
+  args: {
+    content: `<|THINK|># Working Notes
 
 Checking the response shape [icon:Bulb] and validating edge cases =D
 
@@ -47,13 +104,13 @@ Checking the response shape [icon:Bulb] and validating edge cases =D
 
 Use [icon:Check] when a task is done, and [icon:Refresh] while work is still moving.
 `,
-	},
+  },
 };
 
 export const WithLoader: Story = {
-	args: {
-		content: `<|THINK|>Streaming partial reasoning...
+  args: {
+    content: `<|THINK|>Streaming partial reasoning...
 <|ASSISTANT|>Drafting the visible answer`,
-		isRendering: true,
-	},
+    isRendering: true,
+  },
 };

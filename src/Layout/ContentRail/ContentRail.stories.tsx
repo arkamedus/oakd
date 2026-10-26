@@ -16,7 +16,7 @@ export const WidthsAndGutters: Story = {
 	render: () => (
 		<Page gap>
 			<Space direction="vertical" gap wide>
-				{(["sm", "md", "lg", "xl", "full"] as const).map((size) => (
+				{(["small", "default", "large", "huge", "full"] as const).map((size) => (
 					<ContentRail key={size} size={size} gutter={size !== "full"}>
 						<Card pad>
 							<Title size="small">{size}</Title>

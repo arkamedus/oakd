@@ -1,6 +1,7 @@
 import React from "react";
+import { CoreComponentSizeType } from "../../Core/Core.types";
 
-export type ModalSize = "sm" | "md" | "lg" | "viewport";
+export type ModalSize = Exclude<CoreComponentSizeType, "huge"> | "viewport";
 
 export interface ModalProps {
 	open: boolean;

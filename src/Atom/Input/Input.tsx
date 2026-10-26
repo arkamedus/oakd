@@ -41,6 +41,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
+    disabled = disabled || variant === "disabled";
+    variant = disabled ? "disabled" : variant;
     const isControlled = value !== undefined;
     const [internalValue, setInternalValue] = useState<InputValue>(
       defaultValue ?? "",
@@ -57,6 +59,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
      * @param {React.ChangeEvent<HTMLInputElement>} event
      */
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (disabled) return;
       if (!isControlled) {
         setInternalValue(event.target.value);
       }

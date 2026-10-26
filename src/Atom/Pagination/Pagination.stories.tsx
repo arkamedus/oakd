@@ -46,7 +46,7 @@ export const WithSearchResultsContext: Story = {
     size: "small",
   },
   render: (args) => (
-    <ContentRail size="md" gutter={false}>
+    <ContentRail size="default" gutter={false}>
       <Card pad wide>
         <Space direction="vertical" gap>
           <Title>Customer search results</Title>

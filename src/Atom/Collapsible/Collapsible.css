@@ -24,11 +24,13 @@
 }
 
 .collapsible__content {
+  padding: 0;
   overflow: hidden;
   width: 100%;
 }
 
 .collapsible__inner {
+  padding: 0;
   opacity: 0;
   animation: fadeIn 0.3s forwards;
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
+import Divider from "../Divider/Divider";
 import Space from "../Space/Space";
 import Content from "../../Layout/Content/Content";
 import "./Modal.css";
@@ -16,7 +17,7 @@ const Modal = ({
 	className,
 	style,
 	closeButtonLabel = "Close modal",
-	size = "md",
+	size = "default",
 	dismissible = true,
 	bodyScroll = true,
 	initialFocusRef,
@@ -107,6 +108,7 @@ const Modal = ({
 						</Space>
 					</Content>
 				) : null}
+				{renderedHeader || dismissible ? <Divider /> : null}
 				<Content
 					className={[
 						"oakd-modal__body",
@@ -118,6 +120,7 @@ const Modal = ({
 				>
 					{children}
 				</Content>
+				{footer ? <Divider /> : null}
 				{footer ? (
 					<Content className="oakd-modal__footer" wide pad>
 						<Space align="center" justify="end" gap wide>

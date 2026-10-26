@@ -87,3 +87,8 @@ describe("CodeArea Component", () => {
   expect(screen.getByTestId("CodeArea").style.getPropertyValue("--oakd-code-padding-x")).toBe("20px");
   expect(screen.getByTestId("CodeArea").style.getPropertyValue("--oakd-code-line-height")).toBe("24px");
 });
+
+it("lets an empty rules array disable coloring even for a known language", () => {
+  const { container } = render(<CodeArea language="javascript" rules={[]} value={'const status = "ready";'} />);
+  expect(container.querySelector('.codearea-highlight [class^="tok-"]')).toBeNull();
+});

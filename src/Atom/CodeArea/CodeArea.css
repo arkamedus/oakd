@@ -101,6 +101,7 @@
 /* ---------- GUTTER ---------- */
 .oakd .codearea-gutter {
   position: absolute;
+  z-index: 1;
   left: 0;
   top: 0;
 
@@ -154,11 +155,25 @@
 }
 
 .oakd .codearea-linebg.is-current {
-  background: color-mix(in srgb, currentColor 6%, transparent);
+  background: color-mix(in srgb, var(--oakd-font-color) 6%, var(--oakd-background));
 }
 
 .oakd .codearea-linebg.is-error {
-  background: color-mix(in srgb, var(--oakd-danger-color) 10%, transparent);
+  background: color-mix(in srgb, var(--oakd-danger-color) 10%, var(--oakd-background));
+}
+
+@media (prefers-color-scheme: dark) {
+  .oakd .codearea-gutter-line.is-error {
+    color: var(--oakd-danger-border);
+  }
+
+  .oakd .codearea-linebg.is-current {
+    background: color-mix(in srgb, var(--oakd-font-color) 12%, var(--oakd-background));
+  }
+
+  .oakd .codearea-linebg.is-error {
+    background: color-mix(in srgb, var(--oakd-danger-border) 20%, var(--oakd-background));
+  }
 }
 
 /* ---------- HIGHLIGHTED CODE ---------- */
@@ -251,3 +266,21 @@
 .oakd .tok-type { color: var(--oakd-code-type); }
 .oakd .tok-builtin { color: var(--oakd-code-builtin); }
 .oakd .tok-boolean { color: var(--oakd-code-boolean); }
+
+/* Preserve line colors while the shared control filter brightens the editor. */
+.oakd.codearea-container {
+  --oakd-code-feedback-brightness: 1;
+}
+.oakd.codearea-container:not(.codearea-disabled):hover {
+  --oakd-code-feedback-brightness: var(--oakd-control-hover-brightness);
+}
+.oakd.codearea-container:not(.codearea-disabled):focus-within {
+  --oakd-code-feedback-brightness: var(--oakd-control-focus-brightness);
+}
+.oakd.codearea-container:not(.codearea-disabled):active {
+  --oakd-code-feedback-brightness: var(--oakd-control-pressed-brightness);
+}
+.oakd .codearea-linebg:is(.is-current, .is-error) {
+  filter: brightness(calc(1 / var(--oakd-code-feedback-brightness)));
+  transition: filter var(--oakd-control-feedback-duration) ease-in-out;
+}

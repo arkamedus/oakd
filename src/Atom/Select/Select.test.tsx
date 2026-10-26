@@ -49,7 +49,7 @@ describe("Select Component", () => {
 
     rerender(<Select {...props} disabled />);
 
-    expect(button).toHaveClass("type-default", "disabled");
+    expect(button).toHaveClass("type-disabled", "disabled");
     expect(button).toBeDisabled();
   });
 

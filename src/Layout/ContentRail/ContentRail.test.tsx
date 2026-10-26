@@ -4,10 +4,10 @@ import "@testing-library/jest-dom";
 import ContentRail from "./ContentRail";
 it("applies width and gutter contracts", () => {
 	render(
-		<ContentRail size="xl" gutter={false}>
+		<ContentRail size="huge" gutter={false}>
 			Rail
 		</ContentRail>,
 	);
-	expect(screen.getByText("Rail")).toHaveClass("oakd-content-rail--xl");
+	expect(screen.getByText("Rail")).toHaveClass("oakd-content-rail--huge");
 	expect(screen.getByText("Rail")).not.toHaveClass("oakd-content-rail--gutter");
 });

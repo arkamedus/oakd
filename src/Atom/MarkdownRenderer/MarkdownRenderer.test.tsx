@@ -59,3 +59,33 @@ whasd`}
     expect(lastParagraph.querySelector('[data-testid="Icon"]')).not.toBeNull();
   });
 });
+
+it.each(["", "text", "unknown"])("leaves %s fences uncolored", (language) => {
+  const source = 'const status = "ready";\nconsole.log(status);';
+  const { container } = render(<MarkdownRenderer markdown={'```' + language + '\n' + source + '\n```'} />);
+  expect(screen.getByTestId("CodeAreaTextarea")).toHaveValue(source);
+  expect(container.querySelector('.codearea-highlight [class^="tok-"]')).toBeNull();
+});
+
+it.each([
+  ["javascript", "const status = true;", ".tok-keyword", "const"],
+  ["js", "const status = true;", ".tok-keyword", "const"],
+  ["typescript", "type Status = string;", ".tok-keyword", "type"],
+  ["ts", "type Status = string;", ".tok-keyword", "type"],
+  ["bash", 'echo "ready"', ".tok-builtin", "echo"],
+  ["go", "package main", ".tok-keyword", "package"],
+  ["fortran", "program status", ".tok-keyword", "program"],
+  ["css", ".status { display: grid; }", ".tok-keyword", "display"],
+  ["json", '{"status": "ready"}', ".tok-type", '"status"'],
+])("uses %s fence rules", (language, source, selector, token) => {
+  const { container } = render(<MarkdownRenderer markdown={'```' + language + '\n' + source + '\n```'} />);
+  expect(container.querySelector(selector)).toHaveTextContent(token);
+  expect(screen.getByTestId("CodeAreaTextarea")).toHaveValue(source);
+});
+
+it("uses the declared language even when the content resembles another language", () => {
+  const { container } = render(<MarkdownRenderer markdown={'```json\nconst status = "ready";\nconsole.log(status);\n```'} />);
+  expect(container.querySelector('.tok-keyword')).toBeNull();
+  expect(container.querySelector('.tok-builtin')).toBeNull();
+  expect(container.querySelector('.tok-string')).toHaveTextContent('"ready"');
+});

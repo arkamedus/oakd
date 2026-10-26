@@ -212,6 +212,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
 			}
 
 			if (trimmed.startsWith("```")) {
+                const language = trimmed.slice(3).trim().split(/\s+/)[0];
 				const codeLines: string[] = [];
 				index++;
 				while (index < lines.length && !lines[index].trim().startsWith("```")) {
@@ -222,7 +223,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
 				const key = `code-${segmentIndex}-${index}`;
 				blocks.push(
 					wrapBlock(
-						<CodeArea value={codeLines.join("\n")} readOnly lineNumbers grow />,
+						<CodeArea value={codeLines.join("\n")} language={language} readOnly lineNumbers grow />,
 						segment.mode,
 						key,
 					),

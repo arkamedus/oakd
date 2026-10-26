@@ -4,6 +4,7 @@ import Collapsible from "./Collapsible";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import Title from "../Title/Title";
+import Divider from "../Divider/Divider";
 import Content from "../../Layout/Content/Content";
 import ContentRail from "../../Layout/ContentRail/ContentRail";
 
@@ -53,12 +54,15 @@ export const WithDefaultOpen: Story = {
     ),
     defaultOpen: true,
     children: (
-      <Content pad>
-        <Paragraph>
-          Confirm the callback URL, rotate stale credentials, and validate
-          refresh token expiry before launch.
-        </Paragraph>
-      </Content>
+      <>
+        <Divider />
+        <Content pad>
+          <Paragraph>
+            Confirm the callback URL, rotate stale credentials, and validate
+            refresh token expiry before launch.
+          </Paragraph>
+        </Content>
+      </>
     ),
   },
 };
@@ -79,7 +83,7 @@ export const WithCustomTitleText: Story = {
 
 export const MultipleCollapsibles: Story = {
   render: () => (
-    <ContentRail size="md" gutter={false}>
+    <ContentRail size="default" gutter={false}>
       <Space direction="vertical" gap wide>
         <Title>Implementation Notes</Title>
         <Collapsible
@@ -90,6 +94,7 @@ export const MultipleCollapsibles: Story = {
           }
           defaultOpen
         >
+          <Divider />
           <Content pad>
             <Paragraph>
               Confirm the callback URL, rotate stale credentials, and validate

@@ -4,16 +4,16 @@
 	margin-inline: auto;
 	box-sizing: border-box;
 }
-.oakd-content-rail--sm {
+.oakd-content-rail--small {
 	--oakd-content-rail-width: var(--oakd-width-lg);
 }
-.oakd-content-rail--md {
+.oakd-content-rail--default {
 	--oakd-content-rail-width: var(--oakd-width-xl);
 }
-.oakd-content-rail--lg {
+.oakd-content-rail--large {
 	--oakd-content-rail-width: var(--oakd-width-2xl);
 }
-.oakd-content-rail--xl {
+.oakd-content-rail--huge {
 	--oakd-content-rail-width: var(--oakd-width-3xl);
 }
 .oakd-content-rail--full {

@@ -64,7 +64,7 @@ const releaseItems = (): TreeItem[] => [
         label: "Interface inventory",
         icon: "Clipboard",
         leaf: (
-          <Pill variant="success" size="sm">
+          <Pill variant="success" size="small">
             <Paragraph>Complete</Paragraph>
           </Pill>
         ),
@@ -74,7 +74,7 @@ const releaseItems = (): TreeItem[] => [
         label: "Keyboard audit",
         icon: "Check",
         leaf: (
-          <Pill variant="warning" size="sm">
+          <Pill variant="warning" size="small">
             <Paragraph>Review</Paragraph>
           </Pill>
         ),
@@ -84,7 +84,7 @@ const releaseItems = (): TreeItem[] => [
         label: "Migration guide",
         icon: "Book",
         leaf: (
-          <Pill variant="primary" size="sm">
+          <Pill variant="primary" size="small">
             <Paragraph>Writing</Paragraph>
           </Pill>
         ),
@@ -94,7 +94,7 @@ const releaseItems = (): TreeItem[] => [
         label: "Publish checklist",
         icon: "Lock",
         leaf: (
-          <Pill variant="danger" size="sm">
+          <Pill variant="danger" size="small">
             <Paragraph>Blocked</Paragraph>
           </Pill>
         ),
@@ -146,7 +146,7 @@ const workflowItems = (): TreeItem[] => [
         label: "Brief",
         icon: "Note",
         leaf: (
-          <Pill size="sm">
+          <Pill size="small">
             <Paragraph>01</Paragraph>
           </Pill>
         ),
@@ -156,7 +156,7 @@ const workflowItems = (): TreeItem[] => [
         label: "Prototype",
         icon: "Shapes",
         leaf: (
-          <Pill size="sm">
+          <Pill size="small">
             <Paragraph>02</Paragraph>
           </Pill>
         ),
@@ -166,7 +166,7 @@ const workflowItems = (): TreeItem[] => [
         label: "Review",
         icon: "Eye",
         leaf: (
-          <Pill size="sm">
+          <Pill size="small">
             <Paragraph>03</Paragraph>
           </Pill>
         ),
@@ -176,7 +176,7 @@ const workflowItems = (): TreeItem[] => [
         label: "Publish",
         icon: "OpenExternal",
         leaf: (
-          <Pill size="sm">
+          <Pill size="small">
             <Paragraph>04</Paragraph>
           </Pill>
         ),

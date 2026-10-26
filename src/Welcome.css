@@ -1,14 +1,9 @@
 .welcome__container {
-   // font-family: 'Inter', sans-serif;
-    animation: fadeIn 0.5s ease-in-out;
+  background: linear-gradient(rgb(236 249 245), rgb(244 247 236));
 }
 
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+@media (prefers-color-scheme: dark) {
+  .welcome__container {
+    background: var(--oakd-background);
+  }
 }

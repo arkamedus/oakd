@@ -114,3 +114,17 @@
 	background: var(--oakd-card-disabled-color);
 	color: var(--oakd-card-disabled-text);
 }
+
+@media (prefers-color-scheme: light) {
+	.theme-high-contrast .oakd.announcement.type-primary {
+		background: color-mix(
+			in srgb,
+			var(--oakd-card-primary-color) 50%,
+			var(--oakd-background)
+		);
+	}
+
+	.theme-high-contrast .oakd.announcement.type-primary .oakd-announcement__body::before {
+		opacity: 0.25;
+	}
+}

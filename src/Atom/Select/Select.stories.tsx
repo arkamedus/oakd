@@ -126,6 +126,7 @@ const meta: Meta<typeof Select> = {
           "danger",
           "warning",
           "ghost",
+          "disabled",
           "active",
           "success",
         ],
