@@ -21,8 +21,8 @@
 	right: calc(var(--oakd-leading) / -3);
 	z-index: 1;
 	display: inline-block;
-	width: calc(var(--oakd-leading) * 0.7);
-	height: calc(var(--oakd-leading) * 0.7);
+	width: var(--oakd-leading);
+	height: var(--oakd-leading);
 	border-radius: var(--oakd-radius-round);
 	background: var(--oakd-card-danger-border);
 	box-shadow: 0 0 0 var(--oakd-border-width)
@@ -60,4 +60,14 @@
 
 .oakd-badge.type-disabled > .oakd-badge__dot {
 	background: var(--oakd-card-disabled-border);
+}
+
+.oakd-badge.size-small > .oakd-badge__dot {
+  width: calc(var(--oakd-leading) * 0.7);
+  height: calc(var(--oakd-leading) * 0.7);
+}
+
+.oakd-badge.size-large > .oakd-badge__dot {
+  width: calc(var(--oakd-leading) * 1.4);
+  height: calc(var(--oakd-leading) * 1.4);
 }

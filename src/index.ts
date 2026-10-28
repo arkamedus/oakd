@@ -43,7 +43,6 @@ import Textarea from "./Atom/Textarea/Textarea";
 import Checkbox from "./Atom/Checkbox/Checkbox";
 import RangeInput from "./Atom/RangeInput/RangeInput";
 import FileInput from "./Atom/FileInput/FileInput";
-import SearchSelect from "./Atom/SearchSelect/SearchSelect";
 import ActionList, { ActionListItem } from "./Atom/ActionList/ActionList";
 import Badge from "./Atom/Badge/Badge";
 import Pill from "./Atom/Pill/Pill";
@@ -53,7 +52,6 @@ import DataTable from "./Atom/DataTable/DataTable";
 import VectorField from "./Atom/VectorField/VectorField";
 import ColorField from "./Atom/ColorField/ColorField";
 export { colorToHex, normalizeColorValue } from "./Atom/ColorField/ColorField";
-import ThumbnailSelect from "./Atom/ThumbnailSelect/ThumbnailSelect";
 import ThumbnailGrid from "./Atom/ThumbnailGrid/ThumbnailGrid";
 
 export {
@@ -106,7 +104,6 @@ export {
 	Checkbox,
 	RangeInput,
 	FileInput,
-	SearchSelect,
 	ActionList,
 	ActionListItem,
 	Badge,
@@ -116,7 +113,6 @@ export {
 	DataTable,
 	VectorField,
 	ColorField,
-	ThumbnailSelect,
 	ThumbnailGrid,
 };
 
@@ -140,10 +136,6 @@ export type { TextareaProps } from "./Atom/Textarea/Textarea.types";
 export type { CheckboxProps } from "./Atom/Checkbox/Checkbox.types";
 export type { RangeInputProps } from "./Atom/RangeInput/RangeInput.types";
 export type { FileInputProps } from "./Atom/FileInput/FileInput.types";
-export type {
-	SearchSelectProps,
-	SearchSelectOption,
-} from "./Atom/SearchSelect/SearchSelect.types";
 export type {
 	ActionListProps,
 	ActionListItemProps,
@@ -175,10 +167,6 @@ export type {
 	ColorFieldPreset,
 	ColorValue,
 } from "./Atom/ColorField/ColorField.types";
-export type {
-	ThumbnailSelectProps,
-	ThumbnailSelectOption,
-} from "./Atom/ThumbnailSelect/ThumbnailSelect.types";
 export type {
 	ThumbnailGridProps,
 	ThumbnailGridItem,

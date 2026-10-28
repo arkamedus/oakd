@@ -94,3 +94,24 @@
 .oakd.button_group.vertical > *:not(:last-child) {
   border-bottom: none;
 }
+
+/* Wrapped controls join the group at their trigger, not their popup surface. */
+.oakd.button_group > .oakd-select > .oakd-select__button,
+.oakd.button_group > .oakd-dropdown-container > .oakd-dropdown-trigger {
+  border-radius: inherit;
+}
+
+.oakd.button_group.horizontal > .oakd-select:not(:last-child) > .oakd-select__button,
+.oakd.button_group.horizontal > .oakd-dropdown-container:not(:last-child) > .oakd-dropdown-trigger {
+  border-right: none;
+}
+
+.oakd.button_group.vertical > .oakd-select > .oakd-select__button,
+.oakd.button_group.vertical > .oakd-dropdown-container > .oakd-dropdown-trigger {
+  width: 100%;
+}
+
+.oakd.button_group.vertical > .oakd-select:not(:last-child) > .oakd-select__button,
+.oakd.button_group.vertical > .oakd-dropdown-container:not(:last-child) > .oakd-dropdown-trigger {
+  border-bottom: none;
+}

@@ -33,6 +33,8 @@ export interface GLRenderConfig {
 	lightPosition?: [number, number, number];
 	lightTarget?: [number, number, number];
 	lightIntensity?: number;
+	/** Apply the normal/light angle to diffuse lighting. False keeps diffuse lighting uniform; shadows are unchanged. Defaults to true. */
+	lambertEnabled?: boolean;
 	shadowsEnabled?: boolean;
 	shadowMode?: "hard" | "soft";
 	shadowBias?: number;

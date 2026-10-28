@@ -52,7 +52,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			{showPreviousNext && (
 				<Button
 					htmlType="button"
-					variant="ghost"
+					variant="default"
 					size={size}
 					icon="Angle"
 					style={{ transform: "rotate(180deg)" }}
@@ -67,7 +67,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			{numbersToShow.map((number) => (
 				<Button
 					htmlType="button"
-					variant={currentPage === number ? "active" : "ghost"}
+					variant={currentPage === number ? "active" : "default"}
 					size={size}
 					key={`pagination-number-${number}`}
 					className={`pagination-button ${currentPage === number ? "current" : ""}`}
@@ -81,7 +81,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			{showPreviousNext && (
 				<Button
 					htmlType="button"
-					variant="ghost"
+					variant="default"
 					size={size}
 					icon="Angle"
 					className="arrow right pagination-arrow"

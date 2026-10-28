@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import Select from "./Select";
+import Icon from "../../Icon/Icon";
 import { SelectProps } from "./Select.types";
 import Paragraph from "../Paragraph/Paragraph";
 import { ActionListItem } from "../ActionList/ActionList";
@@ -70,7 +71,10 @@ describe("Select Component", () => {
     fireEvent.click(button);
     const option = screen.getByText("Option 1");
     fireEvent.click(option);
-    expect(props.onChange).toHaveBeenCalledWith("1");
+    expect(props.onChange).toHaveBeenCalledWith(
+      "1",
+      expect.objectContaining({ value: "1" }),
+    );
   });
 
   it("should allow selection of an option via keyboard (Enter key)", () => {
@@ -79,7 +83,10 @@ describe("Select Component", () => {
     fireEvent.keyDown(button, { key: "Enter" });
     const option = screen.getByText("Option 2");
     fireEvent.keyDown(option, { key: "Enter" });
-    expect(props.onChange).toHaveBeenCalledWith("2");
+    expect(props.onChange).toHaveBeenCalledWith(
+      "2",
+      expect.objectContaining({ value: "2" }),
+    );
   });
 
   it("should close the dropdown when clicking outside", () => {
@@ -166,9 +173,107 @@ describe("Select Component", () => {
     expect(option).toHaveClass("oakd-action-list__item");
     expect(option).not.toHaveClass("oakd-select__item");
     fireEvent.click(option);
-    expect(props.onChange).toHaveBeenCalledWith("1");
+    expect(props.onChange).toHaveBeenCalledWith(
+      "1",
+      expect.objectContaining({ value: "1" }),
+    );
     expect(
       screen.getByRole("button", { name: "Option 1" }),
     ).toBeInTheDocument();
   });
+});
+
+it("filters rich content and keywords, skips disabled options and selects by keyboard", () => {
+  const change = jest.fn();
+  render(
+    <Select
+      searchable
+      defaultOpen
+      onChange={change}
+      options={[
+        {
+          value: "locked",
+          element: <Paragraph>Cube locked</Paragraph>,
+          disabled: true,
+        },
+        {
+          value: "cube",
+          element: <ActionListItem title={<Paragraph>Cube</Paragraph>} />,
+          keywords: ["box"],
+        },
+        { value: "sphere", element: <Paragraph>Sphere</Paragraph> },
+      ]}
+    />,
+  );
+  const search = screen.getByRole("textbox");
+  expect(search).toHaveFocus();
+  expect(screen.getByRole("separator").closest(".pad")).toBeNull();
+  fireEvent.change(search, { target: { value: " CUBE " } });
+  expect(screen.getAllByRole("option")).toHaveLength(2);
+  fireEvent.keyDown(search, { key: "ArrowDown" });
+  expect(screen.getByRole("option", { name: "Cube" })).toHaveFocus();
+  fireEvent.keyDown(screen.getByRole("option", { name: "Cube" }), {
+    key: "Enter",
+  });
+  expect(change).toHaveBeenCalledWith(
+    "cube",
+    expect.objectContaining({ value: "cube" }),
+  );
+  fireEvent.click(screen.getByRole("button"));
+  fireEvent.change(screen.getByRole("textbox"), { target: { value: "box" } });
+  expect(screen.getAllByRole("option")).toHaveLength(1);
+});
+
+it.each([
+  ["small", "small"],
+  ["default", "small"],
+  ["large", "default"],
+] as const)(
+  "sizes a thumbnail for %s triggers while preserving the menu icon",
+  (size, iconSize) => {
+    render(
+      <Select
+        size={size}
+        defaultValue="cube"
+        defaultOpen
+        options={[
+          {
+            value: "cube",
+            element: <Paragraph>Cube</Paragraph>,
+            thumbnail: <Icon name="Cube" size="large" />,
+          },
+        ]}
+      />,
+    );
+    expect(
+      screen.getByRole("button").querySelector(".oakd-select__thumbnail .icon"),
+    ).toHaveClass(`icon-${iconSize}`);
+    expect(
+      screen.getByRole("option").querySelector(".oakd-select__thumbnail .icon"),
+    ).toHaveClass("icon-large");
+  },
+);
+
+it("renders image thumbnails in the trigger and menu", () => {
+  render(
+    <Select
+      defaultOpen
+      defaultValue="image"
+      options={[
+        {
+          value: "image",
+          element: "Image",
+          thumbnail: (
+            <Icon
+              name="Picture"
+              src="test.png"
+              preserveColor
+              aria-label="Thumbnail"
+            />
+          ),
+        },
+      ]}
+    />,
+  );
+  expect(screen.getAllByLabelText("Thumbnail")).toHaveLength(2);
 });

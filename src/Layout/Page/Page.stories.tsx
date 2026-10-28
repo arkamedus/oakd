@@ -15,7 +15,7 @@ import LabelBars from "../../Atom/LabelBars/LabelBars";
 import MultiLineChart from "../../Atom/MultiLineChart/MultiLineChart";
 import Paragraph from "../../Atom/Paragraph/Paragraph";
 import Pill from "../../Atom/Pill/Pill";
-import SearchSelect from "../../Atom/SearchSelect/SearchSelect";
+import Select from "../../Atom/Select/Select";
 import Space from "../../Atom/Space/Space";
 import StackedBreakdownChart from "../../Atom/StackedBreakdownChart/StackedBreakdownChart";
 import Tabs, { Tab } from "../../Atom/Tabs/Tabs";
@@ -377,11 +377,11 @@ export const WorkspaceSlice: Story = {
         description="Account health, assigned work, and the next customer action."
         actions={
           <>
-            <SearchSelect
+            <Select searchable fixed
               options={[
-                { value: "northwind", label: "Northwind" },
-                { value: "atlas", label: "Atlas Labs" },
-                { value: "signal", label: "Signal Ops" },
+                { value: "northwind", element: "Northwind" },
+                { value: "atlas", element: "Atlas Labs" },
+                { value: "signal", element: "Signal Ops" },
               ]}
               defaultValue="northwind"
             />
@@ -578,10 +578,10 @@ export const AnalyticsWorkspace: Story = {
         description="A growing primary chart with a compact supporting rail."
         actions={
           <>
-            <SearchSelect
+            <Select searchable fixed
               options={[
-                { value: "week", label: "This week" },
-                { value: "month", label: "This month" },
+                { value: "week", element: "This week" },
+                { value: "month", element: "This month" },
               ]}
               defaultValue="week"
             />

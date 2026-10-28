@@ -1,6 +1,6 @@
 .oakd-select {
 	position: relative;
-	display: inline-block;
+	display: inline-flex;
 	max-width: 100%;
 }
 
@@ -131,4 +131,11 @@
 
 .oakd-select__dropdown.oakd.card.type-default {
 	border-color: var(--oakd-default-border);
+}
+
+.oakd-select__thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }

@@ -18,18 +18,19 @@ const IconBase: React.FC<IconProps> = ({
 			: (src as unknown as { default?: string })?.default || String(src || "");
 	if (!resolvedSrc?.trim()) return null;
 	const shouldRecolor = !preserveColor;
+	const imageUrl = `url(${JSON.stringify(resolvedSrc)})`;
 	const baseClass =
 		`oakd standardized-reset standardized-text icon icon-${size} ${className} ${spin ? "spin" : ""}`.trim();
 	const recolorStyle: React.CSSProperties = {
 		...style,
 		backgroundColor: style?.color || "currentColor",
-		mask: `url(${resolvedSrc}) no-repeat center/contain`,
-		WebkitMask: `url(${resolvedSrc}) no-repeat center/contain`,
+		mask: `${imageUrl} no-repeat center/contain`,
+		WebkitMask: `${imageUrl} no-repeat center/contain`,
 	};
 	const preserveColorStyle: React.CSSProperties = {
 		...style,
 		backgroundColor: "transparent",
-		backgroundImage: `url(${resolvedSrc})`,
+		backgroundImage: imageUrl,
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "center",
 		backgroundSize: "contain",

@@ -13,30 +13,35 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const Variants: Story = {
+export const Default: Story = {
   render: () => (
-    <Space gap align="center">
-      {(
-        [
-          "default",
-          "primary",
-          "active",
-          "success",
-          "warning",
-          "danger",
-          "ghost",
-          "disabled",
-        ] as const
-      ).map((variant) => (
-        <Badge
-          key={variant}
-          variant={variant}
-          label={`${variant} notification`}
-        >
-          <Button icon="Bell">
-            <Paragraph>{variant}</Paragraph>
-          </Button>
-        </Badge>
+    <Space direction="vertical" gap>
+      {(["small", "default", "large"] as const).map((size) => (
+        <Space key={size} gap align="center">
+          {(
+            [
+              "default",
+              "primary",
+              "active",
+              "success",
+              "warning",
+              "danger",
+              "ghost",
+              "disabled",
+            ] as const
+          ).map((variant) => (
+            <Badge
+              key={variant}
+              size={size}
+              variant={variant}
+              label={`${variant} notification`}
+            >
+              <Button icon="Bell">
+                <Paragraph>{variant}</Paragraph>
+              </Button>
+            </Badge>
+          ))}
+        </Space>
       ))}
     </Space>
   ),

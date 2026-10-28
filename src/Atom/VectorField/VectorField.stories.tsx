@@ -33,7 +33,6 @@ const meta: Meta<typeof VectorField> = {
     disabled: { control: "boolean" },
     readOnly: { control: "boolean" },
     showActions: { control: "boolean" },
-    framed: { control: "boolean" },
     wide: { control: "boolean" },
     grow: { control: "boolean" },
   },

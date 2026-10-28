@@ -4,7 +4,6 @@ import Content from "../../Layout/Content/Content";
 import Row from "../../Layout/Row/Row";
 import Icon from "../../Icon/Icon";
 import Button, { ButtonGroup } from "../Button/Button";
-import Card from "../Card/Card";
 import Dropdown from "../Dropdown/Dropdown";
 import Input from "../Input/Input";
 import Paragraph from "../Paragraph/Paragraph";
@@ -39,7 +38,6 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
       disabled = false,
       readOnly = false,
       showActions = true,
-      framed = false,
       wide = true,
       grow = false,
       className,
@@ -290,13 +288,7 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
           .join(" ")}
       >
         {layout === "toolbar" ? (
-          framed ? (
-            <Card pad variant="ghost" wide={wide}>
-              {toolbarControl}
-            </Card>
-          ) : (
-            toolbarControl
-          )
+          toolbarControl
         ) : (
           <Space direction="vertical" gap wide>
             {label ? renderLabel(label) : null}

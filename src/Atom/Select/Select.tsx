@@ -18,6 +18,8 @@ import { getAdaptiveDropdownPlacement } from "../Dropdown/dropdownPlacement";
 import ActionList, { ActionListItem } from "../ActionList/ActionList";
 import type { ActionListItemProps } from "../ActionList/ActionList.types";
 import Card from "../Card/Card";
+import Input from "../Input/Input";
+import { getSearchText } from "./searchText";
 import Content from "../../Layout/Content/Content";
 
 const Select = <T,>({
@@ -26,6 +28,9 @@ const Select = <T,>({
   defaultValue,
   placeholder,
   onChange,
+  searchable = false,
+  searchPlaceholder = "Search…",
+  getOptionKey = (option) => String(option.value),
   variant = "default",
   size = "default",
   categoryOrder,
@@ -64,6 +69,20 @@ const Select = <T,>({
     defaultValue,
   );
   const selectedValue = isControlled ? value : selectedValueState;
+  const [query, setQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+  const filteredOptions =
+    searchable && query.trim()
+      ? options.filter((option) =>
+          [
+            option.searchText || getSearchText(option.label ?? option.element),
+            ...(option.keywords ?? []),
+          ]
+            .join(" ")
+            .toLowerCase()
+            .includes(query.trim().toLowerCase()),
+        )
+      : options;
   const dropdownRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -93,7 +112,8 @@ const Select = <T,>({
       if (!isControlled) {
         setSelectedValueState(option.value);
       }
-      onChange?.(option.value);
+      onChange?.(option.value, option);
+      setQuery("");
       setOpen(false);
       triggerRef.current?.focus();
     },
@@ -190,7 +210,7 @@ const Select = <T,>({
     const categorizedOptions: { [key: string]: SelectOption<T>[] } = {};
     const uncategorizedOptions: SelectOption<T>[] = [];
 
-    options.forEach((option) => {
+    filteredOptions.forEach((option) => {
       const category = option.category || "Uncategorized";
       if (categoryOrder && option.category) {
         if (!categorizedOptions[category]) {
@@ -213,7 +233,7 @@ const Select = <T,>({
     });
 
     return { categorizedOptions, sortedCategories, uncategorizedOptions };
-  }, [options, categoryOrder]);
+  }, [filteredOptions, categoryOrder]);
 
   const { categorizedOptions, sortedCategories, uncategorizedOptions } =
     getCategorizedOptions();
@@ -244,6 +264,28 @@ const Select = <T,>({
     .filter(Boolean)
     .join(" ");
 
+  const renderThumbnail = (
+    thumbnail: NonNullable<SelectOption<T>["thumbnail"]>,
+    trigger: boolean,
+  ) => (
+    <Content
+      className="oakd-select__thumbnail"
+    >
+      {trigger
+        ? React.cloneElement(thumbnail, { size: sizeMinusOne(size) })
+        : thumbnail}
+    </Content>
+  );
+
+  useEffect(() => {
+    if (!isActive) {
+      setQuery("");
+      return;
+    }
+    syncPlacement();
+    if (searchable) searchRef.current?.focus();
+  }, [isActive, searchable, syncPlacement]);
+
   const renderOption = (option: SelectOption<T>) => {
     const suppliedItem =
       React.isValidElement<ActionListItemProps>(option.element) &&
@@ -257,7 +299,10 @@ const Select = <T,>({
     const itemDisabled = option.disabled || suppliedItem.props.disabled;
 
     return React.cloneElement(suppliedItem, {
-      key: String(option.value),
+      key: getOptionKey(option),
+      leading: option.thumbnail
+        ? renderThumbnail(option.thumbnail, false)
+        : suppliedItem.props.leading,
       role: "option",
       "aria-selected": option.value === selectedValue,
       disabled: itemDisabled,
@@ -284,6 +329,41 @@ const Select = <T,>({
       style={fixed ? { ...style, ...placementStyle } : undefined}
     >
       <Space direction="vertical" wide justify="stretch">
+        {searchable && (
+          <>
+            <Content pad wide>
+              <Input
+                ref={searchRef}
+                value={query}
+                placeholder={searchPlaceholder}
+                aria-label={searchPlaceholder}
+                onChange={(event) => setQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (
+                    event.key === "ArrowDown" ||
+                    event.key === "ArrowUp" ||
+                    event.key === "Enter"
+                  ) {
+                    event.preventDefault();
+                    const items =
+                      menuRef.current?.querySelectorAll<HTMLElement>(
+                        '[role="option"]:not([aria-disabled="true"])',
+                      );
+                    const item =
+                      items?.[event.key === "ArrowUp" ? items.length - 1 : 0];
+                    if (event.key === "Enter") item?.click();
+                    else item?.focus();
+                  } else if (event.key === "Escape") {
+                    setOpen(false);
+                    triggerRef.current?.focus();
+                  }
+                }}
+                grow
+              />
+            </Content>
+            <Divider />
+          </>
+        )}
         {shouldShowCategories ? (
           sortedCategories.map((category) => (
             <Content key={category} wide>
@@ -305,7 +385,7 @@ const Select = <T,>({
             {uncategorizedOptions.map(renderOption)}
           </ActionList>
         )}
-        {!options.length ? (
+        {!filteredOptions.length ? (
           <Content className="oakd-select__empty" pad>
             {typeof emptyContent === "string" ? (
               <Paragraph>{emptyContent}</Paragraph>
@@ -359,8 +439,12 @@ const Select = <T,>({
         disabled={disabled}
         onKeyDown={handleButtonKeyDown}
       >
-        <Space align="center" gap>
-          {selectedElement}
+        <Space align="center" justify="between" gap noWrap wide>
+          <Space align="center" gap noWrap>
+            {selectedOption?.thumbnail &&
+              renderThumbnail(selectedOption.thumbnail, true)}
+            {selectedElement}
+          </Space>
           <IconAngle size={sizeMinusOne(size)} rotation={isActive ? 90 : 0} />
         </Space>
       </Button>

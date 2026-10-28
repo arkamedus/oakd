@@ -33,6 +33,7 @@ const stageScene = (
   cubeScale = 1,
   cubeMaterial = 3,
   cubeColor = { r: 0.92, g: 0.95, b: 1, a: 1 },
+  largeWhiteFloor = false,
 ): OakMDocument => {
   const offset = (seed % 7) * 0.1;
   return {
@@ -44,9 +45,9 @@ const stageScene = (
         type: "plane",
         position: { x: 0, y: 0, z: -0.6 },
         rotationDeg: { x: 0, y: 0, z: 0 },
-        scale: { x: 5, y: 5, z: 1 },
-        material: 2,
-        color: {
+        scale: { x: largeWhiteFloor ? 50 : 5, y: largeWhiteFloor ? 50 : 5, z: 1 },
+        material: largeWhiteFloor ? 0 : 2,
+        color: largeWhiteFloor ? { r: 1, g: 1, b: 1, a: 1 } : {
           r: 0.72 + offset * 0.2,
           g: 0.76 + offset * 0.1,
           b: 0.84,
@@ -220,39 +221,81 @@ const cornellRoomScene = (): OakMDocument => ({
 });
 
 export const BasicCube: Story = {
+  parameters: {
+    layout: "fullscreen",
+  },
   render: () => {
     const mesh = useMemo(
-      () => oakMToMeshData(stageScene(2, 1.2, 3), { meshQuality: 1 }),
+      () => oakMToMeshData(stageScene(2, 1.2, 3, undefined, true), { meshQuality: 1 }),
       [],
     );
 
     return (
       <GLContextProvider>
-        <Card pad wide>
-          <Space direction="vertical" gap wide>
-            <Paragraph>
-              <strong>OakM Stage Render</strong>
-            </Paragraph>
+        <Page fixed>
+          <Content wide grow fill>
             <GLRenderer
               mesh={mesh}
-              height={260}
+              wide
+              grow
+              fill
               autoRotate={false}
               cameraOrbitSpeed={0.12}
               rendering={{
                 pixelRatio: "default",
                 maxFPS: 60,
                 shadowMapSize: 1024,
+                shadowSoftness: 8,
+                lambertEnabled: false,
                 meshQuality: 1,
               }}
             />
-          </Space>
-        </Card>
+          </Content>
+        </Page>
       </GLContextProvider>
     );
   },
 };
 
-export const SharedContextThirtyTwoRenderers: Story = {
+export const PostProcessing: Story = {
+  parameters: {
+    layout: "fullscreen",
+  },
+  render: () => {
+    const mesh = useMemo(
+      () => oakMToMeshData(stageScene(2, 1.2, 3, undefined, true), { meshQuality: 1 }),
+      [],
+    );
+
+    return (
+      <GLContextProvider>
+        <Page fixed>
+          <Content wide grow fill>
+            <GLRenderer
+              mesh={mesh}
+              wide
+              grow
+              fill
+              autoRotate={false}
+              cameraOrbitSpeed={0.12}
+              rendering={{
+                pixelRatio: "default",
+                maxFPS: 60,
+                shadowMapSize: 1024,
+                shadowSoftness: 8,
+                meshQuality: 1,
+                ssaoEnabled: true,
+                bloomEnabled: true,
+              }}
+            />
+          </Content>
+        </Page>
+      </GLContextProvider>
+    );
+  },
+};
+
+export const SharedRenderers: Story = {
   render: () => {
     const renderCases = useMemo(() => {
       const materials = [0, 1, 2, 3, 4] as const;
@@ -311,28 +354,23 @@ export const SharedContextThirtyTwoRenderers: Story = {
         <Row gap wide>
           {renderCases.map((entry, index) => (
             <Col key={entry.label} xs={24} sm={12} md={8} lg={6} xl={4}>
-              <Space direction="vertical" gap wide>
-                <Card wide>
-                  <GLRenderer
-                    mesh={entry.mesh}
-                    height={160}
-                    autoRotate={false}
-                    cameraOrbitSpeed={0.08 + (index % 6) * 0.01}
-                    rendering={{
-                      pixelRatio: "default",
-                      maxFPS: 24,
-                      shadowMapSize: 128,
-                      shadowSoftness: 8.0,
-                      shadowSamples: 8,
-                      shadowOrthoSize: 2,
-                      meshQuality: 1,
-                    }}
-                  />
-                </Card>
-                <Paragraph className="muted">
-                  <small>{entry.label}</small>
-                </Paragraph>
-              </Space>
+              <GLRenderer
+                mesh={entry.mesh}
+                height={160}
+                autoRotate={false}
+                cameraOrbitSpeed={0.08 + (index % 6) * 0.01}
+                rendering={{
+                  lightPosition: [0, 0, 28],
+                  lightTarget: [0, 0, 0],
+                  pixelRatio: "default",
+                  maxFPS: 24,
+                  shadowMapSize: 128,
+                  shadowSoftness: 8,
+                  shadowNormalBias: 0.00024,
+                  shadowOrthoSize: 2,
+                  meshQuality: 1,
+                }}
+              />
             </Col>
           ))}
         </Row>
@@ -341,7 +379,7 @@ export const SharedContextThirtyTwoRenderers: Story = {
   },
 };
 
-export const SphereMeshQualityComparison: Story = {
+export const MeshQuality: Story = {
   render: () => {
     const lowQualityMesh = useMemo(
       () => oakMToMeshData(qualityGridScene(0), { meshQuality: 0 }),
@@ -356,62 +394,42 @@ export const SphereMeshQualityComparison: Story = {
       <GLContextProvider>
         <Row gap wide>
           <Col xs={24} md={12}>
-            <Card pad wide>
-              <ScrollArea
-                orientation="vertical"
-                wide
-                style={{ maxHeight: "var(--oakd-surface-height-xl)" }}
-              >
-                <Space direction="vertical" gap wide>
-                  <Paragraph>
-                    <strong>Mesh Quality 0 · 2x2 Primitive Grid</strong>
-                  </Paragraph>
-                  <GLRenderer
-                    mesh={lowQualityMesh}
-                    height={260}
-                    autoRotate={false}
-                    cameraOrbitSpeed={0.1}
-                    cameraDistance={4.2}
-                    rendering={{
-                      pixelRatio: "default",
-                      maxFPS: 60,
-                      shadowMapSize: 1024,
-                      meshQuality: 0,
-                      shadowMapSize: 128,
-                      shadowSoftness: 8.0,
-                      shadowSamples: 8,
-                      shadowOrthoSize: 2,
-                    }}
-                  />
-                </Space>
-              </ScrollArea>
-            </Card>
+            <GLRenderer
+              mesh={lowQualityMesh}
+              height={260}
+              autoRotate={false}
+              cameraOrbitSpeed={0.1}
+              cameraDistance={4.2}
+              rendering={{
+                pixelRatio: "default",
+                maxFPS: 60,
+                shadowMapSize: 1024,
+                meshQuality: 0,
+                shadowMapSize: 128,
+                shadowSoftness: 8.0,
+                shadowSamples: 8,
+                shadowOrthoSize: 2,
+              }}
+            />
           </Col>
           <Col xs={24} md={12}>
-            <Card pad wide>
-              <Space direction="vertical" gap wide>
-                <Paragraph>
-                  <strong>Mesh Quality 1 · 2x2 Primitive Grid</strong>
-                </Paragraph>
-                <GLRenderer
-                  mesh={highQualityMesh}
-                  height={260}
-                  autoRotate={false}
-                  cameraOrbitSpeed={0.1}
-                  cameraDistance={4.2}
-                  rendering={{
-                    pixelRatio: "default",
-                    maxFPS: 60,
-                    shadowMapSize: 1024,
-                    meshQuality: 1,
-                    shadowMapSize: 128,
-                    shadowSoftness: 8.0,
-                    shadowSamples: 8,
-                    shadowOrthoSize: 2,
-                  }}
-                />
-              </Space>
-            </Card>
+            <GLRenderer
+              mesh={highQualityMesh}
+              height={260}
+              autoRotate={false}
+              cameraOrbitSpeed={0.1}
+              cameraDistance={4.2}
+              rendering={{
+                pixelRatio: "default",
+                maxFPS: 60,
+                shadowMapSize: 1024,
+                meshQuality: 1,
+                shadowMapSize: 128,
+                shadowSoftness: 8.0,
+                shadowSamples: 8,
+                shadowOrthoSize: 2,
+              }}
+            />
           </Col>
         </Row>
       </GLContextProvider>
@@ -419,7 +437,8 @@ export const SphereMeshQualityComparison: Story = {
   },
 };
 
-export const CornellRoomRenderingTuner: Story = {
+
+export const Cornell: Story = {
   parameters: {
     layout: "fullscreen",
   },

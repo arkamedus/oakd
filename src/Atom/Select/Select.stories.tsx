@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import exampleImage from "../../../.storybook/assets/example-image.svg";
 import { Meta, StoryObj } from "@storybook/react";
 import Select from "./Select";
+import Icon from "../../Icon/Icon";
 import Paragraph from "../Paragraph/Paragraph";
 import Space from "../Space/Space";
-import Card from "../Card/Card";
-import Title from "../Title/Title";
 import { ActionListItem } from "../ActionList/ActionList";
 import {
   IconCalendar,
@@ -61,6 +61,19 @@ const statusOptions = [
   },
 ];
 
+const statusElementOptions = statusOptions.map(
+  ({ value, element, category }) => ({
+    value,
+    category,
+    element: (
+      <Space align="center" gap noWrap>
+        {element.props.leading}
+        {element.props.title}
+      </Space>
+    ),
+  }),
+);
+
 const teammateOptions = [
   {
     value: "maya",
@@ -109,10 +122,82 @@ const teammateOptions = [
   },
 ];
 
+const thumbnailOptions = [
+  {
+    value: "cube",
+    label: <Paragraph>Cube</Paragraph>,
+    element: (
+      <ActionListItem
+        title={<Paragraph>Cube</Paragraph>}
+        description={<Paragraph>Scene primitive</Paragraph>}
+      />
+    ),
+    thumbnail: <Icon name="Cube" />,
+    keywords: ["box", "block"],
+  },
+  {
+    value: "sphere",
+    label: <Paragraph>Sphere</Paragraph>,
+    element: (
+      <ActionListItem
+        title={<Paragraph>Sphere</Paragraph>}
+        description={<Paragraph>Scene primitive</Paragraph>}
+      />
+    ),
+    thumbnail: <Icon name="Sphere" />,
+  },
+  {
+    value: "image",
+    label: <Paragraph>Landscape</Paragraph>,
+    element: (
+      <ActionListItem
+        title={<Paragraph>Landscape</Paragraph>}
+        description={<Paragraph>Image asset</Paragraph>}
+      />
+    ),
+    thumbnail: (
+      <Icon
+        name="Picture"
+        preserveColor
+        aria-label="Landscape thumbnail"
+        src={exampleImage}
+      />
+    ),
+  },
+];
+
+const compactThumbnailOptions = [
+  {
+    value: "cube",
+    element: <Paragraph>Cube</Paragraph>,
+    thumbnail: <Icon name="Cube" size="small" />,
+    keywords: ["box", "block"],
+  },
+  {
+    value: "sphere",
+    element: <Paragraph>Sphere</Paragraph>,
+    thumbnail: <Icon name="Sphere" size="small" />,
+  },
+  {
+    value: "image",
+    element: <Paragraph>Landscape</Paragraph>,
+    thumbnail: (
+      <Icon
+        name="Picture"
+        src={exampleImage}
+        preserveColor
+        size="small"
+        aria-label="Landscape thumbnail"
+      />
+    ),
+  },
+];
+
 const meta: Meta<typeof Select> = {
   title: "Design System/Atomic/Inputs/Select",
   component: Select,
   argTypes: {
+    searchable: { control: "boolean" },
     placeholder: {
       control: "text",
       description: "Placeholder when no selection is made",
@@ -149,6 +234,38 @@ export default meta;
 type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
+  render: (args) => (
+    <Space direction="vertical" gap align="start">
+      <Select {...args} />
+      <Select {...args} defaultValue="draft" options={statusElementOptions} />
+      <Select
+        {...args}
+        options={thumbnailOptions}
+        defaultValue="cube"
+        searchable={args.searchable ?? true}
+      />
+      {(["small", "large"] as const).map((size) => (
+        <Space key={size} gap align="center">
+          <Select
+            {...args}
+            size={size}
+            options={thumbnailOptions}
+            defaultValue="cube"
+            searchable={args.searchable ?? true}
+          />
+          {size === "small" && (
+            <Select
+              {...args}
+              size="small"
+              options={compactThumbnailOptions}
+              defaultValue="cube"
+              searchable={args.searchable ?? true}
+            />
+          )}
+        </Space>
+      ))}
+    </Space>
+  ),
   args: {
     options: statusOptions,
     categoryOrder: ["Open", "Planned", "Completed"],
@@ -158,55 +275,40 @@ export const Default: Story = {
   },
 };
 
-export const WithControlledValue: Story = {
-  render: () => {
-    const [assignee, setAssignee] = useState<string | undefined>("maya");
-
-    return (
-      <Card pad wide>
-        <Space direction="vertical" gap>
-          <Title>Assign reviewer</Title>
-          <Paragraph>
-            Pick the teammate who will review the release checklist this
-            afternoon.
-          </Paragraph>
-          <Select
-            value={assignee}
-            onChange={setAssignee}
-            options={teammateOptions}
-            placeholder="Select a reviewer"
-          />
-          <Paragraph>
-            Current reviewer: <strong>{assignee || "Unassigned"}</strong>
-          </Paragraph>
-        </Space>
-      </Card>
-    );
-  },
-};
-
 export const WithDirectionsAndSizes: Story = {
   render: () => (
-    <Space gap align="start">
-      <Select
-        size="small"
-        options={teammateOptions}
-        placeholder="Small"
-        onChange={() => undefined}
-      />
-      <Select
-        size="default"
-        options={teammateOptions}
-        placeholder="Default"
-        onChange={() => undefined}
-      />
-      <Select
-        size="large"
-        direction="bottom-right"
-        options={teammateOptions}
-        placeholder="Large / right aligned"
-        onChange={() => undefined}
-      />
+    <Space direction="vertical" gap wide>
+      <Space gap align="start">
+        <Select
+          size="small"
+          options={teammateOptions}
+          placeholder="Small"
+          onChange={() => undefined}
+        />
+        <Select
+          size="default"
+          options={teammateOptions}
+          placeholder="Default"
+          onChange={() => undefined}
+        />
+        <Select
+          size="large"
+          direction="bottom-right"
+          options={teammateOptions}
+          placeholder="Large / right aligned"
+          onChange={() => undefined}
+        />
+      </Space>
+      {(["small", "default", "large"] as const).map((size) => (
+        <Select
+          key={size}
+          wide
+          size={size}
+          direction={size === "large" ? "bottom-right" : "bottom-left"}
+          options={thumbnailOptions}
+          defaultValue="cube"
+        />
+      ))}
     </Space>
   ),
 };

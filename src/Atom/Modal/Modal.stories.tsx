@@ -6,6 +6,10 @@ import Paragraph from "../Paragraph/Paragraph";
 import Button from "../Button/Button";
 import Aspect from "../../Layout/Aspect/Aspect";
 import Title from "../Title/Title";
+import Card from "../Card/Card";
+import Row from "../../Layout/Row/Row";
+import Col from "../../Layout/Column/Column";
+import Checkbox from "../Checkbox/Checkbox";
 
 const meta: Meta<typeof Modal> = {
 	title: "Design System/Atomic/Modal",
@@ -40,11 +44,7 @@ export const Default: Story = {
 								Use a modal when someone needs to make a focused decision or
 								review a small amount of information without leaving the page.
 							</Paragraph>
-							<Space gap justify="end" wide>
-								<Button variant="ghost" onClick={() => setOpen(false)}>
-									<Paragraph>Close</Paragraph>
-								</Button>
-							</Space>
+
 						</Space>
 					</Modal>
 				</Space>
@@ -143,6 +143,52 @@ export const SmallDismissible: Story = {
 		dismissible: true,
 		closeButtonLabel: "Dismiss confirmation",
 		children: <Paragraph>Compact modal content.</Paragraph>,
+	},
+};
+
+export const NotDismissable: Story = {
+	args: {
+		...SmallDismissible.args,
+		dismissible: false,
+	},
+};
+
+export const CustomContent: Story = {
+	args: {
+		open: true,
+		onClose: () => undefined,
+		dismissible: false,
+		size: "small",
+		children: (
+			<Row gap wide>
+				<Col xs={24} md={14}>
+					<Card pad fill>
+						<Space direction="vertical" gap wide>
+							<Paragraph><strong>Website launch</strong></Paragraph>
+							<Checkbox size="small" label={<Paragraph>Review homepage</Paragraph>} defaultChecked />
+							<Checkbox size="small" label={<Paragraph>Check mobile layout</Paragraph>} />
+							<Checkbox size="small" label={<Paragraph>Approve release</Paragraph>} />
+						</Space>
+					</Card>
+				</Col>
+				<Col xs={24} md={10}>
+					<Space direction="vertical" gap wide>
+						<Card pad wide>
+							<Space direction="vertical" gap>
+								<Paragraph><strong>Completed</strong></Paragraph>
+								<Paragraph>12 / 15</Paragraph>
+							</Space>
+						</Card>
+						<Card pad wide>
+							<Space direction="vertical" gap>
+								<Paragraph><strong>Awaiting review</strong></Paragraph>
+								<Paragraph>3</Paragraph>
+							</Space>
+						</Card>
+					</Space>
+				</Col>
+			</Row>
+		),
 	},
 };
 

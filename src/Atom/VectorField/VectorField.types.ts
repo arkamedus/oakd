@@ -34,7 +34,6 @@ export interface VectorFieldProps extends Omit<
   disabled?: boolean;
   readOnly?: boolean;
   showActions?: boolean;
-  framed?: boolean;
   wide?: boolean;
   grow?: boolean;
 }

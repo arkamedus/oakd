@@ -105,6 +105,7 @@ varying vec3 vViewDirection;
 uniform sampler2D uShadowMap;
 uniform vec3 uLightDirection;
 uniform float uLightIntensity;
+uniform float uLambertEnabled;
 uniform vec4 uMaterialPalette[32];
 uniform vec4 uMaterialProperties[32];
 uniform float uShadowTexelSize;
@@ -195,7 +196,7 @@ bool shadowCoordOutside(vec3 shadowCoord) {
 float resolveShadowBias(vec3 normal, vec3 lightDir, float texelSize) {
 	float ndotl = max(dot(normalize(normal), normalize(lightDir)), 0.0);
 	float slope = 1.0 - ndotl;
-	float sourceBias = max(0.00008, (0.45 + slope) * texelSize * 1.6);
+	float sourceBias = max(0.00008, (0.45 + slope) * texelSize * 0.2);
 	return sourceBias + uShadowBias + uShadowNormalBias * slope;
 }
 
@@ -213,7 +214,7 @@ float shadowFactor(vec3 normal, vec3 lightDir) {
 	float biasedShadowDepth = clamp(projected.z - bias, 0.0, 1.0);
 	if (uShadowMode == 0 || uShadowSamples <= 1) {
 		float depth = decodeFloat(texture2D(uShadowMap, projected.xy));
-		float hardShadow = biasedShadowDepth <= (depth + (texel * 0.32)) ? 1.0 : 0.0;
+		float hardShadow = biasedShadowDepth <= (depth + (texel * 0.04)) ? 1.0 : 0.0;
 		return applyShadowMapCircularFade(projected.xy, hardShadow);
 	}
 
@@ -289,7 +290,7 @@ float shadowFactor(vec3 normal, vec3 lightDir) {
 		}
 
 		float depth = decodeFloat(texture2D(uShadowMap, sampleShadowPos.xy));
-		if (biasedShadowDepth <= (depth + (texel * 0.32))) {
+		if (biasedShadowDepth <= (depth + (texel * 0.04))) {
 			lit += 1.0;
 		}
 		count += 1.0;
@@ -306,7 +307,7 @@ void main(void) {
 
 	float shadow = shadowFactor(normal, lightDir);
 	float ambient = 0.24 + 0.18 * (0.5 + 0.5 * dot(normal, vec3(0.0, 0.0, 1.0)));
-	float diffuse = max(dot(normal, lightDir), 0.0);
+	float diffuse = uLambertEnabled > 0.5 ? max(dot(normal, lightDir), 0.0) : 1.0;
 	float specularTerm = pow(max(dot(normal, halfDir), 0.0), 24.0);
 	float rim = pow(1.0 - max(dot(normal, viewDir), 0.0), max(0.001, uRimPower));
 
@@ -692,6 +693,7 @@ interface MainProgram {
 		cameraPosition: WebGLUniformLocation | null;
 		lightDirection: WebGLUniformLocation | null;
 		lightIntensity: WebGLUniformLocation | null;
+		lambertEnabled: WebGLUniformLocation | null;
 		shadowMap: WebGLUniformLocation | null;
 		shadowTexelSize: WebGLUniformLocation | null;
 		shadowsEnabled: WebGLUniformLocation | null;
@@ -1651,6 +1653,7 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 						program,
 						"uShadowCircularFadeEnabled",
 					),
+					lambertEnabled: gl.getUniformLocation(program, "uLambertEnabled"),
 					ambientColor: gl.getUniformLocation(program, "uAmbientColor"),
 					ambientIntensity: gl.getUniformLocation(program, "uAmbientIntensity"),
 					rimColor: gl.getUniformLocation(program, "uRimColor"),
@@ -2055,8 +2058,8 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 			const bloomThreshold = clamp01(rendering?.bloomThreshold ?? 0.7);
 			const bloomIntensity = Math.max(0, rendering?.bloomIntensity ?? 0.3);
 			const bloomRadius = Math.max(0, rendering?.bloomRadius ?? 3.0);
-			const ambientColor = rendering?.ambientColor ?? [0.92, 0.97, 1.0];
-			const ambientIntensity = Math.max(0, rendering?.ambientIntensity ?? 0.34);
+			const ambientColor = rendering?.ambientColor ?? [1, 1, 1];
+			const ambientIntensity = Math.max(0, rendering?.ambientIntensity ?? 1);
 			const lightIntensity = Math.max(0, rendering?.lightIntensity ?? 1);
 			const rimColor = rendering?.rimColor ?? [1.0, 0.96, 0.9];
 			const rimIntensity = Math.max(0, rendering?.rimIntensity ?? 0.18);
@@ -2204,7 +2207,16 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 				shadowNear,
 				shadowFar,
 			);
-			const lightView = lookAt(lightPosition, configuredLightTarget, [0, 0, 1]);
+			const shadowViewDirection = normalize3([
+				lightPosition[0] - configuredLightTarget[0],
+				lightPosition[1] - configuredLightTarget[1],
+				lightPosition[2] - configuredLightTarget[2],
+			]);
+			const lightView = lookAt(
+				lightPosition,
+				configuredLightTarget,
+				Math.abs(shadowViewDirection[2]) > 0.999 ? [0, 1, 0] : [0, 0, 1],
+			);
 
 			if (shadowsEnabled) {
 				drawShadowPass(
@@ -2307,6 +2319,9 @@ const GLContextProvider: React.FC<GLContextProviderProps> = ({
 					mainProgram.uniforms.shadowCircularFadeEnabled,
 					shadowCircularFadeEnabled ? 1 : 0,
 				);
+			}
+			if (mainProgram.uniforms.lambertEnabled) {
+				gl.uniform1f(mainProgram.uniforms.lambertEnabled, rendering?.lambertEnabled === false ? 0 : 1);
 			}
 			if (mainProgram.uniforms.ambientColor) {
 				gl.uniform3f(

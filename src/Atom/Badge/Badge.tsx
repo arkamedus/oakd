@@ -5,6 +5,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
 	(
 		{
 			variant = "danger",
+			size = "default",
 			hidden = false,
 			label = "Notification",
 			wide = false,
@@ -22,6 +23,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
 				"standardized-reset",
 				"oakd-badge",
 				`type-${variant}`,
+				`size-${size}`,
 				wide && "wide",
 				className,
 			]

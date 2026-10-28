@@ -245,6 +245,25 @@ describe("GLContextProvider", () => {
 		).IS_REACT_ACT_ENVIRONMENT = false;
 	});
 
+	it("disables Lambert lighting independently of shadows and restores it for the next render", () => {
+		const mounted = mountProvider();
+		const context = capturedContext as GLContextValue;
+		const canvas = document.createElement("canvas");
+		context.render(requestFor(canvas, { rendering: { lambertEnabled: false } }));
+		flushNextFrame(20);
+		const locations = mockWebGL.getUniformLocation as jest.Mock;
+		const uniform = (name: string) => locations.mock.results[
+			locations.mock.calls.findIndex((call: unknown[]) => call[1] === name)
+		].value;
+		expect(mockWebGL.uniform1f).toHaveBeenCalledWith(uniform("uLambertEnabled"), 0);
+		expect(mockWebGL.uniform1f).toHaveBeenCalledWith(uniform("uShadowsEnabled"), 1);
+		(mockWebGL.uniform1f as jest.Mock).mockClear();
+		context.render(requestFor(canvas));
+		flushNextFrame(40);
+		expect(mockWebGL.uniform1f).toHaveBeenCalledWith(uniform("uLambertEnabled"), 1);
+		mounted.unmount();
+	});
+
 	it("batches multiple render requests for the same canvas into one draw per frame", () => {
 		const mounted = mountProvider();
 		const context = capturedContext as GLContextValue;

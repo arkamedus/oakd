@@ -1,4 +1,5 @@
 import React from "react";
+import exampleImage from "../../.storybook/assets/example-image.svg";
 import { Meta, StoryFn } from "@storybook/react";
 import Icon, { IconStack } from "./Icon";
 import Space from "../Atom/Space/Space";
@@ -61,14 +62,14 @@ export const Image = () => {
       <Icon
         name="Spinner"
         size="large"
-        src={"https://placehold.co/400"}
+        src={exampleImage}
         spin
         color={"var(--oakd-blue)"}
       />
       <Icon
         name="Spinner"
         size="large"
-        src={"https://placehold.co/400"}
+        src={exampleImage}
         spin
         preserveColor={true}
       />

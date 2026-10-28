@@ -1,10 +1,12 @@
 import React, { useMemo, useRef, useState } from "react";
 import "./Welcome.css";
+import exampleImage from "../.storybook/assets/example-image.svg";
 import Space from "./Atom/Space/Space";
 import Title from "./Atom/Title/Title";
 import Paragraph from "./Atom/Paragraph/Paragraph";
 import Content from "./Layout/Content/Content";
 import Card from "./Atom/Card/Card";
+import Badge from "./Atom/Badge/Badge";
 import DebugLayer from "./Atom/DebugLayer/DebugLayer";
 import Button, { ButtonGroup } from "./Atom/Button/Button";
 import {
@@ -31,12 +33,13 @@ import StackedBreakdownChart from "./Atom/StackedBreakdownChart/StackedBreakdown
 import Announcement from "./Atom/Announcement/Announcement";
 import Tree from "./Atom/Tree/Tree";
 import { TreeItem } from "./Atom/Tree/Tree.types";
-import ThumbnailSelect from "./Atom/ThumbnailSelect/ThumbnailSelect";
 import ColorField from "./Atom/ColorField/ColorField";
 import { ColorValue } from "./Atom/ColorField/ColorField.types";
 import VectorField from "./Atom/VectorField/VectorField";
 import { VectorValue } from "./Atom/VectorField/VectorField.types";
 import Pill from "./Atom/Pill/Pill";
+
+const displayedIcons = IconTypes.slice(0, 144);
 
 const createWelcomeTree = (): TreeItem[] => [
   {
@@ -293,13 +296,25 @@ export const Welcome = () => {
                         size={"small"}
                         icon={"Layers"}
                       />
-                      <Button
-                        variant={"ghost"}
-                        size={"small"}
-                        icon={"Triangle"}
-                      >
+                      <Button variant={"success"} size={"small"} icon={"Check"}>
                         <Paragraph>groups</Paragraph>
                       </Button>
+                      <Select
+                        size="small"
+                        defaultValue="folder"
+                        options={[
+                          {
+                            value: "folder",
+                            thumbnail: <Icon name="Folder" size="small" />,
+                            element: <Paragraph>Folder</Paragraph>,
+                          },
+                          {
+                            value: "bookmark",
+                            thumbnail: <Icon name="Bookmark" size="small" />,
+                            element: <Paragraph>Bookmark</Paragraph>,
+                          },
+                        ]}
+                      />
                       <Button
                         variant={"warning"}
                         size={"small"}
@@ -337,43 +352,94 @@ export const Welcome = () => {
                 <Space direction={"vertical"} gap wide>
                   <Paragraph>extended inputs</Paragraph>
                   <Space wide gap justify={"between"}>
-                    <Select
-                      value={projectStatus}
-                      options={[
-                        {
-                          value: "draft",
-                          label: <Paragraph>Draft</Paragraph>,
-                          element: (
-                            <ActionListItem
-                              leading={<Icon name="Note" size="small" />}
-                              title={<Paragraph>Draft</Paragraph>}
-                            />
-                          ),
-                        },
-                        {
-                          value: "in_review",
-                          label: <Paragraph>In review</Paragraph>,
-                          element: (
-                            <ActionListItem
-                              leading={<Icon name="Eye" size="small" />}
-                              title={<Paragraph>In review</Paragraph>}
-                            />
-                          ),
-                        },
-                        {
-                          value: "published",
-                          label: <Paragraph>Published</Paragraph>,
-                          element: (
-                            <ActionListItem
-                              leading={<Icon name="Check" size="small" />}
-                              title={<Paragraph>Published</Paragraph>}
-                            />
-                          ),
-                        },
-                      ]}
-                      onChange={setProjectStatus}
-                      placeholder="Choose a status"
-                    />
+                    <Space gap>
+                      <Select
+                        value={projectStatus}
+                        options={[
+                          {
+                            value: "draft",
+                            label: (
+                              <Space align="center" gap noWrap>
+                                <Icon name="Note" size="small" />
+                                <Paragraph>Draft</Paragraph>
+                              </Space>
+                            ),
+                            element: (
+                              <ActionListItem
+                                leading={<Icon name="Note" size="small" />}
+                                title={<Paragraph>Draft</Paragraph>}
+                              />
+                            ),
+                          },
+                          {
+                            value: "in_review",
+                            label: (
+                              <Space align="center" gap noWrap>
+                                <Icon name="Eye" size="small" />
+                                <Paragraph>In review</Paragraph>
+                              </Space>
+                            ),
+                            element: (
+                              <ActionListItem
+                                leading={<Icon name="Eye" size="small" />}
+                                title={<Paragraph>In review</Paragraph>}
+                              />
+                            ),
+                          },
+                          {
+                            value: "published",
+                            label: (
+                              <Space align="center" gap noWrap>
+                                <Icon name="Check" size="small" />
+                                <Paragraph>Published</Paragraph>
+                              </Space>
+                            ),
+                            element: (
+                              <ActionListItem
+                                leading={<Icon name="Check" size="small" />}
+                                title={<Paragraph>Published</Paragraph>}
+                              />
+                            ),
+                          },
+                        ]}
+                        onChange={setProjectStatus}
+                        placeholder="Choose a status"
+                      />
+                      <Select
+                        searchable
+                        fixed
+                        defaultValue="cube"
+                        searchPlaceholder="Search shapes"
+                        options={[
+                          {
+                            value: "cube",
+                            thumbnail: (
+                              <Icon
+                                name="Picture"
+                                src={exampleImage}
+                                preserveColor
+                                size="small"
+                              />
+                            ),
+                            element: <Paragraph>Cube</Paragraph>,
+                            keywords: ["box", "block"],
+                          },
+                          {
+                            value: "sphere",
+                            thumbnail: (
+                              <Icon
+                                name="Picture"
+                                src={exampleImage}
+                                preserveColor
+                                size="small"
+                              />
+                            ),
+                            element: <Paragraph>Sphere</Paragraph>,
+                            keywords: ["ball", "round"],
+                          },
+                        ]}
+                      />
+                    </Space>
                     <Dropdown
                       label={
                         <Space gap>
@@ -436,7 +502,7 @@ export const Welcome = () => {
                   </Content>
                 </Collapsible>
 
-                <Space direction={"vertical"} gap>
+                <Space direction={"vertical"} gap wide>
                   <Paragraph>small utils</Paragraph>
                   <Breadcrumb
                     items={[
@@ -485,7 +551,7 @@ export const Welcome = () => {
                           <Paragraph>
                             this is a card!
                             <br />
-                            it has multiple lines or text centered
+                            it has multiple lines
                           </Paragraph>
                         </Space>
                       </Card>
@@ -501,32 +567,26 @@ export const Welcome = () => {
                     <Col xs={12} md={6}>
                       <Card pad fill>
                         <Space align={"center"} justify={"center"} fill>
-                          <Card pad variant={"ghost"}>
-                            <Paragraph>centered card</Paragraph>
-                          </Card>
+                          <Badge>
+                            <Card pad variant={"ghost"}>
+                              <Paragraph>card with badge</Paragraph>
+                            </Card>
+                          </Badge>
                         </Space>
                       </Card>
                     </Col>
                   </Row>
-                  <Paragraph>svg icons</Paragraph>
-                  <Space wide gap justify={"between"}>
-                    {IconTypes.slice(0, 152).map(
-                      (icon: CoreIconNameType, idx: number) => {
-                        return (
-                          <Paragraph>
-                            <Icon
-                              key={`icon-${idx}`}
-                              name={icon}
-                              size="small"
-                            />
-                          </Paragraph>
-                        );
-                      },
-                    )}
-                    <Paragraph>
-                      <em>and more!</em>
-                    </Paragraph>
-                  </Space>
+                  <Paragraph>svg icons ({IconTypes.length})</Paragraph>
+                  <Row wide gap>
+                    {displayedIcons.map((icon) => (
+                      <Col key={icon} xs={3} md={1}>
+                        <Icon name={icon} size="small" />
+                      </Col>
+                    ))}
+                  </Row>
+                  <Paragraph>
+                    <em>and more!</em>
+                  </Paragraph>
                 </Space>
 
                 <Space direction={"vertical"} gap wide>
@@ -693,21 +753,49 @@ export const Welcome = () => {
                           <Paragraph>
                             <strong>thumbnail select</strong>
                           </Paragraph>
-                          <ThumbnailSelect
+                          <Select
+                            searchable
+                            fixed
                             defaultValue="cube"
                             wide
                             options={[
                               {
                                 value: "cube",
-                                title: <Paragraph>Cube</Paragraph>,
-                                note: <Paragraph>Scene primitive</Paragraph>,
-                                preview: <Icon name="Cube" />,
+                                label: <Paragraph>Cube</Paragraph>,
+                                element: (
+                                  <ActionListItem
+                                    title={<Paragraph>Cube</Paragraph>}
+                                    description={
+                                      <Paragraph>Scene primitive</Paragraph>
+                                    }
+                                  />
+                                ),
+                                thumbnail: (
+                                  <Icon
+                                    name="Picture"
+                                    src={exampleImage}
+                                    preserveColor
+                                  />
+                                ),
                               },
                               {
                                 value: "sphere",
-                                title: <Paragraph>Sphere</Paragraph>,
-                                note: <Paragraph>Scene primitive</Paragraph>,
-                                preview: <Icon name="Sphere" />,
+                                label: <Paragraph>Sphere</Paragraph>,
+                                element: (
+                                  <ActionListItem
+                                    title={<Paragraph>Sphere</Paragraph>}
+                                    description={
+                                      <Paragraph>Scene primitive</Paragraph>
+                                    }
+                                  />
+                                ),
+                                thumbnail: (
+                                  <Icon
+                                    name="Picture"
+                                    src={exampleImage}
+                                    preserveColor
+                                  />
+                                ),
                               },
                             ]}
                           />
@@ -754,8 +842,8 @@ export const Welcome = () => {
                   </Column>
 
                   {[
-                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                    1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                    1, 1, 1, 1,
                   ].map((col, idx) => {
                     return (
                       <Column xs={1} key={`col-${idx}`}>

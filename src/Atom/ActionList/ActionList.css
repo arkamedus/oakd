@@ -43,6 +43,5 @@
 	min-width: 0;
 }
 .oakd-action-list__description {
-	margin-top: calc(var(--oakd-leading) / 2);
 	opacity: 0.72;
 }
