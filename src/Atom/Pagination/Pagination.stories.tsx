@@ -7,9 +7,16 @@ import Paragraph from "../Paragraph/Paragraph";
 import Title from "../Title/Title";
 import ContentRail from "../../Layout/ContentRail/ContentRail";
 
+const PaginationSizes = (props: React.ComponentProps<typeof Pagination>) => (
+  <Space direction="vertical" gap>
+    {(["small", "default", "large"] as const).map(size => <Pagination {...props} key={size} size={size} />)}
+  </Space>
+);
+
 const meta: Meta<typeof Pagination> = {
   title: "Design System/Navigation/Pagination",
   component: Pagination,
+  render: args => <PaginationSizes {...args} />,
   tags: ["!autodocs"],
   argTypes: {
     maxPage: { control: "number" },
@@ -53,7 +60,7 @@ export const WithSearchResultsContext: Story = {
           <Paragraph>
             Showing 126-150 of 1,184 matching customers for "renewal overdue".
           </Paragraph>
-          <Pagination {...args} />
+          <PaginationSizes {...args} />
         </Space>
       </Card>
     </ContentRail>

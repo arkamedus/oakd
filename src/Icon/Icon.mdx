@@ -7,6 +7,11 @@ import meta from './Icon.stories';
 
 The `Icon` component is a versatile, themeable element used to render scalable vector icons. It supports different sizes, color gradients, transparency, and stacking through the `IconStack` utility. This component is a core part of the oakd design system and integrates seamlessly with other oakd components.
 
+Icons without a label are decorative and hidden from assistive technology.
+Use `alt`, `aria-label`, or `aria-labelledby` to name a meaningful icon; Oakd
+applies image semantics to its CSS-rendered element. For icon-only buttons,
+label the button itself rather than its decorative icon.
+
 <Primary />
 
 <Controls />

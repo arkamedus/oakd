@@ -8,6 +8,7 @@ const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
 	(
 		{
 			header,
+			gap,
 			sidebar,
 			footer,
 			sidebarMode = "expanded",
@@ -23,7 +24,7 @@ const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
 		<Content
 			{...rest}
 			ref={ref}
-			className={["oakd-app-shell", className].filter(Boolean).join(" ")}
+			className={["oakd-app-shell", gap && "oakd-app-shell--gap", className].filter(Boolean).join(" ")}
 			style={
 				{
 					...style,
@@ -43,6 +44,7 @@ const AppShell = forwardRef<HTMLDivElement, AppShellProps>(
 			) : null}
 			<Space
 				className="oakd-app-shell__workspace"
+				gap={gap}
 				direction="horizontal"
 				wide
 				grow

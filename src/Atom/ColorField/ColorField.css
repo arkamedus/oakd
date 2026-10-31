@@ -7,8 +7,6 @@
 .oakd-color-field.oakd-dropdown-container > .oakd-dropdown-trigger {
 	min-width: 0;
 	max-width: 100%;
-	padding: calc(var(--oakd-leading) / 2)
-		var(--oakd-leading);
 	border: var(--oakd-border-width) solid var(--oakd-default-border);
 	background: var(--oakd-color-field-color);
 }

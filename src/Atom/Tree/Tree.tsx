@@ -268,7 +268,7 @@ const TreeNode: React.FC<{
 					if (folder) {
 						const bounds = event.currentTarget.getBoundingClientRect();
 						const offsetY = event.clientY - bounds.top;
-						const edgeZone = Math.max(4, Math.min(8, bounds.height * 0.18));
+							const edgeZone = bounds.height * 0.18;
 						if (offsetY <= edgeZone) {
 							onDropTargetChange({
 								parentId,
@@ -330,20 +330,20 @@ const TreeNode: React.FC<{
 				}
 			}}
 		>
-			<Content className="tree__toggle">
-				{folder && (
+			{folder && (
+				<Space className="tree__toggle" align="center" noWrap>
 					<Icon
-						//variant="ghost"
+						size="small"
 						aria-label={item.expanded ? "Collapse folder" : "Expand folder"}
 						onClick={() => onChange?.(toggleExpanded(rootItems, item.id))}
 						name="Angle"
 						rotation={item.expanded ? 90 : 0}
 					/>
-				)}
-			</Content>
-			<Content className="tree__icon">
+				</Space>
+			)}
+			<Space className="tree__icon" align="center" noWrap>
 				{renderIcon(item.icon, folder ? "Folder" : "Cube")}
-			</Content>
+			</Space>
 			<Content className="tree__label" grow>
 				{typeof item.label === "string" ? (
 					<Paragraph>{item.label}</Paragraph>
@@ -351,7 +351,11 @@ const TreeNode: React.FC<{
 					item.label
 				)}
 			</Content>
-			{item.leaf ? <Content className="tree__leaf">{item.leaf}</Content> : null}
+			{item.leaf ? (
+				<Space className="tree__leaf" align="center" noWrap>
+					{item.leaf}
+				</Space>
+			) : null}
 		</Space>
 	);
 
@@ -539,7 +543,7 @@ const Tree: React.FC<TreeProps> = ({
 	style,
 	wide,
 	pad,
-	guides = false,
+	guides = true,
 	...rest
 }) => {
 	const [draggedId, setDraggedId] = React.useState<string | null>(null);

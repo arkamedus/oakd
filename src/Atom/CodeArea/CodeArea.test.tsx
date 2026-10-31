@@ -92,3 +92,27 @@ it("lets an empty rules array disable coloring even for a known language", () =>
   const { container } = render(<CodeArea language="javascript" rules={[]} value={'const status = "ready";'} />);
   expect(container.querySelector('.codearea-highlight [class^="tok-"]')).toBeNull();
 });
+
+it("forwards textarea attributes and composes selection, scroll, and Tab handlers", () => {
+  const ref = React.createRef<HTMLTextAreaElement>();
+  const select = jest.fn();
+  const scroll = jest.fn();
+  const key = jest.fn(event => event.preventDefault());
+  render(<><label htmlFor="source">Source</label><CodeArea ref={ref} id="source" name="source" required rows={4} spellCheck autoComplete="on" autoCapitalize="sentences" autoCorrect="on" defaultValue="hello" onSelect={select} onScroll={scroll} onKeyDown={key} /></>);
+  const input = screen.getByLabelText("Source");
+  expect(ref.current).toBe(input);
+  expect(input).toHaveAttribute("name", "source");
+  expect(input).toHaveAttribute("rows", "4");
+  expect(input).toHaveAttribute("spellcheck", "true");
+  expect(input).toHaveAttribute("autocomplete", "on");
+  expect(input).toHaveAttribute("autocapitalize", "sentences");
+  expect(input).toHaveAttribute("autocorrect", "on");
+  expect(input).toBeRequired();
+  act(() => fireEvent.select(input));
+  fireEvent.scroll(input);
+  fireEvent.keyDown(input, { key: "Tab" });
+  expect(select).toHaveBeenCalled();
+  expect(scroll).toHaveBeenCalledTimes(1);
+  expect(key).toHaveBeenCalledTimes(1);
+  expect(input).toHaveValue("hello");
+});

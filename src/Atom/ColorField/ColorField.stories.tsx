@@ -5,11 +5,22 @@ import Space from "../Space/Space";
 import ColorField from "./ColorField";
 import { ColorFieldMode, ColorValue } from "./ColorField.types";
 
+
+const ColorFieldSizes = (props: React.ComponentProps<typeof ColorField>) => (
+  <Space direction="vertical" gap align="start" wide={props.wide ?? true}>
+    {(["small", "default", "large"] as const).map(size => (
+      <ColorField {...props} key={size} size={size} defaultOpen={size === "default" && props.defaultOpen} />
+    ))}
+  </Space>
+);
+
 const meta: Meta<typeof ColorField> = {
   title: "Design System/Atomic/Inputs/ColorField",
   component: ColorField,
   argTypes: {
+    size: { control: "select", options: ["small", "default", "large"] },
     mode: { control: "inline-radio", options: ["rgb", "hsv"] },
+    showHex: { control: "boolean" },
     alpha: { control: "boolean" },
     disabled: { control: "boolean" },
     wide: { control: "boolean" },
@@ -37,27 +48,32 @@ export const Default: Story = {
       });
       const [mode, setMode] = useState<ColorFieldMode>("rgb");
       return (
-        <ColorField
-          value={color}
-          onChange={setColor}
-          mode={mode}
-          onModeChange={setMode}
-          alpha
-          wide={false}
-          eyeDropper
-          randomize
-          defaultOpen
-          presets={[
-            {
-              label: <Paragraph>Light</Paragraph>,
-              value: skinColors[0],
-            },
-            {
-              label: <Paragraph>Deep</Paragraph>,
-              value: skinColors[1],
-            },
-          ]}
-        />
+        <Space direction="vertical" gap>
+          <ColorFieldSizes value={color} onChange={setColor} showHex={false} wide={false} />
+          <ColorFieldSizes
+            value={color}
+            onChange={setColor}
+            mode={mode}
+            onModeChange={setMode}
+            aria-label="Color"
+            hexInputProps={{ "aria-label": "Hex color", autoComplete: "off", spellCheck: false }}
+            alpha
+            wide={false}
+            eyeDropper
+            randomize
+            defaultOpen
+            presets={[
+              {
+                label: <Paragraph>Light</Paragraph>,
+                value: skinColors[0],
+              },
+              {
+                label: <Paragraph>Deep</Paragraph>,
+                value: skinColors[1],
+              },
+            ]}
+          />
+        </Space>
       );
     };
     return <Demo />;
@@ -80,22 +96,22 @@ export const Variations: Story = {
       });
       return (
         <Space direction="vertical" gap wide>
-          <ColorField value={solid} onChange={setSolid} wide />
-          <ColorField
+          <ColorFieldSizes value={solid} onChange={setSolid} wide />
+          <ColorFieldSizes
             value={alpha}
             onChange={setAlpha}
             defaultMode="hsv"
             alpha
             wide
           />
-          <ColorField
+          <ColorFieldSizes
             value={solid}
             onChange={setSolid}
             wide={false}
             randomize={false}
             eyeDropper={false}
           />
-          <ColorField value={solid} onChange={setSolid} disabled wide />
+          <ColorFieldSizes value={solid} onChange={setSolid} disabled wide />
         </Space>
       );
     };

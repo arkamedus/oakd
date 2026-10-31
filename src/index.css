@@ -24,8 +24,7 @@
   /* Namespaced design-system tokens. */
   --oakd-font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --oakd-font-family-display: var(--oakd-font-family);
-  --oakd-focus-ring: 0 0 0 2px
-    color-mix(in srgb, var(--oakd-primary-border) 55%, transparent);
+  --oakd-focus-ring: 0 0 0 0 transparent;
   --oakd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.12);
   --oakd-shadow-lg: 4px 6px 0 rgba(0, 0, 0, 0.14);
   --oakd-border-width: 1px;
@@ -90,6 +89,7 @@
 
   /* Active */
   --oakd-success-color: #f4ffe9;
+  --oakd-success-control-color: #e4f5cf;
   --oakd-success-border: #17791d;
   --oakd-success-text: #17791d;
 
@@ -214,6 +214,7 @@
     --oakd-active-border: var(--oakd-card-active-border);
     --oakd-active-text: var(--oakd-card-active-text);
     --oakd-success-color: var(--oakd-card-success-color);
+    --oakd-success-control-color: #1e3a22;
     --oakd-success-border: var(--oakd-card-success-border);
     --oakd-success-text: var(--oakd-card-success-text);
 
@@ -391,6 +392,7 @@
     --oakd-active-color: #e9fcff;
     --oakd-active-text: #21598f;
     --oakd-success-color: #f4ffe9;
+    --oakd-success-control-color: #e4f5cf;
     --oakd-success-text: #17791d;
     --oakd-background: #000000;
     --oakd-font-color: #ffffff;
@@ -587,7 +589,7 @@ html {
 }
 
 .oakd.button.type-success {
-  background-color: var(--oakd-success-color);
+  background-color: var(--oakd-success-control-color);
   border-color: var(--oakd-success-border);
   color: var(--oakd-success-text);
 }

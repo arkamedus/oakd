@@ -95,3 +95,32 @@ describe("Dropdown Component", () => {
 		expect(item.closest(".oakd-dropdown-content")).toHaveClass("card");
 	});
 });
+
+it.each(["small", "default", "large"] as const)("forwards %s size to its Button trigger", size => {
+  render(<Dropdown size={size} label="Actions"><Paragraph>Menu</Paragraph></Dropdown>);
+  expect(screen.getByRole("button", { name: "Actions" })).toHaveClass(`size-${size}`);
+});
+
+it("forwards native trigger props and ref, composes handlers, and links its popup", () => {
+  const ref = React.createRef<HTMLButtonElement>();
+  const click = jest.fn();
+  const slotClick = jest.fn();
+  render(<><label htmlFor="actions">Document actions</label><Dropdown id="actions" name="actions" aria-describedby="help" onClick={click} triggerProps={{ ref, onClick: slotClick, title: "Actions" }}><Paragraph>Menu</Paragraph></Dropdown></>);
+  const trigger = screen.getByLabelText("Document actions");
+  expect(trigger.tagName).toBe("BUTTON");
+  expect(ref.current).toBe(trigger);
+  expect(trigger).toHaveAttribute("name", "actions");
+  expect(trigger).toHaveAttribute("aria-describedby", "help");
+  expect(trigger.parentElement).not.toHaveAttribute("id");
+  fireEvent.click(trigger);
+  expect(click).toHaveBeenCalledTimes(1);
+  expect(slotClick).toHaveBeenCalledTimes(1);
+  expect(document.getElementById(trigger.getAttribute("aria-controls")!)).toBeInTheDocument();
+  expect(trigger).toHaveAttribute("aria-expanded", "true");
+});
+it("lets native click handlers cancel opening", () => {
+  render(<Dropdown aria-label="Actions" onClick={event => event.preventDefault()} />);
+  const trigger = screen.getByRole("button", { name: "Actions" });
+  fireEvent.click(trigger);
+  expect(trigger).toHaveAttribute("aria-expanded", "false");
+});

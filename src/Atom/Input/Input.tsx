@@ -31,7 +31,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       disabled = false,
       readOnly = false,
       size = "default",
-      variant = "default",
       icon,
       className = "",
       style,
@@ -42,8 +41,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
-    disabled = disabled || variant === "disabled";
-    variant = disabled ? "disabled" : variant;
     const isControlled = value !== undefined;
     const [internalValue, setInternalValue] = useState<InputValue>(
       defaultValue ?? "",
@@ -98,7 +95,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       "standardized-reset",
       "standardized-text",
       "input-container",
-      `type-${variant}`,
       hasError ? "input-error" : "",
       disabled ? "input-disabled" : "",
       grow ? "grow" : "",
@@ -113,7 +109,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       "standardized-text",
       "input",
       `size-${size}`,
-      `type-${variant}`,
       disabled ? "input-disabled" : "",
     ]
       .filter(Boolean)
@@ -137,7 +132,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={inputRef}
             readOnly={readOnly}
             aria-invalid={hasError || rest["aria-invalid"] || undefined}
-            data-testid="Input"
+            data-testid={rest["data-testid"] ?? "Input"}
             className={inputClasses}
             type={type}
             value={renderedValue}

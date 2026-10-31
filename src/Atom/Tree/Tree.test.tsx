@@ -26,14 +26,34 @@ const baseItems = (): TreeItem[] => [
 ];
 
 describe("Tree Component", () => {
-	it("optionally displays child guide lines", () => {
+	it.each([
+		[1, "drop-before"],
+		[3, "drop-into"],
+		[8, "drop-into"],
+		[15, "drop-into"],
+	])("uses proportional drop zones on compact rows at y=%s", (clientY, expectedClass) => {
+		render(<Tree items={baseItems()} onChange={() => undefined} />);
+		const row = screen.getByTestId("TreeRow-folder-1");
+		jest.spyOn(row, "getBoundingClientRect").mockReturnValue({
+			top: 0, height: 16,
+		} as DOMRect);
+		const dataTransfer = { setData: jest.fn() };
+		fireEvent.dragStart(screen.getByTestId("TreeRow-leaf-2"), { dataTransfer });
+		const event = createEvent.dragOver(row, { dataTransfer });
+		Object.defineProperty(event, "clientY", { value: clientY });
+		fireEvent(row, event);
+		expect(row).toHaveClass(expectedClass);
+		if (expectedClass === "drop-into") expect(row).not.toHaveClass("drop-before");
+	});
+
+	it("displays child guide lines by default and allows disabling them", () => {
 		const { rerender } = render(
 			<Tree items={baseItems()} onChange={() => undefined} />,
 		);
-		expect(screen.getByTestId("Tree")).not.toHaveClass("tree--guides");
-
-		rerender(<Tree items={baseItems()} onChange={() => undefined} guides />);
 		expect(screen.getByTestId("Tree")).toHaveClass("tree--guides");
+
+		rerender(<Tree items={baseItems()} onChange={() => undefined} guides={false} />);
+		expect(screen.getByTestId("Tree")).not.toHaveClass("tree--guides");
 	});
 
 	it("renders folders and leaves", () => {

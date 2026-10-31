@@ -241,6 +241,8 @@ export const Default: Story = {
       <Select
         {...args}
         options={thumbnailOptions}
+        aria-label="Asset"
+        inputProps={{ "aria-label": "Search assets", autoComplete: "off" }}
         defaultValue="cube"
         searchable={args.searchable ?? true}
       />

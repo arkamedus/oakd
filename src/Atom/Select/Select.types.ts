@@ -1,11 +1,7 @@
 import React from "react";
 import type Icon from "../../Icon/Icon";
 import type { IconProps } from "../../Icon/Icon.types";
-import {
-  ButtonType,
-  CoreComponentSizeType,
-  CoreLayoutProps,
-} from "../../Core/Core.types";
+import { ButtonType, CoreComponentSizeType } from "../../Core/Core.types";
 export type DropdownDirection =
   | "bottom-left"
   | "bottom-right"
@@ -26,9 +22,16 @@ export interface SelectOption<T> {
 }
 
 export interface SelectProps<T> extends Omit<
-  CoreLayoutProps<HTMLDivElement>,
-  "defaultValue"
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "defaultValue" | "value" | "onChange"
 > {
+  /** Native props and ref for the trigger button. */
+  triggerProps?: Omit<React.ComponentPropsWithRef<"button">, "children">;
+  /** Native props and ref for the optional search input. */
+  inputProps?: Omit<
+    React.ComponentPropsWithRef<"input">,
+    "value" | "defaultValue" | "type" | "size"
+  >;
   options: SelectOption<T>[];
   value?: T;
   defaultValue?: T;

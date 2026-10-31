@@ -29,6 +29,7 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
       label,
       dimensions = value.w !== undefined ? 4 : value.z === undefined ? 2 : 3,
       layout = "grid",
+      size = "default",
       axisOptions,
       onResetAxis,
       onRandomizeAxis,
@@ -109,6 +110,7 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
 
     const optionsMenu = showActions ? (
       <Dropdown
+        size={size}
         fixed
         direction="bottom-right"
         label={<Icon name="Dots" size="small" />}
@@ -183,12 +185,17 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
                       min={options?.min}
                       max={options?.max}
                       step={options?.step ?? 0.1}
-                      disabled={disabled}
-                      readOnly={readOnly}
-                      aria-label={`${axis.toUpperCase()} value`}
-                      onChange={(event) =>
-                        setAxis(axis, event.currentTarget.valueAsNumber)
+                      disabled={
+                        disabled || axisOptions?.[axis]?.inputProps?.disabled
                       }
+                      readOnly={
+                        readOnly || axisOptions?.[axis]?.inputProps?.readOnly
+                      }
+                      aria-label={`${axis.toUpperCase()} value`}
+                      onChange={(event) => {
+                        setAxis(axis, event.currentTarget.valueAsNumber);
+                        axisOptions?.[axis]?.inputProps?.onChange?.(event);
+                      }}
                     />
                     <Button
                       icon="Plus"
@@ -246,25 +253,36 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
           >
             {axes.map((axis, index) => (
               <Input
+                size={size}
                 key={axis}
-                id={`${fieldId}-${axis}`}
-                className="oakd-vector-field__toolbar-input"
+                {...axisOptions?.[axis]?.inputProps}
+                id={axisOptions?.[axis]?.inputProps?.id ?? `${fieldId}-${axis}`}
+                className={[
+                  "oakd-vector-field__toolbar-input",
+                  axisOptions?.[axis]?.inputProps?.className,
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
                 icon={AXIS_ICONS[index]}
                 type="number"
                 value={value[axis] ?? 0}
                 min={axisOptions?.[axis]?.min}
                 max={axisOptions?.[axis]?.max}
                 step={axisOptions?.[axis]?.step ?? 0.01}
-                disabled={disabled}
-                readOnly={readOnly}
+                disabled={disabled || axisOptions?.[axis]?.inputProps?.disabled}
+                readOnly={readOnly || axisOptions?.[axis]?.inputProps?.readOnly}
                 aria-label={
-                  typeof label === "string"
-                    ? `${label} ${axis.toUpperCase()}`
-                    : axis.toUpperCase()
+                  axisOptions?.[axis]?.inputProps?.["aria-label"] ??
+                  (axisOptions?.[axis]?.inputProps?.["aria-labelledby"]
+                    ? undefined
+                    : typeof label === "string"
+                      ? `${label} ${axis.toUpperCase()}`
+                      : axis.toUpperCase())
                 }
-                onChange={(event) =>
-                  setAxis(axis, event.currentTarget.valueAsNumber)
-                }
+                onChange={(event) => {
+                  setAxis(axis, event.currentTarget.valueAsNumber);
+                  axisOptions?.[axis]?.inputProps?.onChange?.(event);
+                }}
               />
             ))}
             {optionsMenu}
@@ -301,22 +319,35 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
                   <Space direction="vertical" gap wide align="stretch">
                     <Icon name={AXIS_ICONS[index]} />
                     <Input
-                      id={`${fieldId}-${axis}`}
+                      size={size}
+                      {...axisOptions?.[axis]?.inputProps}
+                      id={
+                        axisOptions?.[axis]?.inputProps?.id ??
+                        `${fieldId}-${axis}`
+                      }
                       type="number"
                       value={value[axis] ?? 0}
                       min={axisOptions?.[axis]?.min}
                       max={axisOptions?.[axis]?.max}
                       step={axisOptions?.[axis]?.step ?? 0.01}
-                      disabled={disabled}
-                      readOnly={readOnly}
+                      disabled={
+                        disabled || axisOptions?.[axis]?.inputProps?.disabled
+                      }
+                      readOnly={
+                        readOnly || axisOptions?.[axis]?.inputProps?.readOnly
+                      }
                       aria-label={
-                        typeof label === "string"
-                          ? `${label} ${axis.toUpperCase()}`
-                          : axis.toUpperCase()
+                        axisOptions?.[axis]?.inputProps?.["aria-label"] ??
+                        (axisOptions?.[axis]?.inputProps?.["aria-labelledby"]
+                          ? undefined
+                          : typeof label === "string"
+                            ? `${label} ${axis.toUpperCase()}`
+                            : axis.toUpperCase())
                       }
-                      onChange={(event) =>
-                        setAxis(axis, event.currentTarget.valueAsNumber)
-                      }
+                      onChange={(event) => {
+                        setAxis(axis, event.currentTarget.valueAsNumber);
+                        axisOptions?.[axis]?.inputProps?.onChange?.(event);
+                      }}
                     />
                   </Space>
                 </Col>
@@ -326,6 +357,7 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
               <Space gap align="center">
                 {onRandomize ? (
                   <Button
+                    size={size}
                     variant="ghost"
                     icon="Wand"
                     disabled={locked}
@@ -336,6 +368,7 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
                 ) : null}
                 {onReset ? (
                   <Button
+                    size={size}
                     variant="ghost"
                     icon="Broom"
                     disabled={locked}
@@ -346,6 +379,7 @@ const VectorField = forwardRef<HTMLDivElement, VectorFieldProps>(
                 ) : null}
                 {onApply ? (
                   <Button
+                    size={size}
                     variant="primary"
                     icon="Check"
                     disabled={locked}

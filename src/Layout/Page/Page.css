@@ -25,6 +25,10 @@
 }
 
 .oakd.page.gap {
-    column-gap: var(--oakd-gap);
-    row-gap: var(--oakd-gap);
+    column-gap: var(--oakd-leading);
+    row-gap: var(--oakd-leading);
+}
+
+.oakd.page.pad {
+    padding: var(--oakd-leading);
 }

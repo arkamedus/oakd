@@ -46,10 +46,33 @@ describe("Button Component", () => {
     );
   });
 
+  it("renders the same disabled button for the variant and native prop", () => {
+    const onClick = jest.fn();
+    const { rerender } = render(
+      <Button variant="disabled" icon="Star" onClick={onClick}>Disabled</Button>,
+    );
+    const variantButton = screen.getByRole("button");
+    const markup = variantButton.outerHTML;
+    expect(variantButton).toBeDisabled();
+    fireEvent.click(variantButton);
+    rerender(<Button disabled icon="Star" onClick={onClick}>Disabled</Button>);
+    const propButton = screen.getByRole("button");
+    expect(propButton.outerHTML).toBe(markup);
+    expect(propButton).toBeDisabled();
+    fireEvent.click(propButton);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
   it("supports the active visual variant", () => {
     render(<Button variant="active">Selected</Button>);
     expect(screen.getByRole("button", { name: "Selected" })).toHaveClass(
       "type-active",
     );
   });
+});
+
+ it.each(["small", "default", "large"] as const)("keeps the icon at text line height for %s buttons", size => {
+  render(<Button size={size} icon="Plus">Add</Button>);
+  expect(screen.getByTestId("Icon")).toHaveClass("icon-small");
+  expect(screen.getByRole("button", { name: "Add" })).toHaveClass(`size-${size}`);
 });

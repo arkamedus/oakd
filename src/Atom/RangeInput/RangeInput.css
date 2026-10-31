@@ -28,7 +28,7 @@
 }
 .oakd-range input:focus-visible {
 	outline: none;
-	box-shadow: none;
+	box-shadow: var(--oakd-focus-ring);
 }
 .oakd-range input:disabled {
 	border-color: var(--oakd-disabled-border);

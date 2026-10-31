@@ -10,6 +10,15 @@ import Card from "../Card/Card";
 import Select from "../Select/Select";
 import ContentRail from "../../Layout/ContentRail/ContentRail";
 
+
+const CodeAreaSizes = (props: React.ComponentProps<typeof CodeArea>) => (
+  <Space direction="vertical" gap wide>
+    {(["small", "default", "large"] as const).map(size => (
+      <CodeArea aria-label="Source code" {...props} key={size} size={size} />
+    ))}
+  </Space>
+);
+
 const meta: Meta<typeof CodeArea> = {
   title: "Design System/Atomic/CodeArea",
   component: CodeArea,
@@ -100,10 +109,10 @@ end program oakd_metrics`,
   },
 };
 
-export const Default = () => <CodeArea grow />;
+export const Default = () => <CodeAreaSizes grow />;
 
 export const WithCode = () => (
-  <CodeArea
+  <CodeAreaSizes
     defaultValue={`// Simple math
 const count = 5;
 let total = 0;
@@ -118,7 +127,7 @@ console.log("Total:", total);`}
 );
 
 export const WithCodeAndError = () => (
-  <CodeArea
+  <CodeAreaSizes
     highlightCurrentLine
     lineNumbers
     errorLines={[5]}
@@ -134,14 +143,14 @@ console.log(divide(10, 2));`}
   />
 );
 
-export const Disabled = () => <CodeArea disabled grow />;
+export const Disabled = () => <CodeAreaSizes disabled grow />;
 
 export const ReadOnly = () => (
-  <CodeArea readOnly grow value={"This should be read only!"} />
+  <CodeAreaSizes readOnly grow value={"This should be read only!"} />
 );
 
 export const WithFeaturesAndErrorLines = () => (
-  <CodeArea
+  <CodeAreaSizes
     defaultValue={"baz\nbar\nbuzz\nbiz\nbap"}
     lineNumbers
     highlightCurrentLine
@@ -184,7 +193,7 @@ export const WithLanguageSelect = () => {
               direction="bottom-right"
             />
           </Space>
-          <CodeArea
+          <CodeAreaSizes
             value={currentConfig.code}
             rules={currentConfig.rules}
             lineNumbers

@@ -50,16 +50,20 @@ export const Default: Story = {
 export const WideAndHidden: Story = {
   render: () => (
     <Space direction="vertical" gap wide>
-      <Badge wide variant="danger" label="Unsaved changes">
+      {(["small", "default", "large"] as const).map(size => (
+        <Space key={size} direction="vertical" gap wide>
+      <Badge size={size} wide variant="danger" label="Unsaved changes">
         <Button wide icon="Cog">
           <Paragraph>Object properties</Paragraph>
         </Button>
       </Badge>
-      <Badge wide hidden label="No notification">
+      <Badge size={size} wide hidden label="No notification">
         <Button wide icon="Check">
           <Paragraph>Saved properties</Paragraph>
         </Button>
       </Badge>
+        </Space>
+      ))}
     </Space>
   ),
 };

@@ -277,3 +277,24 @@ it("renders image thumbnails in the trigger and menu", () => {
   );
   expect(screen.getAllByLabelText("Thumbnail")).toHaveLength(2);
 });
+
+it("forwards native trigger and search input props without losing selection behavior", () => {
+  const triggerRef = React.createRef<HTMLButtonElement>();
+  const inputRef = React.createRef<HTMLInputElement>();
+  const change = jest.fn();
+  const searchChange = jest.fn();
+  render(<Select id="project" aria-label="Project" name="project-picker" searchable options={[{ value: "a", element: "Alpha" }, { value: "b", element: "Beta" }]} onChange={change} triggerProps={{ ref: triggerRef }} inputProps={{ ref: inputRef, id: "project-search", name: "query", autoComplete: "off", "aria-label": "Filter projects", onChange: searchChange }} />);
+  const trigger = screen.getByRole("button", { name: "Project" });
+  expect(triggerRef.current).toBe(trigger);
+  expect(trigger).toHaveAttribute("id", "project");
+  expect(trigger).toHaveAttribute("name", "project-picker");
+  fireEvent.click(trigger);
+  const input = screen.getByRole("textbox", { name: "Filter projects" });
+  expect(inputRef.current).toBe(input);
+  expect(input).toHaveAttribute("name", "query");
+  expect(input).toHaveAttribute("autocomplete", "off");
+  fireEvent.change(input, { target: { value: "Beta" } });
+  expect(searchChange).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole("option", { name: "Beta" }));
+  expect(change).toHaveBeenCalledWith("b", expect.objectContaining({ value: "b" }));
+});

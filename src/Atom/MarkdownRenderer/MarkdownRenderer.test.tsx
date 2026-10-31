@@ -3,6 +3,15 @@ import { render, screen } from "@testing-library/react";
 import MarkdownRenderer from "./MarkdownRenderer";
 
 describe("MarkdownRenderer Component", () => {
+  it.each([1, 2, 3, 4, 5, 6])("uses large icons in level %s headings and small icons in body text", (level) => {
+    const { container } = render(
+      <MarkdownRenderer markdown={`${"#".repeat(level)} [icon:Check] Done =D\n\nBody [icon:Check]`} />,
+    );
+    const heading = screen.getByRole("heading");
+    expect(heading.querySelectorAll(".icon-large")).toHaveLength(2);
+    expect(container.querySelector("p .icon")).toHaveClass("icon-small");
+  });
+
   it("renders headings and inline formatting", () => {
     render(<MarkdownRenderer markdown={"# Hello\n\nThis is **bold** text."} />);
     expect(screen.getByText("Hello")).toBeInTheDocument();

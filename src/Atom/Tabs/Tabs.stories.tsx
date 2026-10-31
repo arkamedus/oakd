@@ -4,7 +4,6 @@ import Tabs, { Tab } from "./Tabs";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import Title from "../Title/Title";
-import { IconLayers, IconStar, IconUser } from "../../Icon/Icons.bin";
 import Card from "../Card/Card";
 import Button from "../Button/Button";
 
@@ -32,7 +31,7 @@ export const Default: Story = {
 	},
 	render: (args) => (
 		<Tabs {...args}>
-			<Tab key="overview" label="Overview" icon={<IconLayers />}>
+			<Tab key="overview" label="Overview" icon="Layers">
 				<Card pad wide>
 					<Space direction="vertical" gap>
 						<Title>Launch overview</Title>
@@ -43,7 +42,7 @@ export const Default: Story = {
 					</Space>
 				</Card>
 			</Tab>
-			<Tab key="activity" label="Activity" icon={<IconStar />}>
+			<Tab key="activity" label="Activity" icon="Star">
 				<Card pad wide>
 					<Space direction="vertical" gap>
 						<Paragraph>3 pull requests merged today.</Paragraph>
@@ -51,7 +50,7 @@ export const Default: Story = {
 					</Space>
 				</Card>
 			</Tab>
-			<Tab key="owners" label="Owners" icon={<IconUser />}>
+			<Tab key="owners" label="Owners" icon="User">
 				<Card pad wide>
 					<Space direction="vertical" gap>
 						<Paragraph>Engineering: Maya Chen</Paragraph>
@@ -66,7 +65,7 @@ export const Default: Story = {
 export const WithVerticalOrientation: Story = {
 	render: () => (
 		<Tabs orientation="vertical" defaultActiveKey="profile">
-			<Tab key="profile" label="Profile" icon={<IconUser />}>
+			<Tab key="profile" label="Profile" icon="User">
 				<Card pad wide>
 					<Space direction="vertical" gap>
 						<Title>Profile preferences</Title>
@@ -77,14 +76,14 @@ export const WithVerticalOrientation: Story = {
 					</Space>
 				</Card>
 			</Tab>
-			<Tab key="notifications" label="Notifications" icon={<IconStar />}>
+			<Tab key="notifications" label="Notifications" icon="Star">
 				<Card pad wide>
 					<Paragraph>
 						Route critical alerts to email and send digest updates to Slack.
 					</Paragraph>
 				</Card>
 			</Tab>
-			<Tab key="workspace" label="Workspace" icon={<IconLayers />}>
+			<Tab key="workspace" label="Workspace" icon="Layers">
 				<Card pad wide>
 					<Paragraph>
 						Configure shared defaults for reviewers, labels, and deployment

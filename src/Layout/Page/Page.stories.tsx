@@ -26,7 +26,6 @@ import Icon from "../../Icon/Icon";
 import Aspect from "../Aspect/Aspect";
 import Col from "../Column/Column";
 import Content from "../Content/Content";
-import ContentRail from "../ContentRail/ContentRail";
 import Dock from "../Dock/Dock";
 import Row from "../Row/Row";
 import ScrollArea from "../ScrollArea/ScrollArea";
@@ -163,7 +162,7 @@ const Header = ({
   description: string;
   actions?: React.ReactNode;
 }) => (
-  <Content pad wide>
+  <Content wide>
     <Space align="center" justify="between" gap wide noWrap>
       <Space direction="vertical" gap grow>
         <Title>{title}</Title>
@@ -233,22 +232,22 @@ const chatMessage = (message: string, time: string, side: "left" | "right") => (
   <Row gap>
     {side === "right" ? <Col xs={4} md={8} /> : null}
     <Col xs={20} md={16}>
-      <Card pad wide variant={side === "right" ? "active" : "default"}>
-        <Space direction="vertical" gap wide>
+      <Space direction="vertical" wide>
+        <Card pad wide variant={side === "right" ? "active" : "default"}>
           <Paragraph>{message}</Paragraph>
-          <Paragraph>{time}</Paragraph>
-        </Space>
-      </Card>
+        </Card>
+        <Paragraph><small>{time}</small></Paragraph>
+      </Space>
     </Col>
   </Row>
 );
 
 export const Default: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Project overview"
-        description="A full-height page with bounded content and one owned scroll region."
+        description="A full-height page with one owned scroll region."
         actions={
           <Button variant="primary" icon="Plus">
             <Paragraph>New project</Paragraph>
@@ -256,47 +255,45 @@ export const Default: Story = {
         }
       />
       <ScrollArea orientation="vertical" grow fill wide>
-        <ContentRail size="huge">
-          <Content pad wide>
-            <Space direction="vertical" gap wide>
-              <Row gap>
-                <Col xs={24} md={8}>
-                  <SummaryCard
-                    title="Open work"
-                    value="18"
-                    detail="Six items need review today."
-                  />
-                </Col>
-                <Col xs={24} md={8}>
-                  <SummaryCard
-                    title="On track"
-                    value="92%"
-                    detail="Delivery confidence this week."
-                    variant="success"
-                  />
-                </Col>
-                <Col xs={24} md={8}>
-                  <SummaryCard
-                    title="At risk"
-                    value="3"
-                    detail="Owners have been notified."
-                    variant="warning"
-                  />
-                </Col>
-              </Row>
-              <Card pad wide>
-                <DataTable
-                  title="Recent work"
-                  columns={workColumns}
-                  rows={workItems}
-                  getRowId={(row) => row.id}
-                  defaultPageSize={4}
-                  pageSizeOptions={[4, 6]}
+        <Content wide>
+          <Space direction="vertical" gap wide>
+            <Row gap>
+              <Col xs={24} md={8}>
+                <SummaryCard
+                  title="Open work"
+                  value="18"
+                  detail="Six items need review today."
                 />
-              </Card>
-            </Space>
-          </Content>
-        </ContentRail>
+              </Col>
+              <Col xs={24} md={8}>
+                <SummaryCard
+                  title="On track"
+                  value="92%"
+                  detail="Delivery confidence this week."
+                  variant="success"
+                />
+              </Col>
+              <Col xs={24} md={8}>
+                <SummaryCard
+                  title="At risk"
+                  value="3"
+                  detail="Owners have been notified."
+                  variant="warning"
+                />
+              </Col>
+            </Row>
+            <Card pad wide>
+              <DataTable
+                title="Recent work"
+                columns={workColumns}
+                rows={workItems}
+                getRowId={(row) => row.id}
+                defaultPageSize={4}
+                pageSizeOptions={[4, 6]}
+              />
+            </Card>
+          </Space>
+        </Content>
       </ScrollArea>
     </Page>
   ),
@@ -304,66 +301,66 @@ export const Default: Story = {
 
 export const WithGap: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Release planning"
-        description="Page gap separates the header, summary, and delivery plan."
+        description="A single gap separates the summary and delivery plan."
         actions={
           <Pill variant="success" icon="Check">
             On schedule
           </Pill>
         }
       />
-      <Content pad wide>
-        <Row gap>
-          <Col xs={24} md={12}>
-            <SummaryCard
-              title="Target"
-              value="August 29"
-              detail="Production rollout at 10:00 AM."
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <SummaryCard
-              title="Readiness"
-              value="16 / 18"
-              detail="Two validation checks remain."
-              variant="warning"
-            />
-          </Col>
-        </Row>
-      </Content>
-      <Content pad grow fill>
-        <Card pad grow fill wide>
-          <Space direction="vertical" gap wide fill>
-            <Title size="small">Delivery plan</Title>
-            <ScrollArea orientation="vertical" grow fill wide>
-              <ActionList>
-                <QueueItem
-                  title="Package verification"
-                  description="Validate exports and source maps."
-                  status="Complete"
-                />
-                <QueueItem
-                  title="Accessibility review"
-                  description="Confirm keyboard and focus behavior."
-                  status="In review"
-                  selected
-                />
-                <QueueItem
-                  title="Documentation publish"
-                  description="Release the migration and API notes."
-                  status="Ready"
-                />
-                <QueueItem
-                  title="Production rollout"
-                  description="Promote, observe, and confirm rollback readiness."
-                  status="Scheduled"
-                />
-              </ActionList>
-            </ScrollArea>
-          </Space>
-        </Card>
+      <Content grow fill wide>
+        <Space direction="vertical" gap grow fill wide>
+          <Row gap>
+            <Col xs={24} md={12}>
+              <SummaryCard
+                title="Target"
+                value="August 29"
+                detail="Production rollout at 10:00 AM."
+              />
+            </Col>
+            <Col xs={24} md={12}>
+              <SummaryCard
+                title="Readiness"
+                value="16 / 18"
+                detail="Two validation checks remain."
+                variant="warning"
+              />
+            </Col>
+          </Row>
+          <Card pad grow wide>
+            <Space direction="vertical" gap wide fill>
+              <Title size="small">Delivery plan</Title>
+              <ScrollArea orientation="vertical" grow fill wide>
+                <ActionList>
+                  <QueueItem
+                    title="Package verification"
+                    description="Validate exports and source maps."
+                    status="Complete"
+                  />
+                  <QueueItem
+                    title="Accessibility review"
+                    description="Confirm keyboard and focus behavior."
+                    status="In review"
+                    selected
+                  />
+                  <QueueItem
+                    title="Documentation publish"
+                    description="Release the migration and API notes."
+                    status="Ready"
+                  />
+                  <QueueItem
+                    title="Production rollout"
+                    description="Promote, observe, and confirm rollback readiness."
+                    status="Scheduled"
+                  />
+                </ActionList>
+              </ScrollArea>
+            </Space>
+          </Card>
+        </Space>
       </Content>
     </Page>
   ),
@@ -371,7 +368,7 @@ export const WithGap: Story = {
 
 export const WorkspaceSlice: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Customer operations"
         description="Account health, assigned work, and the next customer action."
@@ -379,9 +376,9 @@ export const WorkspaceSlice: Story = {
           <>
             <Select searchable fixed
               options={[
-                { value: "northwind", element: "Northwind" },
-                { value: "atlas", element: "Atlas Labs" },
-                { value: "signal", element: "Signal Ops" },
+                { value: "northwind", element: <Paragraph>Northwind</Paragraph> },
+                { value: "atlas", element: <Paragraph>Atlas Labs</Paragraph> },
+                { value: "signal", element: <Paragraph>Signal Ops</Paragraph> },
               ]}
               defaultValue="northwind"
             />
@@ -391,7 +388,7 @@ export const WorkspaceSlice: Story = {
           </>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={7}>
             <Card pad grow fill wide>
@@ -443,7 +440,7 @@ export const WorkspaceSlice: Story = {
 
 export const FixedHeaderWithGrowBody: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Review queue"
         description="The header and footer stay fixed while the queue owns scrolling."
@@ -453,7 +450,7 @@ export const FixedHeaderWithGrowBody: Story = {
           </Button>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={16}>
             <Card grow fill wide>
@@ -489,7 +486,7 @@ export const FixedHeaderWithGrowBody: Story = {
           </Col>
         </Row>
       </Content>
-      <Content pad wide>
+      <Content wide>
         <Space align="center" justify="between" wide>
           <Paragraph>6 reviews · 1 blocked</Paragraph>
           <Paragraph>Updated moments ago</Paragraph>
@@ -501,7 +498,7 @@ export const FixedHeaderWithGrowBody: Story = {
 
 export const ScrollableOperationsPage: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Operations queue"
         description="Two bounded rails with deliberate, independent scroll ownership."
@@ -511,7 +508,7 @@ export const ScrollableOperationsPage: Story = {
           </Button>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={16}>
             <Card grow fill wide>
@@ -572,7 +569,7 @@ export const ScrollableOperationsPage: Story = {
 
 export const AnalyticsWorkspace: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Analytics workspace"
         description="A growing primary chart with a compact supporting rail."
@@ -580,8 +577,8 @@ export const AnalyticsWorkspace: Story = {
           <>
             <Select searchable fixed
               options={[
-                { value: "week", element: "This week" },
-                { value: "month", element: "This month" },
+                { value: "week", element: <Paragraph>This week</Paragraph> },
+                { value: "month", element: <Paragraph>This month</Paragraph> },
               ]}
               defaultValue="week"
             />
@@ -591,7 +588,7 @@ export const AnalyticsWorkspace: Story = {
           </>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={14}>
             <Card pad grow fill wide>
@@ -695,7 +692,7 @@ export const AnalyticsWorkspace: Story = {
 
 export const KnowledgeBaseWorkspace: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Knowledge base"
         description="Navigation stays static while the selected article collection scrolls."
@@ -705,7 +702,7 @@ export const KnowledgeBaseWorkspace: Story = {
           </Button>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={6}>
             <Card grow fill wide>
@@ -790,7 +787,7 @@ export const KnowledgeBaseWorkspace: Story = {
 
 export const ChatWorkspace: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Team inbox"
         description="Contacts and messages scroll independently; the composer remains fixed."
@@ -800,7 +797,7 @@ export const ChatWorkspace: Story = {
           </Button>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={7}>
             <Card grow fill wide>
@@ -854,7 +851,7 @@ export const ChatWorkspace: Story = {
                     <Paragraph>Details</Paragraph>
                   </Button>
                 </Space>
-                <ScrollArea orientation="vertical" grow fill stickToEnd>
+                <ScrollArea orientation="vertical" grow fill wide stickToEnd>
                   <Space direction="vertical" gap wide>
                     {chatMessage(
                       "I pulled the latest workspace notes into the review queue.",
@@ -878,12 +875,12 @@ export const ChatWorkspace: Story = {
                     )}
                   </Space>
                 </ScrollArea>
-                <Space align="center" gap wide noWrap>
+                <ButtonGroup className="wide nowrap">
                   <Input grow placeholder="Write a reply…" />
                   <Button variant="primary">
                     <Paragraph>Send</Paragraph>
                   </Button>
-                </Space>
+                </ButtonGroup>
               </Space>
             </Card>
           </Col>
@@ -916,7 +913,7 @@ const assets = [
 
 export const AssetReviewWorkspace: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Asset review"
         description="A queue, growing preview, and metadata rail form one review slice."
@@ -926,7 +923,7 @@ export const AssetReviewWorkspace: Story = {
           </Button>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={6}>
             <Card pad grow fill wide>
@@ -1004,7 +1001,7 @@ export const AssetReviewWorkspace: Story = {
 
 export const QueryWorkbench: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Query workbench"
         description="The editor and result table share a bounded, full-height workspace."
@@ -1019,14 +1016,14 @@ export const QueryWorkbench: Story = {
           </>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={9}>
             <Card pad grow fill wide>
               <Space direction="vertical" gap wide fill>
                 <Space align="center" justify="between" wide>
                   <Title size="small">Editor</Title>
-                  <Pill variant="success">Saved</Pill>
+                  <Pill size="small" variant="success">Saved</Pill>
                 </Space>
                 <Content grow fill wide>
                   <CodeArea
@@ -1106,7 +1103,7 @@ limit 20;`}
 
 export const MissionControlWorkspace: Story = {
   render: () => (
-    <Page fixed gap>
+    <Page fixed pad gap>
       <Header
         title="Mission control"
         description="A live board with equal-height action, telemetry, and state rails."
@@ -1121,7 +1118,7 @@ export const MissionControlWorkspace: Story = {
           </>
         }
       />
-      <Content pad grow fill>
+      <Content grow fill>
         <Row gap grow fill>
           <Col xs={24} md={6}>
             <Card grow fill wide>
@@ -1267,8 +1264,8 @@ const ObjectEditorPage = () => {
   const [prefab, setPrefab] = React.useState("cube");
 
   return (
-    <Page fixed gap>
-      <Content pad wide>
+    <Page fixed pad gap>
+      <Content wide>
         <Space align="center" justify="between" gap wide noWrap>
           <Space direction="vertical" gap grow>
             <Space align="center" gap>
@@ -1285,7 +1282,7 @@ const ObjectEditorPage = () => {
           </Button>
         </Space>
       </Content>
-      <Content pad grow fill wide>
+      <Content grow fill wide>
         <Row gap grow fill>
           <Col xs={24} md={8}>
             <Card grow fill wide>

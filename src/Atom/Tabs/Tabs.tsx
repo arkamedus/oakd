@@ -3,7 +3,6 @@ import React from "react";
 import { TabProps, TabsProps } from "./Tabs.types";
 import "./Tabs.css";
 import Space from "../Space/Space";
-import { IconAngle } from "../../Icon/Icons.bin";
 import Button, { ButtonGroup } from "../Button/Button";
 import Paragraph from "../Paragraph/Paragraph";
 import Content from "../../Layout/Content/Content";
@@ -68,12 +67,10 @@ const Tabs: React.FC<TabsProps> = ({
         id={tabId}
         aria-controls={panelId}
         aria-selected={isActive}
+        icon={child.props.icon || "Angle"}
         onClick={() => handleTabClick(key)}
       >
-        <Space gap align="center" fill noWrap>
-          {child.props.icon || <IconAngle size="small" />}
-          <Paragraph>{child.props.label}</Paragraph>
-        </Space>
+        {child.props.label ? <Paragraph>{child.props.label}</Paragraph> : null}
       </Button>
     );
   };

@@ -239,7 +239,7 @@ export const WithAddDeleteAndContextMenu: Story = {
           : undefined,
       }));
 
-    return <Tree items={bindMenus(items)} onChange={setItems} wide guides />;
+    return <Tree items={bindMenus(items)} onChange={setItems} wide />;
   },
 };
 
@@ -269,7 +269,7 @@ export const WithEmptyFolder: Story = {
         ],
       },
     ]);
-    return <Tree items={items} onChange={setItems} wide pad />;
+    return <Tree items={items} onChange={setItems} wide />;
   },
 };
 

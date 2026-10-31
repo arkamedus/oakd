@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+	useCallback,
+	useEffect,
+	useId,
+	useImperativeHandle,
+	useRef,
+	useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { DropdownProps } from "./Dropdown.types";
 import "./Dropdown.css";
@@ -10,10 +17,14 @@ import Paragraph from "../Paragraph/Paragraph";
 
 const Dropdown: React.FC<DropdownProps> = ({
 	children,
+	triggerProps,
+	type = "button",
+	onClick,
 	direction = "bottom-left",
 	fixed = false,
 	grow = false,
 	label = "Toggle Dropdown",
+	size = "default",
 	className = "",
 	onFocusCapture,
 	onKeyDown,
@@ -29,6 +40,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 	closeOnSelect = false,
 	...rest
 }) => {
+	const menuId = useId();
 	const [internalOpen, setInternalOpen] = useState(defaultOpen);
 	const isOpen = open ?? internalOpen;
 	const [adaptiveDirection, setAdaptiveDirection] = useState(direction);
@@ -36,6 +48,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const menuRef = useRef<HTMLDivElement>(null);
 	const triggerRef = useRef<HTMLButtonElement>(null);
+	useImperativeHandle(triggerProps?.ref, () => triggerRef.current!);
 	const setOpen = useCallback(
 		(next: boolean) => {
 			if (open === undefined) setInternalOpen(next);
@@ -104,6 +117,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 	const menu = (
 		<Card
 			ref={menuRef}
+			id={menuId}
 			role="presentation"
 			className={[
 				"oakd-dropdown-content",
@@ -142,7 +156,6 @@ const Dropdown: React.FC<DropdownProps> = ({
 
 	return (
 		<Content
-			{...rest}
 			className={[
 				"oakd-dropdown-container",
 				wide ? "wide" : "",
@@ -154,34 +167,58 @@ const Dropdown: React.FC<DropdownProps> = ({
 			ref={dropdownRef}
 			onFocusCapture={(event) => {
 				syncPlacement();
-				onFocusCapture?.(event);
 			}}
 			onKeyDown={(event) => {
-				if (event.key === "Escape") {
+				if (!event.defaultPrevented && event.key === "Escape") {
 					closeDropdown(true);
 				}
-				onKeyDown?.(event);
 			}}
 			onKeyDownCapture={(event) => {
 				if (event.key === "Enter" || event.key === " ") {
 					syncPlacement();
 				}
-				onKeyDownCapture?.(event);
 			}}
 			onPointerDownCapture={(event) => {
 				syncPlacement();
-				onPointerDownCapture?.(event);
 			}}
 			style={style}
 		>
 			<Button
+				{...rest}
+				{...triggerProps}
 				ref={triggerRef}
-				htmlType="button"
-				onClick={toggleDropdown}
-				aria-haspopup="true"
+				onFocusCapture={(event) => {
+					onFocusCapture?.(event);
+					triggerProps?.onFocusCapture?.(event);
+				}}
+				onKeyDownCapture={(event) => {
+					onKeyDownCapture?.(event);
+					triggerProps?.onKeyDownCapture?.(event);
+				}}
+				onPointerDownCapture={(event) => {
+					onPointerDownCapture?.(event);
+					triggerProps?.onPointerDownCapture?.(event);
+				}}
+				onKeyDown={(event) => {
+					onKeyDown?.(event);
+					triggerProps?.onKeyDown?.(event);
+				}}
+				size={size}
+				htmlType={triggerProps?.type ?? type}
+				onClick={(event) => {
+					onClick?.(event);
+					triggerProps?.onClick?.(event);
+					if (!event.defaultPrevented) toggleDropdown();
+				}}
+				aria-haspopup={
+					triggerProps?.["aria-haspopup"] ?? rest["aria-haspopup"] ?? true
+				}
+				aria-controls={menuId}
 				aria-expanded={isOpen}
-				disabled={disabled}
-				className="oakd-dropdown-trigger"
+				disabled={disabled || triggerProps?.disabled}
+				className={["oakd-dropdown-trigger", triggerProps?.className]
+					.filter(Boolean)
+					.join(" ")}
 			>
 				{typeof label === "string" ? <Paragraph>{label}</Paragraph> : label}
 			</Button>

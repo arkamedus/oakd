@@ -3,7 +3,6 @@ import { ButtonProps } from "./Button.types";
 import "./Button.css";
 import Space from "../Space/Space";
 import Icon from "../../Icon/Icon";
-import { sizeMinusOne } from "../../Core/Core.utils";
 import { CoreComponentLayoutDirectionType } from "../../Core/Core.types";
 import { CoreIconNameType } from "../../Icon/Icons.bin";
 
@@ -66,7 +65,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         <Space gap align="center" fill wide>
           {icon && typeof icon === "string" ? (
-            <Icon name={icon as CoreIconNameType} size={sizeMinusOne(size)} />
+            <Icon name={icon as CoreIconNameType} size="small" />
           ) : (
             icon
           )}

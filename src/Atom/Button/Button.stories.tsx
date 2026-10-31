@@ -1,219 +1,69 @@
 import React from "react";
-import { Meta, StoryFn, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import Button, { ButtonGroup } from "./Button";
-import { ButtonType, CoreComponentSizeType } from "../../Core/Core.types";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
-import { CoreIconNameType, IconFolder } from "../../Icon/Icons.bin";
-import Card from "../Card/Card";
 
+const sizes = ["small", "default", "large"] as const;
+const variants = ["default", "primary", "active", "success", "warning", "danger", "ghost", "disabled"] as const;
 const meta: Meta<typeof Button> = {
   title: "Design System/Atomic/Button",
   component: Button,
   tags: ["!autodocs"],
   argTypes: {
-    variant: {
-      control: "select",
-      options: [
-        "default",
-        "active",
-        "primary",
-        "success",
-        "danger",
-        "warning",
-        "ghost",
-        "disabled",
-      ],
-      description: "Set the button variant",
-      defaultValue: "default",
-    },
-    size: {
-      control: "select",
-      options: ["default", "small", "large"],
-      description: "Set the button size",
-      defaultValue: "default",
-    },
-    disabled: {
-      control: "boolean",
-      description: "Disables the button",
-    },
+    variant: { control: "select", options: variants },
+    size: { control: "select", options: sizes },
+    disabled: { control: "boolean" },
     onClick: { action: "clicked" },
   },
 };
 export default meta;
-
 type Story = StoryObj<typeof Button>;
 
-const Template: StoryFn<{
-  variant: ButtonType;
-  size: Exclude<CoreComponentSizeType, "huge">;
-  disabled: boolean;
-  icon: CoreIconNameType;
-  children: React.ReactNode;
-}> = (args) => {
-  const firstArgs = { ...args };
-  delete firstArgs.children;
-
-  const middleArgs = { ...args };
-  delete middleArgs.icon;
-
-  return (
-    <Space gap direction="vertical">
-      <Space gap>
-        <Button {...firstArgs} />
-        <Button {...middleArgs}>
-          <Paragraph>{args.children || "Button"}</Paragraph>
-        </Button>
-        <Button icon={<IconFolder size="small" />} {...middleArgs}>
-          <Paragraph>{args.children || "Button"}</Paragraph>
-        </Button>
-        <Button icon={args.icon} {...args}>
-          <Paragraph>{args.children || "Button"}</Paragraph>
-        </Button>
-        <Button icon={args.icon} {...args}>
-          <Paragraph>
-            Button
-            <br />
-            Two Lines
-          </Paragraph>
-        </Button>
-      </Space>
-
-      <Space gap justify="stretch">
-        <Button {...firstArgs} />
-        <Button {...middleArgs}>
-          <Paragraph>{args.children || "Button"}</Paragraph>
-        </Button>
-        <Button icon={args.icon} {...args}>
-          <Paragraph>{args.children || "Button"}</Paragraph>
-        </Button>
-        <Button icon={args.icon} {...args}>
-          <Paragraph>
-            Two lines make
-            <br />
-            the others stretch
-          </Paragraph>
-        </Button>
-      </Space>
-    </Space>
-  );
-};
-
-export const Default: Story = Template.bind({});
-Default.args = {
-  variant: "default",
-  size: "default",
-  disabled: false,
-  icon: "Plus",
-  children: "Button",
-};
-
-export const InButtonGroup = () => (
-  <ButtonGroup>
-    <Button icon={"Star"}></Button>
-    <Button icon={"Magnify"}></Button>
-    <Button icon={"Text"}>
-      <Paragraph>Text</Paragraph>
-    </Button>
-    <Button icon={"Comment"}></Button>
-  </ButtonGroup>
-);
-
-export const InVerticalButtonGroup = () => (
-  <ButtonGroup direction={"vertical"}>
-    <Button icon={"Star"}></Button>
-    <Button icon={"Magnify"}></Button>
-    <Button icon={"Text"}>
-      <Paragraph>Text</Paragraph>
-    </Button>
-    <Button icon={"Comment"}></Button>
-  </ButtonGroup>
-);
-
-export const Primary: Story = Template.bind({});
-Primary.args = {
-  variant: "primary",
-  icon: "Triangle",
-  children: "Primary",
-};
-
-export const Active: Story = Template.bind({});
-Active.args = {
-  variant: "active",
-  icon: "Check",
-  children: "Active",
-};
-
-export const Danger: Story = Template.bind({});
-Danger.args = {
-  variant: "danger",
-  icon: "Triangle",
-  children: "Danger",
-};
-
-export const Success: Story = Template.bind({});
-Success.args = {
-  variant: "success",
-  icon: "Check",
-  children: "Success",
-};
-
-export const Warning: Story = Template.bind({});
-Warning.args = {
-  variant: "warning",
-  icon: "Triangle",
-  children: "Warning",
-};
-
-export const Ghost: Story = Template.bind({});
-Ghost.args = {
-  variant: "ghost",
-  icon: "Triangle",
-  children: "Ghost",
-};
-
-export const Disabled: Story = Template.bind({});
-Disabled.args = {
-  variant: "default",
-  disabled: true,
-  icon: "Folder",
-  children: "Disabled",
-};
-
-export const VariantsGallery = () => (
-  <Space direction="vertical" gap wide>
-    {(
-      [
-        "default",
-        "active",
-        "primary",
-        "success",
-        "warning",
-        "danger",
-        "ghost",
-        "disabled",
-      ] as ButtonType[]
-    ).map((variant) => (
-      <Card key={variant} pad wide variant={variant}>
-        <Space justify="between" align="center" wide>
-          <Paragraph>
-            <strong>{variant}</strong>
-          </Paragraph>
-          <Button variant={variant} disabled={false} icon="Star">
-            <Paragraph>{variant}</Paragraph>
-          </Button>
+export const Default: Story = {
+  render: (args) => (
+    <Space direction="vertical" gap>
+      {sizes.map(size => (
+        <Space key={size} direction="vertical" gap>
+          <Space gap align="center">
+            {variants.map(variant => (
+              <Button {...args} key={variant} size={size} variant={variant}>
+                <Paragraph>{variant}</Paragraph>
+              </Button>
+            ))}
+          </Space>
+          <Space gap align="center">
+            <Button {...args} size={size} icon="Plus" aria-label="Add" />
+            <Button {...args} size={size} icon="Folder"><Paragraph>Folder</Paragraph></Button>
+            <Button {...args} size={size} icon="Plus"><Paragraph>Add</Paragraph></Button>
+            <Button {...args} size={size} disabled><Paragraph>Disabled</Paragraph></Button>
+          </Space>
+          <Space gap justify="stretch">
+            <Button {...args} size={size} icon="Plus" aria-label="Add" />
+            <Button {...args} size={size}><Paragraph>Button</Paragraph></Button>
+            <Button {...args} size={size} icon="Plus"><Paragraph>Two lines make<br />the others stretch</Paragraph></Button>
+          </Space>
         </Space>
-      </Card>
-    ))}
-    <Card pad wide>
-      <Space justify="between" align="center" wide>
-        <Paragraph>
-          <strong>disabled</strong>
-        </Paragraph>
-        <Button disabled icon="Star">
-          <Paragraph>disabled</Paragraph>
-        </Button>
-      </Space>
-    </Card>
-  </Space>
-);
+      ))}
+    </Space>
+  ),
+};
+
+export const ButtonGroups: Story = {
+  render: (args) => (
+    <Space direction="vertical" gap>
+      {sizes.map(size => (
+        <Space key={size} gap align="start">
+          {(["horizontal", "vertical"] as const).map(direction => (
+            <ButtonGroup key={direction} direction={direction}>
+              <Button {...args} size={size} icon="Star" aria-label="Favorite" />
+              <Button {...args} size={size} icon="Magnify" aria-label="Search" />
+              <Button {...args} size={size} icon="Text"><Paragraph>Text</Paragraph></Button>
+              <Button {...args} size={size} icon="Comment" aria-label="Comment" />
+            </ButtonGroup>
+          ))}
+        </Space>
+      ))}
+    </Space>
+  ),
+};

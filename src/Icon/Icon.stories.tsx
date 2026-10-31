@@ -29,7 +29,7 @@ export default meta;
 const Template: StoryFn<typeof Icon> = (args) => <Icon {...args} />;
 
 export const Default = Template.bind({});
-Default.args = { name: "Trash", size: "default" };
+Default.args = { name: "Trash", size: "default", alt: "Trash" };
 
 export const Small = Template.bind({});
 Small.args = { name: "Trash", size: "small" };

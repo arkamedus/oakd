@@ -15,5 +15,6 @@ export interface TreeItem {
 export interface TreeProps extends CoreContentProps<HTMLDivElement> {
 	items: TreeItem[];
 	onChange?: (nextItems: TreeItem[]) => void;
+	/** Show vertical child guide lines. Defaults to true. */
 	guides?: boolean;
 }

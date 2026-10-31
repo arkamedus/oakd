@@ -13,7 +13,7 @@ type Story = StoryObj<typeof MarkdownRenderer>;
 
 export const Default: Story = {
   args: {
-    markdown: `# Release Notes
+    markdown: `# [icon:Note] Release Notes
 
 This includes **bold text**, _emphasis_, and a [link](https://example.com).
 

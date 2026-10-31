@@ -331,18 +331,15 @@ export const Welcome = () => {
                       icon={"User"}
                       placeholder={"text"}
                       type={"text"}
-                      variant={"default"}
                     />
                     <Input
                       icon={"Star"}
                       placeholder={"password"}
                       type={"password"}
-                      variant={"default"}
                     />
                     <Input
                       icon={"List"}
                       type={"number"}
-                      variant={"default"}
                       error
                       defaultValue={-1}
                     />
@@ -504,6 +501,13 @@ export const Welcome = () => {
 
                 <Space direction={"vertical"} gap wide>
                   <Paragraph>small utils</Paragraph>
+                  <Space gap>
+                    {(["default", "primary", "active", "success", "warning", "danger", "ghost", "disabled"] as const).map((variant) => (
+                      <Pill key={variant} size="small" variant={variant}>
+                        <Paragraph>{variant}</Paragraph>
+                      </Pill>
+                    ))}
+                  </Space>
                   <Breadcrumb
                     items={[
                       {

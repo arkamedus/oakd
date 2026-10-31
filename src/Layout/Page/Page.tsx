@@ -10,6 +10,7 @@ const Page: React.FC<PageProps> = ({
 	fixed,
 	fill,
 	gap,
+	pad,
 	className,
 	onClick,
 	...rest
@@ -18,6 +19,7 @@ const Page: React.FC<PageProps> = ({
 		"oakd",
 		"page",
 		gap && "gap",
+		pad && "pad",
 		fill && "fill",
 		fixed && "fixed",
 		className,

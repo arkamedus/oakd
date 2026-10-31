@@ -5,3 +5,20 @@
 .oakd-markdown-editor__surface {
   width: 100%;
 }
+
+.oakd-markdown-editor__icon-picker {
+  width: var(--oakd-width-md);
+  max-width: 100%;
+  height: min(
+    var(--oakd-surface-height-md),
+    calc(var(--oakd-dropdown-available-height, 100vh) - var(--oakd-leading) * 2)
+  );
+}
+
+.oakd-markdown-editor__icon-picker > .oakd.divider {
+  flex: 0 0 auto;
+}
+
+.oakd-markdown-editor__icon-picker .icon[role="button"] {
+  cursor: pointer;
+}

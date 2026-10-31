@@ -20,9 +20,7 @@
 }
 
 .oakd.codearea-container.size-large {
-  --oakd-code-padding-x: calc(var(--oakd-leading) * 2);
   --oakd-code-padding-y: var(--oakd-leading);
-  --oakd-code-gutter-width: calc(var(--oakd-leading) * 3 + 4ch);
 }
 
 /* container */
@@ -283,4 +281,8 @@
 .oakd .codearea-linebg:is(.is-current, .is-error) {
   filter: brightness(calc(1 / var(--oakd-code-feedback-brightness)));
   transition: filter var(--oakd-control-feedback-duration) ease-in-out;
+}
+
+.oakd.codearea-container:has(textarea:focus-visible) {
+  box-shadow: var(--oakd-focus-ring);
 }

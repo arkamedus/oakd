@@ -2,6 +2,8 @@ import React, {
   KeyboardEvent,
   useCallback,
   useEffect,
+  useId,
+  useImperativeHandle,
   useRef,
   useState,
 } from "react";
@@ -24,6 +26,11 @@ import Content from "../../Layout/Content/Content";
 
 const Select = <T,>({
   options,
+  triggerProps,
+  inputProps,
+  type = "button",
+  onClick,
+  onKeyDown,
   value,
   defaultValue,
   placeholder,
@@ -51,6 +58,7 @@ const Select = <T,>({
   emptyContent = "No options",
   ...rest
 }: SelectProps<T>) => {
+  const menuId = useId();
   disabled = disabled || variant === "disabled";
   variant = disabled ? "disabled" : variant;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
@@ -86,6 +94,12 @@ const Select = <T,>({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useImperativeHandle(triggerProps?.ref, () => triggerRef.current!);
+  useImperativeHandle(inputProps?.ref, () => searchRef.current!, [
+    isActive,
+    searchable,
+  ]);
 
   const syncPlacement = useCallback(() => {
     if (!dropdownRef.current) {
@@ -268,9 +282,7 @@ const Select = <T,>({
     thumbnail: NonNullable<SelectOption<T>["thumbnail"]>,
     trigger: boolean,
   ) => (
-    <Content
-      className="oakd-select__thumbnail"
-    >
+    <Content className="oakd-select__thumbnail">
       {trigger
         ? React.cloneElement(thumbnail, { size: sizeMinusOne(size) })
         : thumbnail}
@@ -323,6 +335,7 @@ const Select = <T,>({
   const menu = (
     <Card
       ref={menuRef}
+      id={menuId}
       className={dropdownClassName}
       role="listbox"
       aria-hidden={!isActive}
@@ -333,12 +346,23 @@ const Select = <T,>({
           <>
             <Content pad wide>
               <Input
+                {...inputProps}
                 ref={searchRef}
                 value={query}
-                placeholder={searchPlaceholder}
-                aria-label={searchPlaceholder}
-                onChange={(event) => setQuery(event.target.value)}
+                placeholder={inputProps?.placeholder ?? searchPlaceholder}
+                aria-label={
+                  inputProps?.["aria-label"] ??
+                  (inputProps?.["aria-labelledby"]
+                    ? undefined
+                    : searchPlaceholder)
+                }
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                  inputProps?.onChange?.(event);
+                }}
                 onKeyDown={(event) => {
+                  inputProps?.onKeyDown?.(event);
+                  if (event.defaultPrevented) return;
                   if (
                     event.key === "ArrowDown" ||
                     event.key === "ArrowUp" ||
@@ -400,7 +424,6 @@ const Select = <T,>({
 
   return (
     <Content
-      {...rest}
       ref={dropdownRef}
       className={[
         "oakd-select",
@@ -414,30 +437,52 @@ const Select = <T,>({
       data-testid="Select"
       onFocusCapture={(event) => {
         syncPlacement();
-        onFocusCapture?.(event);
       }}
       onKeyDownCapture={(event) => {
         if (event.key === "Enter" || event.key === " ") {
           syncPlacement();
         }
-        onKeyDownCapture?.(event);
       }}
       onPointerDownCapture={(event) => {
         syncPlacement();
-        onPointerDownCapture?.(event);
       }}
     >
       <Button
+        {...rest}
+        {...triggerProps}
         ref={triggerRef}
-        htmlType="button"
-        onClick={toggleMenu}
-        className="oakd-select__button"
+        onFocusCapture={(event) => {
+          onFocusCapture?.(event);
+          triggerProps?.onFocusCapture?.(event);
+        }}
+        onKeyDownCapture={(event) => {
+          onKeyDownCapture?.(event);
+          triggerProps?.onKeyDownCapture?.(event);
+        }}
+        onPointerDownCapture={(event) => {
+          onPointerDownCapture?.(event);
+          triggerProps?.onPointerDownCapture?.(event);
+        }}
+        htmlType={triggerProps?.type ?? type}
+        onClick={(event) => {
+          onClick?.(event);
+          triggerProps?.onClick?.(event);
+          if (!event.defaultPrevented) toggleMenu();
+        }}
+        className={["oakd-select__button", triggerProps?.className]
+          .filter(Boolean)
+          .join(" ")}
         variant={variant}
         size={size}
         aria-haspopup="listbox"
+        aria-controls={menuId}
         aria-expanded={isActive}
-        disabled={disabled}
-        onKeyDown={handleButtonKeyDown}
+        disabled={disabled || triggerProps?.disabled}
+        onKeyDown={(event) => {
+          onKeyDown?.(event);
+          triggerProps?.onKeyDown?.(event);
+          if (!event.defaultPrevented) handleButtonKeyDown(event);
+        }}
       >
         <Space align="center" justify="between" gap noWrap wide>
           <Space align="center" gap noWrap>

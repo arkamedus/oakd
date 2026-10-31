@@ -97,3 +97,10 @@ describe("IconStack Component", () => {
     expect(container.querySelectorAll(".oakd.icon").length).toBe(2);
   });
 });
+
+
+it("uses alt text as the accessible name for CSS-rendered icons and hides decorative icons", () => {
+  const { getByRole, getByTestId } = render(<><Icon name="Check" alt="Synced" /><Icon name="Angle" data-testid="decorative" /></>);
+  expect(getByRole("img", { name: "Synced" })).not.toHaveAttribute("alt");
+  expect(getByTestId("decorative")).toHaveAttribute("aria-hidden", "true");
+});

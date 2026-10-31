@@ -14,11 +14,11 @@ ul.oakd.tabs {
     flex-direction: column;
 }
 
-.oakd.tabs .tab.vertical {
-  //width: 100%;
+.oakd.tabs [role="tablist"] {
+    flex-shrink: 0;
 }
 
 
-.oakd.tabs .tab.hidden {
+.oakd.tabs [role="tabpanel"][hidden] {
     display: none;
 }

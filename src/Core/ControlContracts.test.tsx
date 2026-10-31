@@ -7,7 +7,7 @@ import FileInput from "../Atom/FileInput/FileInput";
 import Select from "../Atom/Select/Select";
 import { sizeMinusOne } from "./Core.utils";
 
-it.each([Button, Input, FileInput])(
+it.each([Button, FileInput])(
   "makes native disabled and the disabled variant equivalent for %p",
   (Component) => {
     const onClick = jest.fn();
@@ -62,4 +62,16 @@ it.each([
   ["huge", "large"],
 ] as const)("reduces %s to %s", (size, smaller) => {
   expect(sizeMinusOne(size)).toBe(smaller);
+});
+
+
+it("uses the native disabled prop for Input", () => {
+  const click = jest.fn();
+  const { rerender } = render(<Input aria-label="Field" disabled onClick={click} />);
+  const input = screen.getByRole("textbox", { name: "Field" });
+  expect(input).toBeDisabled();
+  fireEvent.click(input);
+  expect(click).not.toHaveBeenCalled();
+  rerender(<Input aria-label="Field" onClick={click} />);
+  expect(input).not.toBeDisabled();
 });

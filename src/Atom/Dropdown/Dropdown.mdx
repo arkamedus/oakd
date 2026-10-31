@@ -4,7 +4,11 @@ import meta from "./Dropdown.stories";
 <Meta of={meta} />
 
 <Title />
-The `Dropdown` component etc...
+Native button attributes (`id`, `aria-*`, `name`, `tabIndex`, and event handlers)
+are forwarded to the trigger button. `className` and `style` remain layout props.
+Use `triggerProps` for a trigger ref or trigger-specific styling. Oakd owns the
+expanded state and popup relationship. Consumer click handlers can call
+`preventDefault()` to cancel opening.
 
 <Primary />
 

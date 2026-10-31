@@ -4,6 +4,7 @@ import { CoreContentProps } from "../../Core/Core.types";
 export type SidebarMode = "expanded" | "collapsed" | "hidden";
 
 export interface AppShellProps extends CoreContentProps<HTMLDivElement> {
+	gap?: boolean;
 	header?: React.ReactNode;
 	sidebar?: React.ReactNode;
 	footer?: React.ReactNode;

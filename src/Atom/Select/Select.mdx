@@ -9,6 +9,12 @@ The `Select` component handles both simple pickers and categorized menus. It
 supports controlled and uncontrolled usage, keyboard selection, custom option
 content, and visual sizing that matches the rest of the oakd input family.
 
+Native button attributes and events target the trigger. Use `triggerProps` for
+its ref, and `inputProps` for native attributes, handlers, and the ref of the
+search input. `className` and `style` continue to style the outer surface.
+Selection is still reported through `onChange(value, option)`; this custom
+picker does not provide native select form submission or validation.
+
 <Primary />
 <Controls />
 

@@ -25,8 +25,10 @@ const meta: Meta<typeof VectorField> = {
   component: VectorField,
   args: {
     layout: "toolbar",
+    axisOptions: { x: { inputProps: { "aria-label": "X coordinate", name: "x" } } },
   },
   argTypes: {
+    size: { control: "select", options: ["small", "default", "large"] },
     dimensions: { control: false },
     value: { control: false },
     layout: { control: "inline-radio", options: ["grid", "toolbar"] },
@@ -38,17 +40,24 @@ const meta: Meta<typeof VectorField> = {
   },
   render: (args) => (
     <Space direction="vertical" gap wide>
-      <ControlledVectorField {...args} dimensions={2} value={{ x: 0, y: 1 }} />
+      {(["small", "default", "large"] as const).map(size => (
+        <Space key={size} direction="vertical" gap wide>
+      <ControlledVectorField {...args}
+        size={size} dimensions={2} value={{ x: 0, y: 1 }} />
       <ControlledVectorField
         {...args}
+        size={size}
         dimensions={3}
         value={{ x: 0, y: 1, z: 2 }}
       />
       <ControlledVectorField
         {...args}
+        size={size}
         dimensions={4}
         value={{ x: 0, y: 1, z: 2, w: 3 }}
       />
+        </Space>
+      ))}
     </Space>
   ),
 };

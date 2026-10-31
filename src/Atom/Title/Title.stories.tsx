@@ -6,6 +6,12 @@ import { IconFolder } from "../../Icon/Icons.bin";
 import Paragraph from "../Paragraph/Paragraph";
 import Space from "../Space/Space";
 
+const TitleSizes = (props: React.ComponentProps<typeof Title>) => (
+  <Space direction="vertical" gap>
+    {(["small", "default", "large", "huge"] as const).map(size => <Title {...props} key={size} size={size} />)}
+  </Space>
+);
+
 const meta: Meta<typeof Title> = {
 	title: "Design System/Atomic/Typography/Title",
 	component: Title,
@@ -18,26 +24,19 @@ const meta: Meta<typeof Title> = {
 };
 export default meta;
 
-export const Default = () => <Title>Quarterly planning</Title>;
+export const Default = () => <TitleSizes>Quarterly planning</TitleSizes>;
 export const Multiline = () => (
-	<Title>
+	<TitleSizes>
 		Design review
 		<br />
 		notes
-	</Title>
+	</TitleSizes>
 );
-export const Large = () => (
-	<Title size={"large"}>Infrastructure migration</Title>
-);
-export const Huge = () => (
-	<Title size={"huge"}>Launch readiness dashboard</Title>
-);
-
 export const WithIcon = () => (
 	<Space direction="vertical" gap>
-		<Title>
+		<TitleSizes>
 			Assets <IconFolder size={"large"} />
-		</Title>
+		</TitleSizes>
 		<Paragraph>
 			Use titles to anchor sections and orient the reader quickly.
 		</Paragraph>

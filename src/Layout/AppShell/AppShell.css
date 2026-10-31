@@ -54,3 +54,7 @@
 		);
 	}
 }
+
+.oakd-app-shell--gap {
+	gap: var(--oakd-leading);
+}

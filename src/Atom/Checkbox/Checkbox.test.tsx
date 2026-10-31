@@ -68,3 +68,15 @@ it("applies custom color styling to the Checkbox surface", () => {
 		color: "var(--oakd-success-border)",
 	});
 });
+
+
+it("forwards native identity, description and ref to the input", () => {
+  const ref = React.createRef<HTMLInputElement>();
+  render(<Checkbox ref={ref} id="native-control" name="field" aria-label="Native field" aria-describedby="field-help" />);
+  const control = screen.getByLabelText("Native field");
+  expect(control.tagName).toBe("INPUT");
+  expect(ref.current).toBe(control);
+  expect(control).toHaveAttribute("id", "native-control");
+  expect(control).toHaveAttribute("name", "field");
+  expect(control).toHaveAttribute("aria-describedby", "field-help");
+});

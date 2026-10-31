@@ -10,6 +10,11 @@ const IconBase: React.FC<IconProps> = ({
 	rotation = 0,
 	src,
 	preserveColor = false,
+	alt,
+	role,
+	"aria-label": ariaLabel,
+	"aria-labelledby": ariaLabelledBy,
+	"aria-hidden": ariaHidden,
 	...props
 }) => {
 	const resolvedSrc =
@@ -37,18 +42,26 @@ const IconBase: React.FC<IconProps> = ({
 		mask: undefined,
 		WebkitMask: undefined,
 	};
+	const accessibleName = ariaLabel ?? alt;
+	const isNamed = Boolean(accessibleName || ariaLabelledBy);
+	const decorative =
+		!isNamed && !role && !props.onClick && props.tabIndex === undefined;
 	const icon = (
 		<span
 			data-testid="Icon"
 			className={baseClass}
 			style={shouldRecolor ? recolorStyle : preserveColorStyle}
 			{...props}
+			role={role ?? (isNamed ? "img" : undefined)}
+			aria-label={accessibleName}
+			aria-labelledby={ariaLabelledBy}
+			aria-hidden={ariaHidden ?? (decorative ? true : undefined)}
 		/>
 	);
 	return rotation ? (
 		<span
 			style={{
-				display: "inline-block",
+				display: "inline-flex",
 				transform: `rotate(${rotation}deg)`,
 				transformOrigin: "center",
 			}}

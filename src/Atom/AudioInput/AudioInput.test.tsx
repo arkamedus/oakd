@@ -89,3 +89,15 @@ describe("AudioInput Component", () => {
     expect(navigator.mediaDevices.getUserMedia).not.toHaveBeenCalled();
   });
 });
+
+it("forwards native attributes and ref to the record button and respects cancellation", () => {
+  const ref = React.createRef<HTMLButtonElement>();
+  const click = jest.fn(event => event.preventDefault());
+  render(<AudioInput ref={ref} onChange={jest.fn()} onClick={click} aria-label="Record voice note" id="record" name="record" />);
+  const button = screen.getByRole("button", { name: "Record voice note" });
+  expect(ref.current).toBe(button);
+  expect(button).toHaveAttribute("id", "record");
+  expect(button).toHaveAttribute("name", "record");
+  fireEvent.click(button);
+  expect(click).toHaveBeenCalledTimes(1);
+});

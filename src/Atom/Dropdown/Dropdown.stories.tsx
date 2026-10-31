@@ -13,6 +13,15 @@ import {
 	IconTrash,
 } from "../../Icon/Icons.bin";
 
+
+const DropdownSizes = (props: React.ComponentProps<typeof Dropdown>) => (
+  <Space direction="vertical" gap align="start">
+    {(["small", "default", "large"] as const).map(size => (
+      <Dropdown {...props} key={size} size={size} />
+    ))}
+  </Space>
+);
+
 const meta: Meta<typeof Dropdown> = {
 	title: "Design System/Navigation/Dropdown",
 	component: Dropdown,
@@ -26,7 +35,7 @@ const meta: Meta<typeof Dropdown> = {
 export default meta;
 
 export const Default = () => (
-	<Dropdown label="Row actions" closeOnSelect>
+	<DropdownSizes label="Row actions" triggerProps={{ "aria-label": "Row actions", title: "Row actions" }} closeOnSelect>
 		<ActionList role="menu" divided={false}>
 			<ActionListItem
 				role="menuitem"
@@ -47,11 +56,11 @@ export const Default = () => (
 				onClick={() => undefined}
 			/>
 		</ActionList>
-	</Dropdown>
+	</DropdownSizes>
 );
 
 export const WithRichContent = () => (
-	<Dropdown label="Project details">
+	<DropdownSizes label="Project details">
 		<Content pad>
 			<Space direction="vertical" gap>
 				<Paragraph>
@@ -61,12 +70,12 @@ export const WithRichContent = () => (
 				<Paragraph>Last updated 2 hours ago</Paragraph>
 			</Space>
 		</Content>
-	</Dropdown>
+	</DropdownSizes>
 );
 export const Positioned = () => (
 	<Aspect ratio={"21x9"}>
 		<Space wide fill justify={"end"}>
-			<Dropdown direction={"bottom-right"} label="Overflow menu" closeOnSelect>
+			<DropdownSizes direction={"bottom-right"} label="Overflow menu" closeOnSelect>
 				<ActionList role="menu" divided={false}>
 					<ActionListItem
 						role="menuitem"
@@ -87,7 +96,7 @@ export const Positioned = () => (
 						onClick={() => undefined}
 					/>
 				</ActionList>
-			</Dropdown>
+			</DropdownSizes>
 		</Space>
 	</Aspect>
 );

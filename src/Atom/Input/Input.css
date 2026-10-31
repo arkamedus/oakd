@@ -34,45 +34,17 @@ input.oakd.input.size-small {
 input.oakd.input.size-large {
   padding-top: var(--oakd-leading);
   padding-bottom: var(--oakd-leading);
-  padding-right: calc(var(--oakd-leading) * 2);
-  padding-left: calc(var(--oakd-leading) * 2);
 }
 
-/* Input Types (Matching Button Types) */
-.input-container.type-default {
+/* Neutral input surface */
+.oakd.input-container {
   background-color: var(--oakd-background);
   border-color: var(--oakd-default-border);
   color: var(--oakd-font-color);
 }
 
-.input-container.type-primary {
-  background-color: var(--oakd-primary-color);
-  border-color: var(--oakd-primary-border);
-  color: var(--oakd-primary-text);
-}
-
-.input-container.type-success {
-  background-color: var(--oakd-success-color);
-  border-color: var(--oakd-success-border);
-  color: var(--oakd-success-text);
-}
-
-.input-container.type-danger {
-  background-color: var(--oakd-danger-color);
-  border-color: var(--oakd-danger-border);
-  color: var(--oakd-danger-text);
-}
-
-.input-container.type-warning {
-  background-color: var(--oakd-warning-color);
-  border-color: var(--oakd-warning-border);
-  color: var(--oakd-warning-text);
-}
-
-.input-container.type-ghost {
-  background: var(--oakd-ghost-color);
-  border-color: var(--oakd-ghost-border);
-  color: var(--oakd-ghost-text);
+.oakd.input-container input.oakd.standardized-text.input {
+  color: var(--oakd-font-color);
 }
 
 /* Error State */
@@ -84,60 +56,24 @@ input.oakd.input.size-large {
   color: var(--oakd-danger-border);
 }
 
-/* Disabled State */
-.input-container.input-disabled,
-.input-container.type-disabled {
+/* Native disabled state */
+.oakd.input-container.input-disabled {
   background-color: var(--oakd-disabled-color);
   border-color: var(--oakd-disabled-border);
   cursor: not-allowed;
   color: var(--oakd-disabled-text);
 }
 
-input.oakd.input.input-disabled,
-input.oakd.input.type-disabled {
+.oakd.input-container input.oakd.standardized-text.input:disabled {
   color: var(--oakd-disabled-text);
   cursor: not-allowed;
-}
-
-.input-container.type-active {
-  background-color: var(--oakd-active-color);
-  border-color: var(--oakd-active-border);
-  color: var(--oakd-active-text);
-}
-
-.oakd.input-container.type-default input.oakd.standardized-text.input {
-  color: var(--oakd-font-color);
-}
-
-.oakd.input-container.type-primary input.oakd.standardized-text.input {
-  color: var(--oakd-primary-text);
-}
-
-.oakd.input-container.type-active input.oakd.standardized-text.input {
-  color: var(--oakd-active-text);
-}
-
-.oakd.input-container.type-success input.oakd.standardized-text.input {
-  color: var(--oakd-success-text);
-}
-
-.oakd.input-container.type-danger input.oakd.standardized-text.input {
-  color: var(--oakd-danger-text);
-}
-
-.oakd.input-container.type-warning input.oakd.standardized-text.input {
-  color: var(--oakd-warning-text);
-}
-
-.oakd.input-container.type-ghost input.oakd.standardized-text.input {
-  color: var(--oakd-ghost-text);
-}
-
-.oakd.input-container.type-disabled input.oakd.standardized-text.input {
-  color: var(--oakd-disabled-text);
 }
 
 input.oakd.input::placeholder {
   color: color-mix(in srgb, currentColor 60%, transparent);
   opacity: 1;
+}
+
+.oakd.input-container:has(input:focus-visible) {
+  box-shadow: var(--oakd-focus-ring);
 }

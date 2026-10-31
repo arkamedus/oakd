@@ -15,7 +15,7 @@ export const Default: Story = {
 	args: {
 		value: `# Draft update
 
-Write your status update here.
+[icon:Check] Write your status update here.
 `,
 	},
 };

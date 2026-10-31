@@ -6,5 +6,6 @@ export interface PageProps extends CoreComponentProps<HTMLDivElement> {
 	fixed?: boolean;
 	fill?: boolean;
 	gap?: boolean;
+	pad?: boolean;
 	className?: string;
 }

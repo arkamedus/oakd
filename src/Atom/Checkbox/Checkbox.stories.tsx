@@ -3,6 +3,11 @@ import { Meta, StoryObj } from "@storybook/react";
 import Space from "../Space/Space";
 import Paragraph from "../Paragraph/Paragraph";
 import Checkbox from "./Checkbox";
+const CheckboxSizes = (props: React.ComponentProps<typeof Checkbox>) => (
+  <Space gap align="center">
+    {(["small", "default", "large"] as const).map(size => <Checkbox {...props} key={size} size={size} />)}
+  </Space>
+);
 const meta: Meta<typeof Checkbox> = {
   title: "Design System/Atomic/Inputs/Checkbox",
   component: Checkbox,
@@ -16,22 +21,16 @@ type Story = StoryObj<typeof Checkbox>;
 export const Default: Story = {
   render: () => (
     <Space direction="vertical" gap>
-      <Checkbox label={<Paragraph>Unchecked option</Paragraph>} />
-      <Checkbox
+      <CheckboxSizes label={<Paragraph>Unchecked option</Paragraph>} />
+      <CheckboxSizes
         label={<Paragraph>Initially checked option</Paragraph>}
         defaultChecked
       />
-      <Checkbox
-        label={<Paragraph>Small checked option</Paragraph>}
-        defaultChecked
-        size="small"
-      />
-      <Checkbox
-        label={<Paragraph>Small disabled option</Paragraph>}
-        size="small"
+      <CheckboxSizes
+        label={<Paragraph>Disabled option</Paragraph>}
         disabled
       />
-      <Checkbox label={<Paragraph>Required agreement</Paragraph>} required />
+      <CheckboxSizes label={<Paragraph>Required agreement</Paragraph>} required />
     </Space>
   ),
 };
@@ -39,21 +38,14 @@ export const Default: Story = {
 export const IconsAndSizes: Story = {
   render: () => (
     <Space direction="vertical" gap>
-      <Checkbox
+      <CheckboxSizes
         label={<Paragraph>Default check icon</Paragraph>}
         defaultChecked
       />
-      <Checkbox label={<Paragraph>X icon</Paragraph>} icon="X" defaultChecked />
-      <Checkbox
-        label={<Paragraph>Small minus icon</Paragraph>}
+      <CheckboxSizes label={<Paragraph>X icon</Paragraph>} icon="X" defaultChecked />
+      <CheckboxSizes
+        label={<Paragraph>Minus icon</Paragraph>}
         icon="Minus"
-        size="small"
-        defaultChecked
-      />
-      <Checkbox
-        label={<Paragraph>Large X icon</Paragraph>}
-        icon="X"
-        size="large"
         defaultChecked
       />
     </Space>
@@ -63,12 +55,12 @@ export const IconsAndSizes: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <Space direction="vertical" gap>
-      <Checkbox
+      <CheckboxSizes
         label={<Paragraph>Approved</Paragraph>}
         defaultChecked
         style={{ color: "var(--oakd-success-border)" }}
       />
-      <Checkbox
+      <CheckboxSizes
         label={<Paragraph>Rejected</Paragraph>}
         icon="X"
         defaultChecked

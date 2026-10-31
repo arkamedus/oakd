@@ -8,6 +8,15 @@ import Card from "../Card/Card";
 import Input from "../Input/Input";
 import Title from "../Title/Title";
 
+
+const SpeechToTextSizes = (props: React.ComponentProps<typeof SpeechToText>) => (
+  <Space direction="vertical" gap align="start">
+    {(["small", "default", "large"] as const).map(size => (
+      <SpeechToText {...props} key={size} size={size} />
+    ))}
+  </Space>
+);
+
 const meta: Meta<typeof SpeechToText> = {
   title: "Design System/Atomic/Inputs/SpeechToText",
   component: SpeechToText,
@@ -19,6 +28,7 @@ export default meta;
 type Story = StoryObj<typeof SpeechToText>;
 
 export const Default: Story = {
+  render: args => <SpeechToTextSizes {...args} />,
   args: {
     buttonText: "Start Speaking",
     listeningText: "Listening...",
@@ -34,7 +44,7 @@ export const WithTranscriptPreview: Story = {
       <Card wide>
         <Content pad>
           <Space direction="vertical" gap>
-            <SpeechToText
+            <SpeechToTextSizes
               onStartListening={() => {
                 setInterimTranscript("");
                 setFinalTranscript("");
@@ -78,7 +88,7 @@ export const WithInputPopulation: Story = {
               transcript is returned.
             </Paragraph>
             <Space align="center" gap wide>
-              <SpeechToText
+              <SpeechToTextSizes
                 onStartListening={() => setTranscript("")}
                 onChange={setTranscript}
               />

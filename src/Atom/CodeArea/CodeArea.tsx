@@ -128,6 +128,8 @@ const CodeArea = forwardRef<HTMLTextAreaElement, CodeAreaProps>(
       onFocus,
       onKeyDown,
       onKeyUp,
+      onSelect,
+      onScroll,
       ...rest
     },
     ref,
@@ -353,12 +355,12 @@ const CodeArea = forwardRef<HTMLTextAreaElement, CodeAreaProps>(
             {...rest}
             ref={textareaRef}
             readOnly={readOnly}
-            rows={initialRows}
+            rows={rest.rows ?? initialRows}
             className="codearea-textarea"
             value={effectiveValue}
             placeholder={placeholder}
             disabled={disabled}
-            aria-disabled={disabled}
+            aria-disabled={disabled || rest["aria-disabled"]}
             onChange={handleChange}
             onBlur={(e) => {
               setIsFocused(false);
@@ -373,25 +375,26 @@ const CodeArea = forwardRef<HTMLTextAreaElement, CodeAreaProps>(
                 syncScroll();
               });
             }}
-            onScroll={syncScroll}
-            onSelect={() => updateCurrentLine(effectiveValue)}
+            onScroll={(event) => { syncScroll(); onScroll?.(event); }}
+            onSelect={(event) => { updateCurrentLine(effectiveValue); onSelect?.(event); }}
             onKeyDown={(e) => {
+              onKeyDown?.(e);
+              if (e.defaultPrevented) return;
               if (e.key === "Tab") {
                 handleTabKey(e);
                 return;
               }
-              onKeyDown?.(e);
               requestAnimationFrame(() => updateCurrentLine(effectiveValue));
             }}
             onKeyUp={(e) => {
               onKeyUp?.(e);
               requestAnimationFrame(() => updateCurrentLine(effectiveValue));
             }}
-            spellCheck={false}
-            autoCapitalize="off"
-            autoCorrect="off"
-            autoComplete="off"
-            data-testid="CodeAreaTextarea"
+            spellCheck={rest.spellCheck ?? false}
+            autoCapitalize={rest.autoCapitalize ?? "off"}
+            autoCorrect={rest.autoCorrect ?? "off"}
+            autoComplete={rest.autoComplete ?? "off"}
+            data-testid={rest["data-testid"] ?? "CodeAreaTextarea"}
           />
         </div>
       </div>

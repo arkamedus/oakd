@@ -21,10 +21,7 @@
 }
 
 .oakd.button.size-large {
-  padding-top: var(--oakd-leading);
-  padding-bottom: var(--oakd-leading);
-  padding-right: calc(var(--oakd-leading) * 2);
-  padding-left: calc(var(--oakd-leading) * 2);
+  padding: var(--oakd-leading);
 }
 
 /* Interactive States */
@@ -39,7 +36,7 @@
 
 .oakd.button:not(.disabled):focus-visible {
   outline: none;
-  box-shadow: none;
+  box-shadow: var(--oakd-focus-ring);
 }
 
 .oakd.button_group > * {

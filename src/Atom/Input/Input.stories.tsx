@@ -32,21 +32,6 @@ const meta: Meta<typeof Input> = {
       control: "boolean",
       description: "Displays an error state",
     },
-    variant: {
-      control: "select",
-      options: [
-        "default",
-        "primary",
-        "active",
-        "success",
-        "danger",
-        "warning",
-        "ghost",
-        "disabled",
-      ],
-      description: "Set the input container variant",
-      defaultValue: "default",
-    },
     onChange: {
       action: "changed",
       description: "Called when the input value changes",
@@ -82,61 +67,38 @@ const meta: Meta<typeof Input> = {
 
 export default meta;
 
-const Template: StoryFn<InputProps> = (args) => (
+const sizes = ["small", "default", "large"] as const;
+
+export const Default: StoryFn<InputProps> = (args) => (
   <Space direction="vertical" gap>
-    <Input {...args} />
+    {sizes.map(size => (
+      <Space key={size} direction="vertical" gap>
+        <Space gap>
+          <Input {...args} size={size} type="text" placeholder="Enter text..." />
+          <Input {...args} size={size} type="password" placeholder="Enter password..." />
+          <Input {...args} size={size} type="email" placeholder="Enter email..." />
+          <Input {...args} size={size} type="number" placeholder="Enter number..." />
+          <Input {...args} size={size} icon={<IconMagnify size="small" />} placeholder="Search..." />
+          <Input {...args} size={size} error icon="Text" placeholder="Invalid input" />
+          <Input {...args} size={size} disabled icon="Folder" placeholder="Disabled input" />
+        </Space>
+      </Space>
+    ))}
   </Space>
 );
 
-export const Default = Template.bind({});
-Default.args = { type: "text", placeholder: "Enter text..." };
-
-export const Password = Template.bind({});
-Password.args = { type: "password", placeholder: "Enter password..." };
-
-export const Email = Template.bind({});
-Email.args = { type: "email", placeholder: "Enter email..." };
-
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  type: "text",
-  placeholder: "Search...",
-  icon: <IconMagnify size="small" />,
-};
-
-export const WithError = Template.bind({});
-WithError.args = {
-  type: "text",
-  placeholder: "Invalid input",
-  error: true,
-  icon: "Text",
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  type: "text",
-  placeholder: "Disabled input",
-  disabled: true,
-  icon: "Folder",
-};
-
 export const RefFocusTest: StoryFn<InputProps> = (args) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const inputRefs = React.useRef<Array<HTMLInputElement | null>>([]);
 
-  const handleFocusClick = () => {
-    inputRef.current?.focus();
-  };
 
   return (
     <Space direction="vertical" gap>
-      <Input
-        {...args}
-        ref={inputRef}
-        placeholder="Click the button to focus me..."
-      />
-      <Button variant={"default"} onClick={handleFocusClick}>
-        <Paragraph>Focus Input</Paragraph>
-      </Button>
+      {sizes.map((size, index) => (
+        <Space key={size} gap align="center">
+          <Input {...args} size={size} ref={element => { inputRefs.current[index] = element; }} placeholder="Click the button to focus me..." />
+          <Button size={size} onClick={() => inputRefs.current[index]?.focus()}><Paragraph>Focus Input</Paragraph></Button>
+        </Space>
+      ))}
     </Space>
   );
 };

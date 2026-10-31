@@ -1,4 +1,5 @@
 import React, { forwardRef, useEffect, useId, useMemo, useState } from "react";
+import { sizeMinusOne } from "../../Core/Core.utils";
 import Content from "../../Layout/Content/Content";
 import Button, { ButtonGroup } from "../Button/Button";
 import Divider from "../Divider/Divider";
@@ -117,10 +118,14 @@ const ColorField = forwardRef<HTMLDivElement, ColorFieldProps>(
 	(
 		{
 			value,
+			triggerProps,
+			hexInputProps,
 			onChange,
 			mode,
 			defaultMode = "rgb",
 			onModeChange,
+			showHex = true,
+			size = "default",
 			alpha = false,
 			disabled = false,
 			wide = true,
@@ -142,6 +147,7 @@ const ColorField = forwardRef<HTMLDivElement, ColorFieldProps>(
 		const normalized = useMemo(() => normalizeColorValue(value), [value]);
 		const hex = colorToHex(normalized).toUpperCase();
 		const [hexDraft, setHexDraft] = useState(hex.slice(1));
+		const [editingHex, setEditingHex] = useState(false);
 		const [internalMode, setInternalMode] = useState(defaultMode);
 		const activeMode = mode ?? internalMode;
 		const hsv = useMemo(() => rgbToHsv(normalized), [normalized]);
@@ -157,7 +163,9 @@ const ColorField = forwardRef<HTMLDivElement, ColorFieldProps>(
 			"--oakd-color-field-contrast": readableColor(normalized),
 		} as React.CSSProperties;
 
-		useEffect(() => setHexDraft(hex.slice(1)), [hex]);
+		useEffect(() => {
+			if (!editingHex) setHexDraft(hex.slice(1));
+		}, [hex, editingHex]);
 
 		const emit = (next: ColorValue) =>
 			onChange({
@@ -213,14 +221,24 @@ const ColorField = forwardRef<HTMLDivElement, ColorFieldProps>(
 					}));
 
 		return (
-			<Content ref={ref} {...rest} wide={wide} grow={grow}>
+			<Content ref={ref} wide={wide} grow={grow}>
 				<Dropdown
+					{...rest}
+					triggerProps={triggerProps}
 					className={["oakd-color-field", className].filter(Boolean).join(" ")}
 					style={colorStyle}
+					size={size}
 					label={
-						<Space align="center" gap noWrap wide>
-							<Icon name="PaintPalette" size="small" />
-							<Paragraph>{hex}</Paragraph>
+						<Space
+							align="center"
+							gap
+							noWrap
+							wide
+							role={showHex ? undefined : "img"}
+							aria-label={showHex ? undefined : hex}
+						>
+							<Icon name="PaintPalette" size={sizeMinusOne(size)} />
+							{showHex ? <Paragraph>{hex}</Paragraph> : null}
 						</Space>
 					}
 					direction={direction}
@@ -374,11 +392,40 @@ const ColorField = forwardRef<HTMLDivElement, ColorFieldProps>(
 							<Divider />
 							<Space align="center" gap noWrap wide>
 								<Input
+									{...hexInputProps}
 									value={hexDraft}
 									icon="Hashtag"
-									aria-label="Hex color"
-									disabled={disabled}
-									onChange={(event) => emitHex(event.currentTarget.value)}
+									aria-label={
+										hexInputProps?.["aria-label"] ??
+										(hexInputProps?.["aria-labelledby"]
+											? undefined
+											: "Hex color")
+									}
+									disabled={disabled || hexInputProps?.disabled}
+									onFocus={(event) => {
+										setEditingHex(true);
+										hexInputProps?.onFocus?.(event);
+									}}
+									onChange={(event) => {
+										const draft = event.currentTarget.value;
+										setHexDraft(draft);
+										const next = hexToColor(draft);
+										if (next) emit({ ...next, a: normalized.a });
+										hexInputProps?.onChange?.(event);
+									}}
+									onBlur={(event) => {
+										hexInputProps?.onBlur?.(event);
+										setHexDraft(hex.slice(1));
+										setEditingHex(false);
+									}}
+									onKeyDown={(event) => {
+										hexInputProps?.onKeyDown?.(event);
+										if (event.defaultPrevented) return;
+										if (event.key === "Enter") {
+											event.preventDefault();
+											event.currentTarget.blur();
+										}
+									}}
 									grow
 								/>
 								{eyeDropper ? (

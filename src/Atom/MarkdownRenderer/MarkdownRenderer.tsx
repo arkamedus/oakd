@@ -73,6 +73,7 @@ const parseInline = (
 	text: string,
 	keyPrefix: string,
 	appendSpinner = false,
+	iconSize: "small" | "large" = "small",
 ): React.ReactNode[] => {
 	const nodes: React.ReactNode[] = [];
 	let lastIndex = 0;
@@ -98,7 +99,7 @@ const parseInline = (
 				<Icon
 					key={`${keyPrefix}-${match.index}`}
 					name={match[3] as CoreIconNameType}
-					size="small"
+					size={iconSize}
 				/>,
 			);
 		} else if (match[4] !== undefined) {
@@ -124,7 +125,7 @@ const parseInline = (
 					<Icon
 						key={`${keyPrefix}-${match.index}`}
 						name={iconName}
-						size="small"
+						size={iconSize}
 					/>,
 				);
 			}
@@ -139,7 +140,7 @@ const parseInline = (
 
 	if (appendSpinner) {
 		nodes.push(
-			<Icon key={`${keyPrefix}-spinner`} name="Spinner" size="small" spin />,
+			<Icon key={`${keyPrefix}-spinner`} name="Spinner" size={iconSize} spin />,
 		);
 	}
 
@@ -241,6 +242,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
 								trimmed.replace(/^#{1,6}\s*/, ""),
 								key,
 								claimSpinner(index + 1),
+								"large",
 							)}
 						</Title>,
 						segment.mode,

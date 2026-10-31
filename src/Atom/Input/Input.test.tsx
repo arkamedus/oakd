@@ -15,7 +15,6 @@ describe("Input Component", () => {
       style: { backgroundColor: "white" },
       disabled: false,
       error: false,
-      variant: "default",
     };
   });
 
@@ -80,8 +79,29 @@ describe("Input Component", () => {
 
   it("disables editing when disabled", () => {
     props.disabled = true;
-    renderComponent();
+    props.onChange = jest.fn();
+    const { rerender } = renderComponent();
 
-    expect(screen.getByPlaceholderText("Search knowledge base")).toBeDisabled();
+    const input = screen.getByPlaceholderText("Search knowledge base");
+    expect(input).toBeDisabled();
+    expect(screen.getByTestId("InputContainer")).toHaveClass("input-disabled");
+    expect(screen.getByTestId("InputContainer").className).not.toMatch(/type-/);
+    fireEvent.change(input, { target: { value: "ignored" } });
+    expect(props.onChange).not.toHaveBeenCalled();
+
+    rerender(<Input {...props} disabled={false} />);
+    expect(input).not.toBeDisabled();
+    expect(screen.getByTestId("InputContainer")).not.toHaveClass("input-disabled");
   });
+});
+
+it("forwards native labeling, validation, autocomplete, and ref to the input", () => {
+  const ref = React.createRef<HTMLInputElement>();
+  render(<><label htmlFor="email">Email</label><Input ref={ref} id="email" name="email" type="email" required autoComplete="email" aria-describedby="email-help" /></>);
+  const input = screen.getByLabelText("Email");
+  expect(ref.current).toBe(input);
+  expect(input.tagName).toBe("INPUT");
+  expect(input).toBeRequired();
+  expect(input).toHaveAttribute("autocomplete", "email");
+  expect(input).toHaveAttribute("aria-describedby", "email-help");
 });

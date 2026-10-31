@@ -26,7 +26,7 @@ describe("Page Component", () => {
 
   it("applies layout modifiers and custom classes", () => {
     render(
-      <Page fixed fill gap className="custom-page">
+      <Page fixed fill pad gap className="custom-page">
         <div>Layout shell</div>
       </Page>,
     );
@@ -35,6 +35,7 @@ describe("Page Component", () => {
     expect(page).toHaveClass("fixed");
     expect(page).toHaveClass("fill");
     expect(page).toHaveClass("gap");
+    expect(page).toHaveClass("pad");
     expect(page).toHaveClass("custom-page");
   });
 

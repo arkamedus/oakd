@@ -17,6 +17,7 @@ import AppShell from "./AppShell";
 const meta: Meta<typeof AppShell> = {
   title: "Design System/Layout/AppShell",
   component: AppShell,
+  args: { pad: true, gap: true },
   parameters: {
     layout: "fullscreen",
     docs: {
@@ -32,7 +33,7 @@ export default meta;
 type Story = StoryObj<typeof AppShell>;
 
 const header = (
-  <Content pad wide>
+  <Content wide>
     <Space align="center" justify="between" gap wide noWrap>
       <Space align="center" gap noWrap>
         <Icon name="Cloud" size="small" />
@@ -50,7 +51,7 @@ const header = (
 );
 
 const sidebar = (
-  <Content pad wide>
+  <Content wide>
     <ActionList>
       <ActionListItem
         leading={<Icon name="Home" size="small" />}
@@ -81,7 +82,7 @@ const sidebar = (
 );
 
 const collapsedSidebar = (
-  <Content pad>
+  <Content>
     <ButtonGroup direction="vertical">
       <Button icon="Home" aria-label="Overview" variant="active" />
       <Button icon="Folder" aria-label="Projects" />
@@ -131,7 +132,7 @@ const activityItems = [
 
 const body = (
   <Page>
-    <Content pad wide>
+    <Content wide>
       <Space direction="vertical" gap wide>
         <Space align="center" justify="between" gap wide noWrap>
           <Space direction="vertical" gap grow>
@@ -249,7 +250,7 @@ const body = (
 );
 
 const footer = (
-  <Content pad wide>
+  <Content wide>
     <Space align="center" justify="between" gap wide noWrap>
       <Pill variant="success" size="small" icon="Check">
         All systems operational
@@ -288,7 +289,7 @@ export const Collapsed: Story = {
     docs: {
       description: {
         story:
-          "The collapsed navigation sizes itself from its padded icon stack, and the main dashboard expands into all remaining horizontal space.",
+          "The collapsed navigation sizes itself from its icon stack, and the main dashboard expands into all remaining horizontal space.",
       },
     },
   },

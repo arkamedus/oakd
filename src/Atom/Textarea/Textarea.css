@@ -33,5 +33,5 @@ textarea.oakd.oakd-textarea:disabled {
 }
 textarea.oakd.oakd-textarea:focus-visible {
 	outline: none;
-	box-shadow: none;
+	box-shadow: var(--oakd-focus-ring);
 }

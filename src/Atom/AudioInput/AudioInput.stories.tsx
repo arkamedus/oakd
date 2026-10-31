@@ -22,6 +22,7 @@ type Story = StoryObj<typeof AudioInput>;
 export const Default: Story = {
   args: {
     disabled: false,
+    "aria-label": "Record voice note",
   },
   render: (args) => (
     <ContentRail size="small" gutter={false}>
